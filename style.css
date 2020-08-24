@@ -10,16 +10,19 @@
     margin: 0 auto;
     width: 40%;
     align-items: center;
+    color:green;
 }
 .register input {
     width: 65%;
     line-height: 2;
     font-size: 15px;
+    color:blue;
 }
 
 .register button{
     font-size: 15px;
     width: fit-content;
+    color:red;
 
 }
  
