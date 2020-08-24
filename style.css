@@ -1,0 +1,25 @@
+.flex{
+    display: flex;
+}
+.col{
+    flex-direction: column;
+}
+.register{
+    justify-content: space-between;
+    height: 20em;
+    margin: 0 auto;
+    width: 40%;
+    align-items: center;
+}
+.register input {
+    width: 65%;
+    line-height: 2;
+    font-size: 15px;
+}
+
+.register button{
+    font-size: 15px;
+    width: fit-content;
+
+}
+ 
