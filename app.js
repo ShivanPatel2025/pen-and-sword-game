@@ -41,7 +41,7 @@ app.post('/sign-up', urlencodedParser, function (req, res){
  db.run(sql, data, function(err) {
   if (err) {
     return console.error(err.message);
-  }
+  }})
   console.log('Row(s) updated');
 });
 
