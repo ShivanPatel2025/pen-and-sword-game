@@ -37,12 +37,12 @@ app.post('/sign-up', urlencodedParser, function (req, res){
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
   res.send(reply);
- let data = [req.body.email, req.body.password];
- let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
- db.run(sql, data, function(err) {
-  if (err) {
-    return console.error(err.message);
-  }})
+  let data = [req.body.email, req.body.password];
+  let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
+  db.run(sql, data, function(err) {
+    if (err) {
+      return console.error(err.message);
+    }})
   console.log('Row(s) updated');
 });
 
