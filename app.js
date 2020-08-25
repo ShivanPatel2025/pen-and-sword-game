@@ -10,7 +10,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 
 app.set('port', (process.env.PORT || 5000))
-app.use(express.static(path.join((__dirname + 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname+"/register_test.html");
