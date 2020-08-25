@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 })
 //SENDING LOGIN PAGE
 
-db.run('SELECT * FROM users');
+
 
 app.post('/sign-up', urlencodedParser, function (req, res){
   var reply='';
@@ -44,5 +44,7 @@ app.post('/sign-up', urlencodedParser, function (req, res){
       return console.error(err.message);
     }})
   console.log('Row(s) updated');
+  res.send('db.run('SELECT * FROM users'));
+  
 });
 
