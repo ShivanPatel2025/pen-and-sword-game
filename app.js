@@ -36,6 +36,6 @@ app.post('/sign-up', urlencodedParser, function (req, res){
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
   res.send(reply);
-  db.run('INSERT INTO users (email, password)
-VALUES((req.body.email), (req.body.password));
+ // db.run('INSERT INTO users (email, password)
+//VALUES((req.body.email), (req.body.password));
 });         
