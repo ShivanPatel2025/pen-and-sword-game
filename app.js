@@ -1,25 +1,24 @@
-var express = require('express')
-var app = express()
-var sqlite3 = require('sqlite3').verbose();
-  const path = require('path');
-  const bodyParser = require('body-parser');
+const express = require('express')
+const app = express()
+const path = require('path');
+const bodyParser = require('body-parser');
 
-  //body parser middleware
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: false}));
-  app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static("public"));
+//SQLITE
+var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./pns.db', (err) => {
   if (err) {
     return console.error(err.message);
   }
   console.log('Connected to the in-memory SQlite database.');
 });
+//SQLITE
 
 app.set('port', (process.env.PORT || 5000))
 
 
-app.get('/', function(request, response) {
-  response.sendFile(__dirname+"/register_test.html");
+app.get('/', (req, res) => {
+  res.sendFile('index.html');
 })
 
 app.listen(app.get('port'), function() {
