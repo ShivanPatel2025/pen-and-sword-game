@@ -26,5 +26,5 @@ app.listen(app.get('port'), function() {
 })
 
 app.post("/sign-up", (req, res) => {
-  res.send(`username is: ${req.body.username}.`);
+  res.send(`username is: ${req.body.user}.`);
 });         
