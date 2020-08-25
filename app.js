@@ -24,3 +24,7 @@ app.get('/', (req, res) => {
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
 })
+
+app.post("/sign-up", (req, res) => {
+  res.send(`username is: ${req.body.username}.`);
+});         
