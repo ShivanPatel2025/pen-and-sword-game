@@ -29,6 +29,7 @@ app.get('/', (req, res) => {
 })
 //SENDING LOGIN PAGE
 
+db.run('SELECT * FROM users');
 
 app.post('/sign-up', urlencodedParser, function (req, res){
   var reply='';
