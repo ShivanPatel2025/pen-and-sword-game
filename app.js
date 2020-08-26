@@ -2,7 +2,9 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const bodyParser = require('body-parser');
+const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
+
 
 app.use(express.static("public"));
 
@@ -25,10 +27,26 @@ app.listen(app.get('port'), function() {
 
 //SENDING LOGIN PAGE
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.sendFile(path.join(__dirname, '/public', 'keys.html'));
 })
 //SENDING LOGIN PAGE
 
+app.post('/confirm-access', urlencodedParser, function (req, res){
+  let userkey=req.body.key;
+  let sql = ('SELECT * FROM keys WHERE key = ?');
+  db.get(sql, [userkey], (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    } else if (row) {
+      res.sendFile(path.join(__dirname, '/public', 'sign-in.html'));
+    }
+    else {
+      res.send("not a valid key");
+
+    }
+  
+  });
+});
 
 app.post('/sign-up', urlencodedParser, function (req, res){
   var reply='';
@@ -44,4 +62,6 @@ app.post('/sign-up', urlencodedParser, function (req, res){
   }})
   console.log('Row(s) updated');
 });
+
+
 
