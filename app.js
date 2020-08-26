@@ -38,7 +38,7 @@ app.post('/confirm-access', urlencodedParser, function (req, res){
     if (err) {
       return console.error(err.message);
     } else if (row) {
-      res.sendFile(path.join(__dirname, '/public', 'sign-in.html'));
+      res.sendFile(path.join(__dirname, '/public', 'sign-up.html'));
     }
     else {
       res.send("not a valid key");
