@@ -1,4 +1,7 @@
-h1 {
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+form h1 {
     color: blue;
 }
 .flex{
@@ -23,5 +26,48 @@ h1 {
 .register button{
     font-size: 15px;
     width: fit-content;
+}
+
+nav{
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    background-color: #282828;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+}
+nav span{
+    color:#EDC580;
+    background-image: linear-gradient(#EDC580, #EDC580);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 5%;
+    transition: all .25s;
+}
+nav span:hover{
+    background-size: 100% 5%
+}
+
+.nav_contents{
+    width: 90%;
+    justify-content: space-between;
+}
+.sign{
+    justify-content: space-between;
+    width: 20%;
+}
+
+a{
+    text-decoration: none;
+}
+.main{
+    position: relative;
+    top:3em;
+    align-items: center;
+    
 }
  
