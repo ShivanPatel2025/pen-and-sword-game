@@ -4,10 +4,30 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
+const session = require('express-session');
 
+const {
+  PORT = 5000,
+  NODE_ENV = 'development',
+
+  SESS_NAME = 'sid',
+  SESS_SECRET = 'ssh!quiet,it\'asecret!',
+  SESS_LIFETIME = TWO_HOURS
+} = process.env
 
 app.use(express.static("public"));
+app.use(session({
+  name: SESS_NAME,
+  resave: false,
+  saveUninitialized: false,
+  secret: 'SESS_SECRET',
+  cookie: {
+    maxAge: SESS_LIFETIME,
+    sameSITE: true,
+    secure: IN_PROD
+  }
 
+}));
 //SQLITE
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./pns.db', (err) => {
@@ -50,11 +70,11 @@ app.post('/home', urlencodedParser, function (req, res){
 
 
 app.post('/create-a-nation', urlencodedParser, function (req, res){
-  var reply='';
+  /*var reply='';
   reply += "Your name is" + req.body.user;
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
-  //res.send(reply);
+  //res.send(reply);*/
   res.sendFile(path.join(__dirname, '/public', 'creation.html'));
   let data = [req.body.email, req.body.password];
   let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
@@ -74,6 +94,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     console.log(rows);
     realid=rows.id;
+    req.session.id = realid;
     console.log(realid);
     db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
       if (err) {
@@ -83,3 +104,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
   })
   console.log('Row(s) updated');
 })});
+
+app.post('/kingdom-page',urlencodedParser, function (req, res) {
+  res.send(req.session.id);
+})
