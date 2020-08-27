@@ -22,9 +22,9 @@ app.use(session({
   saveUninitialized: false,
   secret: 'SESS_SECRET',
   cookie: {
-    maxAge: SESS_LIFETIME,
+    maxAge: 1000000000000,
     sameSITE: true,
-    secure: IN_PROD
+    secure: true
   }
 
 }));
