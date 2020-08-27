@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
-
+var TWO_HOURS = 7200000;
 const {
   PORT = 5000,
   NODE_ENV = 'development',
