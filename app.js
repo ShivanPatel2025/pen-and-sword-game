@@ -31,14 +31,14 @@ app.get('/', (req, res) => {
 })
 //SENDING LOGIN PAGE
 
-app.post('/confirm-access', urlencodedParser, function (req, res){
+app.post('/home', urlencodedParser, function (req, res){
   let userkey=req.body.key;
   let sql = ('SELECT * FROM keys WHERE key = ?');
   db.get(sql, [userkey], (err, row) => {
     if (err) {
       return console.error(err.message);
     } else if (row) {
-      res.sendFile(path.join(__dirname, '/public', 'sign-up.html'));
+      res.sendFile(path.join(__dirname, '/public', 'home.html'));
     }
     else {
       res.send("not a valid key");
@@ -49,20 +49,37 @@ app.post('/confirm-access', urlencodedParser, function (req, res){
 });
 
 
-app.post('/sign-up', urlencodedParser, function (req, res){
+app.post('/create-a-nation', urlencodedParser, function (req, res){
   var reply='';
   reply += "Your name is" + req.body.user;
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
-  res.send(reply);
+  //res.send(reply);
+  res.sendFile(path.join(__dirname, '/public', 'creation.html'));
   let data = [req.body.email, req.body.password];
   let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
+  let sql1 = `SELECT id FROM users WHERE email = (?)`;
+  let data1 = [req.body.email];
+  let sql2 = `INSERT INTO kingdoms (id) VALUES (?)`;
+  let realid=0;
+  db.serialize(() => {
   db.run(sql, data, function(err) {
     if (err) {
       return console.error(err.message);
     }})
+  db.get(sql1, data1, function (err,rows) {
+    if (err) {
+       return console.error(err.message);
+       console.log('realid is the issue');
+    }
+    console.log(rows);
+    realid=rows.id;
+    console.log(realid);
+    db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
+      if (err) {
+        return console.error(err.message);
+        console.log(ooga);
+       }})
+  })
   console.log('Row(s) updated');
-});
-
-
-
+})});
