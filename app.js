@@ -94,7 +94,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     console.log(rows);
     realid=rows.id;
-    req.session.id = realid;
+    req.session.userid = realid;
     console.log(realid);
     db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
       if (err) {
@@ -106,5 +106,5 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 })});
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
-  res.send(req.session.id);
+  res.send(req.session.userid);
 })
