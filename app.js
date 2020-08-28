@@ -126,7 +126,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
   })
 
   app.post('/sign-in',urlencodedParser, function (req,res) {
-    let sql = ('SELECT * FROM kingdoms WHERE email = ? AND password = ?');
+    let sql = ('SELECT * FROM users WHERE email = ? AND password = ?');
     let data = [req.body.email, req.body.pass];
     db.get(sql, data, (err, row) => {
       if (err) {
