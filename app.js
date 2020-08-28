@@ -111,4 +111,9 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
   console.log(sess.userid);
-})
+  db.run(`INSERT INTO kingdoms (kingdom, ruler, region) VALUES (?,?,?) WHERE ?=?`, [req.body.kingdom,req.body.ruler,req.body.region,realid,sess.userid],function (err) {
+    if (err) {
+      return console.error(err.message);
+      console.log('error inserting into kingdoms');
+     }})
+  })
