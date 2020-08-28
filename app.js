@@ -8,8 +8,11 @@ const session = require('express-session');
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 
+const router = express.Router();
+app.use('/',router)
+
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "public"));
 
 var TWO_HOURS = 7200000;
 const {
@@ -54,8 +57,8 @@ app.listen(app.get('port'), function() {
 //RUNNING SERVER
 
 //SENDING LOGIN PAGE
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public', 'keys.html'));
+router.get('/', (req, res) => {
+  res.render("keys");
   sess=req.session;
 })
 //SENDING LOGIN PAGE
