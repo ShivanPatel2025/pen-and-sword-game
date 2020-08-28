@@ -134,7 +134,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
-     res.render('kingdom',{kingdomInfo: sess.userid});
+     res.render('kingdom', {kingdomInfo: sess.userid});
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
     })

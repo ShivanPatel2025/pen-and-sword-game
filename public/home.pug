@@ -1,31 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" type= 'text/css' href="style.css">
-    </head>
-    <body>
-        <nav class="flex"> 
-            <div class="nav_contents flex">
-                <a href="./home">
-                    <span>HOME</span>
-                </a>
-                <div class="sign flex">
-                    <a href="./sign-up">
-                        <span>Register</span>
-                    </a>
-                    <a href="./sign-in">
-                        <span>Sign In</span>
-                    </a>
-                    <a href="/logout">Log Out</a>
-                </div>
-            </div>
-        </nav>
-
-
-        <div class="main flex col">
-
-            <h1>Pen and Sword</h1>
-            <p>Very fun game in my opinion</p>
-        </div>
-    </body>
-</html>
+head
+  link(rel='stylesheet' type='text/css' href='style.css')
+nav.flex
+  .nav_contents.flex
+    a(href='./home')
+      span HOME
+    .sign.flex
+      a(href='./sign-up')
+        span Register
+      a(href='./sign-in')
+        span Sign In
+      a(href='/logout') Log Out
+.main.flex.col
+  h1 Pen and Sword
+  p Very fun game in my opinion
+  
