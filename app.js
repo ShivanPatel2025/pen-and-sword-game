@@ -132,6 +132,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       if (err) {
         return console.error(err.message);
       } else if (row) {
+        // res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
         let sql1 = `SELECT id FROM users WHERE email = (?)`;
         let data1 = [req.body.email];
         db.get(sql1, data1, function (err,rows) {
@@ -144,8 +145,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
           sess.userid = realid;
           console.log("Session created. Session ID:");
           console.log(sess.userid);});
-          var id=sess.userid;
-          res.render(__dirname, '/public', 'kingdom.html', {id:id});
+        res.redirect('/new_kingdom');
       }
       else {
         res.send("Not a valid combination!");
@@ -161,4 +161,9 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       }
       res.redirect('/');
   });
+  })
+  app.get('/new_kingdom',urlencodedParser,function(req,res){
+    res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
+    var kingdomid=sess.userid;
+    document.getElementById('kingdomid').innerHTML = kingdomid;
   })
