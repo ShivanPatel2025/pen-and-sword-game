@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
+const { createDecipher } = require('crypto');
 var TWO_HOURS = 7200000;
 const {
   PORT = 5000,
@@ -95,9 +96,10 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
        return console.error(err.message);
        console.log('realid is the issue');
     }
-    console.log(rows);
+    //console.log(rows);
     realid=rows.id;
     sess.userid = realid;
+    console.log("Session createDecipher. Session ID:");
     console.log(sess.userid);
     //console.log(realid);
     db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
@@ -110,12 +112,13 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 })});
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
-  console.log(sess.userid);
-  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region =? WHERE id = ?`, [req.body.kingdom,req.body.ruler,req.body.region,sess.userid],function (err) {
+  //console.log(sess.userid);
+  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, sess.userid], function (err) {
     if (err) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
-     console.log([req.body.kingdom,req.body.ruler,req.body.region,sess.userid]);
+     console.log("Kingdom Created. Information:");
+     console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
     })
   })
