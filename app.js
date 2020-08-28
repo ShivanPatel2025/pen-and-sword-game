@@ -6,6 +6,7 @@ const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
 const { createDecipher } = require('crypto');
+const { urlencoded } = require('body-parser');
 var TWO_HOURS = 7200000;
 const {
   PORT = 5000,
@@ -99,7 +100,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     //console.log(rows);
     realid=rows.id;
     sess.userid = realid;
-    console.log("Session createDecipher. Session ID:");
+    console.log("Session created. Session ID:");
     console.log(sess.userid);
     //console.log(realid);
     db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
@@ -121,4 +122,32 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
     })
+  })
+
+  app.post('/sign-in',urlencodedParser, function (req,res) {
+    let sql = ('SELECT * FROM kingdoms WHERE email = ? AND password = ?');
+    let data = [req.body.email, req.body.pass];
+    db.get(sql, [userkey], (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      } else if (row) {
+        res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
+        let sql1 = `SELECT id FROM users WHERE email = (?)`;
+        let data1 = [req.body.email];
+        db.get(sql1, data1, function (err,rows) {
+          if (err) {
+             return console.error(err.message);
+             console.log('realid is the issue');
+          }
+          //console.log(rows);
+          realid=rows.id;
+          sess.userid = realid;
+          console.log("Session created. Session ID:");
+          console.log(sess.userid);});
+      }
+      else {
+        res.send("Not a valid combination!");
+      }
+    
+    });
   })
