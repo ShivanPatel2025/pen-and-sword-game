@@ -139,6 +139,18 @@ router.post('/kingdom-page',urlencodedParser, function (req, res) {
     })
   })
 
+router.get('/sign-in',urlencodedParser, function(req,res){
+  res.render('sign-in')
+})
+
+router.get('/sign-up',urlencodedParser, function(req,res){
+  res.render('sign-up')
+})
+
+router.get('/home',urlencodedParser, function(req,res){
+  res.render('home')
+})
+
   app.post('/sign-in',urlencodedParser, function (req,res) {
     let sql = ('SELECT * FROM users WHERE email = ? AND password = ?');
     let data = [req.body.email, req.body.pass];
