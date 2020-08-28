@@ -137,7 +137,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
   
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
-     res.send('/kingdom')
+     res.redirect('/kingdom')
     })
   })
 
@@ -159,7 +159,7 @@ app.get('/kingdom',urlencodedParser,function(req,res){
     let air = militaryarray[2];
     let sea = militaryarray[3];
   })
-    res.render('kingdom', {kingdomInfo: sess.userid, ground : ground, air : air, sea : sea});
+  res.render('kingdom', {kingdomInfo: sess.userid, ground : ground, air : air, sea : sea});
 })
 
 app.post('/sign-in',urlencodedParser, function (req,res) {
@@ -187,7 +187,7 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
     else {
       res.send("Not a valid combination!");
     }
-    res.send('/kingdom')
+    res.redirect('/kingdom')
   
   });
 })
