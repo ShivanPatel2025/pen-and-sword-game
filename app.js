@@ -16,6 +16,8 @@ const {
 } = process.env
 
 app.use(express.static("public"));
+app.use(bodyParser.json());      
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   name: SESS_NAME,
   resave: false,
@@ -48,6 +50,7 @@ app.listen(app.get('port'), function() {
 //SENDING LOGIN PAGE
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/public', 'keys.html'));
+  sess=req.session;
 })
 //SENDING LOGIN PAGE
 
@@ -94,8 +97,8 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     console.log(rows);
     realid=rows.id;
-    req.session.userid = realid;
-    console.log(req.session.userid);
+    sess.userid = realid;
+    console.log(sess.userid);
     //console.log(realid);
     db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
       if (err) {
@@ -107,5 +110,5 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 })});
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
-  console.log(req.session.userid);
+  console.log(sess.userid);
 })
