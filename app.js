@@ -165,5 +165,5 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
   app.get('/new_kingdom',urlencodedParser,function(req,res){
     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
     var kingdomid=sess.userid;
-    document.getElementById('kingdomid').innerHTML = kingdomid;
+    kingdom.html.getElementById('kingdomid').innerHTML = kingdomid;
   })
