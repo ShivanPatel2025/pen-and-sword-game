@@ -153,11 +153,12 @@ app.get('/home',urlencodedParser, function(req,res){
   res.render('home')
 })
 app.get('/kingdom',urlencodedParser,function(req,res){
+  let ground,air,sea;
   db.get(`SELECT * WHERE id = ?`, sess.id, function(err,rows) {
     let militaryarray=rows;
-    let ground = militaryarray[1];
-    let air = militaryarray[2];
-    let sea = militaryarray[3];
+     ground = militaryarray[1];
+     air = militaryarray[2];
+     sea = militaryarray[3];
   })
   res.render('kingdom', {kingdomInfo: sess.userid, ground : ground, air : air, sea : sea});
 })
