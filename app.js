@@ -160,4 +160,4 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       }
       res.redirect('/');
   });
-  });
+  })
