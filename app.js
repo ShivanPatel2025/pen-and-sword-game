@@ -49,6 +49,13 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 //SQLITE
 
+const kingdomRoute = require('./routes/kingdomRoute.js')
+
+app.use(kingdomRoute)
+
+
+
+
 //RUNNING SERVER
 app.set('port', (process.env.PORT || 5000))
 app.listen(app.get('port'), function() {
@@ -161,9 +168,7 @@ app.get('/kingdom',urlencodedParser,function(req,res){
     sea = rows.sea;
     console.log(rows,ground,air,sea);
     res.render('kingdom', {kingdomInfo: sess.userid, g: ground, a : air, s : sea});
-  })
-  
-  
+  })  
 })
 
 app.post('/sign-in',urlencodedParser, function (req,res) {
@@ -187,11 +192,12 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
         console.log("Session created. Session ID:");
         console.log(sess.userid);});
       //res.redirect('/new_kingdom');
+      res.redirect('/kingdom')
     }
     else {
-      res.send("Not a valid combination!");
+      res.redirect('/')
     }
-    res.redirect('/kingdom')
+    
   
   });
 })
