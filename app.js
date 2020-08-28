@@ -155,10 +155,10 @@ app.get('/home',urlencodedParser, function(req,res){
 app.get('/kingdom',urlencodedParser,function(req,res){
   let ground,air,sea;
   db.get(`SELECT * WHERE id = ?`, sess.id, function(err,rows) {
-    let militaryarray=rows;
-     ground = militaryarray[1];
-     air = militaryarray[2];
-     sea = militaryarray[3];
+    
+     ground = row.ground;
+     air = row.air;
+     sea = row.sea;
   })
   res.render('kingdom', {kingdomInfo: sess.userid, ground : ground, air : air, sea : sea});
 })
