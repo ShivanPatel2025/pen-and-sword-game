@@ -58,8 +58,9 @@ app.listen(app.get('port'), function() {
 
 //SENDING LOGIN PAGE
 app.get('/', (req, res) => {
-  res.render("keys");
   sess=req.session;
+  res.render("keys");
+
 })
 //SENDING LOGIN PAGE
 
@@ -158,7 +159,7 @@ app.get('/home',urlencodedParser, function(req,res){
       if (err) {
         return console.error(err.message);
       } else if (row) {
-        res.render('kingdom',{kingdomInfo : sess.userid});
+        res.render('kingdom', {kingdomInfo : sess.userid});
         let sql1 = `SELECT id FROM users WHERE email = (?)`;
         let data1 = [req.body.email];
         db.get(sql1, data1, function (err,rows) {
