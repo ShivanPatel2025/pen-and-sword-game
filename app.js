@@ -108,6 +108,11 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
+    db.run(`INSERT INTO military (id, ground, air, sea)`, [realid,0,0,0], function (err) {
+      if (err) {
+        return console.error(err.message);
+    }
+      console.log('Military values of 0 inputted!')})
   })
   console.log('Row(s) updated');
 })});
@@ -132,7 +137,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       if (err) {
         return console.error(err.message);
       } else if (row) {
-        // res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
+        res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
         let sql1 = `SELECT id FROM users WHERE email = (?)`;
         let data1 = [req.body.email];
         db.get(sql1, data1, function (err,rows) {
@@ -145,7 +150,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
           sess.userid = realid;
           console.log("Session created. Session ID:");
           console.log(sess.userid);});
-        res.redirect('/new_kingdom');
+        //res.redirect('/new_kingdom');
       }
       else {
         res.send("Not a valid combination!");
@@ -162,8 +167,8 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       res.redirect('/');
   });
   })
-  app.get('/new_kingdom',urlencodedParser,function(req,res){
+  /*app.get('/new_kingdom',urlencodedParser,function(req,res){
     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
     var kingdomid=sess.userid;
     kingdom.html.getElementById('kingdomid').innerHTML = kingdomid;
-  })
+  })*/
