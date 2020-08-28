@@ -119,6 +119,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
+     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
     })
@@ -127,7 +128,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
   app.post('/sign-in',urlencodedParser, function (req,res) {
     let sql = ('SELECT * FROM kingdoms WHERE email = ? AND password = ?');
     let data = [req.body.email, req.body.pass];
-    db.get(sql, [userkey], (err, row) => {
+    db.get(sql, data, (err, row) => {
       if (err) {
         return console.error(err.message);
       } else if (row) {
