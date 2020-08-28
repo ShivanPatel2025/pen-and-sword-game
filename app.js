@@ -118,7 +118,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [sess.userid,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [sess.userid,1,1,1], function (err) {
       if (err) {
         return console.error(err.message);
     }
@@ -154,13 +154,16 @@ app.get('/home',urlencodedParser, function(req,res){
 })
 app.get('/kingdom',urlencodedParser,function(req,res){
   let ground,air,sea;
-  db.get(`SELECT * WHERE id = ?`, sess.id, function(err,rows) {
+  db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
     
-     ground = row.ground;
-     air = row.air;
-     sea = row.sea;
+    ground = rows.ground;
+    air = rows.air;
+    sea = rows.sea;
+    console.log(rows,ground,air,sea);
+    res.render('kingdom', {kingdomInfo: sess.userid, g: ground, a : air, s : sea});
   })
-  res.render('kingdom', {kingdomInfo: sess.userid, ground : ground, air : air, sea : sea});
+  
+  
 })
 
 app.post('/sign-in',urlencodedParser, function (req,res) {
