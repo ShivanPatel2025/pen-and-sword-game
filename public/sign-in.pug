@@ -1,0 +1,8 @@
+doctype html
+head
+  link(rel='stylesheet' type='text/css' href='style.css')
+form.flex.col.register(action='/sign-in' method='POST' name='test')
+  h1 Sign In
+  input(name='email' placeholder='Email' type='email')
+  input(name='pass' placeholder='Password' type='password')
+  button(type='submit') Submit

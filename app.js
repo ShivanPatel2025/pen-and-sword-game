@@ -63,14 +63,16 @@ router.get('/', (req, res) => {
 })
 //SENDING LOGIN PAGE
 
-app.post('/home', urlencodedParser, function (req, res){
+
+
+router.post('/home', urlencodedParser, function (req, res){
   let userkey=req.body.key;
   let sql = ('SELECT * FROM keys WHERE key = ?');
   db.get(sql, [userkey], (err, row) => {
     if (err) {
       return console.error(err.message);
     } else if (row) {
-      res.sendFile(path.join(__dirname, '/public', 'home.html'));
+      res.render('home');
     }
     else {
       res.send("not a valid key");
@@ -81,13 +83,13 @@ app.post('/home', urlencodedParser, function (req, res){
 });
 
 
-app.post('/create-a-nation', urlencodedParser, function (req, res){
+router.post('/create-a-nation', urlencodedParser, function (req, res){
   /*var reply='';
   reply += "Your name is" + req.body.user;
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
   //res.send(reply);*/
-  res.sendFile(path.join(__dirname, '/public', 'creation.html'));
+  res.render( 'creation');
   let data = [req.body.email, req.body.password];
   let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
   let sql1 = `SELECT id FROM users WHERE email = (?)`;
@@ -124,14 +126,14 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
   console.log('Row(s) updated');
 })});
 
-app.post('/kingdom-page',urlencodedParser, function (req, res) {
+router.post('/kingdom-page',urlencodedParser, function (req, res) {
   //console.log(sess.userid);
   db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, sess.userid], function (err) {
     if (err) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
-     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
+     res.send('kingdom',{kingdomInfo: sess.userid});
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
     })
@@ -144,7 +146,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       if (err) {
         return console.error(err.message);
       } else if (row) {
-        res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
+        res.render('kingdom',{kingdomInfo : sess.userid});
         let sql1 = `SELECT id FROM users WHERE email = (?)`;
         let data1 = [req.body.email];
         db.get(sql1, data1, function (err,rows) {
@@ -166,7 +168,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
     });
   })
 
-  app.post('/logout', urlencodedParser, function (req,res) {
+  router.post('/logout', urlencodedParser, function (req,res) {
     req.session.destroy((err) => {
       if(err) {
           return console.log(err);

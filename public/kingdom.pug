@@ -1,0 +1,15 @@
+doctype html
+head
+  link(rel='stylesheet' type='text/css' href='style.css')
+nav.flex
+  .nav_contents.flex
+    a(href='./home.html')
+      span HOME
+    .sign.flex
+      form(action='/logout' method='POST')
+        button(type='submit') Log out
+.main.flex.col
+  h1 ur kingdom
+  p
+    | very op in my opiunionn. ur kingdom is 
+    span = kingdomInfo
