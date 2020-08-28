@@ -108,7 +108,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, ground, air, sea)`, [realid,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [realid,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
