@@ -7,6 +7,10 @@ var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
 var TWO_HOURS = 7200000;
 const {
   PORT = 5000,
