@@ -153,7 +153,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
     });
   })
 
-  app.post('/logout',urlencodedParser, function (req,res) {
+  app.post('/logout', urlencodedParser, function (req,res) {
     req.session.destroy((err) => {
       if(err) {
           return console.log(err);
