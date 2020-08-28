@@ -2,6 +2,10 @@
 <html>
     <head>
         <link rel="stylesheet" type= 'text/css' href="style.css">
+        <script>
+            var kingdomid=sess.userid;
+            document.getElementById('kingdomid').innerHTML = kingdomid;
+        </script>
     </head>
     <body>
         <nav class="flex"> 
@@ -21,7 +25,7 @@
         <div class="main flex col">
 
             <h1>ur kingdom</h1>
-            <p>very op in my opiunionn</p>
+            <p>"very op in my opiunionn. ur kingdom is" + <span id="kingdomid"></span></p>
         </div>
     </body>
 </html>
