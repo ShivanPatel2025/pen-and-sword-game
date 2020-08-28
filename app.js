@@ -57,7 +57,7 @@ app.listen(app.get('port'), function() {
 //RUNNING SERVER
 
 //SENDING LOGIN PAGE
-router.get('/', (req, res) => {
+app.get('/', (req, res) => {
   res.render("keys");
   sess=req.session;
 })
@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
 
 
 
-router.post('/home', urlencodedParser, function (req, res){
+app.post('/home', urlencodedParser, function (req, res){
   let userkey=req.body.key;
   let sql = ('SELECT * FROM keys WHERE key = ?');
   db.get(sql, [userkey], (err, row) => {
@@ -83,7 +83,7 @@ router.post('/home', urlencodedParser, function (req, res){
 });
 
 
-router.post('/create-a-nation', urlencodedParser, function (req, res){
+app.post('/create-a-nation', urlencodedParser, function (req, res){
   /*var reply='';
   reply += "Your name is" + req.body.user;
   reply += "Your E-mail id is" + req.body.password; 
@@ -126,7 +126,7 @@ router.post('/create-a-nation', urlencodedParser, function (req, res){
   console.log('Row(s) updated');
 })});
 
-router.post('/kingdom-page',urlencodedParser, function (req, res) {
+app.post('/kingdom-page',urlencodedParser, function (req, res) {
   //console.log(sess.userid);
   db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, sess.userid], function (err) {
     if (err) {
@@ -139,15 +139,15 @@ router.post('/kingdom-page',urlencodedParser, function (req, res) {
     })
   })
 
-router.get('/sign-in',urlencodedParser, function(req,res){
+app.get('/sign-in',urlencodedParser, function(req,res){
   res.render('sign-in')
 })
 
-router.get('/sign-up',urlencodedParser, function(req,res){
+app.get('/sign-up',urlencodedParser, function(req,res){
   res.render('sign-up')
 })
 
-router.get('/home',urlencodedParser, function(req,res){
+app.get('/home',urlencodedParser, function(req,res){
   res.render('home')
 })
 
@@ -180,7 +180,7 @@ router.get('/home',urlencodedParser, function(req,res){
     });
   })
 
-  router.post('/logout', urlencodedParser, function (req,res) {
+  app.post('/logout', urlencodedParser, function (req,res) {
     req.session.destroy((err) => {
       if(err) {
           return console.log(err);
