@@ -118,7 +118,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [realid,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [sess.userid,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
@@ -134,9 +134,10 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
-     res.render('kingdom', {kingdomInfo: sess.userid});
+  
      console.log("Kingdom Created. Information:");
      console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
+     res.send('/kingdom')
     })
   })
 
@@ -151,44 +152,54 @@ app.get('/sign-up',urlencodedParser, function(req,res){
 app.get('/home',urlencodedParser, function(req,res){
   res.render('home')
 })
-
-  app.post('/sign-in',urlencodedParser, function (req,res) {
-    let sql = ('SELECT * FROM users WHERE email = ? AND password = ?');
-    let data = [req.body.email, req.body.pass];
-    db.get(sql, data, (err, row) => {
-      if (err) {
-        return console.error(err.message);
-      } else if (row) {
-        res.render('kingdom', {kingdomInfo : sess.userid});
-        let sql1 = `SELECT id FROM users WHERE email = (?)`;
-        let data1 = [req.body.email];
-        db.get(sql1, data1, function (err,rows) {
-          if (err) {
-             return console.error(err.message);
-             console.log('realid is the issue');
-          }
-          //console.log(rows);
-          realid=rows.id;
-          sess.userid = realid;
-          console.log("Session created. Session ID:");
-          console.log(sess.userid);});
-        //res.redirect('/new_kingdom');
-      }
-      else {
-        res.send("Not a valid combination!");
-      }
-    
-    });
+app.get('/kingdom',urlencodedParser,function(req,res){
+  db.get(`SELECT * WHERE id = ?`, sess.id, function(err,rows) {
+    let militaryarray=rows;
+    let ground = militaryarray[1];
+    let air = militaryarray[2];
+    let sea = militaryarray[3];
   })
+     res.render('kingdom', {kingdomInfo: sess.userid, ground =ground, air=air, sea=sea});
+})
 
-  app.post('/logout', urlencodedParser, function (req,res) {
-    req.session.destroy((err) => {
-      if(err) {
-          return console.log(err);
-      }
-      res.redirect('/');
+app.post('/sign-in',urlencodedParser, function (req,res) {
+  let sql = ('SELECT * FROM users WHERE email = ? AND password = ?');
+  let data = [req.body.email, req.body.pass];
+  db.get(sql, data, (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    } else if (row) {
+      
+      let sql1 = `SELECT id FROM users WHERE email = (?)`;
+      let data1 = [req.body.email];
+      db.get(sql1, data1, function (err,rows) {
+        if (err) {
+            return console.error(err.message);
+            console.log('realid is the issue');
+        }
+        //console.log(rows);
+        realid=rows.id;
+        sess.userid = realid;
+        console.log("Session created. Session ID:");
+        console.log(sess.userid);});
+      //res.redirect('/new_kingdom');
+    }
+    else {
+      res.send("Not a valid combination!");
+    }
+    res.send('/kingdom')
+  
   });
-  })
+})
+
+app.post('/logout', urlencodedParser, function (req,res) {
+  req.session.destroy((err) => {
+    if(err) {
+        return console.log(err);
+    }
+    res.redirect('/');
+});
+})
   /*app.get('/new_kingdom',urlencodedParser,function(req,res){
     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
     var kingdomid=sess.userid;
