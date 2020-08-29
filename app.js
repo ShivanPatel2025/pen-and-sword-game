@@ -130,6 +130,11 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
     }
       console.log('Military values of 0 inputted!')})
+    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,150,0,500,500,0,0,0,0,0], function (err) {
+      if (err) {
+        return console.error(err.message);
+    }
+      console.log('Resources generated')})
   })
   console.log('Row(s) updated');
 })});

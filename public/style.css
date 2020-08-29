@@ -42,7 +42,7 @@ nav{
 }
 nav span{
     color:#EDC580;
-    background-image: linear-gradient(#EDC580, #EDC580);
+    background-image: linear-gradient(#e7e7e7, #EDC580);
     background-position: 0 100%;
     background-repeat: no-repeat;
     background-size: 0% 5%;
@@ -69,5 +69,17 @@ a{
     top:3em;
     align-items: center;
     
+}
+.resources{
+    justify-content: space-around;
+    background-color: #282828;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+}
+.resources span{
+    color :#EDC580;
 }
  
