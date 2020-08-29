@@ -33,10 +33,10 @@ router.get('/kingdom',urlencodedParser,function(req,res){
              fauna=rows.fauna;
           ore=rows.ore;
             silver=rows.silver;
-             iron=rows.iron;
+            iron=rows.iron;
            bronze=rows.bronze;
-           steel=bronze.steel;
-            res.render('kingdom', {kingdomInfo: sess.userid, g : ground, a : air,s : sea, gold : gold, mana : mana, flora : flora, fauna: fauna, ore:ore, silver:silver,iron:iron, bronze:bronze,silver:silver});
+           steel=rows.steel;
+            res.render('kingdom', {kingdomInfo: sess.userid,  kingdomStats: [ground,air,sea],g : ground, a : air,s : sea, gold : gold, mana : mana, flora : flora, fauna: fauna, ore:ore, silver:silver,iron:iron, bronze:bronze, steel:steel});
        })
       })
 })
