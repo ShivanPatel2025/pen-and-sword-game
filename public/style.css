@@ -82,6 +82,7 @@ a{
 
 .resources_row{
     justify-content: space-around;
+    align-items: center;
    
     width: 100%;
 
@@ -90,7 +91,7 @@ a{
     color :#EDC580;
 }
 .resources img{
-    width: 10px;
-    height: 10px;
+    width: 30px;
+    height: 30px;
 }
  
