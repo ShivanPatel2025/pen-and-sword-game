@@ -19,29 +19,12 @@ nav.flex
   h3 Sea:  
     span= s
 
-  .test 
-    each i in kingdomStats
-      h3= i
 
   .resources.flex.col
     .resources_row.flex
-      span.flex= gold
-        img(src='./media/gold.png')
-      span.flex= mana
-        img(src='./media/mana.png')
-      span.flex= flora
-        img(src='./media/flora.png')
-      span.flex= fauna
-        img(src='./media/fauna.png')
-      span.flex= ore
-        img(src='./media/ore.png')
-      span.flex= silver
-        img(src='./media/silver.png')
-      span.flex= iron
-        img(src='./media/iron.png')
-      span.flex= bronze
-        img(src='./media/bronze.png')
-      span.flex= steel
-        img(src='./media/steel.png')
+      each item in kingdomStats
+        span.flex= item.value
+          img(src = `./media/${item.name}.png`)
+      
 
   

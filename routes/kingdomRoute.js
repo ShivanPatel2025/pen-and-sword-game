@@ -21,22 +21,58 @@ router.get('/kingdom',urlencodedParser,function(req,res){
   let gold,mana,flora,fauna,ore,silver,iron,bronze,steel;
   db.serialize(()=> {
   db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
-    ground = rows.ground;
-    air = rows.air;
-    sea = rows.sea;
+    ground = {
+      'name': 'ground',
+      'value': rows.ground
+    } 
+    air = {
+      'name': 'air',
+      'value': rows.air
+    } 
+    sea = {
+      'name': 'sea',
+      'value': rows.sea
+    } 
     console.log(rows,ground,air,sea);
   }) 
   db.get(`SELECT * from resources WHERE id = ?`, sess.userid, function(err,rows) {
-             gold=rows.gold;
-            mana=rows.mana;
-           flora=rows.flora;
-             fauna=rows.fauna;
-          ore=rows.ore;
-            silver=rows.silver;
-            iron=rows.iron;
-           bronze=rows.bronze;
-           steel=rows.steel;
-            res.render('kingdom', {kingdomInfo: sess.userid,  kingdomStats: [ground,air,sea],g : ground, a : air,s : sea, gold : gold, mana : mana, flora : flora, fauna: fauna, ore:ore, silver:silver,iron:iron, bronze:bronze, steel:steel});
+        gold= {
+          'name': 'gold',
+          'value': rows.gold
+        } 
+        mana= {
+          'name': 'mana',
+          'value': rows.mana
+        } 
+        flora= {
+          'name': 'flora',
+          'value': rows.flora
+        }  
+        fauna= {
+          'name': 'fauna',
+          'value': rows.fauna
+        } 
+        ore= {
+          'name': 'ore',
+          'value': rows.ore
+        } 
+        silver= {
+          'name': 'silver',
+          'value': rows.silver
+        } 
+        iron= {
+          'name': 'iron',
+          'value': rows.iron
+        } 
+        bronze= {
+          'name': 'bronze',
+          'value': rows.bronze
+        } 
+        steel= {
+          'name': 'steel',
+          'value': rows.steel
+        } 
+            res.render('kingdom', {kingdomInfo: sess.userid,  kingdomStats: [ground,air,sea,gold,mana,flora,fauna,ore,silver,iron,bronze,steel]});
        })
       })
 })
