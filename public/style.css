@@ -89,9 +89,13 @@ a{
 }
 .resources span{
     color :#EDC580;
+    align-items: center
 }
 .resources img{
     width: 30px;
     height: 30px;
 }
  
+/* git add . 
+git commit -m 'oo'
+git push origin */
