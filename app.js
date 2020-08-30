@@ -50,8 +50,12 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 //SQLITE
 
 const kingdomRoute = require('./routes/kingdomRoute.js')
+const militaryRoute = require('./routes/militaryRoute.js')
+
 
 app.use(kingdomRoute)
+app.use(militaryRoute)
+
 
 
 
@@ -131,7 +135,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, ground, air, sea) VALUES (?, ?, ?, ?)`, [sess.userid,1,1,1], function (err) {
+    db.run(`INSERT INTO military (id, warriors, archers, cavalry) VALUES (?, ?, ?, ?)`, [sess.userid,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
@@ -196,17 +200,17 @@ app.get('/sign-up',urlencodedParser, function(req,res){
 app.get('/home',urlencodedParser, function(req,res){
   res.render('home')
 })
-app.get('/kingdom',urlencodedParser,function(req,res){
-  let ground,air,sea;
-  db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
+// app.get('/kingdom',urlencodedParser,function(req,res){
+//   let ground,air,sea;
+//   db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
     
-    ground = rows.ground;
-    air = rows.air;
-    sea = rows.sea;
-    console.log(rows,ground,air,sea);
-    res.render('kingdom', {kingdomInfo: sess.userid, g: ground, a : air, s : sea});
-  })  
-})
+//     ground = rows.ground;
+//     air = rows.air;
+//     sea = rows.sea;
+//     console.log(rows,ground,air,sea);
+//     res.render('kingdom', {kingdomInfo: sess.userid, g: ground, a : air, s : sea});
+//   })  
+// })
 
 app.post('/sign-in',urlencodedParser, function (req,res) {
   let sql = ('SELECT * FROM users WHERE email = ? AND password = ?');

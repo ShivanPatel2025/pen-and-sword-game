@@ -10,6 +10,9 @@ const { urlencoded } = require('body-parser');
 const router = express.Router()
 var sqlite3 = require('sqlite3').verbose();
 
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "public"));
+
 let db = new sqlite3.Database('./pns.db', (err) => {
   if (err) {
     return console.error(err.message);
@@ -18,7 +21,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 router.get('/kingdom',urlencodedParser,function(req,res){
   let kingdom,ruler,region;
-  let ground,air,sea;
+  let warrior,archer,cavalry;
   let government, economy, war; 
   let provinces,wonders;
   let gold,mana,flora,fauna,ore,silver,iron,bronze,steel;
@@ -34,17 +37,17 @@ router.get('/kingdom',urlencodedParser,function(req,res){
       founded=rows.date;
     })
     db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
-      ground = {
-        'name': 'ground',
-        'value': rows.ground
+      warrior = {
+        'name': 'warrior',
+        'value': rows.warriors
       } 
-      air = {
-        'name': 'air',
-        'value': rows.air
+      archer = {
+        'name': 'archer',
+        'value': rows.archers
       } 
-      sea = {
-        'name': 'sea',
-        'value': rows.sea
+      cavalry = {
+        'name': 'cavalry',
+        'value': rows.cavalry
       } 
       
     }) 
@@ -111,7 +114,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
             'value': rows.steel
           } 
               res.render('kingdom', { kingdomInfo: sess.userid, 
-                                      militaryStats:[ground,air,sea], 
+                                      militaryStats:[warrior,archer,cavalry], 
                                       policyStats :[government,economy,war], 
                                       provinceStats:provinces, 
                                       wonderStats: wonders,  

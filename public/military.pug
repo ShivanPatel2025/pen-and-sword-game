@@ -1,0 +1,28 @@
+doctype html
+head
+  link(rel='stylesheet' type='text/css' href='style.css')
+
+
+nav.flex
+  .nav_contents.flex
+    a(href='./home')
+      span HOME
+    a(href = './kingdom')
+        span KINGDOM
+    a(href='./military')
+      span MILITARY
+    .sign.flex
+      a(href='/logout')
+        span LOGOUT
+
+.main.flex.col  
+    each troop in militaryStats 
+        h2= troop.name + " - " + troop.value
+
+
+    form.flex.col.register(action='/enlistground' method='POST' name='test')
+        h1 Enlist Military
+        input(name='warriors' placeholder='0'  type="number" step="1")
+        input(name='archers' placeholder='0'  type="number" step="1")
+        input(name='cavalry' placeholder='0'  type="number" step="1")
+        button(type='submit') Submit
