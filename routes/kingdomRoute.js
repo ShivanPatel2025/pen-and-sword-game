@@ -19,6 +19,8 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/kingdom',urlencodedParser,function(req,res){
   let ground,air,sea;
   let gold,mana,flora,fauna,ore,silver,iron,bronze,steel;
+  let kingdom,ruler,region
+  let titles = ["POLICIES", "PROVINCES", "INTERNAL ACTIVITES", "MILITARY", "CURRENT CONFLICTS", "WONDERS"]
   db.serialize(()=> {
   db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
     ground = {
@@ -35,6 +37,12 @@ router.get('/kingdom',urlencodedParser,function(req,res){
     } 
     console.log(rows,ground,air,sea);
   }) 
+  db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
+    kingdom = rows.kingdom;
+    ruler = rows.ruler;
+    region=rows.region;
+    founded=rows.date;
+  })
   db.get(`SELECT * from resources WHERE id = ?`, sess.userid, function(err,rows) {
         gold= {
           'name': 'gold',
@@ -72,7 +80,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
           'name': 'steel',
           'value': rows.steel
         } 
-            res.render('kingdom', {kingdomInfo: sess.userid,  kingdomStats: [ground,air,sea,gold,mana,flora,fauna,ore,silver,iron,bronze,steel]});
+            res.render('kingdom', {kingdomInfo: sess.userid, ground:ground, air:air, sea:sea,  kingdomStats: [gold,mana,flora,fauna,ore,silver,iron,bronze,steel], kingdom: kingdom, ruler: ruler, region: region, founded:founded, arrayOfTitles:titles});
        })
       })
 })

@@ -71,6 +71,7 @@ app.get('/', (req, res) => {
 })
 //SENDING LOGIN PAGE
 
+//parse date
 
 
 app.post('/home', urlencodedParser, function (req, res){
@@ -120,7 +121,12 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     console.log("Session created. Session ID:");
     console.log(sess.userid);
     //console.log(realid);
-    db.run(`INSERT INTO kingdoms (id) VALUES (?)`, realid, function (err) {
+    let date = Date();
+    console.log(date);
+    let splited = date.split(" ");
+    
+    let creationdate = `${splited[1]}/${splited[2]}/${splited[3]}`;
+    db.run(`INSERT INTO kingdoms (id,date) VALUES (?,?)`, [realid, creationdate], function (err) {
       if (err) {
         return console.error(err.message);
         console.log(ooga);

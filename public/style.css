@@ -1,6 +1,10 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+body{
+    background-color: #282828
+}
 form h1 {
     color: blue;
 }
@@ -94,6 +98,26 @@ a{
 .resources img{
     width: 30px;
     height: 30px;
+}
+
+.kingdom_card{
+    width: 30%;
+    height: 40%;
+    background-color: rgb(110,110,110,.3);
+    
+    align-items: center;
+    margin:1em;
+}
+
+.kingdom_card h2{
+    color: #EDC580;
+
+}
+
+.kingdom_card_container{
+    width:80%;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
  
 /* git add . 

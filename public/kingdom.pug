@@ -6,18 +6,30 @@ nav.flex
     a(href='./home.html')
       span HOME
     .sign.flex
-      form(action='/logout' method='POST')
-        button(type='submit') Log out
+      a(href='/logout')
+        span LOGOUT
 .main.flex.col
-  h1 ur kingdom
-  p= kingdomInfo
+  h2 The Kingdom of
+  h1= kingdom
+  h3= 'Ruled by: '+ ruler
+  h4= 'Circa:' + founded
+
+  p= kingdomInfo + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+
+
   h2 your stats
   h3 Ground:  
-    span= g
+    span= ground.value
   h3 Air: 
-    span= a
+    span= air.value
   h3 Sea:  
-    span= s
+    span= sea.value
+
+  .kingdom_card_container.flex
+    each title in arrayOfTitles
+      .kingdom_card.flex.col
+        h2= title
+      
 
 
   .resources.flex.col
