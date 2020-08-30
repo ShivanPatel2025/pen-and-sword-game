@@ -17,18 +17,24 @@ nav.flex
   p= kingdomInfo + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 
 
-  h2 your stats
-  h3 Ground:  
-    span= ground.value
-  h3 Air: 
-    span= air.value
-  h3 Sea:  
-    span= sea.value
+  
 
   .kingdom_card_container.flex
     each title in arrayOfTitles
       .kingdom_card.flex.col
         h2= title
+        if title == "POLICIES"
+          each policy in policyStats
+            h3= policy
+        else if title == "MILITARY"
+          each troop in militaryStats 
+            h3= troop
+        else if title == "WONDERS"
+          each val,key in wonderStats 
+            h3= key + " oo " + val
+        else if title == "PROVINCES"
+          each val,key in provinceStats 
+            h3= key + " oo " + val
       
 
 

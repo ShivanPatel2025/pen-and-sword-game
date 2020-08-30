@@ -139,8 +139,34 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,150,0,500,500,0,0,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
-    }
-      console.log('Resources generated')})
+      }
+      console.log('resources generated')
+    })
+
+    //POLICIES
+    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [sess.userid,'Democracy','Communism','Blitzkrieg'], function (err) {
+      if (err) {
+        return console.error(err.message);
+      }
+        console.log('policies table created successfully!')
+    })
+
+    //PROVINCES
+    db.run(`INSERT INTO provinces (id, province1, province2, province3) VALUES (?, ?, ?, ?)`, [sess.userid,'Wuhan','Chandler','Weja'], function (err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log('provinces table created successfully!')
+    })
+
+    //WONDERS
+    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [sess.userid,"Pyramids",'Eiffel Tower','Stone Henge'], function (err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log('wonders table created successfully!')
+    })
+      
   })
   console.log('Row(s) updated');
 })});
