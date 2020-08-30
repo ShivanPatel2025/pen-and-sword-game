@@ -25,10 +25,10 @@ nav.flex
         h2= title
         if title == "POLICIES"
           each policy in policyStats
-            h3= policy.name + " - " policy.value
+            h3= policy.name + " - "+ policy.value
         else if title == "MILITARY"
           each troop in militaryStats 
-            h3= troop.name + " - " troop.value
+            h3= troop.name + " - " +troop.value
         else if title == "WONDERS"
           each val,key in wonderStats 
             h3= key + " oo " + val
