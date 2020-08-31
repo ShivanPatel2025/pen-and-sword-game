@@ -24,6 +24,7 @@ const {
   SESS_LIFETIME = TWO_HOURS
 } = process.env
 
+app.use(express.static("functions"));
 app.use(express.static("public"));
 app.use(bodyParser.json());      
 app.use(bodyParser.urlencoded({extended: true}));
@@ -243,7 +244,7 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
   });
 })
 
-app.post('/logout', urlencodedParser, function (req,res) {
+app.get('/logout', urlencodedParser, function (req,res) {
   req.session.destroy((err) => {
     if(err) {
         return console.log(err);
@@ -256,3 +257,5 @@ app.post('/logout', urlencodedParser, function (req,res) {
     var kingdomid=sess.userid;
     kingdom.html.getElementById('kingdomid').innerHTML = kingdomid;
   })*/
+
+  

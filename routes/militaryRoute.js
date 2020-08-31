@@ -14,7 +14,7 @@ var sqlite3 = require('sqlite3').verbose();
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "public"));
 
-
+//const {calculateCost,checkBalance} = require('./functions/functions.js')
 let db = new sqlite3.Database('./pns.db', (err) => {
   if (err) {
     return console.error(err.message);
@@ -50,29 +50,56 @@ router.post('/enlistground', urlencodedParser, function(req,res){
   
   db.serialize(()=>{
     db.get(sqlGet, paramsGet, function(err,rows){
-      console.log(rows);
+      //console.log(rows);
       addedWarriors= Number(req.body.warriors) + Number(rows.warriors);
       addedArchers= Number(req.body.archers) + Number(rows.archers);
       addedCavalry= Number(req.body.cavalry) + Number(rows.cavalry);
       paramsRun = [Number(addedWarriors), Number(addedArchers), Number(addedCavalry), sess.userid];
-      console.log(paramsRun);
-    })
-    db.run("UPDATE military SET warriors = ?, archers = ?, cavalry = ? WHERE id = ?", paramsRun, function (err) {
-        if (err) {
-          return console.error(err.message);
-          console.log('Error Updating Military');
-         }
-         console.log("Military Updated. Information:");
-         console.log([addedWarriors, addedArchers, addedCavalry, sess.userid]);
-         res.redirect('/military')
-        })
+      //console.log(paramsRun);
+      let cost = calculateCost('warrior', req.body.warriors);
+      console.log(cost + "line 60");
+      checkBalance(cost).then(check => {
+        console.log(check + "line 62");
+        if (check === true) {
+        db.run(sqlRun, paramsRun, function (err) {
+          if (err) {
+            return console.error(err.message);
+            console.log('Error Updating Military');
+           }
+           console.log("Military Updated. Information:");
+           console.log([addedWarriors, addedArchers, addedCavalry]);
+           res.redirect('/military')
+          })} else {
+              console.log('not sufficient funds')
+              res.redirect('/military')
+          }
+      }).catch(console.error);
     db.get(sqlGet, paramsGet, function(err,rows){
         console.log(rows);
     })
+    })
+    
 })
   
 }) 
     
+//FUCTIONS
+function calculateCost(unit, amount) {
+    if (unit=='warrior') {
+        return amount*1;
+    }
+}
+
+function checkBalance(cost) {
+    return new Promise((resolve, reject) => {
+        let Cost=cost;
+        let current;
+        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
+            current = rows.gold;
+            resolve(rows.gold >= Cost)
+        })
+    })
+}
 
 module.exports = router;
 
