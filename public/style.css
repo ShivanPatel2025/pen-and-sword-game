@@ -3,10 +3,10 @@
 }
 
 body{
-    background-color: #282828
+    background-color: #252525
 }
 form h1 {
-    color: blue;
+    color: #edc580;
 }
 .flex{
     display: flex;
@@ -103,7 +103,7 @@ a{
 .kingdom_card{
     width: 30%;
     height: 40%;
-    background-color: rgb(110,110,110,.3);
+    background-color: #1d1d1d;
     
     align-items: center;
     margin:1em;
@@ -111,9 +111,41 @@ a{
 
 .kingdom_card h2{
     color: #EDC580;
+    font-size: 24px;
+    margin-bottom:7px;
+}
+
+.kingdom_card h3 {
+    color: #828282;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: left;
+    width:100%;
+    margin-left:25%;
+    margin-top: 7px;
+    margin-bottom: 7px;
+
 
 }
 
+.kingdom_card h4 {
+    color: rgb(255,255,255);
+    font-size: 18.667px;
+    text-align: left;
+    font-weight: normal;
+    width: 90%;
+    margin:5px;
+
+}
+.kingdom_card span {
+    color: #828282;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: right;
+    width:75%;
+    margin:8px;
+
+}
 .kingdom_card_container{
     width:80%;
     justify-content: space-between;

@@ -38,15 +38,16 @@ router.get('/kingdom',urlencodedParser,function(req,res){
     })
     db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
       warrior = {
-        'name': 'warrior',
-        'value': rows.warriors
+        'name': 'Warriors',
+        'value': rows.warriors,
+        //'type' : 'Ground'
       } 
       archer = {
-        'name': 'archer',
+        'name': 'Archers',
         'value': rows.archers
       } 
       cavalry = {
-        'name': 'cavalry',
+        'name': 'Cavalry',
         'value': rows.cavalry
       } 
       

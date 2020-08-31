@@ -47,6 +47,7 @@ router.post('/enlistground', urlencodedParser, function(req,res){
   let sqlGet = "SELECT warriors, archers, cavalry FROM military WHERE id = ?"
   let sqlRun = "UPDATE military SET warriors = (?), archers = (?), cavalry = (?) WHERE id = (?)"
   let paramsGet = sess.userid;
+  let currentGold,newGold;
   
   db.serialize(()=>{
     db.get(sqlGet, paramsGet, function(err,rows){
@@ -55,28 +56,40 @@ router.post('/enlistground', urlencodedParser, function(req,res){
       addedArchers= Number(req.body.archers) + Number(rows.archers);
       addedCavalry= Number(req.body.cavalry) + Number(rows.cavalry);
       paramsRun = [Number(addedWarriors), Number(addedArchers), Number(addedCavalry), sess.userid];
+      db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err,rows) {
+            currentGold=rows.gold;
+      })
       //console.log(paramsRun);
       let cost = calculateCost('warrior', req.body.warriors);
-      console.log(cost + "line 60");
+      //console.log(cost + "line 60");
       checkBalance(cost).then(check => {
-        console.log(check + "line 62");
+        //console.log(check + "line 62");
         if (check === true) {
+            newGold=currentGold-cost;
         db.run(sqlRun, paramsRun, function (err) {
           if (err) {
             return console.error(err.message);
             console.log('Error Updating Military');
            }
-           console.log("Military Updated. Information:");
-           console.log([addedWarriors, addedArchers, addedCavalry]);
+           console.log("Military Updated.");
+           //console.log([addedWarriors, addedArchers, addedCavalry]);
            res.redirect('/military')
-          })} else {
-              console.log('not sufficient funds')
+          })
+          db.run("UPDATE resources SET gold = (?)", newGold, function (err) {
+            if (err) {
+                return console.error(err.message);
+                console.log('Error Subtracting Resources');
+               }
+               console.log("Cost Subtracted");
+          })
+        } else {
+              console.log('Not Sufficient Funds')
               res.redirect('/military')
           }
       }).catch(console.error);
-    db.get(sqlGet, paramsGet, function(err,rows){
-        console.log(rows);
-    })
+    //db.get(sqlGet, paramsGet, function(err,rows){
+        //console.log(rows);
+    //})
     })
     
 })
