@@ -43,11 +43,12 @@ router.get('/military',urlencodedParser,function(req,res){
 })
 
 router.post('/enlistground', urlencodedParser, function(req,res){
-  let addedWarriors, addedArchers, addedCavalry, paramsRun;
-  let sqlGet = "SELECT warriors, archers, cavalry FROM military WHERE id = ?"
-  let sqlRun = "UPDATE military SET warriors = (?), archers = (?), cavalry = (?) WHERE id = (?)"
+  let addedWarriors, addedArchers, addedCavalry, addedBlacksmiths, addedPriests, addedMages, paramsRun;
+  let sqlGet = "SELECT warriors, archers, cavalry, blacksmiths, priests, mages FROM military WHERE id = ?"
+  let sqlRun = "UPDATE military SET warriors = (?), archers = (?), cavalry = (?), blacksmiths = (?), priests = (?), mages = (?) WHERE id = (?)"
   let paramsGet = sess.userid;
-  let currentGold,newGold;
+  let currentGold, currentMana, currentLumber, currentFauna,currentSilver,currentIron,currentBronze,currentSteel;
+  let newGold,newMana,newLumber,newFauna,newSilver,newIron,newBronze,newSteel;
   
   db.serialize(()=>{
     db.get(sqlGet, paramsGet, function(err,rows){
@@ -55,17 +56,36 @@ router.post('/enlistground', urlencodedParser, function(req,res){
       addedWarriors= Number(req.body.warriors) + Number(rows.warriors);
       addedArchers= Number(req.body.archers) + Number(rows.archers);
       addedCavalry= Number(req.body.cavalry) + Number(rows.cavalry);
-      paramsRun = [Number(addedWarriors), Number(addedArchers), Number(addedCavalry), sess.userid];
+      addedBlacksmiths = Number(req.body.blacksmiths) + Number(rows.blacksmiths);
+      addedPriests = Number(req.body.priests) + Number(rows.priests);
+      addedMages = Number(req.body.mages) + Number(rows.mages);
+
+      paramsRun = [Number(addedWarriors), Number(addedArchers), Number(addedCavalry), Number(addedBlacksmiths), Number(addedPriests), Number(addedMages), sess.userid];
       db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err,rows) {
             currentGold=rows.gold;
+            currentMana=rows.mana;
+            currentLumber=rows.lumber;
+            currentFauna=rows.fauna;
+            currentSilver=rows.silver;
+            currentIron=rows.iron;
+            currentBronze=rows.bronze;
+            currentSteel=rows.steel;
       })
       //console.log(paramsRun);
-      let cost = calculateCost('warrior', req.body.warriors);
+      let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0;
+       goldCost = req.body.warriors*5+ req.body.archers*7+ req.body.cavalry*20+ req.body.blacksmiths*30 + req.body.priests*70 + req.body.mages*100;
+       lumberCost= req.body.archers*2+ req.body.cavalry*10;
+       faunaCost= req.body.cavalry*4;
+       silverCost = req.body.priests*5+req.body.mages*12;
+      //console.log(goldCost +" "+lumberCost + " "+faunaCost);
       //console.log(cost + "line 60");
-      checkBalance(cost).then(check => {
+      checkBalance(goldCost,lumberCost,faunaCost, silverCost).then(check => {
         //console.log(check + "line 62");
         if (check === true) {
-            newGold=currentGold-cost;
+            newGold=currentGold-goldCost;
+            newLumber=currentLumber-lumberCost;
+            newFauna=currentFauna-faunaCost;
+            newSilver=currentSilver-silverCost;
         db.run(sqlRun, paramsRun, function (err) {
           if (err) {
             return console.error(err.message);
@@ -75,7 +95,7 @@ router.post('/enlistground', urlencodedParser, function(req,res){
            //console.log([addedWarriors, addedArchers, addedCavalry]);
            res.redirect('/military')
           })
-          db.run("UPDATE resources SET gold = (?)", newGold, function (err) {
+          db.run("UPDATE resources SET gold = (?), lumber = (?), fauna = (?), silver =(?)", [newGold,newLumber,newFauna, newSilver], function (err) {
             if (err) {
                 return console.error(err.message);
                 console.log('Error Subtracting Resources');
@@ -97,19 +117,34 @@ router.post('/enlistground', urlencodedParser, function(req,res){
 }) 
     
 //FUCTIONS
-function calculateCost(unit, amount) {
-    if (unit=='warrior') {
-        return amount*1;
-    }
+function calculateGoldCost(warriors, archers, cavalry) {
+    let cost; 
+    cost += warriors*1;
+    cost+= archers*1;
+    cost+=cavalry*5;
+    return cost;
+}
+function calculateLumberCost(archers, cavalry) {
+  let cost;
+  cost+= archers*2;
+  cost+=cavalry*10;
+  return cost;
+}
+function calculateFaunaCost(cavalry) {
+  let cost;
+  cost+=cavalry*2;
+  return cost;
 }
 
-function checkBalance(cost) {
+function checkBalance(gold,lumber,fauna,silver) {
     return new Promise((resolve, reject) => {
-        let Cost=cost;
-        let current;
+        let goldCost=gold;
+        let lumberCost=lumber;
+        let faunaCost=fauna;
+        let silverCost=silver;
         db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
-            current = rows.gold;
-            resolve(rows.gold >= Cost)
+            
+            resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost))
         })
     })
 }

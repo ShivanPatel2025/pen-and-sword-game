@@ -104,7 +104,7 @@ a{
     width: 30%;
     height: 40%;
     background-color: #1d1d1d;
-    
+    max-height: 40%;
     align-items: center;
     margin:1em;
 }
@@ -112,7 +112,12 @@ a{
 .kingdom_card h2{
     color: #EDC580;
     font-size: 24px;
-    margin-bottom:7px;
+    margin-bottom: 7px;
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    margin-top: 0px;
+    height: 40px;
 }
 
 .kingdom_card h3 {

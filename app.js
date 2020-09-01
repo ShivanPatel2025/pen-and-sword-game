@@ -136,12 +136,12 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, warriors, archers, cavalry) VALUES (?, ?, ?, ?)`, [sess.userid,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, warriors, archers, cavalry, blacksmiths, priests, mages, blimps, harpies, angels, dragons, galleys, pirates, sea_serpents, catapults, trebuchets, cannons) VALUES (?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?)`, [sess.userid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
       console.log('Military values of 0 inputted!')})
-    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,150,0,500,500,0,0,0,0,0], function (err) {
+    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
       if (err) {
         return console.error(err.message);
       }

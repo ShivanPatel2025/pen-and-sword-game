@@ -21,7 +21,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 router.get('/kingdom',urlencodedParser,function(req,res){
   let kingdom,ruler,region;
-  let warrior,archer,cavalry;
+  let warrior,archer,cavalry,blacksmith,priest,mage,blimp,harpy,angel,dragon,galley,pirate,sea_serpent,catapult,trebuchet,cannon;
   let government, economy, war; 
   let provinces,wonders;
   let gold,mana,flora,fauna,ore,silver,iron,bronze,steel;
@@ -49,7 +49,59 @@ router.get('/kingdom',urlencodedParser,function(req,res){
       cavalry = {
         'name': 'Cavalry',
         'value': rows.cavalry
+      }
+      blacksmith = {
+        'name' : 'Blacksmiths',
+        'value' : rows.blacksmiths
+      }
+      priest = {
+        'name' : 'Priests',
+        'value' : rows.priests
+      }
+      mage = {
+        'name' : 'Mages',
+        'value' : rows.mages
+      }
+      blimp = {
+        'name' : 'Blimps',
+        'value' : rows.blimps
+      }
+      harpy = {
+        'name' : 'Harpies',
+        'value' : rows.harpies
       } 
+      angel = {
+        'name' : 'Angels',
+        'value' : rows.angels
+      }
+      dragon = {
+        'name' : 'Dragons',
+        'value' : rows.dragons
+      }
+      galley = {
+        'name' : 'Galleys',
+        'value' : rows.galleys
+      }
+      pirate = {
+        'name' : 'Pirates',
+        'value' : rows.pirates
+      }
+      sea_serpent = {
+        'name' : 'Sea Serpents',
+        'value' : rows.sea_serpents
+      }
+      catapult = {
+        'name' : 'Catapults',
+        'value' : rows.catapults
+      }
+      trebuchet = {
+        'name' : 'Trebuchets',
+        'value' : rows.trebuchets
+      }
+      cannon = {
+        'name' : 'Cannons',
+        'value' : rows.cannons
+      }
       
     }) 
     db.get(`SELECT * from Policies WHERE id = ?`, sess.userid, function(err,rows) {
@@ -93,6 +145,14 @@ router.get('/kingdom',urlencodedParser,function(req,res){
           fauna= {
             'name': 'fauna',
             'value': rows.fauna
+          }
+          lumber= {
+            'name': 'lumber',
+            'value': rows.lumber
+          } 
+          food= {
+            'name': 'food',
+            'value': rows.food
           } 
           ore= {
             'name': 'ore',
@@ -115,11 +175,14 @@ router.get('/kingdom',urlencodedParser,function(req,res){
             'value': rows.steel
           } 
               res.render('kingdom', { kingdomInfo: sess.userid, 
-                                      militaryStats:[warrior,archer,cavalry], 
-                                      policyStats :[government,economy,war], 
+                                      ground: [warrior,archer,cavalry,blacksmith,priest,mage], 
+                                      air: [blimp,harpy,angel,dragon],
+                                      sea: [galley,pirate,sea_serpent],
+                                      siege: [catapult,trebuchet,cannon],
+                                      policyStats : [government,economy,war], 
                                       provinceStats:provinces, 
                                       wonderStats: wonders,  
-                                      kingdomStats: [gold,mana,flora,fauna,ore,silver,iron,bronze,steel], 
+                                      kingdomStats: [gold,mana,flora,fauna,lumber,food,ore,silver,iron,bronze,steel], 
                                       kingdom: kingdom, 
                                       ruler: ruler, 
                                       region: region, 
