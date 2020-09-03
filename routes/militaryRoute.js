@@ -79,7 +79,7 @@ router.post('/enlistground', urlencodedParser, function(req,res){
        silverCost = req.body.priests*5+req.body.mages*12;
       //console.log(goldCost +" "+lumberCost + " "+faunaCost);
       //console.log(cost + "line 60");
-      checkBalance(goldCost,lumberCost,faunaCost, silverCost).then(check => {
+      checkBalanceGround(goldCost,lumberCost,faunaCost, silverCost).then(check => {
         //console.log(check + "line 62");
         if (check === true) {
             newGold=currentGold-goldCost;
@@ -117,26 +117,26 @@ router.post('/enlistground', urlencodedParser, function(req,res){
 }) 
     
 //FUCTIONS
-function calculateGoldCost(warriors, archers, cavalry) {
-    let cost; 
-    cost += warriors*1;
-    cost+= archers*1;
-    cost+=cavalry*5;
-    return cost;
-}
-function calculateLumberCost(archers, cavalry) {
-  let cost;
-  cost+= archers*2;
-  cost+=cavalry*10;
-  return cost;
-}
-function calculateFaunaCost(cavalry) {
-  let cost;
-  cost+=cavalry*2;
-  return cost;
-}
+// function calculateGoldCost(warriors, archers, cavalry) {
+//     let cost; 
+//     cost += warriors*1;
+//     cost+= archers*1;
+//     cost+=cavalry*5;
+//     return cost;
+// }
+// function calculateLumberCost(archers, cavalry) {
+//   let cost;
+//   cost+= archers*2;
+//   cost+=cavalry*10;
+//   return cost;
+// }
+// function calculateFaunaCost(cavalry) {
+//   let cost;
+//   cost+=cavalry*2;
+//   return cost;
+// }
 
-function checkBalance(gold,lumber,fauna,silver) {
+function checkBalanceGround(gold,lumber,fauna,silver) {
     return new Promise((resolve, reject) => {
         let goldCost=gold;
         let lumberCost=lumber;
@@ -147,6 +147,99 @@ function checkBalance(gold,lumber,fauna,silver) {
             resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost))
         })
     })
+}
+
+router.post('/enlistair', urlencodedParser, function(req,res){
+  let addedBlimps, addedHarpies, addedAngels, addedDragons, paramsRun;
+  let sqlGet = "SELECT blimps, harpies, angels, dragons FROM military WHERE id = ?"
+  let sqlRun = "UPDATE military SET blimps = (?), harpies = (?), angels = (?), dragons = (?) WHERE id = (?)"
+  let paramsGet = sess.userid;
+  let currentGold, currentMana, currentLumber, currentFauna,currentSilver,currentIron,currentBronze,currentSteel;
+  let newGold,newMana,newLumber,newFauna,newSilver,newIron,newBronze,newSteel;
+  
+  db.serialize(()=>{
+    db.get(sqlGet, paramsGet, function(err,rows){
+      //console.log(rows);
+      addedBlimps= Number(req.body.blimps) + Number(rows.blimps);
+      addedHarpies= Number(req.body.harpies) + Number(rows.harpies);
+      addedAngels= Number(req.body.angels) + Number(rows.angels);
+      addedDragons = Number(req.body.dragons) + Number(rows.dragons);
+
+      paramsRun = [Number(addedBlimps), Number(addedHarpies), Number(addedAngels), Number(AddedDragons), sess.userid];
+      db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err,rows) {
+            currentGold=rows.gold;
+            currentMana=rows.mana;
+            currentLumber=rows.lumber;
+            currentFauna=rows.fauna;
+            currentSilver=rows.silver;
+            currentIron=rows.iron;
+            currentBronze=rows.bronze;
+            currentSteel=rows.steel;
+      })
+      //console.log(paramsRun);
+      let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0, ironCost=0, bronzeCost=0, steelCost=0, manaCost=0;
+       goldCost = req.body.blimps*130+ req.body.harpies*60+ req.body.angels*60+ req.body.dragons*85;
+       lumberCost= req.body.blimps*10;
+       faunaCost= req.body.harpies*3 + req.body.dragons*7;
+       silverCost = req.body.angels*15;
+       bronzeCost = req.body.dragons*20;
+       steelCost=req.body.blimps*50;
+       manaCost=req.body.harpies*5 + req.body.angels*15, req.body.dragons*20;
+      //console.log(goldCost +" "+lumberCost + " "+faunaCost);
+      //console.log(cost + "line 60");
+      checkBalanceAir(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost).then(check => {
+        //console.log(check + "line 62");
+        if (check === true) {
+            newGold=currentGold-goldCost;
+            newLumber=currentLumber-lumberCost;
+            newFauna=currentFauna-faunaCost;
+            newSilver=currentSilver-silverCost;
+            newBronze = currentBronze - bronzeCost;
+            newSteel=currentSteel-steelCost;
+            newMana = currentMana-manaCost;
+        db.run(sqlRun, paramsRun, function (err) {
+          if (err) {
+            return console.error(err.message);
+            console.log('Error Updating Military');
+           }
+           console.log("Military Updated.");
+           //console.log([addedWarriors, addedArchers, addedCavalry]);
+           res.redirect('/military')
+          })
+          db.run("UPDATE resources SET gold = (?), lumber = (?), fauna = (?), silver =(?), bronze = (?), steel = (?), mana = (?)", [newGold,newLumber,newFauna, newSilver, newBronze, newSteel, newMana], function (err) {
+            if (err) {
+                return console.error(err.message);
+                console.log('Error Subtracting Resources');
+               }
+               console.log("Cost Subtracted");
+          })
+        } else {
+              console.log('Not Sufficient Funds')
+              res.redirect('/military')
+          }
+      }).catch(console.error);
+    //db.get(sqlGet, paramsGet, function(err,rows){
+        //console.log(rows);
+    //})
+    })
+    
+}) 
+}) 
+
+function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana) {
+  return new Promise((resolve, reject) => {
+      let goldCost=gold;
+      let lumberCost=lumber;
+      let faunaCost=fauna;
+      let silverCost=silver;
+      let bronzeCost=bronze;
+      let steelCost = steel;
+      let manaCost = mana;
+      db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
+          
+          resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost) && (rows.bronze>=bronzeCost) && (rows.steel>=steelCost) && (rows.mana>=manaCost))
+      })
+  })
 }
 
 module.exports = router;
