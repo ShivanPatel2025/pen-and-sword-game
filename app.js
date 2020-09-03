@@ -52,11 +52,12 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 
 const kingdomRoute = require('./routes/kingdomRoute.js')
 const militaryRoute = require('./routes/militaryRoute.js')
+const provinceRoute = require('./routes/provinceRoute.js')
 
 
 app.use(kingdomRoute)
 app.use(militaryRoute)
-
+app.use(provinceRoute)
 
 
 
@@ -131,7 +132,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     let splited = date.split(" ");
     
     let creationdate = `${splited[1]}/${splited[2]}/${splited[3]}`;
-    db.run(`INSERT INTO kingdoms (id,date) VALUES (?,?)`, [realid, creationdate], function (err) {
+    db.run(`INSERT INTO kingdoms (id,date,provinces) VALUES (?,?,?)`, [realid, creationdate, 1], function (err) {
       if (err) {
         return console.error(err.message);
         console.log(ooga);
