@@ -30,13 +30,13 @@ nav.flex
 .main.flex.col
   each prov in provinces.countArray
     h2=provinces.provinceNames[prov] 
-    
+    - var namE = provinces.provinceNames[value]
     span Land:
       span=provinces.provinceLands[prov] +"       "
         span Happiness:
           span=provinces.provinceHappiness[prov]
     
     form.flex.col.register(action='/buyImprovement' method='POST' name='test')
-        input(name='provinceName' type = 'hidden' value = provinces.provinceNames[prov])
+        input(name='provinceName' type = 'hidden' value= provinces.provinceNames[prov])
         button(type='submit') Buy 1 improvment
 

@@ -114,12 +114,14 @@ function checkBalance(incost) {
 }
 
 
-router.post('/buyImprovement', urlencodedParser, function(res,req) {
-    let name=req.body.provinceName;
+router.post('/buyImprovement', urlencodedParser, function(req,res) {
+    let name = req.body.provinceName;
+    console.log(name);
     db.get(`SELECT * FROM provinces WHERE userid = ? AND name =?`, [sess.userid, name], function(err,rows) {
         console.log(rows.land);
     })
                 res.redirect('/provinces')
  
 })
+
 module.exports = router;
