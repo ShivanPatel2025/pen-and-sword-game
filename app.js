@@ -158,7 +158,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //PROVINCES
-    db.run(`INSERT INTO provinces (id, province1, province2, province3) VALUES (?, ?, ?, ?)`, [sess.userid,'Wuhan','Chandler','Weja'], function (err) {
+    db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [sess.userid,'Capital', 100, '100'], function (err) {
       if (err) {
         return console.error(err.message);
       }

@@ -23,15 +23,35 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 
 router.get('/provinces',urlencodedParser,function(req,res){
     let currentProvinceCount;
-    db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
+    let i=0;
+    let provinces = { 
+        countArray: [],
+        provinceNames: [],
+         provinceLands: [],
+         provinceHappiness: []}
+    // let provinceNames=[];
+    // let provinceLands=[];
+    // let provinceHappiness=[];
+    db.serialize(() => {
+      db.each(`SELECT * FROM provinces WHERE userid = ?`, sess.userid, function(err,rows) {
+        console.log(rows)
+        provinces.countArray.push(i);
+        i++;
+        provinces.provinceNames.push(rows.name);
+        provinces.provinceLands.push(rows.land);
+        provinces.provinceHappiness.push(rows.happiness);
+        //console.log(provinceNames);
+      })
+      db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
         //console.log(rows.provinces);
         let current = Number(rows.provinces);
         //console.log(current);
         currentProvinceCount = {
             'count': current,
           } 
-        res.render('provinces', {currentProvinceCount});
+        res.render('provinces', {currentProvinceCount, provinces});
       }) 
+    })
     
 })
 
@@ -66,6 +86,12 @@ router.post('/new-province', urlencodedParser, function(req,res) {
                     }
                     console.log('updated resources')
                 })
+                db.run('INSERT INTO provinces (userid, name, land, happiness) VALUES (?,?,?,?)', [sess.userid, req.body.provinceName, 100, '100'], function(err) {
+                    if (err) {
+                        console.error(err.message);
+                    }
+                    console.log('inserted province');
+                })
                 res.redirect('/provinces')
             } else {
                 console.log('Not Sufficient Funds')
@@ -86,4 +112,13 @@ function checkBalance(incost) {
         })
     })
 }
+
+router.post('/buyImprovement', urlencodedParser, function(res,req) {
+    let name=req.body.provinceName;
+    db.get(`SELECT * FROM provinces WHERE userid = ? AND name =?`, [sess.userid, name], function(err,rows) {
+        console.log(rows.land);
+    })
+                res.redirect('/provinces')
+ 
+})
 module.exports = router;

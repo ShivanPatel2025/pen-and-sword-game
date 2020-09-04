@@ -180,7 +180,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
                                       sea: [galley,pirate,sea_serpent],
                                       siege: [catapult,trebuchet,cannon],
                                       policyStats : [government,economy,war], 
-                                      provinceStats:provinces, 
+                                      //provinceStats:provinces, 
                                       wonderStats: wonders,  
                                       kingdomStats: [gold,mana,flora,fauna,lumber,food,ore,silver,iron,bronze,steel], 
                                       kingdom: kingdom, 

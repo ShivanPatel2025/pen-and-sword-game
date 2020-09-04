@@ -22,4 +22,21 @@ nav.flex
 
     form.flex.col.register(action='/new-province' method='POST' name='test')
         h1 Buy Province
+        input(name='provinceName' placeholder='province name' type='text')
         button(type='submit') Submit
+
+
+
+.main.flex.col
+  each value in provinces.countArray
+    h2=provinces.provinceNames[value] 
+    - var namE = provinces.provinceNames[value]
+    span Land:
+      span=provinces.provinceLands[value] +"       "
+        span Happiness:
+          span=provinces.provinceHappiness[value]
+    
+    form.flex.col.register(action='/buyImprovement' method='POST' name='test')
+        input(name='provinceName' type = 'hidden' value = namE)
+        button(type='submit') Buy 1 improvment
+
