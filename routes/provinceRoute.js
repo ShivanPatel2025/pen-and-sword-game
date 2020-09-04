@@ -113,6 +113,7 @@ function checkBalance(incost) {
     })
 }
 
+
 router.post('/buyImprovement', urlencodedParser, function(res,req) {
     let name=req.body.provinceName;
     db.get(`SELECT * FROM provinces WHERE userid = ? AND name =?`, [sess.userid, name], function(err,rows) {
