@@ -8,6 +8,7 @@ const session = require('express-session');
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 const { callbackify } = require('util');
+const { Console } = require('console');
 const router = express.Router()
 var sqlite3 = require('sqlite3').verbose();
 
@@ -24,6 +25,12 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/provinces',urlencodedParser,function(req,res){
     let currentProvinceCount;
     let i=0;
+    let improvementsRaw =['plantation', 'pasture', 'mine', 'mana_rift'];
+    let improvementsRefine = ['lumber_mill','slaughterhouse', 'silver_refinery', 'steel_refinery', 'iron_refinery', 'bronze_refinery'];
+    let improvementsEcon = ['market', 'bazaar', 'emporium'];
+    let improvementsEntertainment =['plaza', 'theatre', 'coliseum'];
+    let improvementsResearch = ['school', 'library', 'laboratory'];
+    let improvementsHousing = ['barracks','academy','hatchery', 'harbor', 'workshop'];
     let provinces = { 
         countArray: [],
         provinceNames: [],
@@ -34,7 +41,7 @@ router.get('/provinces',urlencodedParser,function(req,res){
     // let provinceHappiness=[];
     db.serialize(() => {
       db.each(`SELECT * FROM provinces WHERE userid = ?`, sess.userid, function(err,rows) {
-        console.log(rows)
+        //console.log(rows)
         provinces.countArray.push(i);
         i++;
         provinces.provinceNames.push(rows.name);
@@ -49,7 +56,7 @@ router.get('/provinces',urlencodedParser,function(req,res){
         currentProvinceCount = {
             'count': current,
           } 
-        res.render('provinces', {currentProvinceCount, provinces});
+        res.render('provinces', {currentProvinceCount, provinces, improvementsRaw, improvementsRefine, improvementsEcon, improvementsEntertainment, improvementsResearch, improvementsHousing});
       }) 
     })
     
@@ -117,11 +124,233 @@ function checkBalance(incost) {
 router.post('/buyImprovement', urlencodedParser, function(req,res) {
     let name = req.body.provinceName;
     console.log(name);
-    db.get(`SELECT * FROM provinces WHERE userid = ? AND name =?`, [sess.userid, name], function(err,rows) {
-        console.log(rows.land);
+    let building = req.body.improvementsName;
+    console.log(building);
+    let buildingCount;
+    let totalImprovements;
+    let land;
+    let costArray;
+    //console.log(name);
+    db.get(`SELECT * FROM provinces WHERE userid = ? AND name = ?`, [sess.userid, name], function(err,rows) {
+        if (err) {
+            console.error(err.message + "line 135");
+        }
+        totalImprovements = Number(rows.plantation)
+                            +Number(rows.pasture)
+                            +Number(rows.mine)
+                            +Number(rows.mana_rift)
+                            +Number(rows.lumber_mill)
+                            +Number(rows.slaughterhouse)
+                            +Number(rows.silver_refinery)
+                            +Number(rows.steel_refinery)
+                            +Number(rows.iron_refinery)
+                            +Number(rows.bronze_refinery)
+                            +Number(rows.plaza)
+                            +Number(rows.theatre)
+                            +Number(rows.coliseum)
+                            +Number(rows.market)
+                            +Number(rows.bazar)
+                            +Number(rows.emporium)
+                            +Number(rows.school)
+                            +Number(rows.library)
+                            +Number(rows.laboratory)
+                            +Number(rows.barracks)
+                            +Number(rows.academy)
+                            +Number(rows.hatchery)
+                            +Number(rows.harbor)
+                            +Number(rows.workshop);
+        buildingCount = rows[building]+1;
+        land=rows.land;
+        console.log(totalImprovements);
+        console.log(land);
+        let currentGold=0,currentLumber=0,currentSteel=0;
+        let newGold=0,newLumber=0,newSteel=0;
+        db.get('SELECT * FROM resources WHERE id = ?', sess.userid, function(err,rows) {
+            currentGold=Number(rows.gold);
+            currentLumber=Number(rows.lumber);
+            currentSteel=Number(rows.steel);
+            if(building=='plantation') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+                console.log(currentGold);
+                console.log(costArray[0]);
+                console.log(newGold);
+            }
+            if(building=='pasture') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='mine') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='mana_rift') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='lumber_mill') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='slaughterhouse') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='silver_refinery') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='steel_refinery') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='iron_refinery') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='bronze_refinery') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='plaza') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='theatre') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='market') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='bazar') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='emporium') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='school') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='library') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='laboratory') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='barracks') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='academy') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='hatchery') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='harbor') {
+                costArray =[3,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            if(building=='workshop') {
+                costArray =[100000,3,3];
+                newGold=currentGold-costArray[0];
+                newLumber=currentLumber-costArray[1];
+                newSteel=currentSteel-costArray[2];
+            }
+            checkBalanceImp(costArray).then(check=>{
+                //now check if sufficient land
+                if(check===true){
+                    if(totalImprovements<(land/20)) {
+                        db.all(`UPDATE provinces SET ${building} = ? WHERE userid = ? AND name = ?`, [buildingCount, sess.userid, name], function(err) {
+                            if (err) {
+                                console.error(err.message+" line 169");
+                            }
+                            res.redirect('/provinces')
+                            console.log('buildingbought');
+                        });
+                        } else {
+                            console.log('not enough land');
+                            res.redirect('/provinces')
+                
+                        } 
+                        db.run('UPDATE resources SET gold = (?), lumber=(?), steel=(?) WHERE id=(?)',[newGold,newLumber,newSteel,sess.userid], function(err) {
+                            if (err) {
+                                console.error(err.message);
+                            }
+                            console.log('updated resources')
+                        }) 
+                }      
+                }).catch(console.error)
+        })  
     })
-                res.redirect('/provinces')
- 
 })
+
+
+function checkBalanceImp(costArray) {
+    return new Promise((resolve, reject) => {
+        let arrayOfCosts = costArray;
+        let goldCost=arrayOfCosts[0];
+        let lumberCost=arrayOfCosts[1];
+        let steelCost = arrayOfCosts[2];
+
+        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
+            
+            resolve((rows.gold >= goldCost) && (rows.lumber >= lumberCost) && (rows.steel >= steelCost))
+        })
+    })
+}
 
 module.exports = router;
