@@ -35,6 +35,9 @@ nav.flex
       span=provinces.provinceLands[prov] +"       "
         span Happiness:
           span=provinces.provinceHappiness[prov]
+    form(action='/buyLand' method='POST' name='test')
+        input(name='provinceName' type = 'hidden' value= provinces.provinceNames[prov])
+        input(name='land' placeholder = '20' type = 'text' value= i)
     each i in improvementsRaw
       - var iname = "buy " + i
       form(action='/buyImprovement' method='POST' name='test')

@@ -1,0 +1,21 @@
+doctype html
+head
+  link(rel='stylesheet' type='text/css' href='style.css')
+
+
+nav.flex
+  .nav_contents.flex
+    a(href='./home')
+      span HOME
+    a(href = './kingdom')
+        span KINGDOM
+    a(href='./military')
+      span MILITARY
+    .sign.flex
+      a(href='/logout')
+        span LOGOUT
+
+.main.flex.col
+  each unit in rev
+    h2=unit
+    

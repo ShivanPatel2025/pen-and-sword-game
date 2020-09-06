@@ -120,6 +120,62 @@ function checkBalance(incost) {
     })
 }
 
+router.post('/buyLand', urlencodedParser, function(req,res) {
+    let increase = req.body.land;
+    let name = req.body.provinceName
+    let current;
+    let cost;
+    let currentGold;
+    let newLand;
+    let newGold;
+    db.get('SELECT * FROM provinces WHERE userid = ? AND name = ?', [sess.userid, name], function(err,rows) {
+        current = Number(rows.land);
+        //console.log(current + "line 131");
+        cost = ((Number(current)+Number(increase))*1.5) - (Number(current)*1.5);
+        console.log(cost + "line 134");
+        newLand = Number(current)+Number(increase);
+        console.log(newLand + "line 137")
+        checkBalanceLand(cost).then(check=>{
+            if (check===true) {
+                db.serialize(()=> {
+                db.get('SELECT * FROM resources WHERE id = ?', sess.userid, function(err,row) {
+                    //console.log(row);
+                    currentGold=row.gold;
+                    console.log(currentGold);
+                    newGold=currentGold-cost;
+                    console.log(newGold + " line 144");
+                    db.run('UPDATE resources SET gold = (?) WHERE id=(?)',[newGold, sess.userid], function(err) {
+                        if (err) {
+                            console.error(err.message);
+                        }
+                        console.log('updated resources')
+                    })
+                    db.run('UPDATE provinces SET land = (?) WHERE userid = ? AND name = ?',[newLand, sess.userid, name], function(err) {
+                        if (err) {
+                            console.error(err.message);
+                        }
+                        console.log('updated land')
+                        res.redirect('/provinces')
+                    })
+                })
+                })
+            }
+            else {
+                console.log('Not Sufficient Funds')
+                res.redirect('/provinces')
+            }
+        }).catch(console.error);
+    })
+})
+
+function checkBalanceLand(incost) {
+    return new Promise((resolve, reject) => {
+        let cost=incost;
+        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
+            resolve(rows.gold >= cost)
+        })
+    })
+}
 
 router.post('/buyImprovement', urlencodedParser, function(req,res) {
     let name = req.body.provinceName;
@@ -352,5 +408,6 @@ function checkBalanceImp(costArray) {
         })
     })
 }
+
 
 module.exports = router;

@@ -53,11 +53,12 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 const kingdomRoute = require('./routes/kingdomRoute.js')
 const militaryRoute = require('./routes/militaryRoute.js')
 const provinceRoute = require('./routes/provinceRoute.js')
-
+const revenueRoute = require('./routes/revenueRoute.js')
 
 app.use(kingdomRoute)
 app.use(militaryRoute)
 app.use(provinceRoute)
+app.use(revenueRoute)
 
 
 
