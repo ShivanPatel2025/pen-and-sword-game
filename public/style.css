@@ -1,4 +1,4 @@
-*{
+/* *{
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -73,7 +73,7 @@ a{
     top:10em;
     align-items: center;
     
-}
+} */
 .resources{
     
     background-color: #282828;
@@ -236,4 +236,264 @@ header .pen_sword{
     display: block;
     text-align: center;
     height: 100px;
+}
+
+
+
+/* olala */
+
+body{
+    background-color: #171717;
+    font-family: 'Poppins';
+}
+form{
+    width:fit-content;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+form h2{
+    margin: 2em auto;
+    width: fit-content;
+}
+form.beta{
+    margin: 10% auto;
+}
+form.sign_up_form{
+
+    /* right: 10%;
+    top: 13%; */
+    grid-row: 2/4;
+    grid-column: 3/4;
+}
+form.sign_up_form h2{
+
+    margin: 1em auto;
+}
+
+
+
+.main_display{
+    display: grid;
+    grid-template-columns: 4fr 2fr 4fr;
+    grid-template-rows: 1fr 2fr auto;
+    position: absolute;
+    bottom:0;
+    left: 0;
+    
+}
+
+input{
+    border: none;
+    font-size: 30px;
+    line-height: 1;
+    background-color: #828282;
+    color: white;
+    font-family: 'Poppins';
+    align-items: center;
+    width: inherit;
+    margin: 0 1em;
+}
+input::placeholder{
+    height: 40px;
+    line-height: 45px;
+    font-size: 30px;
+}
+.small{
+    width: 10em;
+    display: inline-block;
+}
+
+i.fa{
+    height: 30px;
+    
+}
+.fa-lock{
+    color:whitesmoke;
+}
+.input{
+    
+    padding: .5em 1em;
+    border-radius: 49px;
+    background-color: #828282;
+    margin: 1em 0;
+    width: fit-content;
+}
+
+button{
+    width: fit-content;
+    margin-top: 3em;
+    background: none;
+    color: #EDC580;
+    font-family: 'Poppins';
+    font-weight: bold;
+    border-radius: 49px;
+    background-color:#0f0f0f;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    padding: .5em 3em;
+    cursor: pointer;
+   
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.3);
+}
+.create_kingdom{
+    margin-top: 2em;
+    
+}
+object.wave{
+    grid-column:1/4;
+    grid-row: 3/4;
+
+}
+
+.main_message{
+    grid-row: 2/3;
+    grid-column: 1/2;
+    margin-left: 2em;
+}
+.main_message h1{
+    text-transform: uppercase;
+    color: #EDC580;
+    font-style: italic;
+    font-size: 50px;
+    
+    /* position: absolute;
+    margin: 0;
+    bottom: 2.5%;
+    left: 2.5%; */
+    margin: 0;
+}
+.main_message h4{
+    text-align: right;
+    
+    font-size: 20px;
+    color: #828282;
+   
+}
+
+.main_message p{
+    color: whitesmoke;
+    
+}
+
+.wave_logo{
+    width: 40%;
+    grid-row:3/4;
+    grid-column: 1/2;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+.sign_in_btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.sign_in_btns h3{
+    width: fit-content;
+    height: fit-content;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    
+    color: #0f0f0f;
+    margin-top: 1em;
+    font-weight: bold;
+    border-radius: 49px;
+    background-color:#EDC580;
+    
+
+    font-size: 20px;
+    padding: .5em 3em;
+   
+
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.3);
+}
+
+.overlay_display{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: -100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: all cubic-bezier(0.38, 0.82, 0.6, 1) .5s;
+}
+.overlay_display form{
+    margin: 0 auto;
+    position: relative;
+    top: 20%;
+    right: 10em;
+    opacity: 0;
+    transition: all .6s;
+}
+.show_display{
+    top: 0;
+    opacity: 1;
+}
+.show_form{
+    opacity: 1 !important;
+    right: 0 !important;
+}
+
+
+.create_kingdom_display{
+    display: grid;
+    grid-template-columns: 4.5fr 2fr 4fr;
+    grid-template-rows: 1fr 5fr 1fr;
+
+}
+form.create_kingdom_form{
+   
+    grid-row: 2/3;
+    grid-column: 3/4;
+}
+
+.create_kingdom_message{
+
+    grid-row: 2/3;
+    grid-column: 1/2;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.create_kingdom_message h2{
+    font-size: 50px;
+    color: #EDC580;
+    margin: 1px 0;
+
+}
+.create_kingdom_message img{
+    width: 100%;
+}
+.create_kingdom_message p {
+    width: 80%;
+    text-align: center;
+    color: whitesmoke
+    
+}
+.create_kingdom_blob{
+    position: absolute;
+    z-index: -1;
+    width: 44%;
+    left: -8%;
+    top: -3%;
+}
+.create_kingdom_map{
+    position: relative;
+    width: 75%;
+    margin-top: 1em;
+}
+.create_kingdom_map img{
+    border-radius: 10px;
+}
+.create_kingdom_logo{
+    position: absolute;
+    bottom: 2%;
+    right: 0%;
+    width: 20% !important;
 }

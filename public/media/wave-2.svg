@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="url(#my-cool-gradient)" fill-opacity="0.75" d="M0,64L40,53.3C80,43,160,21,240,58.7C320,96,400,192,480,240C560,288,640,288,720,261.3C800,235,880,181,960,176C1040,171,1120,213,1200,240C1280,267,1360,277,1400,282.7L1440,288L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path>
+
+<linearGradient id="my-cool-gradient" x2="1" y2="1">
+    <stop offset="0%" stop-color="#0f0f0f" />
+    <stop offset="70%" stop-color="#171717" />
+    <stop offset="100%" stop-color="#171717" />
+  </linearGradient>
+</svg>

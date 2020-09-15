@@ -1,9 +1,28 @@
 doctype html
 head
-  link(rel='stylesheet' type='text/css' href='style.css')
-form.flex.col.register(action='kingdom-page' method='POST' name='test')
-  h1 create ur kingdom
-  input(name='kingdom' placeholder='Kingdom Name' type='text')
-  input(name='ruler' placeholder='Ruler Name' type='text')
-  input(name='region' placeholder='Region Name' type='text')
-  button(type='submit') Submit
+  script(src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous')
+  link(rel='stylesheet', href='style.css', text='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
+.create_kingdom_display
+  object.create_kingdom_blob(type='image/svg+xml', data='media/blob.svg')
+  .create_kingdom_message
+    h2 Now It&apos;s Your Turn
+    p
+      | Your people have spiraled into anarchy being rulerless for years on end. Now, it is your turn to seize the throne and bring order to your people. Introduce yourself, establish your kingdom, and claim the land upon which you rule
+    .create_kingdom_map
+      img(src='https://cdn.discordapp.com/attachments/516021816846712835/755521289195749476/world.jpg', alt='')
+  form.create_kingdom_form(action='/kingdom-page', method='POST')
+    h2 Create Your Kingdom
+    .input
+      label(for='kingdom')
+        i.fab.fa-fort-awesome.fa-2x
+      input#kingdom.small(placeholder='Kingdom Name', type='text')
+    .input
+      label(for='ruler')
+        i.fas.fa-crown.fa-2x
+      input#ruler.small(placeholder='Ruler Name', type='text')
+    .input
+      label(for='region')
+        i.fas.fa-globe-americas.fa-2x
+      input#region.small(placeholder='Region', type='text')
+    button(type='submit') Start Ruling

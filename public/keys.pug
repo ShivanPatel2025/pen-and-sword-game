@@ -1,8 +1,12 @@
 doctype html
 head
-  link(rel='stylesheet' type='text/css' href='style.css')
-form.flex.col.register(action='/home' method='POST' name='test')
-  h1 Confirm Your Access
-  input(name='key' placeholder='Beta Key' type='text')
-  button(type='submit') Submit
-  h2 By entering a key you ackowledge this site is in testing and is not secure. We are not liable for any damages resulting from accessing this site.
+  script(src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous')
+  link(rel='stylesheet', href='style.css', text='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
+form.beta(action='/home', method='POST')
+  h2 Enter Beta Access Key
+  .input
+    label(for='key')
+      i.fas.fa-lock.fa-2x
+    input#key.small(type='text')
+  button(type='submit') Validate Key
