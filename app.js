@@ -54,12 +54,13 @@ const kingdomRoute = require('./routes/kingdomRoute.js')
 const militaryRoute = require('./routes/militaryRoute.js')
 const provinceRoute = require('./routes/provinceRoute.js')
 const revenueRoute = require('./routes/revenueRoute.js')
+const guildRoute = require('./routes/guildRoute.js')
 
 app.use(kingdomRoute)
 app.use(militaryRoute)
 app.use(provinceRoute)
 app.use(revenueRoute)
-
+app.use(guildRoute)
 
 
 
@@ -260,4 +261,4 @@ app.get('/logout', urlencodedParser, function (req,res) {
     kingdom.html.getElementById('kingdomid').innerHTML = kingdomid;
   })*/
 
-  
+  //UPDATING SHIT EVERY TURN
