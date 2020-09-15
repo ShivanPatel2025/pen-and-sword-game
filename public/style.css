@@ -1,4 +1,4 @@
-/* *{
+ /* *{
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -30,7 +30,7 @@ form h1 {
 .register button{
     font-size: 15px;
     width: fit-content;
-}
+} */
 
 nav{
     justify-content: center;
@@ -73,7 +73,7 @@ a{
     top:10em;
     align-items: center;
     
-} */
+} 
 .resources{
     
     background-color: #282828;
