@@ -59,8 +59,8 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
       if (err) {
         console.log('error at 60')
       }
+      res.redirect('/guild');
     })
-    res.redirect('/guild');
   });
 })
 
