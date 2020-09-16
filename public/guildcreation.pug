@@ -1,0 +1,15 @@
+form.create_kingdom_form(action='/finish-guild-creation', method='POST')
+    h2 Create Your Guild
+    .input
+        label(for='guild')
+            i.fab.fa-fort-awesome.fa-2x
+        input#kingdom.small(placeholder='Guild Name', type='text' name='guild')
+    .input
+        label(for='type')
+            i.fas.fa-crown.fa-2x
+        input#ruler.small(placeholder='Guild Type', type='text' name='type')
+    .input
+        label(for='region')
+            i.fas.fa-globe-americas.fa-2x
+        input#region.small(placeholder='Region', type='text' name='region')
+    button(type='submit') Establish Guild

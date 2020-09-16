@@ -43,8 +43,8 @@ router.get('/guild', function(req,res) {
     })
 })
 
-router.post('/createGuild', urlencodedParser, function(req,res) {
-
+router.get('/create-guild', urlencodedParser, function(req,res) {
+  res.render('guildcreation')
 })
 
 module.exports = router;
