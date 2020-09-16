@@ -64,4 +64,19 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
   });
 })
 
+router.get('/join-guild', urlencodedParser, function(req,res) {
+  res.redirect('/guilds')
+})
+
+router.get('/guilds', function(req,res) {
+  let arrayofguilds =[];
+  db.each('SELECT * FROM guilds', function (err,rows) {
+    if (err) {
+      console.log('error at 75')
+    } else {
+      arrayofguilds.push(rows.guild)
+      res.render('guilds', {arrayofguilds})
+    }
+  })
+})
 module.exports = router;
