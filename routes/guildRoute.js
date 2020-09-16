@@ -59,8 +59,8 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
       if (err) {
         console.log('error at 60')
       }
-      res.redirect('/guild');
     })
+    res.redirect('/guild');
   });
 })
 
@@ -69,35 +69,50 @@ router.get('/join-guild', urlencodedParser, function(req,res) {
 })
 
 router.get('/guilds', function(req,res) {
-  let arrayofguilds =[];
-  db.each('SELECT * FROM guilds', function (err,rows) {
-    if (err) {
-      console.log('error at 75')
-    } else {
-      arrayofguilds.push(rows.guild)
-      res.render('guilds', {arrayofguilds})
-    }
+  let arrayofguilds = [];
+  db.serialize(()=>{
+  db.each('SELECT * FROM guilds', function (err, rows) {
+    console.log(rows.guild)
+    arrayofguilds.push(rows.guild)
   })
+  db.run("SELECT * FROM keys", function (err,row) {
+  console.log(arrayofguilds)
+  res.render('guilds', {arrayofguilds})
 })
+})
+})
+
 
 router.post('/joinspecificguild', urlencodedParser, function(req,res) {
   let guild = req.body.guild;
+  let membercount=0;
+  db.serialize(() => {
   db.run('UPDATE kingdoms SET guild=? WHERE id=?',[guild,sess.userid],function(err) {
     if(err) {
       console.log('err at 87');
     }
-    db.get('SELECT * FROM guilds WHERE guild = ?', guild, function(err,rows) {
-      if(err) {
-        console.log('err at 91')
-      }
-      let membercount = rows.membercount+1;
-      db.run('UPDATE guilds SET membercount=? WHERE guild =?',[membercount,guild], function(err){
-        if(err){
-          console.log('err at 96')
-        }
+    console.log('no err at 91');
+
+  })
+  db.get('SELECT * FROM guilds WHERE guild = ?', guild, function(err,rows) {
+    if(err) {
+      console.log('err at 91')
+    }
+    console.log('no err at 98');
+
+    membercount = Number(rows.membercount)+1;
+    console.log('newmembercount = '+membercount);
+    db.run('UPDATE guilds SET membercount= ? WHERE guild = ?',[membercount, guild], function(err){
+      if(err){
+        console.log('err at 104')
+      } else {
+        console.log('no err at 106');
+  
         res.redirect('/guild')
-      })
+      }
     })
   })
+  })
+
 })
 module.exports = router;
