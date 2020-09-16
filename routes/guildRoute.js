@@ -47,4 +47,21 @@ router.get('/create-guild', urlencodedParser, function(req,res) {
   res.render('guildcreation')
 })
 
+router.post('/finish-guild-creation', urlencodedParser, function(req,res){
+  let guild=req.body.guild;
+  let type = req.body.type;
+  let region = req.body.region;
+  db.run('INSERT INTO guilds VALUES(?,?,?,?)', [guild,1,region,type], function(err) {
+    if (err) {
+      console.log('error at line 56');
+    }
+    db.run('UPDATE kingdoms SET guild =? WHERE id = ?', [guild, sess.userid], function(err) {
+      if (err) {
+        console.log('error at 60')
+      }
+    })
+    res.redirect('/guild');
+  });
+})
+
 module.exports = router;
