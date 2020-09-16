@@ -79,4 +79,25 @@ router.get('/guilds', function(req,res) {
     }
   })
 })
+
+router.post('/joinspecificguild', urlencodedParser, function(req,res) {
+  let guild = req.body.guild;
+  db.run('UPDATE kingdoms SET guild=? WHERE id=?',[guild,sess.userid],function(err) {
+    if(err) {
+      console.log('err at 87');
+    }
+    db.get('SELECT * FROM guilds WHERE guild = ?', guild, function(err,rows) {
+      if(err) {
+        console.log('err at 91')
+      }
+      let membercount = rows.membercount+1;
+      db.run('UPDATE guilds SET membercount=? WHERE guild =?',[membercount,guild], function(err){
+        if(err){
+          console.log('err at 96')
+        }
+        res.redirect('/guild')
+      })
+    })
+  })
+})
 module.exports = router;

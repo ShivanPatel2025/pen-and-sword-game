@@ -1,2 +1,4 @@
 each guild in arrayofguilds
-    h2=guild
+    form(action='/joinspecificguild' method='POST' name='test')
+        input(name='guild' type = 'hidden' value= guild)
+        button(type='submit')= guild
