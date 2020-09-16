@@ -26,7 +26,19 @@ router.get('/guild', function(req,res) {
   let errormessage='bro ur not in a guild'
     db.get('SELECT * FROM kingdoms where id= ?', sess.userid, function(err,row) {
       if (!row.guild) {
-        res.render('guild', {errormessage})
+        res.render('noguild', {errormessage})
+      } else {
+        let playerGuild = row.guild;
+        db.get('SELECT * FROM guilds where guild = ?', playerGuild, function(err,rows) {
+          if (err) {
+            console.error(err.message);
+          } else {
+             let membercount=rows.membercount;
+             let region = rows.region;
+             let type= rows.type;
+             res.render('guild', {playerGuild, membercount, region, type})
+          }
+        })
       }
     })
 })
