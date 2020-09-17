@@ -83,6 +83,10 @@ router.get('/guilds', function(req,res) {
 })
 })
 
+router.get('/leave-guild', function(req,res) {
+  db.get('UPDATE kingdoms SET guild=?, position =? WHERE id =?', [ , , sess.userid])
+  res.redirect('/guild')
+})
 
 router.post('/joinspecificguild', urlencodedParser, function(req,res) {
   let guild = req.body.guild;
