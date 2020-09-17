@@ -29,6 +29,7 @@ router.get('/guild', function(req,res) {
         res.render('noguild', {errormessage})
       } else {
         let playerGuild = row.guild;
+        let position=row.position;
         db.get('SELECT * FROM guilds where guild = ?', playerGuild, function(err,rows) {
           if (err) {
             console.error(err.message);
@@ -36,7 +37,7 @@ router.get('/guild', function(req,res) {
              let membercount=rows.membercount;
              let region = rows.region;
              let type= rows.type;
-             res.render('guild', {playerGuild, membercount, region, type})
+             res.render('guild', {playerGuild, membercount, region, type,position})
           }
         })
       }
@@ -55,7 +56,7 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
     if (err) {
       console.log('error at line 56');
     }
-    db.run('UPDATE kingdoms SET guild =? WHERE id = ?', [guild, sess.userid], function(err) {
+    db.run('UPDATE kingdoms SET guild =?, position=? WHERE id = ?', [guild, "leader", sess.userid], function(err) {
       if (err) {
         console.log('error at 60')
       }
@@ -87,7 +88,7 @@ router.post('/joinspecificguild', urlencodedParser, function(req,res) {
   let guild = req.body.guild;
   let membercount=0;
   db.serialize(() => {
-  db.run('UPDATE kingdoms SET guild=? WHERE id=?',[guild,sess.userid],function(err) {
+  db.run('UPDATE kingdoms SET guild=?, position=? WHERE id=?',[guild,"member", sess.userid],function(err) {
     if(err) {
       console.log('err at 87');
     }
