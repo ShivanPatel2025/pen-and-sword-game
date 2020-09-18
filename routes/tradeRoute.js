@@ -44,4 +44,17 @@ router.get('/trade', function(req,res) {
     })
 })
 
+router.get('/createtrade', function(req,res) {
+    res.render('createtrade');
+})
+
+router.post('/createtrade', urlencodedParser, function(req,res) {
+    db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region) VALUES (?,?,?,?,?,?)', [sess.userid, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region], function(err) {
+        if(err) {
+            console.error(err.message);
+        }
+    })
+    res.redirect('/trade');
+})
+
 module.exports = router;
