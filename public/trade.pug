@@ -11,3 +11,7 @@ each trade in arrayOfObjectTrades
                                         span=trade.ppu
                                             span Region
                                                 span=trade.region
+    form(action='/accepttrade' method='POST' name='test')
+        input(name='tradeid' type = 'hidden' value= trade.id)
+        button(type='submit') Accept Trade
+

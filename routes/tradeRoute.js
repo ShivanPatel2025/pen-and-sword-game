@@ -27,6 +27,7 @@ router.get('/trade', function(req,res) {
     db.serialize(()=>{
         db.each(`SELECT * FROM trades`, function(err,rows) {
             let trade = {
+                id: rows.tradeid,
                 owner: rows.ownerid,
                 type: rows.type,
                 resource: rows.resource,
@@ -42,6 +43,59 @@ router.get('/trade', function(req,res) {
             res.render('trade', {arrayOfObjectTrades}) 
         })
     })
+})
+
+router.post('/accepttrade', urlencodedParser, function(req,res) {
+    console.log('49');
+    tradeid=req.body.tradeid;
+    let host;
+    let interacter = sess.userid;
+    let resource;
+    let amount;
+    let price;
+    let totalprice;
+    let type;
+    let region;
+    console.log('58')
+    db.get('SELECT* FROM trades WHERE tradeid=?',tradeid, function(err,rows) {
+        type=rows.type;
+        host = rows.ownerid;
+        resource=rows.resource;
+        amount=rows.amount;
+        price=rows.price;
+        totalprice=amount*price;
+        region=rows.region;
+        console.log('67')
+        if (type =='sell') {
+            //check if buyer (current user) has money
+            console.log('70')
+            db.get('SELECT * FROM resources WHERE id=?', interacter, function(err,row) {
+                let buyersGold=row.gold;
+                let buyersNewResourceCount=Number(row[resource])+amount;
+                let buyersNewGoldCount=buyersGold-totalprice;
+                if(buyersGold>=price) {
+                    //check if seller has resources
+                    db.get('SELECT * FROM resources WHERE id=?',host, function(err,ro) {
+                        let sellersRss=ro[resource];
+                        let sellersNewResourceCount=sellersRss-amount;
+                        let sellersNewGoldCount=ro.gold+totalprice;
+                        if(sellersRss>=amount) {
+                            db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`, [buyersNewResourceCount,buyersNewGoldCount, interacter])
+                            console.log("buyers shit has been updated");
+                            db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`,[sellersNewResourceCount,sellersNewGoldCount, host])
+                            console.log("sellers shit has been updated")
+                        } else {
+                            console.log("seler dont have rss")
+                        }
+                    })
+                } else {
+                    console.log("buyer does not have sufficient funds")
+                }
+            }
+
+            )
+        }
+    })    
 })
 
 router.get('/createtrade', function(req,res) {
