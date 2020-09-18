@@ -55,12 +55,15 @@ const militaryRoute = require('./routes/militaryRoute.js')
 const provinceRoute = require('./routes/provinceRoute.js')
 const revenueRoute = require('./routes/revenueRoute.js')
 const guildRoute = require('./routes/guildRoute.js')
+const tradeRoute = require('./routes/tradeRoute.js')
+
 
 app.use(kingdomRoute)
 app.use(militaryRoute)
 app.use(provinceRoute)
 app.use(revenueRoute)
 app.use(guildRoute)
+app.use(tradeRoute)
 
 
 
