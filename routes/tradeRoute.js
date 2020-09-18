@@ -94,6 +94,32 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
             }
 
             )
+        } if(type=='buy') {
+            //check if buyer (owner of trade) has money
+            db.get('SELECT * FROM resources WHERE id=?', host, function(err,row) {
+                let buyersGold=row.gold;
+                let buyersNewResourceCount=Number(row[resource])+amount;
+                let buyersNewGoldCount=buyersGold-totalprice;
+                if(buyersGold>=price) {
+                    //check if seller has resources
+                    db.get('SELECT * FROM resources WHERE id=?',interacter, function(err,ro) {
+                        let sellersRss=ro[resource];
+                        let sellersNewResourceCount=sellersRss-amount;
+                        let sellersNewGoldCount=ro.gold+totalprice;
+                        if(sellersRss>=amount) {
+                            db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`, [buyersNewResourceCount,buyersNewGoldCount, host])
+                            console.log("buyers shit has been updated");
+                            db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`,[sellersNewResourceCount,sellersNewGoldCount, interacter])
+                            console.log("sellers shit has been updated")
+                        } else {
+                            console.log("seler dont have rss")
+                        }
+                    })
+                } else {
+                    console.log("buyer does not have sufficient funds")
+                }
+            }
+            )
         }
     })    
 })
