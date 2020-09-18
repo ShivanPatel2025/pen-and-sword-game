@@ -33,7 +33,7 @@ router.get('/trade', function(req,res) {
                 resource: rows.resource,
                 amount: rows.amount,
                 ppu: rows.price,
-                region: rows.region
+               region: rows.region
             }
             console.log(trade);
             arrayOfObjectTrades.push(trade);
@@ -84,6 +84,11 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
                             console.log("buyers shit has been updated");
                             db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`,[sellersNewResourceCount,sellersNewGoldCount, host])
                             console.log("sellers shit has been updated")
+                            db.run('DELETE from trades WHERE tradeid=?',tradeid, function(err) {
+                                if (err) {
+                                    console.err(error.message);
+                                }
+                            })
                         } else {
                             console.log("seler dont have rss")
                         }
@@ -111,6 +116,11 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
                             console.log("buyers shit has been updated");
                             db.run(`UPDATE resources SET ${resource}=?, gold=? WHERE id=?`,[sellersNewResourceCount,sellersNewGoldCount, interacter])
                             console.log("sellers shit has been updated")
+                            db.run('DELETE from trades WHERE tradeid=?',tradeid, function(err) {
+                                if (err) {
+                                    console.err(error.message);
+                                }
+                            })
                         } else {
                             console.log("seler dont have rss")
                         }
@@ -137,4 +147,4 @@ router.post('/createtrade', urlencodedParser, function(req,res) {
     res.redirect('/trade');
 })
 
-module.exports = router;
+module.exports = router; 
