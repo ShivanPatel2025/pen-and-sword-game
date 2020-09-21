@@ -25,7 +25,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/trade', function(req,res) {
     let arrayOfObjectTrades =[]; 
     db.serialize(()=>{
-        db.each(`SELECT * FROM trades`, function(err,rows) {
+        db.each(`SELECT * FROM trades WHERE scope=?`,'global', function(err,rows) {
             let trade = {
                 id: rows.tradeid,
                 owner: rows.ownerid,
@@ -41,6 +41,40 @@ router.get('/trade', function(req,res) {
         db.get('SELECT * FROM kingdoms WHERE id=?', sess.userid, function(err,rows) {
             console.log(arrayOfObjectTrades);
             res.render('trade', {arrayOfObjectTrades}) 
+        })
+    })
+})
+
+router.get('/mytrades', function(req,res) {
+    let arrayOfObjectTrades =[]; 
+    let kingdom;
+    db.serialize(()=>{
+        db.get('SELECT * FROM kingdoms WHERE id=?',sess.userid, function(err,rows) {
+            kingdom=rows.kingdom;
+            console.log(kingdom);
+            db.each(`SELECT * FROM trades WHERE scope=? AND recepient=?`,['personal', kingdom] , function(err,rows) {
+                if(err) {
+                    console.error(err.message);
+                }
+                console.log(kingdom);
+                console.log(rows);
+                let trade = {
+                    id: rows.tradeid,
+                    owner: rows.ownerid,
+                    type: rows.type,
+                    resource: rows.resource,
+                    amount: rows.amount,
+                    ppu: rows.price,
+                   region: rows.region
+                }
+                console.log(trade);
+                arrayOfObjectTrades.push(trade);
+                console.log(arrayOfObjectTrades)
+            })
+        })
+        db.get('SELECT * FROM kingdoms WHERE id=?', sess.userid, function(err,rows) {
+            console.log(arrayOfObjectTrades);
+            res.render('mytrades', {arrayOfObjectTrades}) 
         })
     })
 })
@@ -99,6 +133,7 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
             }
 
             )
+        res.redirect('/trade')
         } if(type=='buy') {
             //check if buyer (owner of trade) has money
             db.get('SELECT * FROM resources WHERE id=?', host, function(err,row) {
@@ -130,6 +165,7 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
                 }
             }
             )
+        res.redirect('/trade')
         }
     })    
 })
@@ -139,7 +175,7 @@ router.get('/createtrade', function(req,res) {
 })
 
 router.post('/createtrade', urlencodedParser, function(req,res) {
-    db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region) VALUES (?,?,?,?,?,?)', [sess.userid, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region], function(err) {
+    db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region, scope, recepient) VALUES (?,?,?,?,?,?,?,?)', [sess.userid, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region, req.body.scope, req.body.recepient], function(err) {
         if(err) {
             console.error(err.message);
         }

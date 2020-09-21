@@ -1,0 +1,16 @@
+each trade in arrayOfObjectTrades
+    h2 Owner
+        span=trade.owner
+            span Type
+                span=trade.type
+                    span Resource
+                        span=trade.resource
+                            span Amount
+                                span=trade.amount
+                                    span PPU
+                                        span=trade.ppu
+                                            span Region
+                                                span=trade.region
+    form(action='/accepttrade' method='POST' name='test')
+        input(name='tradeid' type = 'hidden' value= trade.id)
+        button(type='submit') Accept Trade

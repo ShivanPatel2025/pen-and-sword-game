@@ -189,7 +189,6 @@ router.get('/kingdom',urlencodedParser,function(req,res){
                                       founded:founded, 
                                       arrayOfTitles:titles});
     })
-    
   })
 })
 

@@ -20,4 +20,12 @@ form.create_kingdom_form(action='/createtrade', method='POST')
         label(for='region')
             i.fas.fa-globe-americas.fa-2x
         input#region.small(placeholder='Region', type='text' name='region')
+    .input
+        label(for='scope')
+            i.fas.fa-globe-americas.fa-2x
+        input#region.small(placeholder='global/guild/personal', type='text' name='scope')
+    .input
+        label(for='recepient')
+            i.fas.fa-globe-americas.fa-2x
+        input#region.small(placeholder='kingdom name', type='text' name='recepient')
     button(type='submit') Post Offer
