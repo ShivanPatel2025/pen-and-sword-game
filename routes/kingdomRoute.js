@@ -27,7 +27,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
   let gold,mana,flora,fauna,ore,silver,iron,bronze,steel;
   
 
-  let titles = ["POLICIES",  "MILITARY", "PROVINCES",  "WONDERS"]
+  let titles = ["Policies",  "Military", "Provinces",  "Wonders", "C0nflicts", "!nternal Activity"]
   db.serialize(()=> {
     
     db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
@@ -212,7 +212,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
                                       siege: [catapult,trebuchet,cannon],
                                       policyStats : [government,economy,war], 
                                       provinceStats: arrayOfProvinces, 
-                                      wonders: arrayOfWonders,  
+                                      wonderStats: arrayOfWonders,  
                                       kingdomStats: [gold,mana,flora,fauna,lumber,food,ore,silver,iron,bronze,steel], 
                                       kingdom: kingdom, 
                                       ruler: ruler, 

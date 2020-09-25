@@ -29,7 +29,7 @@ nav
               h2= title
               .overflow_scroll
                   .card_content
-                      if title == "POLICIES"
+                      if title == "Policies"
                           each policy in policyStats
                               h3= policy.title
                                   span.card_info 
@@ -38,7 +38,7 @@ nav
                               each value,key in policy.values
                                   h4= key 
                                       span.player_info= value
-                      else if title == "MILITARY"
+                      else if title == "Military"
                           h3 Ground
                               i.far.fa-question-circle
                           each troop in ground
@@ -46,17 +46,17 @@ nav
                                   span.player_info= troop.value
                           h3 Air
                               i.far.fa-question-circle
-                          each troop in ground
+                          each troop in air
                               h4= troop.name
                                   span.player_info= troop.value
                           h3 Sea
                               i.far.fa-question-circle
-                          each troop in ground
+                          each troop in sea
                               h4= troop.name
                                   span.player_info= troop.value
                           h3 Siege
                               i.far.fa-question-circle
-                          each troop in ground
+                          each troop in siege
                               h4= troop.name
                                   span.player_info= troop.value
                       else if title == "Provinces"
