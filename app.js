@@ -170,7 +170,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //WONDERS
-    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [sess.userid,"Pyramids",'Eiffel Tower','Stone Henge'], function (err) {
+    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [sess.userid,"0",'0','0'], function (err) {
       if (err) {
         return console.error(err.message);
       }

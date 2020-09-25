@@ -106,28 +106,59 @@ router.get('/kingdom',urlencodedParser,function(req,res){
     }) 
     db.get(`SELECT * from Policies WHERE id = ?`, sess.userid, function(err,rows) {
       government = {
-        'name': 'Government',
-        'value': rows.government
+        'title': 'Government',
+        'name': rows.government,
+        'values': {happiness:2,stability:3}
       } 
       economy = {
-        'name': 'Economy',
-        'value': rows.economy
+        'title': 'Economy',
+        'name': rows.economy,
+        'values': {happiness:2,stability:3}
       } 
       war = {
-        'name': 'War Strategy',
-        'value': rows.war
+        'title': 'War Strategy',
+        'name': rows.war,
+        'values': {happiness:2,stability:3}
       } 
 
-
     })
-    db.get(`SELECT * from provinces WHERE id = ?`, sess.userid, function(err,rows) {
-      provinces = rows;
+    let arrayOfProvinces=[];
+    db.each(`SELECT * from provinces WHERE userid = ?`, sess.userid, function(err,rows) {
+      provinces = {
+        name: rows.name,
+        values : {
+          territory: rows.land,
+          happiness: rows.happiness,
+          gold: 1
+        }
+      }
+      console.log(provinces)
+      console.log(arrayOfProvinces)
+      arrayOfProvinces.push(provinces)
     })
+    let arrayOfWonders=[];
     db.get(`SELECT * from wonders WHERE id = ?`, sess.userid, function(err,rows) {
-      wonders = rows;
-
-
-
+      if (rows.eiffel_tower=='1'){
+        wonders =  {
+          name: 'Eiffel Tower',
+          values : "This is Eiffel Tower"
+        }
+        arrayOfWonders.push(wonders)
+      }
+      if (rows.pyramids=='1'){
+        wonders =  {
+          name: 'Pyramids',
+          values : "This is Pyramid"
+        }
+        arrayOfWonders.push(wonders)
+      }
+      if (rows.stone_henge=='1'){
+        wonders =  {
+          name: 'Stone Henge',
+          values : "This is Stonge Henge"
+        }
+        arrayOfWonders.push(wonders)
+      }
     })
     db.get(`SELECT * from resources WHERE id = ?`, sess.userid, function(err,rows) {
           gold= {
@@ -180,8 +211,8 @@ router.get('/kingdom',urlencodedParser,function(req,res){
                                       sea: [galley,pirate,sea_serpent],
                                       siege: [catapult,trebuchet,cannon],
                                       policyStats : [government,economy,war], 
-                                      //provinceStats:provinces, 
-                                      wonderStats: wonders,  
+                                      provinceStats: arrayOfProvinces, 
+                                      wonders: arrayOfWonders,  
                                       kingdomStats: [gold,mana,flora,fauna,lumber,food,ore,silver,iron,bronze,steel], 
                                       kingdom: kingdom, 
                                       ruler: ruler, 
