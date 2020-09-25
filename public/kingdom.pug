@@ -1,74 +1,95 @@
 doctype html
 head
-  link(rel='stylesheet' type='text/css' href='style.css')
-nav.flex
-  .nav_contents.flex
-    a(href='/home')
-      span HOME
-    a(href='/provinces')
-      span PROVINCES
-    a(href='/revenue')
-      span REVENUE
-    a(href='/research')
-      span RESEARCH
-    a(href='/military')
-      span MILITARY
-    a(href='/guild')
-      span GUILD
+  link(rel='stylesheet' href='./style.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+nav
+  img.logo(src='https://cdn.discordapp.com/attachments/577269190835044362/723302943130124328/Text_Logo_1_24_50.png' alt='')
+  .menu
+    h3 Menu
+    .menu_bars
+      i
+      i
+      i
+.info
+.kingdom_display
+  .kingdom_banner
+    img.kingdom_image_banner(src='https://cdn.discordapp.com/attachments/578016552071462912/723679861692039238/town.png' alt='')
+    h2 Kingdom of
+    h1= kingdom
+    h3= "Ruled by: " 
+        span.player_info= ruler
+    h3 = "Circa: "
+      span.player_info= founded
+    p
+      | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur, est maximus fermentum scelerisque, enim sem viverra ante, id interdum quam diam vel quam. Curabitur mauris metus, porttitor in dignissim sed, sollicitudin sit amet ipsum. Sed a ex nec libero aliquet tempus. Fusce sagittis elementum erat quis condimentum. Aenean iaculis dignissim pellentesque. Ut suscipit mattis rhoncus.
+    .kingdom_information
 
-    .sign.flex
-      a(href='/logout')
-        span LOGOUT
-.main.flex.col
-  h2 The Kingdom of
-  h1= kingdom
-  h3= 'Ruled by: '+ ruler
-  h4= 'Circa:' + founded
+        each title in arrrayOfTitles
+            .information_card
+                h2 title
+                .overflow_scroll
+                    .card_content
+                        if title == "POLICIES"
+                            each policy in policyStats
+                                h3= policy.title
+                                    span.card_info 
+                                        span.policy= policy.name
+                                        i.far.fa-question-circle
+                                each value,key in policy.values
+                                    h4= key 
+                                        span.player_info= value
+                        else if title == "MILITARY"
+                            h3 Ground
+                                i.far.fa-question-circle
+                            each troop in ground
+                                h4= troop.name
+                                    span.player_info= troop.value
+                            h3 Air
+                                i.far.fa-question-circle
+                            each troop in ground
+                                h4= troop.name
+                                    span.player_info= troop.value
+                            h3 Sea
+                                i.far.fa-question-circle
+                            each troop in ground
+                                h4= troop.name
+                                    span.player_info= troop.value
+                            h3 Siege
+                                i.far.fa-question-circle
+                            each troop in ground
+                                h4= troop.name
+                                    span.player_info= troop.value
+                        else if title == "Provinces"
+                            each province in provinceStats 
+                                h3= province.name
+                                    i.far.fa-question-circle
+                                each value,key in province.values  
+                                    h4= key 
+                                        span.player_info= value
 
-  p= kingdomInfo + "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+                        else if title =="Wonders"
+                            each wonder in wonderStats
+                                h3= wonder.name 
+                                    i.far.fa-question-circle
+                                each value,key in wonder.values
+                                    h4= key 
+                                        span.player_info= value
+                        else if title == "Conflicts"
+                            each conflict in conflictStats  
+                                h3= conflict.name   
+                                    i.far.fa-question-circle
+                        else if title == "Internal Activity"
+                            each activity in internalActivityStats  
+                                h3= activity.name
+                                    i.far.fa-question-circle
 
 
+                
+   
+    
   
-
-  .kingdom_card_container.flex
-    each title in arrayOfTitles
-      .kingdom_card.flex.col
-        h2= title
-        if title == "POLICIES"
-          each policy in policyStats
-            h4= policy.name
-            h3= policy.value
-        else if title == "MILITARY"
-          h4 GROUND
-          each troop in ground 
-            h3= troop.name + "           " 
-              span= troop.value
-          h4 AIR
-          each troop in air
-            h3= troop.name + " "
-              span=troop.value
-          h4 SEA
-          each troop in sea
-            h3= troop.name +' '
-              span= troop.value
-          h4 SIEGE
-          each troop in siege
-            h3= troop.name
-              span= troop.value
-        else if title == "WONDERS"
-          each val,key in wonderStats 
-            h3= key + " oo " + val
-        //- else if title == "PROVINCES"
-        //-   each val,key in provinceStats 
-        //-     h3= key + " oo " + val
-      
-
-
-  .resources.flex.col
-    .resources_row.flex
-      each item in kingdomStats
-        span.flex= item.value
-          img(src = `./media/${item.name}.png`)
-      
-
-  
+    .resource_bar
+        each item in kingdomStats
+            span= item.value
+                img(src = `./media/${item.name}.png`)

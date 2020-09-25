@@ -32,34 +32,53 @@ form h1 {
     width: fit-content;
 } */
 
+
+/* nav */
 nav{
-    justify-content: center;
-    align-items: center;
-    height: 60;
-    background-color: #282828;
     position: fixed;
-    top: 6em;
+    /* display: flex;
+    align-items: center; */
+    top: 0em;
     left: 0;
+    height: 70px;
     width: 100%;
-    box-shadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #0f0f0f;
+    z-index: 2;
+    box-shadow:  0 4px 20px -1px rgba(0, 0, 0, 0.3);
 
 }
-nav span{
-    color:#EDC580;
-    background-image: linear-gradient(#e7e7e7, #EDC580);
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 5%;
-    transition: all .25s;
+nav img{
+    width: 20%;
+    margin: 0 auto;
+    display: block;
 }
-nav span:hover{
-    background-size: 100% 5%
+.menu h3{
+    margin: 10px 0;
 }
-
-.nav_contents{
-    width: 90%;
+.menu{
+    color: #EDC580;
+    display: flex;
+    align-items: center;
+    width: 7em;
+    top: .5em;
+    right: 1em;
     justify-content: space-between;
+    position: absolute;
+    cursor: pointer;
 }
+
+.menu_bars i{
+    background-color: #EDC580;
+    height: 5px;
+    width: 50px;
+    margin: 8px 0;
+    display: block;
+
+
+}
+
+/* nav */
+
 .sign{
     justify-content: space-between;
     width: 20%;
@@ -74,31 +93,6 @@ a{
     align-items: center;
     
 } 
-.resources{
-    
-    background-color: #282828;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-
-}
-
-.resources_row{
-    justify-content: space-around;
-    align-items: center;
-   
-    width: 100%;
-
-}
-.resources span{
-    color :#EDC580;
-    align-items: center
-}
-.resources img{
-    width: 30px;
-    height: 30px;
-}
 
 .kingdom_card{
     width: 30%;
@@ -497,3 +491,250 @@ form.create_kingdom_form{
     right: 0%;
     width: 20% !important;
 }
+
+/* kingdom page */
+.kingdom_display{
+    position: relative;
+    top: 5em;
+}
+.kingdom_banner{
+    display: flex;
+    flex-direction: column;
+    color: whitesmoke;
+    align-items: center;
+    height: 29em;
+    width: 75%;
+    margin: 0 auto;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 18px 5px rgba(0, 0, 0, 0.3);
+
+}
+img.kingdom_image_banner{
+    position: absolute;
+    opacity: .3;
+    z-index: -1;
+    top: -3em;
+}
+.kingdom_banner h1{
+    margin: .1em 0;
+    font-size: 60px;
+}
+.kingdom_banner h2{
+    margin: .05em 0;
+    font-size: 25px;
+    font-weight: 400;
+}
+.kingdom_banner h3{
+    margin: .25em 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+.kingdom_banner p{
+    width: 70%;
+    text-align: center;
+}
+.player_info{
+    font-weight: 700 !important;
+}
+.kingdom_information{
+    display:flex;
+    justify-content: space-evenly;
+    
+    width: 75%;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    margin-bottom: 200px;
+    
+}
+.information_card{
+    background-color: #0f0f0f;
+    width: 25%;
+    color: whitesmoke;
+    padding: 1em;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    box-shadow:  0 4px 20px -1px rgba(0, 0, 0, 0.3);
+    margin-top: 2em;
+    height: 20em;
+    
+}
+
+.overflow_scroll{
+    overflow-y: scroll;
+}
+.information_card h2{
+    margin: 0 auto;
+    margin-bottom: .25em;
+    margin-top: .1em;
+}
+.information_card h3{
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    margin: .5em 0;
+}
+.information_card h3 i{
+    color: #EDC580;
+}
+.information_card h3:last-of-type{
+    padding-bottom: .1em;
+}
+.information_card h4{
+    position: relative;
+    left: 10%;
+    width: 90%;
+    font-weight: 400;
+    margin: 0;
+    color: #828282;
+    display: flex;
+    justify-content: space-between;
+}
+.policy{
+    font-weight: 400;
+}
+
+/* Resource Bar */
+
+.resources{
+    
+   
+
+}
+
+.resources_row{
+    justify-content: space-around;
+    align-items: center;
+   
+    width: 100%;
+
+}
+.resource_bar span{
+    color :#EDC580;
+    align-items: center;
+    display: flex;
+    
+}
+.resources_bar img{
+    width: 30px;
+    height: 30px;
+}
+
+.resource_bar{
+    background-color: #282828;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-around;
+
+}
+/* Resource Bar */
+
+/* Policy Selection */
+.policy_selection_display section{
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+    width: 70%;
+}
+.show{
+    display: flex !important;
+    justify-content: space-between;
+
+}
+.active{
+    opacity: 1 !important;
+}
+.policy_selection_display form{
+
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 4em;
+    width: 100%;
+    height: 24.5em;
+
+}
+.cycle{
+    margin: 0 auto;
+    margin-top: 3em;
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+.next,.back{
+   
+    cursor: pointer;
+    color: #edc580;
+}
+.policy_selection_display input[type="radio"]{
+    display:none;
+}
+.policy_selection_display label{
+    position: relative;
+    color: #EDC580;
+    font-size: 20px;
+    padding: .3em;
+    border: #EDC580 2px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: all .5s;
+
+}
+.policy_selection_display label::before{
+    content: "";
+    
+    height: 30px;
+    width: 30px;
+    border: 2px #EDC580 solid;
+    border-radius: 50%;
+    margin: 0 .25em;
+    transition: all .5s;
+
+
+}
+.policy_selection_display input[type="radio"]:checked + label{
+    background-color: #EDC580;
+    color: #0f0f0f;
+}
+
+.policy_selection_display input[type="radio"]:checked + label::before{
+    height: 16px;
+    width: 16px;
+    border: 10px #0f0f0f solid;
+}
+.policy_selection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0f0f0f;
+    padding: 1em;
+    min-width: 12em;
+    max-width: 13em;
+    min-height: 18em;
+
+
+    border-radius: 10px;
+    box-shadow:  0 4px 20px -1px rgba(0, 0, 0, 0.3);
+
+}
+.policy_selection h4{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+}
+.policy_selection_submit{
+    opacity: 0;
+    display: none;
+    transition: opacity .5s;
+}
+
