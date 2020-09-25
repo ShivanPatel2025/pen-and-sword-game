@@ -23,72 +23,72 @@ nav
       span.player_info= founded
     p
       | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur, est maximus fermentum scelerisque, enim sem viverra ante, id interdum quam diam vel quam. Curabitur mauris metus, porttitor in dignissim sed, sollicitudin sit amet ipsum. Sed a ex nec libero aliquet tempus. Fusce sagittis elementum erat quis condimentum. Aenean iaculis dignissim pellentesque. Ut suscipit mattis rhoncus.
-    .kingdom_information
-        each title in arrayOfTitles
-            .information_card
-                h2 title
-                .overflow_scroll
-                    .card_content
-                        if title == "POLICIES"
-                            each policy in policyStats
-                                h3= policy.title
-                                    span.card_info 
-                                        span.policy= policy.name
-                                        i.far.fa-question-circle
-                                each value,key in policy.values
-                                    h4= key 
-                                        span.player_info= value
-                        else if title == "MILITARY"
-                            h3 Ground
-                                i.far.fa-question-circle
-                            each troop in ground
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Air
-                                i.far.fa-question-circle
-                            each troop in ground
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Sea
-                                i.far.fa-question-circle
-                            each troop in ground
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Siege
-                                i.far.fa-question-circle
-                            each troop in ground
-                                h4= troop.name
-                                    span.player_info= troop.value
-                        else if title == "Provinces"
-                            each province in provinceStats 
-                                h3= province.name
-                                    i.far.fa-question-circle
-                                each value,key in province.values  
-                                    h4= key 
-                                        span.player_info= value
+  .kingdom_information
+      each title in arrayOfTitles
+          .information_card
+              h2= title
+              .overflow_scroll
+                  .card_content
+                      if title == "POLICIES"
+                          each policy in policyStats
+                              h3= policy.title
+                                  span.card_info 
+                                      span.policy= policy.name
+                                      i.far.fa-question-circle
+                              each value,key in policy.values
+                                  h4= key 
+                                      span.player_info= value
+                      else if title == "MILITARY"
+                          h3 Ground
+                              i.far.fa-question-circle
+                          each troop in ground
+                              h4= troop.name
+                                  span.player_info= troop.value
+                          h3 Air
+                              i.far.fa-question-circle
+                          each troop in ground
+                              h4= troop.name
+                                  span.player_info= troop.value
+                          h3 Sea
+                              i.far.fa-question-circle
+                          each troop in ground
+                              h4= troop.name
+                                  span.player_info= troop.value
+                          h3 Siege
+                              i.far.fa-question-circle
+                          each troop in ground
+                              h4= troop.name
+                                  span.player_info= troop.value
+                      else if title == "Provinces"
+                          each province in provinceStats 
+                              h3= province.name
+                                  i.far.fa-question-circle
+                              each value,key in province.values  
+                                  h4= key 
+                                      span.player_info= value
 
-                        else if title =="Wonders"
-                            each wonder in wonderStats
-                                h3= wonder.name 
-                                    i.far.fa-question-circle
-                                each value,key in wonder.values
-                                    h4= key 
-                                        span.player_info= value
-                        else if title == "Conflicts"
-                            each conflict in conflictStats  
-                                h3= conflict.name   
-                                    i.far.fa-question-circle
-                        else if title == "Internal Activity"
-                            each activity in internalActivityStats  
-                                h3= activity.name
-                                    i.far.fa-question-circle
+                      else if title == "Wonders"
+                          each wonder in wonderStats
+                              h3= wonder.name 
+                                  i.far.fa-question-circle
+                              each value,key in wonder.values
+                                  h4= key 
+                                      span.player_info= value
+                      else if title == "Conflicts"
+                          each conflict in conflictStats  
+                              h3= conflict.name   
+                                  i.far.fa-question-circle
+                      else if title == "Internal Activity"
+                          each activity in internalActivityStats  
+                              h3= activity.name
+                                  i.far.fa-question-circle
 
 
-                
-   
-    
+              
   
-    .resource_bar
-        each item in kingdomStats
-            span= item.value
-                img(src = `./media/${item.name}.png`)
+  
+
+  .resource_bar
+      each item in kingdomStats
+          span= item.value
+              img(src = `./media/${item.name}.png`)
