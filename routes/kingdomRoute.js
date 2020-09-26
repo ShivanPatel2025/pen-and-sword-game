@@ -4,7 +4,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
-const session = require('express-session');
+//const session = require('express-session');
+var session = require('client-sessions');
+
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 const router = express.Router()
@@ -20,7 +22,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 router.get('/kingdom',urlencodedParser,function(req,res){
-  console.log(req.session.userid)
+  console.log(sess.userid)
   let kingdom,ruler,region;
   let warrior,archer,cavalry,blacksmith,priest,mage,blimp,harpy,angel,dragon,galley,pirate,sea_serpent,catapult,trebuchet,cannon;
   let government, economy, war; 
@@ -31,17 +33,17 @@ router.get('/kingdom',urlencodedParser,function(req,res){
   let titles = ["Policies",  "Military", "Provinces",  "Wonders", "C0nflicts", "!nternal Activity"]
   db.serialize(()=> {
     
-    db.get(`SELECT * FROM kingdoms WHERE id = ?`, req.session.userid, function(err,rows) {
+    db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
       kingdom = rows.kingdom;
       ruler = rows.ruler;
       region=rows.region;
       founded=rows.date;
     })
-    db.get(`SELECT * FROM military WHERE id = ?`, req.session.userid, function(err,rows) {
+    db.get(`SELECT * FROM military WHERE id = ?`, sess.userid, function(err,rows) {
       warrior = {
         'name': 'Warriors',
         'value': rows.warriors,
-        //'type' : 'Ground'
+        'type' : 'Ground'
       } 
       archer = {
         'name': 'Archers',
@@ -105,7 +107,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
       }
       
     }) 
-    db.get(`SELECT * from Policies WHERE id = ?`, req.session.userid, function(err,rows) {
+    db.get(`SELECT * from Policies WHERE id = ?`, sess.userid, function(err,rows) {
       government = {
         'title': 'Govt',
         'name': rows.government,
@@ -124,7 +126,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
 
     })
     let arrayOfProvinces=[];
-    db.each(`SELECT * from provinces WHERE userid = ?`, req.session.userid, function(err,rows) {
+    db.each(`SELECT * from provinces WHERE userid = ?`, sess.userid, function(err,rows) {
       provinces = {
         name: rows.name,
         values : {
@@ -138,7 +140,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
       arrayOfProvinces.push(provinces)
     })
     let arrayOfWonders=[];
-    db.get(`SELECT * from wonders WHERE id = ?`, req.session.userid, function(err,rows) {
+    db.get(`SELECT * from wonders WHERE id = ?`, sess.userid, function(err,rows) {
       if (rows.eiffel_tower=='1'){
         wonders =  {
           name: 'Eiffel Tower',
@@ -161,7 +163,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
         arrayOfWonders.push(wonders)
       }
     })
-    db.get(`SELECT * from resources WHERE id = ?`, req.session.userid, function(err,rows) {
+    db.get(`SELECT * from resources WHERE id = ?`, sess.userid, function(err,rows) {
           gold= {
             'name': 'gold',
             'value': rows.gold
@@ -206,7 +208,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
             'name': 'steel',
             'value': rows.steel
           } 
-              res.render('kingdom', { kingdomInfo: req.session.userid, 
+              res.render('kingdom', { kingdomInfo: sess.userid, 
                                       ground: [warrior,archer,cavalry,blacksmith,priest,mage], 
                                       air: [blimp,harpy,angel,dragon],
                                       sea: [galley,pirate,sea_serpent],

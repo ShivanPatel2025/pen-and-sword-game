@@ -5,9 +5,10 @@ const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
-const redis = require('redis');
-const redisStore = require('connect-redis')(session);
-const client  = redis.createClient();
+// var session = require('client-sessions');
+// const redis = require('redis');
+// const redisStore = require('connect-redis')(session);
+// const client  = redis.createClient();
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 
@@ -31,19 +32,9 @@ app.use(express.static("functions"));
 app.use(express.static("public"));
 app.use(bodyParser.json());      
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(session({
-  name: SESS_NAME,
-  store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
-  resave: false,
-  saveUninitialized: false,
-  secret: SESS_SECRET,
-  cookie: {
-    maxAge: 1000000000000,
-    sameSITE: true,
-    secure: true
-  }
+app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));
 
-}));
+
 //SQLITE
 var sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./pns.db', (err) => {
@@ -133,10 +124,10 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     //console.log(rows);
     realid=rows.id;
-    req.session.userid=realid;
+    sess.userid=realid;
     //test sess.userid = realid;
     console.log("Session created. Session ID:");
-    console.log(req.session.userid);
+    console.log(sess.userid);
     //console.log(realid);
     let date = Date();
     console.log(date);
@@ -148,12 +139,12 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, warriors, archers, cavalry, blacksmiths, priests, mages, blimps, harpies, angels, dragons, galleys, pirates, sea_serpents, catapults, trebuchets, cannons) VALUES (?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?)`, [req.session.userid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, warriors, archers, cavalry, blacksmiths, priests, mages, blimps, harpies, angels, dragons, galleys, pirates, sea_serpents, catapults, trebuchets, cannons) VALUES (?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?)`, [sess.userid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
       console.log('Military values of 0 inputted!')})
-    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [req.session.userid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
+    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -161,7 +152,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //POLICIES
-    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [req.session.userid,'Democracy','Communism','Blitzkrieg'], function (err) {
+    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [sess.userid,'Democracy','Communism','Blitzkrieg'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -169,7 +160,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //PROVINCES
-    db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [req.session.userid,'Capital', 100, '100'], function (err) {
+    db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [sess.userid,'Capital', 100, '100'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -177,7 +168,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //WONDERS
-    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [req.session.userid,"0",'0','0'], function (err) {
+    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [sess.userid,"0",'0','0'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -190,14 +181,14 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
   //console.log(sess.userid);
-  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, req.session.userid], function (err) {
+  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, sess.userid], function (err) {
     if (err) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
   
      console.log("Kingdom Created. Information:");
-     console.log([req.body.kingdom, req.body.ruler, req.body.region, req.session.userid]);
+     console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
      res.redirect('/kingdom')
     })
   })
@@ -242,9 +233,9 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
         }
         //console.log(rows);
         realid=rows.id;
-        req.session.userid = realid;
+        sess.userid = realid;
         console.log("Session created. Session ID:");
-        console.log(req.session.userid);});
+        console.log(sess.userid);});
       //res.redirect('/new_kingdom');
       res.redirect('/kingdom')
     }
@@ -257,12 +248,10 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
 })
 
 app.get('/logout', urlencodedParser, function (req,res) {
-  req.session.destroy((err) => {
-    if(err) {
-        return console.log(err);
-    }
-    res.redirect('/');
-});
+  sess.destroy();
+  res.redirect('/');
+
+
 })
   /*app.get('/new_kingdom',urlencodedParser,function(req,res){
     res.sendFile(path.join(__dirname, '/public', 'kingdom.html'));
@@ -271,3 +260,8 @@ app.get('/logout', urlencodedParser, function (req,res) {
   })*/
 
   //UPDATING SHIT EVERY TURN
+
+  //////////////////
+
+
+ 
