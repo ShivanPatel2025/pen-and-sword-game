@@ -133,7 +133,8 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     //console.log(rows);
     realid=rows.id;
-    sess.userid = realid;
+    req.session.userid=realid;
+    //test sess.userid = realid;
     console.log("Session created. Session ID:");
     console.log(sess.userid);
     //console.log(realid);
@@ -147,12 +148,12 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
         console.log(ooga);
        }})
-    db.run(`INSERT INTO military (id, warriors, archers, cavalry, blacksmiths, priests, mages, blimps, harpies, angels, dragons, galleys, pirates, sea_serpents, catapults, trebuchets, cannons) VALUES (?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?)`, [sess.userid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], function (err) {
+    db.run(`INSERT INTO military (id, warriors, archers, cavalry, blacksmiths, priests, mages, blimps, harpies, angels, dragons, galleys, pirates, sea_serpents, catapults, trebuchets, cannons) VALUES (?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?, ?, ?, ?,?)`, [req.session.userid,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0], function (err) {
       if (err) {
         return console.error(err.message);
     }
       console.log('Military values of 0 inputted!')})
-    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [sess.userid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
+    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [req.session.userid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -160,7 +161,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //POLICIES
-    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [sess.userid,'Democracy','Communism','Blitzkrieg'], function (err) {
+    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [req.session.userid,'Democracy','Communism','Blitzkrieg'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -168,7 +169,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //PROVINCES
-    db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [sess.userid,'Capital', 100, '100'], function (err) {
+    db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [req.session.userid,'Capital', 100, '100'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -176,7 +177,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //WONDERS
-    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [sess.userid,"0",'0','0'], function (err) {
+    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [req.session.userid,"0",'0','0'], function (err) {
       if (err) {
         return console.error(err.message);
       }
@@ -189,14 +190,14 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
 
 app.post('/kingdom-page',urlencodedParser, function (req, res) {
   //console.log(sess.userid);
-  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, sess.userid], function (err) {
+  db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, req.session.userid], function (err) {
     if (err) {
       return console.error(err.message);
       console.log('error inserting into kingdoms');
      }
   
      console.log("Kingdom Created. Information:");
-     console.log([req.body.kingdom, req.body.ruler, req.body.region, sess.userid]);
+     console.log([req.body.kingdom, req.body.ruler, req.body.region, req.session.userid]);
      res.redirect('/kingdom')
     })
   })
@@ -241,9 +242,9 @@ app.post('/sign-in',urlencodedParser, function (req,res) {
         }
         //console.log(rows);
         realid=rows.id;
-        sess.userid = realid;
+        req.session.userid = realid;
         console.log("Session created. Session ID:");
-        console.log(sess.userid);});
+        console.log(req.session.userid);});
       //res.redirect('/new_kingdom');
       res.redirect('/kingdom')
     }
