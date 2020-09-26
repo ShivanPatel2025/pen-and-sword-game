@@ -136,7 +136,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     req.session.userid=realid;
     //test sess.userid = realid;
     console.log("Session created. Session ID:");
-    console.log(sess.userid);
+    console.log(req.session.userid);
     //console.log(realid);
     let date = Date();
     console.log(date);
