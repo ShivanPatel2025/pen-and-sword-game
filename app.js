@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const { url } = require('inspector');
 var urlencodedParser = bodyParser.urlencoded({ extended: true });
 const session = require('express-session');
+const redis = require('redis');
+const redisStore = require('connect-redis')(session);
+const client  = redis.createClient();
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 
@@ -30,6 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   name: SESS_NAME,
+  store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl : 260}),
   resave: false,
   saveUninitialized: false,
   secret: SESS_SECRET,
