@@ -82,7 +82,7 @@ app.listen(app.get('port'), function() {
 
 //SENDING LOGIN PAGE
 app.get('/', (req, res) => {
-  let sess=req.session;
+  sess=req.session;
   res.render("keys");
 
 })
