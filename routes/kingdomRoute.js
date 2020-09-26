@@ -106,17 +106,17 @@ router.get('/kingdom',urlencodedParser,function(req,res){
     }) 
     db.get(`SELECT * from Policies WHERE id = ?`, sess.userid, function(err,rows) {
       government = {
-        'title': 'Government',
+        'title': 'Govt',
         'name': rows.government,
         'values': {happiness:2,stability:3}
       } 
       economy = {
-        'title': 'Economy',
+        'title': 'Econ',
         'name': rows.economy,
         'values': {happiness:2,stability:3}
       } 
       war = {
-        'title': 'War Strategy',
+        'title': 'War',
         'name': rows.war,
         'values': {happiness:2,stability:3}
       } 
