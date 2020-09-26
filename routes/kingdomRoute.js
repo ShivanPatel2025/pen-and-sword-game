@@ -20,6 +20,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 router.get('/kingdom',urlencodedParser,function(req,res){
+  console.log(req.session.userid)
   let kingdom,ruler,region;
   let warrior,archer,cavalry,blacksmith,priest,mage,blimp,harpy,angel,dragon,galley,pirate,sea_serpent,catapult,trebuchet,cannon;
   let government, economy, war; 
