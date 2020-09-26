@@ -32,7 +32,7 @@ app.use(session({
   name: SESS_NAME,
   resave: false,
   saveUninitialized: false,
-  secret: 'SESS_SECRET',
+  secret: SESS_SECRET,
   cookie: {
     maxAge: 1000000000000,
     sameSITE: true,
