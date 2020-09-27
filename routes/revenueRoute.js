@@ -24,7 +24,10 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 
 
 router.get('/revenue', urlencodedParser, function(req,res) {
-    db.serialize(()=>{
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      storedID=parseInt(rows.id, 10);
+      db.serialize(()=>{
         let rev = {
             gold: 0,
             mana: 0,
@@ -63,7 +66,7 @@ router.get('/revenue', urlencodedParser, function(req,res) {
         let numHatchery=0;
         let numHarbor=0;
         let numWorkshop=0;
-        db.each('SELECT * FROM provinces WHERE userid = ?', sess.userid, function(err,rows) {
+        db.each('SELECT * FROM provinces WHERE userid = ?', storedID, function(err,rows) {
             if (err) {
                 console.error(err.message)
             } else {
@@ -94,7 +97,7 @@ router.get('/revenue', urlencodedParser, function(req,res) {
                 numWorkshop+=rows.workshop;
             }
         })
-        db.get('SELECT * FROM kingdoms WHERE id =?', sess.userid, function(err,rows) {
+        db.get('SELECT * FROM kingdoms WHERE id =?', storedID, function(err,rows) {
             rev.gold = numMarket*5+numBazaar*12+numEmporium*45;
             //console.log(numMarket + " line 99");
             //console.log(numBazaar +" lin 100");
@@ -122,49 +125,54 @@ router.get('/revenue', urlencodedParser, function(req,res) {
             })
         })
     })
+    })
 }) 
 
 function checkBalance(rev) {
     return new Promise((resolve, reject) => {
-        let cost=rev;
-        //console.log(cost);
-        let newGold=0, newMana=0, newFlora=0, newFauna=0, newLumber=0, newFood=0, newOre=0, newSilver=0, newIron=0, newBronze=0, newSteel=0;
-        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
-            if(cost.gold<0) {
-                newGold=rows.gold-cost.gold;
-            }
-            if(cost.mana<0) {
-                newMana=rows.mana-cost.mana;
-            }
-            if(cost.flora<0) {
-                newFlora=rows.flora-cost.flora;
-            }
-            if(cost.fauna<0) {
-                newFauna=rows.fauna-cost.fauna;
-            }
-            if(cost.lumber<0) {
-                newLumber=rows.lumber-cost.lumber;
-            }
-            if(cost.food<0) {
-                newFood=rows.food-cost.food;
-            }
-            if(cost.ore<0) {
-                newOre=rows.ore-cost.ore;
-            }
-            if(cost.silver<0) {
-                newSilver=rows.silver-cost.silver;
-            }
-            if(cost.iron<0) {
-                newIron=rows.iron-cost.iron;
-            }
-            if(cost.bronze<0) {
-                newBronze=rows.bronze-cost.bronze;
-            }
-            if(cost.steel<0) {
-                newSteel=rows.steel-cost.steel;
-            }
-            resolve((newGold>=0) && (newMana>=0) && (newFlora>=0) && (newFauna>=0) && (newLumber>=0) && (newFood>=0) && (newOre>=0) && (newSilver>=0) && (newIron>=0) && (newBronze>=0) && (newSteel>=0))
-        })
+        let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      storedID=parseInt(rows.id, 10);
+      let cost=rev;
+      //console.log(cost);
+      let newGold=0, newMana=0, newFlora=0, newFauna=0, newLumber=0, newFood=0, newOre=0, newSilver=0, newIron=0, newBronze=0, newSteel=0;
+      db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
+          if(cost.gold<0) {
+              newGold=rows.gold-cost.gold;
+          }
+          if(cost.mana<0) {
+              newMana=rows.mana-cost.mana;
+          }
+          if(cost.flora<0) {
+              newFlora=rows.flora-cost.flora;
+          }
+          if(cost.fauna<0) {
+              newFauna=rows.fauna-cost.fauna;
+          }
+          if(cost.lumber<0) {
+              newLumber=rows.lumber-cost.lumber;
+          }
+          if(cost.food<0) {
+              newFood=rows.food-cost.food;
+          }
+          if(cost.ore<0) {
+              newOre=rows.ore-cost.ore;
+          }
+          if(cost.silver<0) {
+              newSilver=rows.silver-cost.silver;
+          }
+          if(cost.iron<0) {
+              newIron=rows.iron-cost.iron;
+          }
+          if(cost.bronze<0) {
+              newBronze=rows.bronze-cost.bronze;
+          }
+          if(cost.steel<0) {
+              newSteel=rows.steel-cost.steel;
+          }
+          resolve((newGold>=0) && (newMana>=0) && (newFlora>=0) && (newFauna>=0) && (newLumber>=0) && (newFood>=0) && (newOre>=0) && (newSilver>=0) && (newIron>=0) && (newBronze>=0) && (newSteel>=0))
+      })
+    })
     })
 }
 

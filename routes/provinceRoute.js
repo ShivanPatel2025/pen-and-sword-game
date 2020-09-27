@@ -23,7 +23,10 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 
 router.get('/provinces',urlencodedParser,function(req,res){
-    let currentProvinceCount;
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      storedID=parseInt(rows.id, 10);
+      let currentProvinceCount;
     let i=0;
     let improvementsRaw =['plantation', 'pasture', 'mine', 'mana_rift'];
     let improvementsRefine = ['lumber_mill','slaughterhouse', 'silver_refinery', 'steel_refinery', 'iron_refinery', 'bronze_refinery'];
@@ -40,7 +43,7 @@ router.get('/provinces',urlencodedParser,function(req,res){
     // let provinceLands=[];
     // let provinceHappiness=[];
     db.serialize(() => {
-      db.each(`SELECT * FROM provinces WHERE userid = ?`, sess.userid, function(err,rows) {
+      db.each(`SELECT * FROM provinces WHERE userid = ?`, storedID, function(err,rows) {
         //console.log(rows)
         provinces.countArray.push(i);
         i++;
@@ -49,7 +52,7 @@ router.get('/provinces',urlencodedParser,function(req,res){
         provinces.provinceHappiness.push(rows.happiness);
         //console.log(provinceNames);
       })
-      db.get(`SELECT * FROM kingdoms WHERE id = ?`, sess.userid, function(err,rows) {
+      db.get(`SELECT * FROM kingdoms WHERE id = ?`, storedID, function(err,rows) {
         //console.log(rows.provinces);
         let current = Number(rows.provinces);
         //console.log(current);
@@ -59,76 +62,85 @@ router.get('/provinces',urlencodedParser,function(req,res){
         res.render('provinces', {currentProvinceCount, provinces, improvementsRaw, improvementsRefine, improvementsEcon, improvementsEntertainment, improvementsResearch, improvementsHousing});
       }) 
     })
-    
+    })
 })
 
 
 router.post('/new-province', urlencodedParser, function(req,res) {
-    let provinceCost;
-    let currentGold;
-    let provinces;
-    db.serialize(()=> {
-    db.get('SELECT gold FROM resources WHERE id =(?)',sess.userid, function(err,rows) {
-        currentGold=rows.gold;
-    })
-    db.get('SELECT provinces FROM kingdoms WHERE id = (?)', sess.userid, function(err,rows) {
-        if (err) {
-            console.log('Error creating province line 28');
-            console.error(err.message);
-        } 
-        provinceCost=Math.round(3*(Math.pow(1.4,(Number(rows.provinces)+1))));
-        provinces=Number(rows.provinces)+1;
-        let newGold = currentGold-provinceCost;
-        checkBalance(provinceCost).then(check=>{
-            if (check===true) {
-                db.run('UPDATE kingdoms SET provinces = (?) WHERE id = (?)',[provinces, sess.userid],function(err) {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                    console.log('updated province count')
-                })
-                db.run('UPDATE resources SET gold = (?) WHERE id=(?)',[newGold, sess.userid], function(err) {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                    console.log('updated resources')
-                })
-                db.run('INSERT INTO provinces (userid, name, land, happiness) VALUES (?,?,?,?)', [sess.userid, req.body.provinceName, 100, '100'], function(err) {
-                    if (err) {
-                        console.error(err.message);
-                    }
-                    console.log('inserted province');
-                })
-                res.redirect('/provinces')
-            } else {
-                console.log('Not Sufficient Funds')
-                res.redirect('/provinces')
-            }
-
-        }).catch(console.error);
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      storedID=parseInt(rows.id, 10);
+      let provinceCost;
+        let currentGold;
+        let provinces;
+        db.serialize(()=> {
+        db.get('SELECT gold FROM resources WHERE id =(?)',storedID, function(err,rows) {
+            currentGold=rows.gold;
+        })
+        db.get('SELECT provinces FROM kingdoms WHERE id = (?)', storedID, function(err,rows) {
+            if (err) {
+                console.log('Error creating province line 28');
+                console.error(err.message);
+            } 
+            provinceCost=Math.round(3*(Math.pow(1.4,(Number(rows.provinces)+1))));
+            provinces=Number(rows.provinces)+1;
+            let newGold = currentGold-provinceCost;
+            checkBalance(provinceCost).then(check=>{
+                if (check===true) {
+                    db.run('UPDATE kingdoms SET provinces = (?) WHERE id = (?)',[provinces, storedID],function(err) {
+                        if (err) {
+                            console.error(err.message);
+                        }
+                        console.log('updated province count')
+                    })
+                    db.run('UPDATE resources SET gold = (?) WHERE id=(?)',[newGold, storedID], function(err) {
+                        if (err) {
+                            console.error(err.message);
+                        }
+                        console.log('updated resources')
+                    })
+                    db.run('INSERT INTO provinces (userid, name, land, happiness) VALUES (?,?,?,?)', [storedID, req.body.provinceName, 100, '100'], function(err) {
+                        if (err) {
+                            console.error(err.message);
+                        }
+                        console.log('inserted province');
+                    })
+                    res.redirect('/provinces')
+                } else {
+                    console.log('Not Sufficient Funds')
+                    res.redirect('/provinces')
+                }
+            }).catch(console.error);
+        })
     })
     })
 })
 
 function checkBalance(incost) {
     return new Promise((resolve, reject) => {
-        let cost=incost;
-        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
-            
-            resolve(rows.gold >= cost)
+        let storedID;
+        db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+            storedID=parseInt(rows.id, 10);
+            let cost=incost;
+            db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {     
+                resolve(rows.gold >= cost)
+            })
         })
     })
 }
 
 router.post('/buyLand', urlencodedParser, function(req,res) {
-    let increase = req.body.land;
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        storedID=parseInt(rows.id, 10);
+        let increase = req.body.land;
     let name = req.body.provinceName
     let current;
     let cost;
     let currentGold;
     let newLand;
     let newGold;
-    db.get('SELECT * FROM provinces WHERE userid = ? AND name = ?', [sess.userid, name], function(err,rows) {
+    db.get('SELECT * FROM provinces WHERE userid = ? AND name = ?', [storedID, name], function(err,rows) {
         current = Number(rows.land);
         //console.log(current + "line 131");
         cost = ((Number(current)+Number(increase))*1.5) - (Number(current)*1.5);
@@ -138,19 +150,19 @@ router.post('/buyLand', urlencodedParser, function(req,res) {
         checkBalanceLand(cost).then(check=>{
             if (check===true) {
                 db.serialize(()=> {
-                db.get('SELECT * FROM resources WHERE id = ?', sess.userid, function(err,row) {
+                db.get('SELECT * FROM resources WHERE id = ?', storedID, function(err,row) {
                     //console.log(row);
                     currentGold=row.gold;
                     console.log(currentGold);
                     newGold=currentGold-cost;
                     console.log(newGold + " line 144");
-                    db.run('UPDATE resources SET gold = (?) WHERE id=(?)',[newGold, sess.userid], function(err) {
+                    db.run('UPDATE resources SET gold = (?) WHERE id=(?)',[newGold, storedID], function(err) {
                         if (err) {
                             console.error(err.message);
                         }
                         console.log('updated resources')
                     })
-                    db.run('UPDATE provinces SET land = (?) WHERE userid = ? AND name = ?',[newLand, sess.userid, name], function(err) {
+                    db.run('UPDATE provinces SET land = (?) WHERE userid = ? AND name = ?',[newLand, storedID, name], function(err) {
                         if (err) {
                             console.error(err.message);
                         }
@@ -166,19 +178,28 @@ router.post('/buyLand', urlencodedParser, function(req,res) {
             }
         }).catch(console.error);
     })
+    })
+    
 })
 
 function checkBalanceLand(incost) {
     return new Promise((resolve, reject) => {
-        let cost=incost;
-        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
+        let storedID;
+        db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+            storedID=parseInt(rows.id, 10);
+            let cost=incost;
+            db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
             resolve(rows.gold >= cost)
+        })
         })
     })
 }
 
 router.post('/buyImprovement', urlencodedParser, function(req,res) {
-    let name = req.body.provinceName;
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        storedID=parseInt(rows.id, 10);
+        let name = req.body.provinceName;
     console.log(name);
     let building = req.body.improvementsName;
     console.log(building);
@@ -187,7 +208,7 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
     let land;
     let costArray;
     //console.log(name);
-    db.get(`SELECT * FROM provinces WHERE userid = ? AND name = ?`, [sess.userid, name], function(err,rows) {
+    db.get(`SELECT * FROM provinces WHERE userid = ? AND name = ?`, [storedID, name], function(err,rows) {
         if (err) {
             console.error(err.message + "line 135");
         }
@@ -221,7 +242,7 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
         console.log(land);
         let currentGold=0,currentLumber=0,currentSteel=0;
         let newGold=0,newLumber=0,newSteel=0;
-        db.get('SELECT * FROM resources WHERE id = ?', sess.userid, function(err,rows) {
+        db.get('SELECT * FROM resources WHERE id = ?', storedID, function(err,rows) {
             currentGold=Number(rows.gold);
             currentLumber=Number(rows.lumber);
             currentSteel=Number(rows.steel);
@@ -370,7 +391,7 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
                 //now check if sufficient land
                 if(check===true){
                     if(totalImprovements<(land/20)) {
-                        db.all(`UPDATE provinces SET ${building} = ? WHERE userid = ? AND name = ?`, [buildingCount, sess.userid, name], function(err) {
+                        db.all(`UPDATE provinces SET ${building} = ? WHERE userid = ? AND name = ?`, [buildingCount,storedID, name], function(err) {
                             if (err) {
                                 console.error(err.message+" line 169");
                             }
@@ -382,7 +403,7 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
                             res.redirect('/provinces')
                 
                         } 
-                        db.run('UPDATE resources SET gold = (?), lumber=(?), steel=(?) WHERE id=(?)',[newGold,newLumber,newSteel,sess.userid], function(err) {
+                        db.run('UPDATE resources SET gold = (?), lumber=(?), steel=(?) WHERE id=(?)',[newGold,newLumber,newSteel,storedID], function(err) {
                             if (err) {
                                 console.error(err.message);
                             }
@@ -392,20 +413,23 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
                 }).catch(console.error)
         })  
     })
+    })
 })
 
 
 function checkBalanceImp(costArray) {
     return new Promise((resolve, reject) => {
-        let arrayOfCosts = costArray;
-        let goldCost=arrayOfCosts[0];
-        let lumberCost=arrayOfCosts[1];
-        let steelCost = arrayOfCosts[2];
-
-        db.get("SELECT * FROM resources WHERE id = ?", sess.userid, function(err, rows) {
-            
-            resolve((rows.gold >= goldCost) && (rows.lumber >= lumberCost) && (rows.steel >= steelCost))
-        })
+        let storedID;
+        db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+            storedID=parseInt(rows.id, 10);
+            let arrayOfCosts = costArray;
+            let goldCost=arrayOfCosts[0];
+            let lumberCost=arrayOfCosts[1];
+            let steelCost = arrayOfCosts[2];
+            db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
+                resolve((rows.gold >= goldCost) && (rows.lumber >= lumberCost) && (rows.steel >= steelCost))
+            })
+        })  
     })
 }
 

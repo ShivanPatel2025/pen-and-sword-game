@@ -23,8 +23,11 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 
 router.get('/guild', function(req,res) {
-  let errormessage='bro ur not in a guild'
-    db.get('SELECT * FROM kingdoms where id= ?', sess.userid, function(err,row) {
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    storedID=parseInt(rows.id, 10);
+    let errormessage='bro ur not in a guild'
+    db.get('SELECT * FROM kingdoms where id= ?', storedID, function(err,row) {
       if (!row.guild) {
         res.render('noguild', {errormessage})
       } else {
@@ -42,6 +45,7 @@ router.get('/guild', function(req,res) {
         })
       }
     })
+  })
 })
 
 router.get('/create-guild', urlencodedParser, function(req,res) {
@@ -49,6 +53,9 @@ router.get('/create-guild', urlencodedParser, function(req,res) {
 })
 
 router.post('/finish-guild-creation', urlencodedParser, function(req,res){
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    storedID=parseInt(rows.id, 10);
   let guild=req.body.guild;
   let type = req.body.type;
   let region = req.body.region;
@@ -56,13 +63,14 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
     if (err) {
       console.log('error at line 56');
     }
-    db.run('UPDATE kingdoms SET guild =?, position=? WHERE id = ?', [guild, "leader", sess.userid], function(err) {
+    db.run('UPDATE kingdoms SET guild =?, position=? WHERE id = ?', [guild, "leader", storedID], function(err) {
       if (err) {
         console.log('error at 60')
       }
     })
     res.redirect('/guild');
   });
+  })
 })
 
 router.get('/join-guild', urlencodedParser, function(req,res) {
@@ -84,40 +92,47 @@ router.get('/guilds', function(req,res) {
 })
 
 router.get('/leave-guild', function(req,res) {
-  db.get('UPDATE kingdoms SET guild=?, position =? WHERE id =?', [ , , sess.userid])
-  res.redirect('/guild')
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    storedID=parseInt(rows.id, 10);
+    db.get('UPDATE kingdoms SET guild=?, position =? WHERE id =?', [ , , storedID])
+    res.redirect('/guild')
+  })
 })
 
 router.post('/joinspecificguild', urlencodedParser, function(req,res) {
   let guild = req.body.guild;
   let membercount=0;
-  db.serialize(() => {
-  db.run('UPDATE kingdoms SET guild=?, position=? WHERE id=?',[guild,"member", sess.userid],function(err) {
-    if(err) {
-      console.log('err at 87');
-    }
-    console.log('no err at 91');
-
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    storedID=parseInt(rows.id, 10);
+    db.serialize(() => {
+      db.run('UPDATE kingdoms SET guild=?, position=? WHERE id=?',[guild,"member", storedID],function(err) {
+        if(err) {
+          console.log('err at 87');
+        }
+        console.log('no err at 91');
+    
+      })
+      db.get('SELECT * FROM guilds WHERE guild = ?', guild, function(err,rows) {
+        if(err) {
+          console.log('err at 91')
+        }
+        console.log('no err at 98');
+    
+        membercount = Number(rows.membercount)+1;
+        console.log('newmembercount = '+membercount);
+        db.run('UPDATE guilds SET membercount= ? WHERE guild = ?',[membercount, guild], function(err){
+          if(err){
+            console.log('err at 104')
+          } else {
+            console.log('no err at 106');
+      
+            res.redirect('/guild')
+          }
+        })
+      })
+      })
   })
-  db.get('SELECT * FROM guilds WHERE guild = ?', guild, function(err,rows) {
-    if(err) {
-      console.log('err at 91')
-    }
-    console.log('no err at 98');
-
-    membercount = Number(rows.membercount)+1;
-    console.log('newmembercount = '+membercount);
-    db.run('UPDATE guilds SET membercount= ? WHERE guild = ?',[membercount, guild], function(err){
-      if(err){
-        console.log('err at 104')
-      } else {
-        console.log('no err at 106');
-  
-        res.redirect('/guild')
-      }
-    })
-  })
-  })
-
 })
 module.exports = router;
