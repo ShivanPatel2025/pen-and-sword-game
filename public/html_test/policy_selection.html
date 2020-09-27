@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="./style.css" type="TEXT/CSS">
+        <link rel="stylesheet" href="../style.css" type="TEXT/CSS">
         <link href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet'>
         <script src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous'></script>
 
@@ -9,7 +9,15 @@
     </head>
     <body>
         <div class="policy_selection_display">
+
+            <div class="policy_selection_message">
+                <h1>Establish Your Presence</h1>
+                <p>A ruler is nothing without policies to guide them. Will you rule with an iron fist leveraging the power of a Monarchy? Will you harness socialism to redistribute wealth to all your Citizens? What kind of ruler truly are you: a revered diplomat or a notorious thief? Whatever you are, the choice is yours.  </p>
+                <img src="https://cdn.discordapp.com/attachments/577269190835044362/723302973790355546/Logo_Gold_1_15.png" alt="">
+            </div>
             <form action="/selections" method="POST">
+                
+                
                 <section class="show active">
                     
 
@@ -147,14 +155,6 @@
                         <label for="thief">Thief</label>
                     </div>
                     
-                    
-
-                    
-
-                    
-
-                    
-
                 </section>
                 <section >
                     <div class="policy_selection">
@@ -193,19 +193,21 @@
                     </div>
              
                 </section>
-                <button class="policy_selection_submit"type='submit'>Submit</button>
+                
+                <div class="cycle">
+                    <i class="back fa-7x fas fa-arrow-circle-left"></i>
+                    <button class="policy_selection_submit"type='submit'>Submit</button>
+                    <i class="next fa-7x fas fa-arrow-circle-right"></i>
+    
+                </div>
 
         
             </form>
-            <div class="cycle">
-                <i class="back fa-7x fas fa-arrow-circle-left"></i>
-                <i class="next fa-7x fas fa-arrow-circle-right"></i>
-
-            </div>
+            
             
             
             
         </div>
-        <script src ='./js/policy_selection.js'></script>
+        <script src ='../js/policy_selection.js'></script>
     </body>
 </html>

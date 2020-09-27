@@ -190,8 +190,13 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       res.redirect('/kingdom-details')
     })
   })
-  })
+})
 
+
+app.get('/kingdom-details',urlencodedParser,function(req,res){
+  res.render('kingdomdetails');
+
+})
 app.post('/kingdom-details', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
@@ -206,8 +211,11 @@ app.post('/kingdom-details', urlencodedParser, function(req,res) {
         }
           console.log('policies table created successfully!')
        })
+      res.redirect('/kingdom')
     })
 })
+
+
 
 app.get('/sign-in',urlencodedParser, function(req,res){
   res.render('sign-in')
