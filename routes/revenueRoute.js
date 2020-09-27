@@ -113,7 +113,7 @@ router.get('/revenue', urlencodedParser, function(req,res) {
             rev.iron = numIronRefinery*4;
             rev.bronze = numBronzeRefinery*3;
             rev.steel = numSteelRefinery*2;
-            checkBalance(rev).then(check=>{
+            checkBalance(rev, storedID).then(check=>{
                 if(check===true) {
                     console.log('Positive revnue')
                     res.render('revenue', {rev});
@@ -128,11 +128,9 @@ router.get('/revenue', urlencodedParser, function(req,res) {
     })
 }) 
 
-function checkBalance(rev) {
+function checkBalance(rev, key) {
     return new Promise((resolve, reject) => {
-        let storedID;
-    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
-      storedID=parseInt(rows.id, 10);
+        let storedID = key; 
       let cost=rev;
       //console.log(cost);
       let newGold=0, newMana=0, newFlora=0, newFauna=0, newLumber=0, newFood=0, newOre=0, newSilver=0, newIron=0, newBronze=0, newSteel=0;
@@ -172,7 +170,6 @@ function checkBalance(rev) {
           }
           resolve((newGold>=0) && (newMana>=0) && (newFlora>=0) && (newFauna>=0) && (newLumber>=0) && (newFood>=0) && (newOre>=0) && (newSilver>=0) && (newIron>=0) && (newBronze>=0) && (newSteel>=0))
       })
-    })
     })
 }
 
@@ -276,7 +273,7 @@ setInterval(function() {
                 let newIron=rows.iron+rev.iron;
                 let newBronze=rows.bronze+rev.bronze;
                 let newSteel=rows.steel+rev.steel;
-                checkBalance(rev).then(check=>{
+                checkBalance(rev, storedID).then(check=>{
                     if(check===true) {
                         console.log('Positive revnue is being added')
                         db.run('UPDATE resources SET gold = ?, mana =?, flora = ?, fauna = ?, lumber =?, food =?,ore=?,silver=?,iron=?,bronze=?,steel=? WHERE id = ?', [newGold, newMana, newFlora, newFauna, newLumber, newFood, newOre, newSilver, newIron, newBronze, newSteel,  userid], function(err) {

@@ -85,7 +85,7 @@ router.post('/enlistground', urlencodedParser, function(req,res){
          silverCost = req.body.priests*5+req.body.mages*12;
         //console.log(goldCost +" "+lumberCost + " "+faunaCost);
         //console.log(cost + "line 60");
-        checkBalanceGround(goldCost,lumberCost,faunaCost, silverCost).then(check => {
+        checkBalanceGround(goldCost,lumberCost,faunaCost, silverCost, storedID).then(check => {
           //console.log(check + "line 62");
           if (check === true) {
               newGold=currentGold-goldCost;
@@ -138,11 +138,9 @@ router.post('/enlistground', urlencodedParser, function(req,res){
 //   return cost;
 // }
 
-function checkBalanceGround(gold,lumber,fauna,silver) {
+function checkBalanceGround(gold,lumber,fauna,silver,key) {
     return new Promise((resolve, reject) => {
-      let storedID;
-      db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
-        storedID=parseInt(rows.id, 10)
+      let storedID=key;
         let goldCost=gold;
         let lumberCost=lumber;
         let faunaCost=fauna;
@@ -150,7 +148,6 @@ function checkBalanceGround(gold,lumber,fauna,silver) {
         db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
           resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost))
         })
-      })
     })
 }
 
@@ -158,7 +155,7 @@ router.post('/enlistair', urlencodedParser, function(req,res){
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
   storedID=parseInt(rows.id, 10)
-  let addedBlimps, addedHarpies, addedAngels, addedDragons, paramsRun;
+  let addedBlimps=0, addedHarpies=0, addedAngels=0, addedDragons=0, paramsRun;
   let sqlGet = "SELECT blimps, harpies, angels, dragons FROM military WHERE id = ?"
   let sqlRun = "UPDATE military SET blimps = (?), harpies = (?), angels = (?), dragons = (?) WHERE id = (?)"
   let paramsGet = storedID;
@@ -173,7 +170,7 @@ router.post('/enlistair', urlencodedParser, function(req,res){
       addedAngels= Number(req.body.angels) + Number(rows.angels);
       addedDragons = Number(req.body.dragons) + Number(rows.dragons);
 
-      paramsRun = [Number(addedBlimps), Number(addedHarpies), Number(addedAngels), Number(AddedDragons), storedID];
+      paramsRun = [Number(addedBlimps), Number(addedHarpies), Number(addedAngels), Number(addedDragons), storedID];
       db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err,rows) {
             currentGold=rows.gold;
             currentMana=rows.mana;
@@ -195,7 +192,7 @@ router.post('/enlistair', urlencodedParser, function(req,res){
        manaCost=req.body.harpies*5 + req.body.angels*15, req.body.dragons*20;
       //console.log(goldCost +" "+lumberCost + " "+faunaCost);
       //console.log(cost + "line 60");
-      checkBalanceAir(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost).then(check => {
+      checkBalanceAir(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost, storedID).then(check => {
         //console.log(check + "line 62");
         if (check === true) {
             newGold=currentGold-goldCost;
@@ -231,11 +228,9 @@ router.post('/enlistair', urlencodedParser, function(req,res){
   })
 }) 
 
-function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana) {
+function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana, key) {
   return new Promise((resolve, reject) => {
-    let storedID;
-    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
-      storedID=parseInt(rows.id, 10)
+    let storedID=key;
       let goldCost=gold;
       let lumberCost=lumber;
       let faunaCost=fauna;
@@ -247,6 +242,97 @@ function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana) {
         resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost) && (rows.bronze>=bronzeCost) && (rows.steel>=steelCost) && (rows.mana>=manaCost))
       })
     })
+}
+
+router.post('/enlistsea', urlencodedParser, function(req,res){
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+  storedID=parseInt(rows.id, 10)
+  console.log(storedID);
+  let addedGalleys, addedPirates, addedSea_Serpents, paramsRun;
+  let sqlGet = "SELECT galleys, harpies, pirates, sea_serpents FROM military WHERE id = ?"
+  let sqlRun = "UPDATE military SET galleys = (?), pirates = (?), sea_serpents = (?) WHERE id = (?)"
+  let paramsGet = storedID;
+  let currentGold, currentMana, currentLumber, currentFauna,currentSilver,currentIron,currentBronze,currentSteel;
+  let newGold,newMana,newLumber,newFauna,newSilver,newIron,newBronze,newSteel;
+  
+  db.serialize(()=>{
+    db.get(sqlGet, paramsGet, function(err,rows){
+      //console.log(rows);
+      addedGalleys= Number(req.body.galleys) + Number(rows.galleys);
+      addedPirates= Number(req.body.pirates) + Number(rows.pirates);
+      addedSea_Serpents= Number(req.body.sea_serpents) + Number(rows.sea_serpents);
+
+      paramsRun = [Number(addedGalleys), Number(addedPirates), Number(addedSea_Serpents), storedID];
+      db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err,rows) {
+            currentGold=rows.gold;
+            currentMana=rows.mana;
+            currentLumber=rows.lumber;
+            currentFauna=rows.fauna;
+            currentSilver=rows.silver;
+            currentIron=rows.iron;
+            currentBronze=rows.bronze;
+            currentSteel=rows.steel;
+      })
+      //console.log(paramsRun);
+      let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0, ironCost=0, bronzeCost=0, steelCost=0, manaCost=0;
+       goldCost = req.body.galleys*50+ req.body.pirates*25+ req.body.sea_serpents*60;
+       lumberCost= req.body.galleys*40+req.body.pirates*70;
+       faunaCost= req.body.sea_serpents*5;
+       steelCost=req.body.galleys*30+req.body.pirates*10;
+       manaCost=req.body.sea_serpents*250;
+      //console.log(goldCost +" "+lumberCost + " "+faunaCost);
+      //console.log(cost + "line 60");
+      checkBalanceSea(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost,storedID).then(check => {
+        //console.log(check + "line 62");
+        if (check === true) {
+            newGold=currentGold-goldCost;
+            newLumber=currentLumber-lumberCost;
+            newFauna=currentFauna-faunaCost;
+            newSilver=currentSilver-silverCost;
+            newBronze = currentBronze - bronzeCost;
+            newSteel=currentSteel-steelCost;
+            newMana = currentMana-manaCost;
+        db.run(sqlRun, paramsRun, function (err) {
+          if (err) {
+            return console.error(err.message);
+            console.log('Error Updating Military');
+           }
+           console.log("Military Updated.");
+           //console.log([addedWarriors, addedArchers, addedCavalry]);
+           res.redirect('/military')
+          })
+          db.run("UPDATE resources SET gold = (?), lumber = (?), fauna = (?), silver =(?), bronze = (?), steel = (?), mana = (?)", [newGold,newLumber,newFauna, newSilver, newBronze, newSteel, newMana], function (err) {
+            if (err) {
+                return console.error(err.message);
+                console.log('Error Subtracting Resources');
+               }
+               console.log("Cost Subtracted");
+          })
+        } else {
+              console.log('Not Sufficient Funds')
+              res.redirect('/military')
+          }
+      }).catch(console.error);
+    })
+    }) 
+  })
+}) 
+
+function checkBalanceSea(gold,lumber,fauna,silver, bronze, steel, mana, key) {
+  return new Promise((resolve, reject) => {
+    console.log(key);
+    let storedID=key;
+      let goldCost=gold;
+      let lumberCost=lumber;
+      let faunaCost=fauna;
+      let silverCost=silver;
+      let bronzeCost=bronze;
+      let steelCost = steel;
+      let manaCost = mana;
+      db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
+        resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost) && (rows.bronze>=bronzeCost) && (rows.steel>=steelCost) && (rows.mana>=manaCost))
+      })
   })
 }
 

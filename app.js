@@ -101,18 +101,17 @@ app.post('/home', urlencodedParser, function (req, res){
 
 
 app.post('/create-a-nation', urlencodedParser, function (req, res){
-  var sess=req.session;
   /*var reply='';
   reply += "Your name is" + req.body.user;
   reply += "Your E-mail id is" + req.body.password; 
   reply += "Your address is" + req.body.email;
   //res.send(reply);*/
-  res.render( 'creation');
+  res.render('creation');
   let data = [req.body.email, req.body.password];
   let sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
   let sql1 = `SELECT id FROM users WHERE email = (?)`;
   let data1 = [req.body.email];
-  let sql2 = `INSERT INTO kingdoms (id) VALUES (?)`;
+  // let sql2 = `INSERT INTO kingdoms (id) VALUES (?)`;
   let realid=0;
   db.serialize(() => {
   db.run(sql, data, function(err) {
@@ -126,7 +125,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     }
     realid=rows.id;
     console.log("Session created. Session ID: " + realid + ". Cookie key: " + req.session.id);
-    db.run(`INSERT INTO sessions cookie = ?, id = ?`, [req.session.id,realid]);
+    db.run(`INSERT INTO sessions (cookie, id) VALUES (?,?)`, [req.session.id,realid]);
     let date = Date();
     console.log(date);
     let splited = date.split(" ");
@@ -149,13 +148,13 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
       console.log('resources generated')
     })
 
-    //POLICIES
-    db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [realid,'Democracy','Communism','Blitzkrieg'], function (err) {
-      if (err) {
-        return console.error(err.message);
-      }
-        console.log('policies table created successfully!')
-    })
+    // //POLICIES
+    // db.run(`INSERT INTO Policies (id, government, economy, war) VALUES (?, ?, ?, ?)`, [realid,'Democracy','Communism','Blitzkrieg'], function (err) {
+    //   if (err) {
+    //     return console.error(err.message);
+    //   }
+    //     console.log('policies table created successfully!')
+    // })
 
     //PROVINCES
     db.run(`INSERT INTO provinces (userid, name, land, happiness) VALUES (?, ?, ?, ?)`, [realid,'Capital', 100, '100'], function (err) {
@@ -205,7 +204,7 @@ app.post('/kingdom-details', urlencodedParser, function(req,res) {
       let economy = req.body.economy;
       let war = req.body.war;
       let background = req.body.background;
-      db.run(`UPDATE Policies SET (government, economy, war, background) VALUES (?, ?, ?, ?,?) WHERE id = ?`, [government,economy,war,background, storedID], function (err) {
+      db.run(`UPDATE Policies SET (government, economy, war, background) VALUES (?, ?, ?, ?) WHERE id = ?`, [government,economy,war,background, storedID], function (err) {
         if (err) {
           return console.error(err.message);
         }
