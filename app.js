@@ -187,10 +187,27 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       if (err) {
         return console.error(err.message);;
       }
-      res.redirect('/kingdom')
+      res.redirect('/kingdom-details')
     })
   })
   })
+
+app.post('/kingdom-details', urlencodedParser, function(req,res) {
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      storedID=parseInt(rows.id, 10);
+      let government = req.body.government;
+      let economy = req.body.economy;
+      let war = req.body.war;
+      let background = req.body.background;
+      db.run(`UPDATE Policies SET (government, economy, war, background) VALUES (?, ?, ?, ?,?) WHERE id = ?`, [government,economy,war,background, storedID], function (err) {
+        if (err) {
+          return console.error(err.message);
+        }
+          console.log('policies table created successfully!')
+       })
+    })
+})
 
 app.get('/sign-in',urlencodedParser, function(req,res){
   res.render('sign-in')
