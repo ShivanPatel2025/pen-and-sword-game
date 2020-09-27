@@ -31,6 +31,10 @@ router.get('/kingdom',urlencodedParser,function(req,res){
   let titles = ["Policies",  "Military", "Provinces",  "Wonders", "C0nflicts", "!nternal Activity"]
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
       storedID=parseInt(rows.id, 10);
       console.log(storedID+"line 45");
       db.serialize(()=> {
@@ -229,7 +233,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
                                         arrayOfTitles:titles});
       })
     })
-  })
+  }})
 })
 
 module.exports = router;

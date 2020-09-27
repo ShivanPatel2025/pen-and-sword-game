@@ -26,6 +26,10 @@ router.get('/military',urlencodedParser,function(req,res){
     let warriors,archers,cavalry;
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
       storedID=parseInt(rows.id, 10)
       db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
         warriors = {
@@ -42,12 +46,16 @@ router.get('/military',urlencodedParser,function(req,res){
         } 
         res.render('military', {militaryStats:[warriors,archers,cavalry]});
       }) 
-    })   
+    }})   
 })
 
 router.post('/enlistground', urlencodedParser, function(req,res){
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
     storedID=parseInt(rows.id, 10)
     let addedWarriors, addedArchers, addedCavalry, addedBlacksmiths, addedPriests, addedMages, paramsRun;
     let sqlGet = "SELECT warriors, archers, cavalry, blacksmiths, priests, mages FROM military WHERE id = ?"
@@ -115,7 +123,7 @@ router.post('/enlistground', urlencodedParser, function(req,res){
         }).catch(console.error);
       })
   })
-  }) 
+  }}) 
 }) 
     
 //FUCTIONS
@@ -154,6 +162,10 @@ function checkBalanceGround(gold,lumber,fauna,silver,key) {
 router.post('/enlistair', urlencodedParser, function(req,res){
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
   storedID=parseInt(rows.id, 10)
   let addedBlimps=0, addedHarpies=0, addedAngels=0, addedDragons=0, paramsRun;
   let sqlGet = "SELECT blimps, harpies, angels, dragons FROM military WHERE id = ?"
@@ -225,7 +237,7 @@ router.post('/enlistair', urlencodedParser, function(req,res){
       }).catch(console.error);
     })
     }) 
-  })
+  }})
 }) 
 
 function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana, key) {
@@ -247,10 +259,14 @@ function checkBalanceAir(gold,lumber,fauna,silver, bronze, steel, mana, key) {
 router.post('/enlistsea', urlencodedParser, function(req,res){
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
   storedID=parseInt(rows.id, 10)
   console.log(storedID);
   let addedGalleys, addedPirates, addedSea_Serpents, paramsRun;
-  let sqlGet = "SELECT galleys, harpies, pirates, sea_serpents FROM military WHERE id = ?"
+  let sqlGet = "SELECT galleys, pirates, sea_serpents FROM military WHERE id = ?"
   let sqlRun = "UPDATE military SET galleys = (?), pirates = (?), sea_serpents = (?) WHERE id = (?)"
   let paramsGet = storedID;
   let currentGold, currentMana, currentLumber, currentFauna,currentSilver,currentIron,currentBronze,currentSteel;
@@ -316,7 +332,7 @@ router.post('/enlistsea', urlencodedParser, function(req,res){
       }).catch(console.error);
     })
     }) 
-  })
+  }})
 }) 
 
 function checkBalanceSea(gold,lumber,fauna,silver, bronze, steel, mana, key) {
@@ -332,6 +348,103 @@ function checkBalanceSea(gold,lumber,fauna,silver, bronze, steel, mana, key) {
       let manaCost = mana;
       db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
         resolve((rows.gold >= goldCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost) && (rows.bronze>=bronzeCost) && (rows.steel>=steelCost) && (rows.mana>=manaCost))
+      })
+  })
+}
+
+router.post('/enlistsiege', urlencodedParser, function(req,res){
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
+  storedID=parseInt(rows.id, 10)
+  console.log(storedID);
+  let addedCatapults, addedTrebuchets, addedCannons, paramsRun;
+  let sqlGet = "SELECT catapults, trebuchets, cannons FROM military WHERE id = ?"
+  let sqlRun = "UPDATE military SET catapults = (?), trebuchets = (?), cannons = (?) WHERE id = (?)"
+  let paramsGet = storedID;
+  let currentGold, currentMana, currentLumber, currentFauna,currentSilver,currentIron,currentBronze,currentSteel;
+  let newGold,newMana,newLumber,newFauna,newSilver,newIron,newBronze,newSteel;
+  
+  db.serialize(()=>{
+    db.get(sqlGet, paramsGet, function(err,rows){
+      //console.log(rows);
+      addedCatapults= Number(req.body.catapults) + Number(rows.catapults);
+      addedTrebuchets= Number(req.body.trebuchets) + Number(rows.trebuchets);
+      addedCannons= Number(req.body.cannons) + Number(rows.cannons);
+
+      paramsRun = [Number(addedCatapults), Number(addedTrebuchets), Number(addedCannons), storedID];
+      db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err,rows) {
+            currentGold=rows.gold;
+            currentMana=rows.mana;
+            currentLumber=rows.lumber;
+            currentFauna=rows.fauna;
+            currentSilver=rows.silver;
+            currentIron=rows.iron;
+            currentBronze=rows.bronze;
+            currentSteel=rows.steel;
+      })
+      //console.log(paramsRun);
+      let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0, ironCost=0, bronzeCost=0, steelCost=0, manaCost=0;
+       goldCost = req.body.catapults*90+ req.body.trebuchets*150+ req.body.cannons*300;
+       lumberCost= req.body.catapults*75+req.body.trebuchets*200;
+       steelCost=req.body.cannons*80;
+       ironCost = req.body.cannons*30;
+      //console.log(goldCost +" "+lumberCost + " "+faunaCost);
+      //console.log(cost + "line 60");
+      checkBalanceSiege(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost, ironCost, storedID).then(check => {
+        //console.log(check + "line 62");
+        if (check === true) {
+            newGold=currentGold-goldCost;
+            newLumber=currentLumber-lumberCost;
+            newFauna=currentFauna-faunaCost;
+            newSilver=currentSilver-silverCost;
+            newBronze = currentBronze - bronzeCost;
+            newSteel=currentSteel-steelCost;
+            newMana = currentMana-manaCost;
+            newIron=currentIron-ironCost;
+        db.run(sqlRun, paramsRun, function (err) {
+          if (err) {
+            return console.error(err.message);
+            console.log('Error Updating Military');
+           }
+           console.log("Military Updated.");
+           //console.log([addedWarriors, addedArchers, addedCavalry]);
+           res.redirect('/military')
+          })
+          db.run("UPDATE resources SET gold = (?), lumber = (?), fauna = (?), silver =(?), iron = (?), steel = (?), mana = (?)", [newGold,newLumber,newFauna, newSilver, newIron, newSteel, newMana], function (err) {
+            if (err) {
+                return console.error(err.message);
+                console.log('Error Subtracting Resources');
+               }
+               console.log("Cost Subtracted");
+          })
+        } else {
+              console.log('Not Sufficient Funds')
+              res.redirect('/military')
+          }
+      }).catch(console.error);
+    })
+    }) 
+  }})
+}) 
+
+function checkBalanceSiege(gold,lumber,fauna,silver, bronze, steel, mana, iron, key) {
+  return new Promise((resolve, reject) => {
+    console.log(key);
+    let storedID=key;
+      let goldCost=gold;
+      let lumberCost=lumber;
+      let faunaCost=fauna;
+      let silverCost=silver;
+      let bronzeCost=bronze;
+      let steelCost = steel;
+      let manaCost = mana;
+      let ironCost = iron;
+      db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {
+        resolve((rows.gold >= goldCost) && (rows.iron>=ironCost) && (rows.lumber>=lumberCost) && (rows.fauna>=faunaCost) && (rows.silver>=silverCost) && (rows.bronze>=bronzeCost) && (rows.steel>=steelCost) && (rows.mana>=manaCost))
       })
   })
 }

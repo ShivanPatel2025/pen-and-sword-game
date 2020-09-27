@@ -25,6 +25,10 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/trade', function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       let arrayOfObjectTrades =[]; 
       db.serialize(()=>{
@@ -46,12 +50,16 @@ router.get('/trade', function(req,res) {
               res.render('trade', {arrayOfObjectTrades}) 
           })
       })
-    })
+    }})
 })
 
 router.get('/mytrades', function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       let arrayOfObjectTrades =[]; 
       let kingdom;
@@ -84,12 +92,16 @@ router.get('/mytrades', function(req,res) {
               res.render('mytrades', {arrayOfObjectTrades}) 
           })
       })
-    })
+    }})
 })
 
 router.post('/accepttrade', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       console.log('49');
         tradeid=req.body.tradeid;
@@ -179,7 +191,7 @@ router.post('/accepttrade', urlencodedParser, function(req,res) {
             res.redirect('/trade')
             }
         })    
-    })
+    }})
 })
 
 router.get('/createtrade', function(req,res) {
@@ -189,6 +201,10 @@ router.get('/createtrade', function(req,res) {
 router.post('/createtrade', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region, scope, recepient) VALUES (?,?,?,?,?,?,?,?)', [storedID, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region, req.body.scope, req.body.recepient], function(err) {
         if(err) {
@@ -196,7 +212,7 @@ router.post('/createtrade', urlencodedParser, function(req,res) {
         }
         })
     res.redirect('/trade');
-    }) 
+    }}) 
 })
 
 module.exports = router; 
