@@ -112,7 +112,7 @@ router.get('/kingdom',urlencodedParser,function(req,res){
         }
         
       }) 
-      db.get(`SELECT * from Policies WHERE id = ?`, storedID, function(err,rows) {
+      db.get(`SELECT * FROM Policies WHERE id = ?`, storedID, function(err,rows) {
         government = {
           'title': 'Govt',
           'name': rows.government,

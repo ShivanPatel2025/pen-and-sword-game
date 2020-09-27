@@ -181,7 +181,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
   db.serialize(()=>{
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       realid=parseInt(rows.id, 10);
-    })
+   
     db.run(`UPDATE kingdoms SET kingdom = ?, ruler = ?, region = ? WHERE id = ?`, [req.body.kingdom, req.body.ruler, req.body.region, realid], function (err) {
       if (err) {
         return console.error(err.message);;
@@ -189,6 +189,7 @@ app.post('/kingdom-page',urlencodedParser, function (req, res) {
       res.redirect('/kingdom-details')
     })
   })
+})
 })
 
 
@@ -204,7 +205,7 @@ app.post('/kingdom-details', urlencodedParser, function(req,res) {
       let economy = req.body.economy;
       let war = req.body.war;
       let background = req.body.background;
-      db.run(`UPDATE Policies SET (government, economy, war, background) VALUES (?, ?, ?, ?) WHERE id = ?`, [government,economy,war,background, storedID], function (err) {
+      db.run(`INSERT INTO Policies (id, government, economy, war, background) VALUES (?,?, ?, ?, ?)`, [storedID, government,economy,war,background], function (err) {
         if (err) {
           return console.error(err.message);
         }
