@@ -8,7 +8,7 @@ each warObject in loffensiveWars
             span Defender
                 span=warObject.defenderid
         form(action='/attack' method='POST' name='test')
-            input(name='warid' type = 'hidden' value= warObject.id)
+            input(name='warid' type = 'hidden' value=warObject.warid)
             button(type='submit') Prepare Attack
 
 
@@ -19,6 +19,6 @@ each warObject in defensiveWars
             span Defender
                 span YOU
         form(action='/attack' method='POST' name='test')
-            input(name='warid' type = 'hidden' value= warObject.id)
+            input(name='warid' type = 'hidden' value=warObject.warid)
             button(type='submit') Prepare Attack
 

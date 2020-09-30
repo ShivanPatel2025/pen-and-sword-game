@@ -46,7 +46,7 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         offensiveWars.push(warObject)
-                        console.log(offensiveWars)
+                        //console.log(offensiveWars)
                     }
                 })
                 db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
@@ -62,12 +62,12 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         defensiveWars.push(warObject)
-                        console.log(defensiveWars)
+                        //console.log(defensiveWars)
                     }
                 })
                 db.get('SELECT * FROM kingdoms', function(err,rows){
-                    console.log(offensiveWars)
-                    console.log(defensiveWars)
+                    //console.log(offensiveWars)
+                    //console.log(defensiveWars)
                     res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars})
                 })
             })
@@ -112,8 +112,8 @@ router.post('/declarewar', urlencodedParser, function(req,res) {
 })
 
 //Ideally this is like a popup not a seperate page
-router.post('/attack', function(req,res) {
-    res.render('attack')
+router.post('/attack', urlencodedParser, function(req,res) {
+    console.log(req.body.warid + "line 116");
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -128,13 +128,15 @@ router.post('/attack', function(req,res) {
             let domesticSiege;
             let domesticMaps;
             let domesticStability;
-            let foreginAir;
+            let foreignAir;
             let foreignGround;
             let foreignSea;
             let foreignSiege; 
             let foreignMaps;
             let foreignStability;
+            console.log(req.body.warid)
             db.get(`SELECT * FROM wars WHERE warid=?`, req.body.warid, function(err,rows){
+                console.log(rows);
                 if(rows.aggressorid=storedID) {
                     domesticMaps=rows.aggressormaps;
                     domesticStability=rows.aggressorstability;
@@ -216,6 +218,7 @@ router.post('/attack', function(req,res) {
                 domesticAir = [blimps, harpies, angels, dragons];
                 domesticSea = [galleys, pirates, sea_serpents];
                 domesticSiege = [catapults, trebuchets, cannons];
+                console.log(domesticGround);
         })
             db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
                 warriors = {
@@ -283,10 +286,10 @@ router.post('/attack', function(req,res) {
                     'values': rows.cannons
                 }
                 foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                foreginAir = [blimps, harpies, angels, dragons];
+                foreignAir = [blimps, harpies, angels, dragons];
                 foreignSea = [galleys, pirates, sea_serpents];
                 foreignSiege = [catapults, trebuchets, cannons];
-                res.render('attack', {domesticAir,domesticGround,domesticSea,domesticSiege,domesticMaps,domesticStability, foreginAir, foreignGround,foreignSea,foreignSiege,foreignMaps,foreignStability});
+                res.render('attack', {domesticAir,domesticGround,domesticSea,domesticSiege,domesticMaps,domesticStability, foreignAir, foreignGround,foreignSea,foreignSiege,foreignMaps,foreignStability});
         })   
     })
     }}) 
