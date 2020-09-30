@@ -1,16 +1,17 @@
 a(href='/declarewar')
       span DECLARE WAR AYYLAH
 
-each war in offensiveWars
+each warObject in loffensiveWars
     h2 Aggressor
         span YOU
             span Defender
-                span=war.defenderid
+                span=warObject.defenderid
 
 
-each war in defensiveWars
+
+each warObject in defensiveWars
     h2 Aggressor
-        span=war.aggresorid
+        span=warObject.aggresorid
             span Defender
                 span YOU
 

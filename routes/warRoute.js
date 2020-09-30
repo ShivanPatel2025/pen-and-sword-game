@@ -36,7 +36,7 @@ router.get('/war', function(req,res) {
                 db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                     if (!rows) {
                     } else {
-                        warObject = {
+                        let warObject = {
                             warid: rows.warid,
                             aggressorid: rows.aggressorid,
                             defenderid: rows.defenderid,
@@ -46,12 +46,13 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         offensiveWars.push(warObject)
+                        console.log(offensiveWars)
                     }
                 })
                 db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
                     if (!rows) {
                     } else {
-                        warObject = {
+                        let warObject = {
                             warid: rows.warid,
                             aggressorid: rows.aggressorid,
                             defenderid: rows.defenderid,
@@ -61,11 +62,14 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         defensiveWars.push(warObject)
+                        console.log(defensiveWars)
                     }
                 })
-                console.log(offensiveWars)
-                console.log(defensiveWars)
-                res.render('war', {offensiveWars: offensiveWars, defensiveWars:defensiveWars})
+                db.get('SELECT * FROM kingdoms', function(err,rows){
+                    console.log(offensiveWars)
+                    console.log(defensiveWars)
+                    res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars})
+                })
             })
         }
     })
@@ -89,12 +93,12 @@ router.post('/declarewar', urlencodedParser, function(req,res) {
                 let defenderid=rows.id;
                 let type=rows.id;
                 if (type = 'loot') {
-                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, recipient, 50, 50, 10, 10, 'loot'], function(err){
+                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 50, 50, 10, 10, type], function(err){
                         res.redirect('/war')
                         console.log('war declared')
                     });
                 } else if (type='damage') {
-                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, recipient, 100, 100, 10, 10, 'loot'], function(err){
+                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 100, 100, 10, 10, type], function(err){
                         res.redirect('/war')
                         console.log('war declared')
                     })
