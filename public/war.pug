@@ -1,0 +1,16 @@
+a(href='/declarewar')
+      span DECLARE WAR AYYLAH
+
+each war in offensiveWars
+    h2 Aggressor
+        span YOU
+            span Defender
+                span=war.defenderid
+
+
+each war in defensiveWars
+    h2 Aggressor
+        span=war.aggresorid
+            span Defender
+                span YOU
+

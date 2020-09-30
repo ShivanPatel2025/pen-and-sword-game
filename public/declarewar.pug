@@ -1,0 +1,11 @@
+form.create_kingdom_form(action='/declarewar', method='POST')
+    h2 Whom to declare on
+    .input
+        label(for='whom')
+            i.fab.fa-fort-awesome.fa-2x
+        input#kingdom.small(placeholder='who are you attacking (kingdom name)', type='text' name='whom')
+    .input
+        label(for='type')
+            i.fas.fa-crown.fa-2x
+        input#ruler.small(placeholder='damage/loot', type='text' name='type')
+    button(type='submit') Declare War
