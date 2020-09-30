@@ -51,3 +51,10 @@ nav.flex
         input(name='pirates' placeholder='0'  type="number" step="1")
         input(name='sea_serpents' placeholder='0'  type="number" step="1")
         button(type='submit') Submit
+
+    form.flex.col.register(action='/enlistsiege' method='POST' name='test')
+        h1 Enlist Siege
+        input(name='catapults' placeholder='0'  type="number" step="1")
+        input(name='trebuchets' placeholder='0'  type="number" step="1")
+        input(name='cannons' placeholder='0'  type="number" step="1")
+        button(type='submit') Submit

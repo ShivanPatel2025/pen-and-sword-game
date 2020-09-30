@@ -18,15 +18,15 @@ head
     .input
       label(for='user')
         i.fas.fa-user.fa-2x
-      input#user.small(placeholder='Username', type='text' name='user')
+      input#user.small(placeholder='Username', type='text' name='user' required='')
     .input
       label(for='email')
         i.fas.fa-envelope.fa-2x
-      input#email.small(placeholder='Email', type='email' name='email')
+      input#email.small(placeholder='Email', type='email' name='email' required='')
     .input
       label(for='pass')
         i.fas.fa-lock.fa-2x
-      input#pass.small(placeholder='Password', type='password' name='password')
+      input#pass.small(placeholder='Password', type='password' name='password' required='')
     .sign_in_btns.flex
       button.create_kingdom(type='submit') Create Your Kingdom
       h3 Already Have One?
@@ -37,11 +37,11 @@ head
     .input
       label(for='email')
         i.fas.fa-envelope.fa-2x
-      input#email.small(placeholder='Email', type='email' name='email')
+      input#email.small(placeholder='Email', type='email' name='email' required='')
     .input
       label(for='pass')
         i.fas.fa-lock.fa-2x
-      input#pass.small(placeholder='Password', type='password' name='pass')
+      input#pass.small(placeholder='Password', type='password' name='pass' required='')
     .sign_in_btns.flex
       button.create_kingdom(type='submit') Go to Your Kingdom
       h3

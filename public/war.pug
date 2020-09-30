@@ -1,0 +1,24 @@
+a(href='/declarewar')
+      span DECLARE WAR AYYLAH
+
+h2 Aggresive Wars
+each warObject in loffensiveWars
+    h2 Aggressor
+        span YOU
+            span Defender
+                span=warObject.defenderid
+        form(action='/attack' method='POST' name='test')
+            input(name='warid' type = 'hidden' value=warObject.warid)
+            button(type='submit') Prepare Attack
+
+
+h2 Defensive Wars
+each warObject in defensiveWars
+    h2 Aggressor
+        span=warObject.aggresorid
+            span Defender
+                span YOU
+        form(action='/attack' method='POST' name='test')
+            input(name='warid' type = 'hidden' value=warObject.warid)
+            button(type='submit') Prepare Attack
+

@@ -24,7 +24,7 @@ head
           div
             | 10 
             i.fas.fa-minus
-        input#democracy(type='radio' name='government' value='Democracy')
+        input#democracy(type='radio' name='government' value='Democracy' required='')
         label(for='democracy') Democracy
       .policy_selection
         h3 Totalitarian
@@ -39,7 +39,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#totalitarian(type='radio' name='government' value='Totalitarian')
+        input#totalitarian(type='radio' name='government' value='Totalitarian' required='')
         label(for='totalitarian') Totalitarian
       .policy_selection
         h3 Theocracy
@@ -54,7 +54,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#theocracy(type='radio' name='government' value='Theocracy')
+        input#theocracy(type='radio' name='government' value='Theocracy' required='')
         label(for='theocracy') Theocracy
       .policy_selection
         h3 Monarchy
@@ -69,7 +69,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#monarchy(type='radio' name='government' value='Monarchy')
+        input#monarchy(type='radio' name='government' value='Monarchy' required='')
         label(for='monarchy') Monarchy
     section
       .policy_selection
@@ -85,7 +85,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#capitalism(type='radio' name='economy' value='Capitalism')
+        input#capitalism(type='radio' name='economy' value='Capitalism' required='')
         label(for='capitalism') Capitalism
       .policy_selection
         h3 Socialism
@@ -100,7 +100,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#socialism(type='radio' name='economy' value='Socialism')
+        input#socialism(type='radio' name='economy' value='Socialism' required='')
         label(for='socialism') Socialism
       .policy_selection
         h3 Communism
@@ -115,7 +115,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#communism(type='radio' name='economy' value='Communism')
+        input#communism(type='radio' name='economy' value='Communism' required='')
         label(for='communism') Communism
       .policy_selection
         h3 Mercantalism
@@ -130,7 +130,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#mercantalism(type='radio' name='economy' value='Mercantalism')
+        input#mercantalism(type='radio' name='economy' value='Mercantalism' required='')
         label(for='mercantalism') Mercantalism
     
     section
@@ -147,7 +147,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#guerilla(type='radio' name='war' value='guerilla')
+        input#guerilla(type='radio' name='war' value='Guerilla' required='')
         label(for='guerilla') Guerilla
       .policy_selection
         h3 Lightning
@@ -162,7 +162,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#lightning(type='radio' name='war' value='lightning')
+        input#lightning(type='radio' name='war' value='Lightning' required='') 
         label(for='lightning') Lightning
       .policy_selection
         h3 Trench
@@ -177,7 +177,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#trench(type='radio' name='war' value='trench')
+        input#trench(type='radio' name='war' value='Trench' required='')
         label(for='trench') Trench
       .policy_selection
         h3 Total
@@ -192,7 +192,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#total(type='radio' name='war' value='total')
+        input#total(type='radio' name='war' value='Total' required='')
         label(for='total') Total
 
     section
@@ -209,7 +209,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#artist(type='radio' name='origin' value='artist')
+        input#artist(type='radio' name='origin' value='Artist' required='')
         label(for='artist') Artist
       .policy_selection
         h3 Diplomat
@@ -224,7 +224,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#diplomat(type='radio' name='origin' value='diplomat')
+        input#diplomat(type='radio' name='origin' value='Diplomat' required='')
         label(for='diplomat') Diplomat
       .policy_selection
         h3 General
@@ -239,7 +239,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#general(type='radio' name='origin' value='general')
+        input#general(type='radio' name='origin' value='General' required='')
         label(for='general') General
       .policy_selection
         h3 Thief
@@ -254,7 +254,7 @@ head
           div
             | 2 
             i.fas.fa-minus
-        input#thief(type='radio' name='origin' value='thief')
+        input#thief(type='radio' name='origin' value='Thief' required='')
         label(for='thief') Thief
     .cycle
       i.back.fa-7x.fas.fa-arrow-circle-left

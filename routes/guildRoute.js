@@ -25,6 +25,10 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/guild', function(req,res) {
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
     storedID=parseInt(rows.id, 10);
     let errormessage='bro ur not in a guild'
     db.get('SELECT * FROM kingdoms where id= ?', storedID, function(err,row) {
@@ -45,7 +49,7 @@ router.get('/guild', function(req,res) {
         })
       }
     })
-  })
+  }})
 })
 
 router.get('/create-guild', urlencodedParser, function(req,res) {
@@ -55,6 +59,10 @@ router.get('/create-guild', urlencodedParser, function(req,res) {
 router.post('/finish-guild-creation', urlencodedParser, function(req,res){
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
     storedID=parseInt(rows.id, 10);
   let guild=req.body.guild;
   let type = req.body.type;
@@ -70,7 +78,7 @@ router.post('/finish-guild-creation', urlencodedParser, function(req,res){
     })
     res.redirect('/guild');
   });
-  })
+  }})
 })
 
 router.get('/join-guild', urlencodedParser, function(req,res) {
@@ -94,10 +102,22 @@ router.get('/guilds', function(req,res) {
 router.get('/leave-guild', function(req,res) {
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
     storedID=parseInt(rows.id, 10);
-    db.get('UPDATE kingdoms SET guild=?, position =? WHERE id =?', [ , , storedID])
+    db.get(`SELECT * FROM kingdoms where id =?`, storedID, function(err,rows) {
+      let guild = rows.guild;
+      db.get('SELECT * FROM guilds WHERE guild =?', guild, function(err,rows) {
+        let membercount=rows.membercount;
+        let newMC=membercount-1;
+        db.run('UPDATE guilds SET membercount=?', newMC);
+      })
+    })
+    db.run('UPDATE kingdoms SET guild=?, position =? WHERE id =?', [ , , storedID])
     res.redirect('/guild')
-  })
+  }})
 })
 
 router.post('/joinspecificguild', urlencodedParser, function(req,res) {
@@ -105,6 +125,10 @@ router.post('/joinspecificguild', urlencodedParser, function(req,res) {
   let membercount=0;
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
     storedID=parseInt(rows.id, 10);
     db.serialize(() => {
       db.run('UPDATE kingdoms SET guild=?, position=? WHERE id=?',[guild,"member", storedID],function(err) {
@@ -133,6 +157,6 @@ router.post('/joinspecificguild', urlencodedParser, function(req,res) {
         })
       })
       })
-  })
+  }})
 })
 module.exports = router;

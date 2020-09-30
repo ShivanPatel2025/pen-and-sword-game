@@ -25,6 +25,10 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/provinces',urlencodedParser,function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       let currentProvinceCount;
     let i=0;
@@ -62,13 +66,17 @@ router.get('/provinces',urlencodedParser,function(req,res){
         res.render('provinces', {currentProvinceCount, provinces, improvementsRaw, improvementsRefine, improvementsEcon, improvementsEntertainment, improvementsResearch, improvementsHousing});
       }) 
     })
-    })
+    }})
 })
 
 
 router.post('/new-province', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
       storedID=parseInt(rows.id, 10);
       let provinceCost;
         let currentGold;
@@ -113,7 +121,7 @@ router.post('/new-province', urlencodedParser, function(req,res) {
             }).catch(console.error);
         })
     })
-    })
+    }})
 })
 
 function checkBalance(incost,keys) {
@@ -130,6 +138,10 @@ function checkBalance(incost,keys) {
 router.post('/buyLand', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
         storedID=parseInt(rows.id, 10);
         let increase = req.body.land;
     let name = req.body.provinceName
@@ -176,7 +188,7 @@ router.post('/buyLand', urlencodedParser, function(req,res) {
             }
         }).catch(console.error);
     })
-    })
+    }})
     
 })
 
@@ -193,6 +205,10 @@ function checkBalanceLand(incost,key) {
 router.post('/buyImprovement', urlencodedParser, function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
         storedID=parseInt(rows.id, 10);
         let name = req.body.provinceName;
     console.log(name);
@@ -408,7 +424,7 @@ router.post('/buyImprovement', urlencodedParser, function(req,res) {
                 }).catch(console.error)
         })  
     })
-    })
+    }})
 })
 
 

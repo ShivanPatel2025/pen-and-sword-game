@@ -273,7 +273,7 @@ setInterval(function() {
                 let newIron=rows.iron+rev.iron;
                 let newBronze=rows.bronze+rev.bronze;
                 let newSteel=rows.steel+rev.steel;
-                checkBalance(rev, storedID).then(check=>{
+                checkBalance(rev, userid).then(check=>{
                     if(check===true) {
                         console.log('Positive revnue is being added')
                         db.run('UPDATE resources SET gold = ?, mana =?, flora = ?, fauna = ?, lumber =?, food =?,ore=?,silver=?,iron=?,bronze=?,steel=? WHERE id = ?', [newGold, newMana, newFlora, newFauna, newLumber, newFood, newOre, newSilver, newIron, newBronze, newSteel,  userid], function(err) {
