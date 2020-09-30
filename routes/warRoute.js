@@ -46,7 +46,7 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         offensiveWars.push(warObject)
-                        console.log(offensiveWars)
+                        //console.log(offensiveWars)
                     }
                 })
                 db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
@@ -62,12 +62,12 @@ router.get('/war', function(req,res) {
                             defendermaps: rows.defendermaps
                         }
                         defensiveWars.push(warObject)
-                        console.log(defensiveWars)
+                        //console.log(defensiveWars)
                     }
                 })
                 db.get('SELECT * FROM kingdoms', function(err,rows){
-                    console.log(offensiveWars)
-                    console.log(defensiveWars)
+                    //console.log(offensiveWars)
+                    //console.log(defensiveWars)
                     res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars})
                 })
             })
@@ -109,6 +109,190 @@ router.post('/declarewar', urlencodedParser, function(req,res) {
             })
           }
     })
+})
+
+//Ideally this is like a popup not a seperate page
+router.post('/attack', urlencodedParser, function(req,res) {
+    console.log(req.body.warid + "line 116");
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10)
+        db.serialize(()=>{
+            let domesticAir;
+            let domesticGround;
+            let domesticSea;
+            let domesticSiege;
+            let domesticMaps;
+            let domesticStability;
+            let foreignAir;
+            let foreignGround;
+            let foreignSea;
+            let foreignSiege; 
+            let foreignMaps;
+            let foreignStability;
+            console.log(req.body.warid)
+            db.get(`SELECT * FROM wars WHERE warid=?`, req.body.warid, function(err,rows){
+                console.log(rows);
+                if(rows.aggressorid=storedID) {
+                    domesticMaps=rows.aggressormaps;
+                    domesticStability=rows.aggressorstability;
+                    foreignMaps=rows.defendermaps;
+                    foreignStability=rows.defenderstability;
+                } else if (rows.defenderid=storedID){
+                    domesticMaps=rows.defendermaps;
+                    domesticStability=rows.defenderstability;
+                    foreignMaps=rows.aggressormaps;
+                    foreignStability=rows.aggressorstability;
+                }
+            })
+            db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
+                warriors = {
+                'name': 'Warriors',
+                'value': rows.warriors
+                } 
+                archers = {
+                'name': 'Archers',
+                'value': rows.archers
+                } 
+                cavalry = {
+                'name': 'Cavalry',
+                'value': rows.cavalry
+                } 
+                blacksmiths = {
+                    'name':'Blacksmith',
+                    'value': rows.blacksmiths
+                }
+                priests = {
+                    'name': 'Priests',
+                    'value':rows.priests
+                }
+                mages = {
+                    'name': 'Mages',
+                    'value': rows.mages
+                }
+                blimps = {
+                    'name': 'Blimps',
+                    'value': rows.blimps
+                }
+                harpies = {
+                    'name': 'Harpies',
+                    'value': rows.harpies
+                }
+                angels = {
+                    'name': 'Angels',
+                    'value': rows.angels
+                }
+                dragons = {
+                    'name': 'Dragons',
+                    'value': rows.dragons
+                }
+                galleys = {
+                    'name': 'Galleys',
+                    'value': rows.galleys
+                }
+                pirates = {
+                    'name': 'Pirates',
+                    'value': rows.pirates
+                }
+                sea_serpents = {
+                    'name': 'Sea Serpents',
+                    'value': rows.sea_serpents
+                }
+                catapults = {
+                    'name': 'Catapults',
+                    'value': rows.catapults
+                }
+                trebuchets= {
+                    'name': 'Trebuchets',
+                    'value':rows.trebuchets
+                }
+                cannons={
+                    'name': 'Cannons',
+                    'values': rows.cannons
+                }
+                domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                domesticAir = [blimps, harpies, angels, dragons];
+                domesticSea = [galleys, pirates, sea_serpents];
+                domesticSiege = [catapults, trebuchets, cannons];
+                console.log(domesticGround);
+        })
+            db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
+                warriors = {
+                'name': 'Warriors',
+                'value': rows.warriors
+                } 
+                archers = {
+                'name': 'Archers',
+                'value': rows.archers
+                } 
+                cavalry = {
+                'name': 'Cavalry',
+                'value': rows.cavalry
+                } 
+                blacksmiths = {
+                    'name':'Blacksmith',
+                    'value': rows.blacksmiths
+                }
+                priests = {
+                    'name': 'Priests',
+                    'value':rows.priests
+                }
+                mages = {
+                    'name': 'Mages',
+                    'value': rows.mages
+                }
+                blimps = {
+                    'name': 'Blimps',
+                    'value': rows.blimps
+                }
+                harpies = {
+                    'name': 'Harpies',
+                    'value': rows.harpies
+                }
+                angels = {
+                    'name': 'Angels',
+                    'value': rows.angels
+                }
+                dragons = {
+                    'name': 'Dragons',
+                    'value': rows.dragons
+                }
+                galleys = {
+                    'name': 'Galleys',
+                    'value': rows.galleys
+                }
+                pirates = {
+                    'name': 'Pirates',
+                    'value': rows.pirates
+                }
+                sea_serpents = {
+                    'name': 'Sea Serpents',
+                    'value': rows.sea_serpents
+                }
+                catapults = {
+                    'name': 'Catapults',
+                    'value': rows.catapults
+                }
+                trebuchets= {
+                    'name': 'Trebuchets',
+                    'value':rows.trebuchets
+                }
+                cannons={
+                    'name': 'Cannons',
+                    'values': rows.cannons
+                }
+                foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                foreignAir = [blimps, harpies, angels, dragons];
+                foreignSea = [galleys, pirates, sea_serpents];
+                foreignSiege = [catapults, trebuchets, cannons];
+                res.render('attack', {domesticAir,domesticGround,domesticSea,domesticSiege,domesticMaps,domesticStability, foreignAir, foreignGround,foreignSea,foreignSiege,foreignMaps,foreignStability});
+        })   
+    })
+    }}) 
 })
 
 module.exports = router; 
