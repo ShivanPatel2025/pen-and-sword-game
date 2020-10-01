@@ -91,23 +91,39 @@ router.post('/declarewar', urlencodedParser, function(req,res) {
             let type=req.body.type;
             db.get('SELECT * FROM kingdoms WHERE kingdom =?', recipient, function(err,rows) {
                 let defenderid=rows.id;
-                let type=rows.id;
-                if (type = 'loot') {
-                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 50, 50, 10, 10, type], function(err){
+                console.log(storedID)
+                console.log(defenderid)
+                db.get(`SELECT * FROM wars WHERE (aggressorid=? AND defenderid=?) OR (defenderid=? AND aggressorid=?)`, [storedID,defenderid,storedID,defenderid], function(err,rows) {
+                    console.log(rows);
+                    if(rows) {
+                        console.log('u are already engaged in warfare with this person')
                         res.redirect('/war')
-                        console.log('war declared')
-                    });
-                } else if (type='damage') {
-                    db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 100, 100, 10, 10, type], function(err){
+                    } else if (aggressorid=defenderid){
+                        console.log('you cant attack urself')
                         res.redirect('/war')
-                        console.log('war declared')
-                    })
-                } else {
-                    res.redirect('/war')
-                    console.log('not a valid war type')
-                }
+                    }else{
+                        db.get('SELECT * FROM kingdoms WHERE kingdom =?', recipient, function(err,rows) {
+                            let defenderid=rows.id;
+                            let type=rows.id;
+                            if (type = 'loot') {
+                                db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 50, 50, 10, 10, type], function(err){
+                                    res.redirect('/war')
+                                    console.log('war declared')
+                                });
+                            } else if (type='damage') {
+                                db.run(`INSERT INTO wars (aggressorid, defenderid, aggressorstability, defenderstability, aggressormaps, defendermaps, type) VALUES (?,?,?,?,?,?,?)`, [storedID, defenderid, 100, 100, 10, 10, type], function(err){
+                                    res.redirect('/war')
+                                    console.log('war declared')
+                                })
+                            } else {
+                                res.redirect('/war')
+                                console.log('not a valid war type')
+                            }
+                        })
+                    }
+                })
             })
-          }
+        }
     })
 })
 
