@@ -372,7 +372,7 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                     console.log('EXTREME ViCOTRY')
                 } else if (attackingPower>1.1*defenderBonus*defendingPower) {
                     console.log('Medium VICTORY')
-                } else if (attackingPower>.08*defenderBonus*defendingPower) {
+                } else if (attackingPower>.8*defenderBonus*defendingPower) {
                     console.log('stalemate')
                 } else {
                     console.log('loss');
