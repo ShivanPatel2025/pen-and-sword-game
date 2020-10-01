@@ -360,7 +360,10 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                 foreignGround[3]=rows.blacksmiths;
                 foreignGround[4]=rows.priests;
                 foreignGround[5]=rows.mages;
-                let defendingPower=Number(foreignGround[0])*.05+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15;
+                foreignGround[6]=rows.angels;
+                foreignGround[7]=rows.dragons;
+                foreignGround[8]=rows.pirates
+                let defendingPower=Number(foreignGround[0])*.05+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15+Number(foreignGround[6]*8)+Number(foreignGround[7]*10)+Number(foreignGround[8]*4);
                 let defenderBonus=2;
                 while(defenderBonus>=1.4) {
                     defenderBonus= Math.random()+1.001;
@@ -370,12 +373,90 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                 console.log(defenderBonus)
                 if (attackingPower>1.25*defenderBonus*defendingPower) {
                     console.log('EXTREME ViCOTRY')
+                    //casualty rate for attacking melee (CRAM)
+                    let CRAM = 1-Math.floor(Math.random()*(9-3)+1)/100
+                    let CRAR = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(9-5)+5)/100
+                    let newDomesticGround=[Math.floor(domesticGround[0]*CRAM), Math.floor(domesticGround[1]*CRAR), Math.floor(domesticGround[2]*CRAM), Math.floor(domesticGround[3]*CRAR), Math.floor(domesticGround[4]*CRAM), Math.floor(domesticGround[5]*CRAR)]
+                    let newForeignGround=[Math.floor(foreignGround[0]*CRDM), Math.floor(foreignGround[1]*CRDR), Math.floor(foreignGround[2]*CRDM), Math.floor(foreignGround[3]*CRDR), Math.floor(foreignGround[4]*CRDM), Math.floor(foreignGround[5]*CRDR), Math.floor(foreignGround[6]*CRDO), Math.floor(foreignGround[7]*CRDO), Math.floor(foreignGround[8]*CRDO)]
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=? WHERE id=?', [newDomesticGround[0],newDomesticGround[1],newDomesticGround[2],newDomesticGround[3],newDomesticGround[4],newDomesticGround[5],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=?, angels=?, dragons=?, pirates=? WHERE id=?', [newForeignGround[0],newForeignGround[1],newForeignGround[2],newForeignGround[3],newForeignGround[4],newForeignGround[5],newForeignGround[6],newForeignGround[7],newForeignGround[8],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                    
                 } else if (attackingPower>1.1*defenderBonus*defendingPower) {
                     console.log('Medium VICTORY')
+                    let CRAM = 1-Math.floor(Math.random()*(12-7)+7)/100
+                    let CRAR = 1-Math.floor(Math.random()*(7-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(17-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(12-9)+9)/100
+                    let CRDO = 1-Math.floor(Math.random()*(6-3)+3)/100
+                    let newDomesticGround=[Math.floor(domesticGround[0]*CRAM), Math.floor(domesticGround[1]*CRAR), Math.floor(domesticGround[2]*CRAM), Math.floor(domesticGround[3]*CRAR), Math.floor(domesticGround[4]*CRAM), Math.floor(domesticGround[5]*CRAR)]
+                    let newForeignGround=[Math.floor(foreignGround[0]*CRDM), Math.floor(foreignGround[1]*CRDR), Math.floor(foreignGround[2]*CRDM), Math.floor(foreignGround[3]*CRDR), Math.floor(foreignGround[4]*CRDM), Math.floor(foreignGround[5]*CRDR), Math.floor(foreignGround[6]*CRDO), Math.floor(foreignGround[7]*CRDO), Math.floor(foreignGround[8]*CRDO)]
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=? WHERE id=?', [newDomesticGround[0],newDomesticGround[1],newDomesticGround[2],newDomesticGround[3],newDomesticGround[4],newDomesticGround[5],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=?, angels=?, dragons=?, pirates=? WHERE id=?', [newForeignGround[0],newForeignGround[1],newForeignGround[2],newForeignGround[3],newForeignGround[4],newForeignGround[5],newForeignGround[6],newForeignGround[7],newForeignGround[8],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
                 } else if (attackingPower>.8*defenderBonus*defendingPower) {
                     console.log('stalemate')
+                    let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(12-3)+3)/100
+                    let CRDM = 1-Math.floor(Math.random()*(14-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(4-2)+2)/100
+                    let newDomesticGround=[Math.floor(domesticGround[0]*CRAM), Math.floor(domesticGround[1]*CRAR), Math.floor(domesticGround[2]*CRAM), Math.floor(domesticGround[3]*CRAR), Math.floor(domesticGround[4]*CRAM), Math.floor(domesticGround[5]*CRAR)]
+                    let newForeignGround=[Math.floor(foreignGround[0]*CRDM), Math.floor(foreignGround[1]*CRDR), Math.floor(foreignGround[2]*CRDM), Math.floor(foreignGround[3]*CRDR), Math.floor(foreignGround[4]*CRDM), Math.floor(foreignGround[5]*CRDR), Math.floor(foreignGround[6]*CRDO), Math.floor(foreignGround[7]*CRDO), Math.floor(foreignGround[8]*CRDO)]
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=? WHERE id=?', [newDomesticGround[0],newDomesticGround[1],newDomesticGround[2],newDomesticGround[3],newDomesticGround[4],newDomesticGround[5],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=?, angels=?, dragons=?, pirates=? WHERE id=?', [newForeignGround[0],newForeignGround[1],newForeignGround[2],newForeignGround[3],newForeignGround[4],newForeignGround[5],newForeignGround[6],newForeignGround[7],newForeignGround[8],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
                 } else {
                     console.log('loss');
+                    let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(13-10)+10)/100
+                    let CRDM = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDR = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let CRDO = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let newDomesticGround=[Math.floor(domesticGround[0]*CRAM), Math.floor(domesticGround[1]*CRAR), Math.floor(domesticGround[2]*CRAM), Math.floor(domesticGround[3]*CRAR), Math.floor(domesticGround[4]*CRAM), Math.floor(domesticGround[5]*CRAR)]
+                    let newForeignGround=[Math.floor(foreignGround[0]*CRDM), Math.floor(foreignGround[1]*CRDR), Math.floor(foreignGround[2]*CRDM), Math.floor(foreignGround[3]*CRDR), Math.floor(foreignGround[4]*CRDM), Math.floor(foreignGround[5]*CRDR), Math.floor(foreignGround[6]*CRDO), Math.floor(foreignGround[7]*CRDO), Math.floor(foreignGround[8]*CRDO)]
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=? WHERE id=?', [newDomesticGround[0],newDomesticGround[1],newDomesticGround[2],newDomesticGround[3],newDomesticGround[4],newDomesticGround[5],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=?, angels=?, dragons=?, pirates=? WHERE id=?', [newForeignGround[0],newForeignGround[1],newForeignGround[2],newForeignGround[3],newForeignGround[4],newForeignGround[5],newForeignGround[6],newForeignGround[7],newForeignGround[8],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
                 }
             })
         })
