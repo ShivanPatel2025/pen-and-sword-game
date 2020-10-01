@@ -374,6 +374,8 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                     console.log('Medium VICTORY')
                 } else if (attackingPower>.08*defenderBonus*defendingPower) {
                     console.log('stalemate')
+                } else {
+                    console.log('loss');
                 }
             })
         })
