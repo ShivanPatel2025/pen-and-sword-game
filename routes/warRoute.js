@@ -490,6 +490,7 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                 }
             })
         })
+        res.redirect('/war')
     })}
     })
 })
@@ -671,6 +672,7 @@ router.post('/airfight', urlencodedParser, function(req,res){
                 }
             })
         })
+        res.redirect('/war')
     })}
     })
 })
@@ -849,6 +851,7 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
                 }
             })
         })
+        res.redirect('/war')
     })}
     })
 })
