@@ -40,7 +40,7 @@ h2 Opponent Stability + Action points
             input(name='foreignMaps' type = 'hidden' value=foreignMaps)
             input(name='foreignStability' type = 'hidden' value=foreignStability)
             input(name='warid' type = 'hidden' value=warid)
-            button(type='submit') Launch Ground Attack
+            button(type='submit') Launch Ground Assult
 
         form(action='/airfight' method='POST' name='test')
             input(name='domesticMaps' type = 'hidden' value=domesticMaps)
@@ -48,4 +48,12 @@ h2 Opponent Stability + Action points
             input(name='foreignMaps' type = 'hidden' value=foreignMaps)
             input(name='foreignStability' type = 'hidden' value=foreignStability)
             input(name='warid' type = 'hidden' value=warid)
-            button(type='submit') Launch Ground Attack
+            button(type='submit') Launch Air Battle
+
+        form(action='/navalbattle' method='POST' name='test')
+            input(name='domesticMaps' type = 'hidden' value=domesticMaps)
+            input(name='domesticStability' type = 'hidden' value=domesticStability)
+            input(name='foreignMaps' type = 'hidden' value=foreignMaps)
+            input(name='foreignStability' type = 'hidden' value=foreignStability)
+            input(name='warid' type = 'hidden' value=warid)
+            button(type='submit') Launch Naval Attack

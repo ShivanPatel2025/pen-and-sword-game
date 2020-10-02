@@ -613,8 +613,150 @@ router.post('/airfight', urlencodedParser, function(req,res){
     })
 })
 
-app.post('/navalbattle', urlencodedParser, function(req,res){
-
+router.post('/navalbattle', urlencodedParser, function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10)
+        let domesticAir=[];
+        let domesticGround=[];
+        let domesticSea=[];
+        let domesticSiege=[];
+        let domesticMaps=req.body.domesticMaps;
+        let domesticStability=req.body.domesticStability;
+        let foreignAir=[];
+        let foreignGround=[];
+        let foreignSea=[];
+        let foreignSiege=[]; 
+        let foreignMaps=req.body.foreignMaps;
+        let foreignStability=req.body.foreignStability;
+        let enemyID;
+        db.serialize(()=>{
+        db.get('SELECT * FROM wars WHERE warid=?', req.body.warid, function(err,rows){
+            if (rows.aggressorid==storedID){
+                enemyID=rows.defenderid;
+            }
+            if (rows.defenderid==storedID) {
+                enemyID=rows.aggressorid
+            }
+            //console.log(enemyID)
+        })
+        db.get('SELECT * FROM military WHERE id=?', storedID, function(err,rows){
+            console.log(enemyID)
+            domesticSea[0]=rows.galleys;
+            domesticSea[1]=rows.pirates;
+            domesticSea[2]=rows.sea_serpents;
+            //console.log(domesticGround)
+            let attackingPower=Number(domesticSea[0])*8+Number(domesticSea[1])*15+Number(domesticSea[2])*40;
+            db.get('SELECT * FROM military WHERE id=?', enemyID, function(err,rows){
+                console.log(rows);
+                foreignSea[0]=rows.galleys;
+                foreignSea[1]=rows.pirates;
+                foreignSea[2]=rows.sea_serpents;
+                foreignSea[3]=rows.archers;
+                foreignSea[4]=rows.angels;
+                let defendingPower=Number(foreignSea[0])*8+Number(foreignSea[1])*4+Number(foreignSea[2])*40+Number(foreignSea[3])*6+Number(foreignSea[4])*8;
+                let defenderBonus=2;
+                while(defenderBonus>=1.4) {
+                    defenderBonus= Math.random()+1.001;
+                }
+                console.log(defendingPower)
+                console.log(attackingPower)
+                console.log(defenderBonus)
+                if (attackingPower>1.25*defenderBonus*defendingPower) {
+                    console.log('EXTREME ViCOTRY')
+                    //casualty rate for attacking melee (CRAM)
+                    let CRAM = 1-Math.floor(Math.random()*(9-3)+3)/100
+                    let CRAR = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(9-5)+5)/100
+                    let newDomesticSea=[Math.floor(domesticSea[0]*CRAR), Math.floor(domesticSea[1]*CRAM), Math.floor(domesticSea[2]*CRAM)]
+                    let newForeignSea=[Math.floor(foreignSea[0]*CRDR), Math.floor(foreignSea[1]*CRDM), Math.floor(foreignSea[2]*CRDM), Math.floor(foreignSea[3]*CRDO), Math.floor(foreignSea[4]*CRDO)]
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=? WHERE id=?', [newDomesticSea[0],newDomesticSea[1],newDomesticSea[2],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=?, archers=?, angels=? WHERE id=?', [newForeignSea[0],newForeignSea[1],newForeignSea[2],newForeignSea[3],newForeignSea[4],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                    
+                } else if (attackingPower>1.1*defenderBonus*defendingPower) {
+                    console.log('Medium VICTORY')
+                    let CRAM = 1-Math.floor(Math.random()*(12-7)+7)/100
+                    let CRAR = 1-Math.floor(Math.random()*(7-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(17-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(12-9)+9)/100
+                    let CRDO = 1-Math.floor(Math.random()*(6-3)+3)/100
+                    let newDomesticSea=[Math.floor(domesticSea[0]*CRAR), Math.floor(domesticSea[1]*CRAM), Math.floor(domesticSea[2]*CRAM)]
+                    let newForeignSea=[Math.floor(foreignSea[0]*CRDR), Math.floor(foreignSea[1]*CRDM), Math.floor(foreignSea[2]*CRDM), Math.floor(foreignSea[3]*CRDO), Math.floor(foreignSea[4]*CRDO)]
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=? WHERE id=?', [newDomesticSea[0],newDomesticSea[1],newDomesticSea[2],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=?, archers=?, angels=? WHERE id=?', [newForeignSea[0],newForeignSea[1],newForeignSea[2],newForeignSea[3],newForeignSea[4],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                } else if (attackingPower>.8*defenderBonus*defendingPower) {
+                    console.log('stalemate')
+                    let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(12-3)+3)/100
+                    let CRDM = 1-Math.floor(Math.random()*(14-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(4-2)+2)/100
+                    let newDomesticSea=[Math.floor(domesticSea[0]*CRAR), Math.floor(domesticSea[1]*CRAM), Math.floor(domesticSea[2]*CRAM)]
+                    let newForeignSea=[Math.floor(foreignSea[0]*CRDR), Math.floor(foreignSea[1]*CRDM), Math.floor(foreignSea[2]*CRDM), Math.floor(foreignSea[3]*CRDO), Math.floor(foreignSea[4]*CRDO)]
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=? WHERE id=?', [newDomesticSea[0],newDomesticSea[1],newDomesticSea[2],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=?, archers=?, angels=? WHERE id=?', [newForeignSea[0],newForeignSea[1],newForeignSea[2],newForeignSea[3],newForeignSea[4],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                } else {
+                    console.log('loss');
+                    let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(13-10)+10)/100
+                    let CRDM = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDR = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let CRDO = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let newDomesticSea=[Math.floor(domesticSea[0]*CRAR), Math.floor(domesticSea[1]*CRAM), Math.floor(domesticSea[2]*CRAM)]
+                    let newForeignSea=[Math.floor(foreignSea[0]*CRDR), Math.floor(foreignSea[1]*CRDM), Math.floor(foreignSea[2]*CRDM), Math.floor(foreignSea[3]*CRDO), Math.floor(foreignSea[4]*CRDO)]
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=? WHERE id=?', [newDomesticSea[0],newDomesticSea[1],newDomesticSea[2],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET galleys=?, pirates=?, sea_serpents=?, archers=?, angels=? WHERE id=?', [newForeignSea[0],newForeignSea[1],newForeignSea[2],newForeignSea[3],newForeignSea[4],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                }
+            })
+        })
+    })}
+    })
 })
 
 app.post('/siegeprovince', urlencodedParser, function(req,res){
