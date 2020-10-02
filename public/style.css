@@ -1,53 +1,4 @@
- /* *{
-    font-family: Arial, Helvetica, sans-serif;
-}
 
-body{
-    background-color: #252525
-}
-form h1 {
-    color: #edc580;
-}
-.flex{
-    display: flex;
-}
-.col{
-    flex-direction: column;
-}
-.register{
-    justify-content: space-between;
-    height: 20em;
-    margin: 0 auto;
-    width: 40%;
-    align-items: center;
-}
-.register input {
-    width: 65%;
-    line-height: 2;
-    font-size: 15px;
-}
-
-.register button{
-    font-size: 15px;
-    width: fit-content;
-} */
-
-
-/* nav */
-
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-
-/* total width */
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-
-/* total width */
-/* Customize website's scrollbar like Mac OS
-Not supports in Firefox and IE */
-
-/* total width */
-/* Let's get this party started */
 ::-webkit-scrollbar {
     width: 8px;
     margin-left: 6px;
@@ -112,6 +63,12 @@ nav img{
     display: block;
 
 
+}
+.bold{
+    font-weight: 700 !important;
+}
+.normal{
+    font-weight: 400 !important; 
 }
 
 /* nav */
@@ -554,7 +511,7 @@ img.kingdom_image_banner{
     opacity: .3;
     z-index: -1;
     top: -3em;
-    width: 100%;
+    
 }
 .kingdom_banner h1{
     margin: .1em 0;
@@ -853,6 +810,7 @@ img.kingdom_image_banner{
 }
 .military_banner_header{
     width: 45%;
+    margin-left: 3%;
 }
 .military_banner_header h1{
     font-size: 60px;
@@ -865,10 +823,184 @@ img.kingdom_image_banner{
 .military_banner_stats{
     width: 22%;
 }
+.military_banner_stats h2{
+    font-size: 22px;
+}
 .military_banner_stats h4{
     margin: .6em 0;
     display: flex;
     width: 90%;
     justify-content: space-between;
 }
+img.military_image_banner{
+    position: absolute;
+    opacity: .3;
+    z-index: -1;
+    top: -4em;
+    width: 100%;
+    
+}
+.military_selection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 5em;
+}
+.military_buttons{
+    width: 30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 2em;
+    border-bottom: #EDC580 solid 3px;
+    padding: 2em;
+}
+span.highlight{
+    background-color: #0f0f0f;
+    
+    border-radius: 10px;
+}
+.military_buttons span{
+    color: whitesmoke;
+    padding: .25em 1em;
+    font-size: 25px;
+}
+.troop_display{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top:0em;
+    
+    background-color: #0f0f0f;
+    width: 80%;
+    
+    border-radius: 10px;
+    box-shadow: 0 4px 20px -1px #0000004d;
+    transition: all .5s;
+}
+
+.troop_stats,.troop_desc,.troop_image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: whitesmoke;
+}
+.troop_desc{
+    width: 33%;
+    
+}
+.troop_stats{
+    width: 30%;
+    justify-content: center;
+}
+.troop_image{
+    width: 30%;
+}
+.troop_desc h1{
+    margin-top: 8%;
+}
+
+.troop_desc p {
+    width: 75%;
+    text-align: center;
+}
+.troop_desc form{
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1em;
+
+}
+.troop_desc form input{
+   width: 40%;
+   border-radius: 10px;
+}
+.troop_desc form button{
+    width: 40%;
+    padding:0;
+    margin: 0;
+    box-shadow: none;
+    border: #EDC580 2px solid;
+}
+.troop_desc form:last-of-type{
+    margin-bottom: 2em;
+}
+.troop_stats .effective {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.troop_stats .effective h2, .troop_stats .effective h4{
+    margin: 0;
+}
+
+.troop_stats .effective h4{
+    font-size: 20px;
+}
+.troop_stats i{
+    margin-left: .3em;
+}
+.troop_stats_off_def{
+    width: 100%;
+    margin-top: 8%;
+}
+.troop_stats h3{
+    width: 90%;
+    margin: .5em auto;
+    display: flex;
+    justify-content: space-between;
+}
+.troop_image{
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+.troop_image object{
+    width: 80%;
+}
+
+.troop_selection{
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    margin-top: 1em;
+}
+.select{
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.select h4{
+    margin-top: .5em;
+    color: whitesmoke;
+    font-weight: normal;
+    transition: all .25s;
+}
+.circle{
+    width: 8px;
+    height: 8px;
+    border: 2px solid #EDC580 ;
+    padding: 0;
+    border-radius: 50%;
+    
+    transition: all .25s;
+}
+.circle_selected{
+    background-color: #EDC580;
+    
+}
+
+.troop_display_disappear{
+    opacity: 0;
+    top: 2em;
+}
+
+
+
+
 

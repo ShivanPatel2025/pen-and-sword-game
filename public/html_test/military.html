@@ -33,30 +33,73 @@
 
                 </div>
 
-                <img class ="kingdom_image_banner"src="https://cdn.discordapp.com/attachments/724842104811159593/724847502221770782/70701cc7d786652fc89ee4f1c6c6d626.png" alt="">
+                <img class ="military_image_banner"src="https://cdn.discordapp.com/attachments/724842104811159593/724847502221770782/70701cc7d786652fc89ee4f1c6c6d626.png" alt="">
                 
             </div>
 
             <div class="military_selection">
                 <div class="military_buttons">
-                    <span>Ground</span>
+                    <span class = 'bold highlight'>Ground</span>
                     <span>Air</span>
                     <span>Sea</span>
                     <span>Siege</span>
                 </div>
                 <div class="troop_display">
-                    <form action="">
-                        <h2>Archer</h2>
-                        <p>Shoots stuff with arrow</p>
+                    <div class="troop_desc">
+                        <h1 id='name' archer='Archer' warrior='Warrior' cavalry='Cavalry'>Warrior</h1>
+                        <p id='description' archer='Deploy archers to defeat your enemies from long ranges' warrior='Warriors excel in close range combat' cavalry='Employ your cavalry to sustain heavy hits from your opponent'>Warriors excel in close range combat</p>
+                        <h4 id='current' > <span class="normal">Current Enlistment:</span> <span warrior =200 archer=300 cavalry=400 class="bold">200</span></h4>
+                        <form id='enlist'action="/enlist">
+                            <input type="number" min=0 name='warrior'>
+                            <button type="submit">Enlist</button>
+                        
+                        </form>
+                        <form id='discharge'action="/discharge">
+                            <input type="number" min=0 name='warrior'>
+                            <button type="submit">Discharge</button>
+                        
+                        </form>
 
-                    </form>
+                    </div>
+                    
                     <div class="troop_stats">
+                        <div class="effective">
+                            <h4><span class="normal">Can Attack:</span></h4>
+                            <h2 id ='attackable' archer='Ground & Air' warrior='Ground' cavalry='Ground & Air'>Ground</h2>
+
+                        </div>
+                        <div class="troop_stats_off_def">
+                            <h3 id='OPower'> <span class="normal">Offensive Power:</span>  <span  class="bold"> <span warrior =2 archer=4 cavalry=7>2</span> <i class="fas fa-fist-raised"></i></span></h3>
+                            <h3 id='DPower'> <span class="normal">Defensive Power:</span>  <span class="bold"> <span warrior =5 archer=2 cavalry=8 >5</span> <i class="fas fa-shield-alt"></i></span></h3>
+                            <h3 id='cost'><span class="normal">Cost:</span> <span class="bold"> <span warrior =7 archer=9 cavalry=13>7</span> <i class="fas fa-coins"></i></span></h3>
+                        </div>
+                
+
+                    </div>
+                    <div class="troop_image">
+                        <object id = 'image' class='' type="image/svg+xml" data="../media/warrior.svg"></object>
+                        
+                        
 
                     </div>
 
                 </div>
+                <div class="troop_selection">
+                    <div class="select" name = 'Warrior'>
+                        <div class="circle circle_selected"></div>
+                        <h4 class="bold">Warrior</h4>
+                    </div>
+                    <div class="select" name = 'Archer'>
+                        <div class="circle"></div>
+                        <h4>Archer</h4>
+                    </div>
+                    <div class="select" name = 'Cavalry'>
+                        <div class="circle"></div>
+                        <h4>Cavalry</h4>
+                    </div>
+                </div>
             </div>
         </div>
-        
+        <script src='../js/military.js'></script>
     </body>
 </html>
