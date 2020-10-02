@@ -393,6 +393,14 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-14;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                     
                 } else if (attackingPower>1.1*defenderBonus*defendingPower) {
                     console.log('Medium VICTORY')
@@ -415,6 +423,13 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    let newDefenderStability=foreignStability-10;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    } else {
+                        db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
+                    }
                 } else if (attackingPower>.8*defenderBonus*defendingPower) {
                     console.log('stalemate')
                     let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
@@ -436,6 +451,14 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    let newDefenderStability=foreignStability-6;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+
+                    } else{
+                        db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
+                    }
                 } else {
                     console.log('loss');
                     let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
@@ -457,6 +480,13 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    let newDefenderStability=foreignStability-0;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }else{
+                        db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
+                    }
                 }
             })
         })
@@ -542,6 +572,14 @@ router.post('/airfight', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-10;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                     
                 } else if (attackingPower>1.1*defenderBonus*defendingPower) {
                     console.log('Medium VICTORY')
@@ -564,6 +602,14 @@ router.post('/airfight', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-6;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 } else if (attackingPower>.8*defenderBonus*defendingPower) {
                     console.log('stalemate')
                     let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
@@ -585,6 +631,14 @@ router.post('/airfight', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-4;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 } else {
                     console.log('loss');
                     let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
@@ -606,6 +660,14 @@ router.post('/airfight', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-0;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 }
             })
         })
@@ -688,6 +750,14 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-9;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                     
                 } else if (attackingPower>1.1*defenderBonus*defendingPower) {
                     console.log('Medium VICTORY')
@@ -710,6 +780,14 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-7;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 } else if (attackingPower>.8*defenderBonus*defendingPower) {
                     console.log('stalemate')
                     let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
@@ -731,6 +809,14 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-3;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 } else {
                     console.log('loss');
                     let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
@@ -752,6 +838,14 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
                         }
                         console.log('defender took damage')
                     })
+                    //console.log(foreignStability)
+                    let newDefenderStability=foreignStability-0;
+                    if (newDefenderStability<0) {
+                        newDefenderStability=0;
+                        db.run('DELETE FROM wars WHERE warid=?',req.body.warid)
+                    }
+                    //console.log(newDefenderStability)
+                    db.run('UPDATE wars SET defenderstability=? WHERE warid=?', [newDefenderStability, req.body.warid])
                 }
             })
         })
