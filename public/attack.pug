@@ -33,3 +33,36 @@ each siege in foreignSiege
 h2 Opponent Stability + Action points
     span=foreigncStability
     h2=foreignMaps
+
+        form(action='/groundbattle' method='POST' name='test')
+            input(name='domesticMaps' type = 'hidden' value=domesticMaps)
+            input(name='domesticStability' type = 'hidden' value=domesticStability)
+            input(name='foreignMaps' type = 'hidden' value=foreignMaps)
+            input(name='foreignStability' type = 'hidden' value=foreignStability)
+            input(name='warid' type = 'hidden' value=warid)
+            button(type='submit') Launch Ground Assult
+
+        form(action='/airfight' method='POST' name='test')
+            input(name='domesticMaps' type = 'hidden' value=domesticMaps)
+            input(name='domesticStability' type = 'hidden' value=domesticStability)
+            input(name='foreignMaps' type = 'hidden' value=foreignMaps)
+            input(name='foreignStability' type = 'hidden' value=foreignStability)
+            input(name='warid' type = 'hidden' value=warid)
+            button(type='submit') Launch Air Battle
+
+        form(action='/navalbattle' method='POST' name='test')
+            input(name='domesticMaps' type = 'hidden' value=domesticMaps)
+            input(name='domesticStability' type = 'hidden' value=domesticStability)
+            input(name='foreignMaps' type = 'hidden' value=foreignMaps)
+            input(name='foreignStability' type = 'hidden' value=foreignStability)
+            input(name='warid' type = 'hidden' value=warid)
+            button(type='submit') Launch Naval Attack
+        
+        form(action='/siegeprovince' method='POST' name='test')
+            input(name='medium' type = 'text')
+            input(name='domesticMaps' type = 'hidden' value=domesticMaps)
+            input(name='domesticStability' type = 'hidden' value=domesticStability)
+            input(name='foreignMaps' type = 'hidden' value=foreignMaps)
+            input(name='foreignStability' type = 'hidden' value=foreignStability)
+            input(name='warid' type = 'hidden' value=warid)
+            button(type='submit') Launch siege Attack

@@ -33,18 +33,160 @@ router.get('/military',urlencodedParser,function(req,res){
       storedID=parseInt(rows.id, 10)
       db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
         warriors = {
-          'name': 'warriors',
-          'value': rows.warriors
+          'name': 'Warrior',
+          'value': rows.warriors,
+          'attackingpower': 4,
+          'defendingpower': 1,
+          'canattack' : 'Ground',
+          //'icon': warrior.png,
+          'description': 'Strong frontliners. Armed with the sharpest swords, crafted with the finest metal. Strength in numbers.',
+          'cost': [{gold:5}]
         } 
         archers = {
-          'name': 'archers',
-          'value': rows.archers
+          'name': 'Archer',
+          'value': rows.archers,
+          'attackingpower': 2,
+          'defendingpower': 6,
+          'canattack' : 'Ground, Air, & Sea',
+          //'icon': archer.png,
+          'description': 'Ranged ground unit with deadly precision housed in the barracks. Offers strong support for the frontlines.',
+          'cost': [{gold:7}, {lumber:2}]
         } 
         cavalry = {
-          'name': 'cavalry',
-          'value': rows.cavalry
+          'name': 'Cavalry',
+          'value': rows.cavalry,
+          'attackingpower': 12,
+          'defendingpower': 5,
+          'canattack' : 'Ground',
+          //'icon': cavalry.png,
+          'description': 'Knights armed with the speediest steeds to be bred. Strong offensive capabilities with decent health.',
+          'cost': [{gold:20}, {fauna: 4}, {lumber:10}]
         } 
-        res.render('military', {militaryStats:[warriors,archers,cavalry]});
+        blacksmiths = {
+          'name': 'Blacksmith',
+          'value': rows.blacksmiths,
+          'attackingpower': 3,
+          'defendingpower': 10,
+          'canattack' : 'Ground',
+          //'icon': blacksmith.png,
+          'description': 'Defensive support unit. Capable of looting ore and metals when attacking. Weak offensive abilities.',
+          'cost': [{gold:30}]
+        } 
+        priests = {
+          'name': 'Priest',
+          'value': rows.priests,
+          'attackingpower': 18,
+          'defendingpower': 15,
+          'canattack' : 'Ground',
+          //'icon': priest.png,
+          'description': 'Robust, well-rounded fighter. Utilizes the power of the Mystic to wreak havoc on enemy armies.',
+          'cost': [{gold:70, silver:5}]
+        }
+        mages = {
+          'name': 'Mage',
+          'value': rows.mages,
+          'attackingpower': 20,
+          'defendingpower': 15,
+          'canattack' : 'Ground & Air',
+          //'icon': mage.png,
+          'description': 'Most powerful ground unit in the game. Calls upon the elements to unleash fire and wind upon any opponent they face.',
+          'cost': [{gold:100, silver:12}]
+        }
+        blimps = {
+          'name': 'Blimp',
+          'value': rows.blimps,
+          'attackingpower': 14,
+          'defendingpower': 5,
+          'canattack' : 'Air',
+          //'icon': blimp.png,
+          'description': 'Tanky air unit with massive health. Minimal utility on defense. Offers cover when attacking.',
+          'cost': [{gold:130, lumber:30, steel:50}]
+        }
+        harpies = {
+          'name': 'Harpy',
+          'value': rows.harpies,
+          'attackingpower': 10,
+          'defendingpower': 7,
+          'canattack' : 'Air',
+          //'icon': harpy.png,
+          'description': 'Half bird, half human. Known for charging and their enemies, talons first. Rumors have it they are cannibals as well.',
+          'cost': [{gold:60, mana: 5, fauna:3}]
+        }
+        angels = {
+          'name': 'Angel',
+          'value': rows.angels,
+          'attackingpower': 8,
+          'defendingpower': 8,
+          'canattack' : 'Ground, Air, & Sea',
+          //'icon': angel.png,
+          'description': 'Most powerful ground unit in the game. Calls upon the elements to unleash fire and wind upon any opponent they face.',
+          'cost': [{gold:60, mana:15, silver: 15}]
+        }
+        dragons = {
+          'name': 'Dragon',
+          'value': rows.dragons,
+          'attackingpower': 13,
+          'defendingpower': 18,
+          'canattack' : 'Ground & Air',
+          //'icon': dragon.png,
+          'description': 'A magestic beast. Capable of breathing massive waves of fire. Fears only the Sea Serpent.',
+          'cost': [{gold:85, fauna:7, mana:20, bronze: 20}]
+        }
+        galleys = {
+          'name': 'Galley',
+          'value': rows.galleys,
+          'attackingpower': 8,
+          'defendingpower': 8,
+          'canattack' : 'Air & Sea',
+          //'icon': galley.png,
+          'description': 'A magestic beast. Capable of breathing massive waves of fire. Fears only the Sea Serpent.',
+          'cost': [{gold:50, lumber:40, steel:30}]
+        }
+        pirates = {
+          'name': 'Pirate',
+          'value': rows.pirates,
+          'attackingpower': 15,
+          'defendingpower': 4,
+          'canattack' : 'Ground & Sea',
+          //'icon': pirate.png,
+          'description': 'Looters, raiders, and drunkards. Capable of stealing while on offense. Minimal defensive efficiency.',
+          'cost': [{gold:25, lumber:70, steel:10}]
+        }
+        sea_serpents = {
+          'name': 'Sea Serpent',
+          'value': rows.sea_serpents,
+          'attackingpower': 40,
+          'defendingpower': 40,
+          'canattack' : 'Sea',
+          //'icon': sea_serpent.png,
+          'description': 'Most feared creature throughout the kingdoms. Rules the sea and the only rival to the mighty dragon.',
+          'cost': [{gold:25, lumber:70, steel:10}]
+        }
+        catapults = {
+          'name': 'Catapult',
+          'value':rows.catapults,
+          'stabilitychange': 2,
+          'strength': '2-5%',
+          'description': 'Earliest siege unit available. Reduces enemy stability by 2. Caps at 2 per province.',
+          'cost': [{gold:250,lumber:310}]
+        }
+        trebuchets = {
+          'name': 'Trebuchet',
+          'value':rows.trebuchets,
+          'stabilitychange': 3,
+          'strength': '5-7%',
+          'description': 'Moderate siege unit. An improved upon version of the catapult. Caps at 2 per province.',
+          'cost': [{gold:600,lumber:400}]
+        }
+        cannons = {
+          'name': 'Cannon',
+          'value':rows.cannons,
+          'stabilitychange': 5,
+          'strength': '7-10%',
+          'description': 'Most advanced siege unit invented yet. Fires heated balls of metal at the enemy. Caps at 1 per province.',
+          'cost': [{gold:1000,iron:75,steel:150}]
+        }
+        res.render('military', {groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siege: [catapults, trebuchets, cannons]});
       }) 
     }})   
 })
@@ -196,7 +338,7 @@ router.post('/enlistair', urlencodedParser, function(req,res){
       //console.log(paramsRun);
       let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0, ironCost=0, bronzeCost=0, steelCost=0, manaCost=0;
        goldCost = req.body.blimps*130+ req.body.harpies*60+ req.body.angels*60+ req.body.dragons*85;
-       lumberCost= req.body.blimps*10;
+       lumberCost= req.body.blimps*30;
        faunaCost= req.body.harpies*3 + req.body.dragons*7;
        silverCost = req.body.angels*15;
        bronzeCost = req.body.dragons*20;
@@ -388,10 +530,10 @@ router.post('/enlistsiege', urlencodedParser, function(req,res){
       })
       //console.log(paramsRun);
       let goldCost=0,lumberCost=0,faunaCost=0,silverCost=0, ironCost=0, bronzeCost=0, steelCost=0, manaCost=0;
-       goldCost = req.body.catapults*90+ req.body.trebuchets*150+ req.body.cannons*300;
-       lumberCost= req.body.catapults*75+req.body.trebuchets*200;
-       steelCost=req.body.cannons*80;
-       ironCost = req.body.cannons*30;
+       goldCost = req.body.catapults*250+ req.body.trebuchets*600+ req.body.cannons*1000;
+       lumberCost= req.body.catapults*310+req.body.trebuchets*400;
+       steelCost=req.body.cannons*150;
+       ironCost = req.body.cannons*75;
       //console.log(goldCost +" "+lumberCost + " "+faunaCost);
       //console.log(cost + "line 60");
       checkBalanceSiege(goldCost,lumberCost,faunaCost, silverCost, bronzeCost, steelCost, manaCost, ironCost, storedID).then(check => {
