@@ -363,7 +363,7 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                 foreignGround[6]=rows.angels;
                 foreignGround[7]=rows.dragons;
                 foreignGround[8]=rows.pirates
-                let defendingPower=Number(foreignGround[0])*.05+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15+Number(foreignGround[6]*8)+Number(foreignGround[7]*18)+Number(foreignGround[8]*4);
+                let defendingPower=Number(foreignGround[0])*1+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15+Number(foreignGround[6]*8)+Number(foreignGround[7]*18)+Number(foreignGround[8]*4);
                 let defenderBonus=2;
                 while(defenderBonus>=1.4) {
                     defenderBonus= Math.random()+1.001;

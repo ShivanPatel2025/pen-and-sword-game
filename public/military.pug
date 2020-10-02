@@ -23,8 +23,7 @@ nav.flex
         span LOGOUT
 
 .main.flex.col  
-    each troop in militaryStats 
-        h2= troop.name + " - " + troop.value
+
 
 
     form.flex.col.register(action='/enlistground' method='POST' name='test')
