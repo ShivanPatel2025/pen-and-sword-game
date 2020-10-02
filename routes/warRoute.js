@@ -149,164 +149,168 @@ router.post('/attack', urlencodedParser, function(req,res) {
             let foreignSea;
             let foreignSiege; 
             let foreignMaps;
+            let enemyID;
             let foreignStability;
             console.log(req.body.warid)
             db.get(`SELECT * FROM wars WHERE warid=?`, req.body.warid, function(err,rows){
-                console.log(rows);
-                if(rows.aggressorid=storedID) {
-                    domesticMaps=rows.aggressormaps;
+                    if (rows.aggressorid==storedID){
+                        enemyID=rows.defenderid;
+                        domesticMaps=rows.aggressormaps;
                     domesticStability=rows.aggressorstability;
                     foreignMaps=rows.defendermaps;
-                    foreignStability=rows.defenderstability;
-                } else if (rows.defenderid=storedID){
-                    domesticMaps=rows.defendermaps;
+                    }
+                    if (rows.defenderid==storedID) {
+                        enemyID=rows.aggressorid
+                        domesticMaps=rows.defendermaps;
                     domesticStability=rows.defenderstability;
                     foreignMaps=rows.aggressormaps;
                     foreignStability=rows.aggressorstability;
-                }
+                    }
+                console.log(enemyID)
+                db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
+                    warriors = {
+                    'name': 'Warriors',
+                    'value': rows.warriors
+                    } 
+                    archers = {
+                    'name': 'Archers',
+                    'value': rows.archers
+                    } 
+                    cavalry = {
+                    'name': 'Cavalry',
+                    'value': rows.cavalry
+                    } 
+                    blacksmiths = {
+                        'name':'Blacksmith',
+                        'value': rows.blacksmiths
+                    }
+                    priests = {
+                        'name': 'Priests',
+                        'value':rows.priests
+                    }
+                    mages = {
+                        'name': 'Mages',
+                        'value': rows.mages
+                    }
+                    blimps = {
+                        'name': 'Blimps',
+                        'value': rows.blimps
+                    }
+                    harpies = {
+                        'name': 'Harpies',
+                        'value': rows.harpies
+                    }
+                    angels = {
+                        'name': 'Angels',
+                        'value': rows.angels
+                    }
+                    dragons = {
+                        'name': 'Dragons',
+                        'value': rows.dragons
+                    }
+                    galleys = {
+                        'name': 'Galleys',
+                        'value': rows.galleys
+                    }
+                    pirates = {
+                        'name': 'Pirates',
+                        'value': rows.pirates
+                    }
+                    sea_serpents = {
+                        'name': 'Sea Serpents',
+                        'value': rows.sea_serpents
+                    }
+                    catapults = {
+                        'name': 'Catapults',
+                        'value': rows.catapults
+                    }
+                    trebuchets= {
+                        'name': 'Trebuchets',
+                        'value':rows.trebuchets
+                    }
+                    cannons={
+                        'name': 'Cannons',
+                        'values': rows.cannons
+                    }
+                    domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                    domesticAir = [blimps, harpies, angels, dragons];
+                    domesticSea = [galleys, pirates, sea_serpents];
+                    domesticSiege = [catapults, trebuchets, cannons];
+                    console.log(domesticGround);
             })
-            db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
-                warriors = {
-                'name': 'Warriors',
-                'value': rows.warriors
-                } 
-                archers = {
-                'name': 'Archers',
-                'value': rows.archers
-                } 
-                cavalry = {
-                'name': 'Cavalry',
-                'value': rows.cavalry
-                } 
-                blacksmiths = {
-                    'name':'Blacksmith',
-                    'value': rows.blacksmiths
-                }
-                priests = {
-                    'name': 'Priests',
-                    'value':rows.priests
-                }
-                mages = {
-                    'name': 'Mages',
-                    'value': rows.mages
-                }
-                blimps = {
-                    'name': 'Blimps',
-                    'value': rows.blimps
-                }
-                harpies = {
-                    'name': 'Harpies',
-                    'value': rows.harpies
-                }
-                angels = {
-                    'name': 'Angels',
-                    'value': rows.angels
-                }
-                dragons = {
-                    'name': 'Dragons',
-                    'value': rows.dragons
-                }
-                galleys = {
-                    'name': 'Galleys',
-                    'value': rows.galleys
-                }
-                pirates = {
-                    'name': 'Pirates',
-                    'value': rows.pirates
-                }
-                sea_serpents = {
-                    'name': 'Sea Serpents',
-                    'value': rows.sea_serpents
-                }
-                catapults = {
-                    'name': 'Catapults',
-                    'value': rows.catapults
-                }
-                trebuchets= {
-                    'name': 'Trebuchets',
-                    'value':rows.trebuchets
-                }
-                cannons={
-                    'name': 'Cannons',
-                    'values': rows.cannons
-                }
-                domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                domesticAir = [blimps, harpies, angels, dragons];
-                domesticSea = [galleys, pirates, sea_serpents];
-                domesticSiege = [catapults, trebuchets, cannons];
-                console.log(domesticGround);
-        })
-            db.get(`SELECT * FROM military WHERE id = ?`, storedID, function(err,rows) {
-                warriors = {
-                'name': 'Warriors',
-                'value': rows.warriors
-                } 
-                archers = {
-                'name': 'Archers',
-                'value': rows.archers
-                } 
-                cavalry = {
-                'name': 'Cavalry',
-                'value': rows.cavalry
-                } 
-                blacksmiths = {
-                    'name':'Blacksmith',
-                    'value': rows.blacksmiths
-                }
-                priests = {
-                    'name': 'Priests',
-                    'value':rows.priests
-                }
-                mages = {
-                    'name': 'Mages',
-                    'value': rows.mages
-                }
-                blimps = {
-                    'name': 'Blimps',
-                    'value': rows.blimps
-                }
-                harpies = {
-                    'name': 'Harpies',
-                    'value': rows.harpies
-                }
-                angels = {
-                    'name': 'Angels',
-                    'value': rows.angels
-                }
-                dragons = {
-                    'name': 'Dragons',
-                    'value': rows.dragons
-                }
-                galleys = {
-                    'name': 'Galleys',
-                    'value': rows.galleys
-                }
-                pirates = {
-                    'name': 'Pirates',
-                    'value': rows.pirates
-                }
-                sea_serpents = {
-                    'name': 'Sea Serpents',
-                    'value': rows.sea_serpents
-                }
-                catapults = {
-                    'name': 'Catapults',
-                    'value': rows.catapults
-                }
-                trebuchets= {
-                    'name': 'Trebuchets',
-                    'value':rows.trebuchets
-                }
-                cannons={
-                    'name': 'Cannons',
-                    'values': rows.cannons
-                }
-                foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                foreignAir = [blimps, harpies, angels, dragons];
-                foreignSea = [galleys, pirates, sea_serpents];
-                foreignSiege = [catapults, trebuchets, cannons];
-                res.render('attack', {domesticAir,domesticGround,domesticSea,domesticSiege,domesticMaps,domesticStability, foreignAir, foreignGround,foreignSea,foreignSiege,foreignMaps,foreignStability, warid:req.body.warid});
-        })   
+                db.get(`SELECT * FROM military WHERE id = ?`, enemyID, function(err,rows) {
+                    warriors = {
+                    'name': 'Warriors',
+                    'value': rows.warriors
+                    } 
+                    archers = {
+                    'name': 'Archers',
+                    'value': rows.archers
+                    } 
+                    cavalry = {
+                    'name': 'Cavalry',
+                    'value': rows.cavalry
+                    } 
+                    blacksmiths = {
+                        'name':'Blacksmith',
+                        'value': rows.blacksmiths
+                    }
+                    priests = {
+                        'name': 'Priests',
+                        'value':rows.priests
+                    }
+                    mages = {
+                        'name': 'Mages',
+                        'value': rows.mages
+                    }
+                    blimps = {
+                        'name': 'Blimps',
+                        'value': rows.blimps
+                    }
+                    harpies = {
+                        'name': 'Harpies',
+                        'value': rows.harpies
+                    }
+                    angels = {
+                        'name': 'Angels',
+                        'value': rows.angels
+                    }
+                    dragons = {
+                        'name': 'Dragons',
+                        'value': rows.dragons
+                    }
+                    galleys = {
+                        'name': 'Galleys',
+                        'value': rows.galleys
+                    }
+                    pirates = {
+                        'name': 'Pirates',
+                        'value': rows.pirates
+                    }
+                    sea_serpents = {
+                        'name': 'Sea Serpents',
+                        'value': rows.sea_serpents
+                    }
+                    catapults = {
+                        'name': 'Catapults',
+                        'value': rows.catapults
+                    }
+                    trebuchets= {
+                        'name': 'Trebuchets',
+                        'value':rows.trebuchets
+                    }
+                    cannons={
+                        'name': 'Cannons',
+                        'values': rows.cannons
+                    }
+                    foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                    foreignAir = [blimps, harpies, angels, dragons];
+                    foreignSea = [galleys, pirates, sea_serpents];
+                    foreignSiege = [catapults, trebuchets, cannons];
+                    res.render('attack', {domesticAir,domesticGround,domesticSea,domesticSiege,domesticMaps,domesticStability, foreignAir, foreignGround,foreignSea,foreignSiege,foreignMaps,foreignStability, warid:req.body.warid});
+            }) 
+            })
+
     })
     }}) 
 })
@@ -856,8 +860,89 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
     })
 })
 
-app.post('/siegeprovince', urlencodedParser, function(req,res){
-
+router.post('/siegeprovince', urlencodedParser, function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10)
+        let domesticAir=[];
+        let domesticGround=[];
+        let domesticSea=[];
+        let domesticSiege=[];
+        let domesticMaps=req.body.domesticMaps;
+        let domesticStability=req.body.domesticStability;
+        let foreignAir=[];
+        let foreignGround=[];
+        let foreignSea=[];
+        let foreignSiege=[]; 
+        let foreignMaps=req.body.foreignMaps;
+        let foreignStability=req.body.foreignStability;
+        let enemyID;
+        db.serialize(()=>{
+        db.get('SELECT * FROM wars WHERE warid=?', req.body.warid, function(err,rows){
+            if (rows.aggressorid==storedID){
+                enemyID=rows.defenderid;
+            }
+            if (rows.defenderid==storedID) {
+                enemyID=rows.aggressorid
+            }
+            //console.log(enemyID)
+        })
+        db.get('SELECT * FROM military WHERE id=?', storedID, function(err,rows){
+            let siege=[];
+            siege[0]=rows.catapults;
+            siege[1]=rows.trebuchets;
+            siege[2]=rows.catapults;
+            let type=req.body.medium;
+            let newDefenderStability=foreignStability - siege[0]*2+siege[1]*3+siege[2]*5;
+            let causaltyCoefficient;
+            if (siege[2]!=0) {
+                causaltyCoefficient = 1-Math.floor(Math.random()*(10-7)+7)/100
+            } else if (siege[1]!=0)  {
+                causaltyCoefficient = 1-Math.floor(Math.random()*(7-5)+5)/100
+            } else if (siege[0]!=0) {
+                causaltyCoefficient = 1-Math.floor(Math.random()*(5-2)+2)/100
+            }
+            db.run('UPDATE wars SET defenderstability=? WHERE warid=?',[newDefenderStability, req.body.warid])
+            if (type=='ground') {
+                db.get('SELECT * FROM military WHERE id=?', enemyID, function(err,rows){
+                    let Ground=[];
+                    Ground[0]=rows.warriors;
+                    Ground[1]=rows.archers;
+                    Ground[2]=rows.cavalry;
+                    Ground[3]=rows.blacksmiths;
+                    Ground[4]=rows.priests;
+                    Ground[5]=rows.mages;
+                    let newGround=[Math.floor(Ground[0]*causaltyCoefficient),Math.floor(NumberGround[1]*causaltyCoefficient),Math.floor(Ground[2]*causaltyCoefficient),Math.floor(Ground[3]*causaltyCoefficient),Math.floor(Ground[4]*causaltyCoefficient),Math.floor(Ground[5]*causaltyCoefficient)]
+                    db.run('UPDATE military SET warriors=?, archers=?, cavalry=?, blacksmiths=?, priests=?, mages=? WHERE id=?', [newGround[0],newGround[1],newGround[2],newGround[3],newGround[4],newGround[5],enemyID])
+                })
+            } else if (type=='air') {
+                db.get('SELECT * FROM military WHERE id=?', enemyID, function(err,rows){
+                    let Air=[];
+                    Air[0]=rows.blimps;
+                    Air[1]=rows.harpies;
+                    Air[2]=rows.angels;
+                    Air[3]=rows.dragons;
+                    let newAir=[Math.floor(Air[0]*causaltyCoefficient),Math.floor(Air[1]*causaltyCoefficient),Math.floor(Air[2]*causaltyCoefficient),Math.floor(Air[3]*causaltyCoefficient)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newAir[0],newAir[1],newAir[2],newAir[3],enemyID])
+                })
+            } else if (type =='sea') {
+                db.get('SELECT * FROM military WHERE id=?', enemyID, function(err,rows){
+                    let Sea=[];
+                    Sea[0]=rows.galleys;
+                    Sea[1]=rows.pirates;
+                    Sea[2]=rows.sea_serpents;
+                    let newSea=[Math.floor(Sea[0]*causaltyCoefficient),Math.floor(Sea[1]*causaltyCoefficient),Math.floor(Sea[2]*causaltyCoefficient),Math.floor(Sea[3]*causaltyCoefficient)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newSea[0],newSea[1],newSea[2],enemyID])
+                })
+            }
+        })
+      })
+      }
+    })
 })
 
 

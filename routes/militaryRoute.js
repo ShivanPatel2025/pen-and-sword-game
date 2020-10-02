@@ -38,7 +38,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 4,
           'defendingpower': 1,
           'canattack' : 'Ground',
-          'icon': warrior.png,
+          //'icon': warrior.png,
           'description': 'Strong frontliners. Armed with the sharpest swords, crafted with the finest metal. Strength in numbers.',
           'cost': [{gold:5}]
         } 
@@ -48,7 +48,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 2,
           'defendingpower': 6,
           'canattack' : 'Ground, Air, & Sea',
-          'icon': archer.png,
+          //'icon': archer.png,
           'description': 'Ranged ground unit with deadly precision housed in the barracks. Offers strong support for the frontlines.',
           'cost': [{gold:7}, {lumber:2}]
         } 
@@ -58,7 +58,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 12,
           'defendingpower': 5,
           'canattack' : 'Ground',
-          'icon': cavalry.png,
+          //'icon': cavalry.png,
           'description': 'Knights armed with the speediest steeds to be bred. Strong offensive capabilities with decent health.',
           'cost': [{gold:20}, {fauna: 4}, {lumber:10}]
         } 
@@ -68,7 +68,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 3,
           'defendingpower': 10,
           'canattack' : 'Ground',
-          'icon': blacksmith.png,
+          //'icon': blacksmith.png,
           'description': 'Defensive support unit. Capable of looting ore and metals when attacking. Weak offensive abilities.',
           'cost': [{gold:30}]
         } 
@@ -78,7 +78,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 18,
           'defendingpower': 15,
           'canattack' : 'Ground',
-          'icon': priest.png,
+          //'icon': priest.png,
           'description': 'Robust, well-rounded fighter. Utilizes the power of the Mystic to wreak havoc on enemy armies.',
           'cost': [{gold:70, silver:5}]
         }
@@ -88,7 +88,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 20,
           'defendingpower': 15,
           'canattack' : 'Ground & Air',
-          'icon': mage.png,
+          //'icon': mage.png,
           'description': 'Most powerful ground unit in the game. Calls upon the elements to unleash fire and wind upon any opponent they face.',
           'cost': [{gold:100, silver:12}]
         }
@@ -98,7 +98,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 14,
           'defendingpower': 5,
           'canattack' : 'Air',
-          'icon': blimp.png,
+          //'icon': blimp.png,
           'description': 'Tanky air unit with massive health. Minimal utility on defense. Offers cover when attacking.',
           'cost': [{gold:130, lumber:30, steel:50}]
         }
@@ -108,7 +108,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 10,
           'defendingpower': 7,
           'canattack' : 'Air',
-          'icon': harpy.png,
+          //'icon': harpy.png,
           'description': 'Half bird, half human. Known for charging and their enemies, talons first. Rumors have it they are cannibals as well.',
           'cost': [{gold:60, mana: 5, fauna:3}]
         }
@@ -118,7 +118,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 8,
           'defendingpower': 8,
           'canattack' : 'Ground, Air, & Sea',
-          'icon': angel.png,
+          //'icon': angel.png,
           'description': 'Most powerful ground unit in the game. Calls upon the elements to unleash fire and wind upon any opponent they face.',
           'cost': [{gold:60, mana:15, silver: 15}]
         }
@@ -128,7 +128,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 13,
           'defendingpower': 18,
           'canattack' : 'Ground & Air',
-          'icon': dragon.png,
+          //'icon': dragon.png,
           'description': 'A magestic beast. Capable of breathing massive waves of fire. Fears only the Sea Serpent.',
           'cost': [{gold:85, fauna:7, mana:20, bronze: 20}]
         }
@@ -138,7 +138,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 8,
           'defendingpower': 8,
           'canattack' : 'Air & Sea',
-          'icon': galley.png,
+          //'icon': galley.png,
           'description': 'A magestic beast. Capable of breathing massive waves of fire. Fears only the Sea Serpent.',
           'cost': [{gold:50, lumber:40, steel:30}]
         }
@@ -148,7 +148,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 15,
           'defendingpower': 4,
           'canattack' : 'Ground & Sea',
-          'icon': pirate.png,
+          //'icon': pirate.png,
           'description': 'Looters, raiders, and drunkards. Capable of stealing while on offense. Minimal defensive efficiency.',
           'cost': [{gold:25, lumber:70, steel:10}]
         }
@@ -158,7 +158,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'attackingpower': 40,
           'defendingpower': 40,
           'canattack' : 'Sea',
-          'icon': sea_serpent.png,
+          //'icon': sea_serpent.png,
           'description': 'Most feared creature throughout the kingdoms. Rules the sea and the only rival to the mighty dragon.',
           'cost': [{gold:25, lumber:70, steel:10}]
         }
