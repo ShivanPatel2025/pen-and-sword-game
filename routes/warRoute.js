@@ -363,7 +363,7 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
                 foreignGround[6]=rows.angels;
                 foreignGround[7]=rows.dragons;
                 foreignGround[8]=rows.pirates
-                let defendingPower=Number(foreignGround[0])*.05+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15+Number(foreignGround[6]*8)+Number(foreignGround[7]*10)+Number(foreignGround[8]*4);
+                let defendingPower=Number(foreignGround[0])*.05+Number(foreignGround[1])*6+Number(foreignGround[2])*5+Number(foreignGround[3])*10+Number(foreignGround[4])*15+Number(foreignGround[5])*15+Number(foreignGround[6]*8)+Number(foreignGround[7]*18)+Number(foreignGround[8]*4);
                 let defenderBonus=2;
                 while(defenderBonus>=1.4) {
                     defenderBonus= Math.random()+1.001;
@@ -464,8 +464,153 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
     })
 })
 
-app.post('/airfight', urlencodedParser, function(req,res){
-
+router.post('/airfight', urlencodedParser, function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10)
+        let domesticAir=[];
+        let domesticGround=[];
+        let domesticSea=[];
+        let domesticSiege=[];
+        let domesticMaps=req.body.domesticMaps;
+        let domesticStability=req.body.domesticStability;
+        let foreignAir=[];
+        let foreignGround=[];
+        let foreignSea=[];
+        let foreignSiege=[]; 
+        let foreignMaps=req.body.foreignMaps;
+        let foreignStability=req.body.foreignStability;
+        let enemyID;
+        db.serialize(()=>{
+        db.get('SELECT * FROM wars WHERE warid=?', req.body.warid, function(err,rows){
+            if (rows.aggressorid==storedID){
+                enemyID=rows.defenderid;
+            }
+            if (rows.defenderid==storedID) {
+                enemyID=rows.aggressorid
+            }
+            //console.log(enemyID)
+        })
+        db.get('SELECT * FROM military WHERE id=?', storedID, function(err,rows){
+            console.log(enemyID)
+            domesticAir[0]=rows.blimps;
+            domesticAir[1]=rows.harpies;
+            domesticAir[2]=rows.angels;
+            domesticAir[3]=rows.dragons;
+            //console.log(domesticGround)
+            let attackingPower=Number(domesticAir[0])*14+Number(domesticAir[1])*10+Number(domesticAir[2])*8+Number(domesticAir[3])*13;
+            db.get('SELECT * FROM military WHERE id=?', enemyID, function(err,rows){
+                console.log(rows);
+                foreignAir[0]=rows.blimps;
+                foreignAir[1]=rows.harpies;
+                foreignAir[2]=rows.angels;
+                foreignAir[3]=rows.dragons;
+                foreignAir[4]=rows.archers;
+                foreignAir[5]=rows.mages;
+                foreignAir[6]=rows.galleys;
+                let defendingPower=Number(foreignAir[0])*5+Number(foreignAir[1])*7+Number(foreignAir[2])*8+Number(foreignAir[3])*18+Number(foreignAir[4])*6+Number(foreignAir[5])*15+Number(foreignAir[6]*8);
+                let defenderBonus=2;
+                while(defenderBonus>=1.4) {
+                    defenderBonus= Math.random()+1.001;
+                }
+                console.log(defendingPower)
+                console.log(attackingPower)
+                console.log(defenderBonus)
+                if (attackingPower>1.25*defenderBonus*defendingPower) {
+                    console.log('EXTREME ViCOTRY')
+                    //casualty rate for attacking melee (CRAM)
+                    let CRAM = 1-Math.floor(Math.random()*(9-3)+1)/100
+                    let CRAR = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(9-5)+5)/100
+                    let newDomesticAir=[Math.floor(domesticAir[0]*CRAM), Math.floor(domesticAir[1]*CRAR), Math.floor(domesticAir[2]*CRAM), Math.floor(domesticAir[3]*CRAR)]
+                    let newForeignAir=[Math.floor(foreignAir[0]*CRDM), Math.floor(foreignAir[1]*CRDR), Math.floor(foreignAir[2]*CRDM), Math.floor(foreignAir[3]*CRDR), Math.floor(foreignAir[4]*CRDM), Math.floor(foreignAir[5]*CRDR), Math.floor(foreignAir[6]*CRDO)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newDomesticAir[0],newDomesticAir[1],newDomesticAir[2],newDomesticAir[3],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=?, archers=?, mages=?, galleys=? WHERE id=?', [newForeignAir[0],newForeignAir[1],newForeignAir[2],newForeignAir[3],newForeignAir[4],newForeignAir[5],newForeignAir[6],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                    
+                } else if (attackingPower>1.1*defenderBonus*defendingPower) {
+                    console.log('Medium VICTORY')
+                    let CRAM = 1-Math.floor(Math.random()*(12-7)+7)/100
+                    let CRAR = 1-Math.floor(Math.random()*(7-1)+1)/100
+                    let CRDM = 1-Math.floor(Math.random()*(17-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(12-9)+9)/100
+                    let CRDO = 1-Math.floor(Math.random()*(6-3)+3)/100
+                    let newDomesticAir=[Math.floor(domesticAir[0]*CRAM), Math.floor(domesticAir[1]*CRAR), Math.floor(domesticAir[2]*CRAM), Math.floor(domesticAir[3]*CRAR)]
+                    let newForeignAir=[Math.floor(foreignAir[0]*CRDM), Math.floor(foreignAir[1]*CRDR), Math.floor(foreignAir[2]*CRDM), Math.floor(foreignAir[3]*CRDR), Math.floor(foreignAir[4]*CRDM), Math.floor(foreignAir[5]*CRDR), Math.floor(foreignAir[6]*CRDO)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newDomesticAir[0],newDomesticAir[1],newDomesticAir[2],newDomesticAir[3],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=?, archers=?, mages=?, galleys=? WHERE id=?', [newForeignAir[0],newForeignAir[1],newForeignAir[2],newForeignAir[3],newForeignAir[4],newForeignAir[5],newForeignAir[6],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                } else if (attackingPower>.8*defenderBonus*defendingPower) {
+                    console.log('stalemate')
+                    let CRAM = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(12-3)+3)/100
+                    let CRDM = 1-Math.floor(Math.random()*(14-10)+10)/100
+                    let CRDR = 1-Math.floor(Math.random()*(15-10)+10)/100
+                    let CRDO = 1-Math.floor(Math.random()*(4-2)+2)/100
+                    let newDomesticAir=[Math.floor(domesticAir[0]*CRAM), Math.floor(domesticAir[1]*CRAR), Math.floor(domesticAir[2]*CRAM), Math.floor(domesticAir[3]*CRAR)]
+                    let newForeignAir=[Math.floor(foreignAir[0]*CRDM), Math.floor(foreignAir[1]*CRDR), Math.floor(foreignAir[2]*CRDM), Math.floor(foreignAir[3]*CRDR), Math.floor(foreignAir[4]*CRDM), Math.floor(foreignAir[5]*CRDR), Math.floor(foreignAir[6]*CRDO)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newDomesticAir[0],newDomesticAir[1],newDomesticAir[2],newDomesticAir[3],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=?, archers=?, mages=?, galleys=? WHERE id=?', [newForeignAir[0],newForeignAir[1],newForeignAir[2],newForeignAir[3],newForeignAir[4],newForeignAir[5],newForeignAir[6],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                } else {
+                    console.log('loss');
+                    let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
+                    let CRAR = 1-Math.floor(Math.random()*(13-10)+10)/100
+                    let CRDM = 1-Math.floor(Math.random()*(5-1)+1)/100
+                    let CRDR = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let CRDO = 1-Math.floor(Math.random()*(3-1)+1)/100
+                    let newDomesticAir=[Math.floor(domesticAir[0]*CRAM), Math.floor(domesticAir[1]*CRAR), Math.floor(domesticAir[2]*CRAM), Math.floor(domesticAir[3]*CRAR)]
+                    let newForeignAir=[Math.floor(foreignAir[0]*CRDM), Math.floor(foreignAir[1]*CRDR), Math.floor(foreignAir[2]*CRDM), Math.floor(foreignAir[3]*CRDR), Math.floor(foreignAir[4]*CRDM), Math.floor(foreignAir[5]*CRDR), Math.floor(foreignAir[6]*CRDO)]
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=? WHERE id=?', [newDomesticAir[0],newDomesticAir[1],newDomesticAir[2],newDomesticAir[3],storedID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('attacker took damage')
+                    })
+                    db.run('UPDATE military SET blimps=?, harpies=?, angels=?, dragons=?, archers=?, mages=?, galleys=? WHERE id=?', [newForeignAir[0],newForeignAir[1],newForeignAir[2],newForeignAir[3],newForeignAir[4],newForeignAir[5],newForeignAir[6],enemyID], function(err){
+                        if(err) {
+                            console.error(err.message)
+                        }
+                        console.log('defender took damage')
+                    })
+                }
+            })
+        })
+    })}
+    })
 })
 
 app.post('/navalbattle', urlencodedParser, function(req,res){
