@@ -1,59 +1,260 @@
 doctype html
-head
-  link(rel='stylesheet' type='text/css' href='style.css')
+html
+  head
+    link(rel="stylesheet" href="../style.css" type="TEXT/CSS")
+    link(href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" ,="" rel="stylesheet")
+    script(src="https://kit.fontawesome.com/a08ba1039b.js" ,="" crossorigin="anonymous")
+  body
+    .military_display
+      .military_banner
+        .military_banner_header
+          h1
+            | Military  
+            span.normal= " of "+leader
+          p
+            | Here you build your army. Train ground, air, sea, and siege troops to conquer your opponents.
+        .military_banner_stats
+          h2
+            | Offensive Power 
+            i.fas.fa-question-circle
+          h4
+            | Ground: 
+            span.player_info 4
+          h4
+            | Air: 
+            span.player_info 4
+          h4
+            | Sea: 
+            span.player_info 4
+          h4
+            | Siege: 
+            span.player_info 4
+        .military_banner_stats
+          h2
+            | Defensive Power 
+            i.fas.fa-question-circle
+          h4
+            | Ground: 
+            span.player_info 4
+          h4
+            | Air: 
+            span.player_info 4
+          h4
+            | Sea: 
+            span.player_info 4
+          h4
+            | Siege: 
+            span.player_info 4
+        img.military_image_banner(src="https://cdn.discordapp.com/attachments/724842104811159593/724847502221770782/70701cc7d786652fc89ee4f1c6c6d626.png" alt="")
+      .military_selection
+        .military_buttons
+          span.bold.highlight Ground
+          span Air
+          span Sea
+          span Siege
+        .troop_display_container
+          #display_ground.troop_display.flex.opacity_full.top_zero
+            .troop_desc
+              h1#name_ground(archer=groundTroops[1]['name'] warrior=groundTroops[0]['name'] cavalry=groundTroops[2]['name'])= groundTroops[0]['name']
+              p#description_ground(archer=groundTroops[1]['description'] warrior=groundTroops[0]['description']  cavalry=groundTroops[2]['description'])= groundTroops[0]['description']
+              h4#current_ground
+                span.normal Current Enlistment:
+                span.bold(archer=groundTroops[1]['value'] warrior=groundTroops[0]['value'] cavalry=groundTroops[2]['value'])= groundTroops[0]['value']
+              form#enlist_ground(action="/enlist")
+                input(type="number" min="0" name="warrior")
+                button(type="submit") Enlist
+              form#discharge_ground(action="/discharge")
+                input(type="number" min="0" name="warrior")
+                button(type="submit") Discharge
+            .troop_stats
+              .effective
+                h4
+                  span.normal Can Attack:
+                h2#attackable_ground(archer=groundTroops[1]['canattack'] warrior=groundTroops[0]['canattack'] cavalry=groundTroops[2]['canattack'])= groundTroops[0]['canattack']
+              .troop_stats_off_def
+                h3#OPower_ground
+                  span.normal Offensive Power:
+                  span.power.bold
+                    span(archer=groundTroops[1]['attackingpower'] warrior=groundTroops[0]['attackingpower'] cavalry=groundTroops[2]['attackingpower'])= groundTroops[0]['attackingpower']
+                    i.fas.fa-fist-raised
+                h3#DPower_ground
+                  span.normal Defensive Power:
+                  span.power.bold
+                    span(archer=groundTroops[1]['defendingpower'] warrior=groundTroops[0]['defendingpower'] cavalry=groundTroops[2]['defendingpower'])= groundTroops[0]['defendingpower']
+                    i.fas.fa-shield-alt
+                h3#cost_ground
+                  span.normal Cost:
+                  .cost_block
+                    .cost_line
+                      span 5
+                      img(src="../media/gold.png")
+            .troop_image
+              object#image_ground(type="image/svg+xml" data="../media/warrior.svg")
+          #display_air.troop_display
+            .troop_desc
+              h1#name_air(blimp=airTroops[0]['name'] harpy= airTroops[1]['name'] angel= airTroops[2]['name'])= airTroops[0]['name']
+              p#description_air(blimp=airTroops[0]['description'] harpy= airTroops[1]['description'] angel= airTroops[2]['description'])= airTroops[0]['description']
+              h4#current_air
+                span.normal Current Enlistment:
+                span.bold(blimp=airTroops[0]['value'] harpy= airTroops[1]['value'] angel= airTroops[2]['value'])= airTroops[0]['value']
+              form#enlist_air(action="/enlist")
+                input(type="number" min="0" name="blimp")
+                button(type="submit") Enlist
+              form#discharge_air(action="/discharge")
+                input(type="number" min="0" name="blimp")
+                button(type="submit") Discharge
+            .troop_stats
+              .effective
+                h4
+                  span.normal Can Attack:
+                h2#attackable_air(blimp=airTroops[0]['canattack'] harpy= airTroops[1]['canattack'] angel= airTroops[2]['canattack'])= airTroops[0]['canattack']
+              .troop_stats_off_def
+                h3#OPower_air
+                  span.normal Offensive Power:
+                  span.power.bold
+                    span(blimp=airTroops[0]['attackingpower'] harpy= airTroops[1]['attackingpower'] angel= airTroops[2]['attackingpower'])= airTroops[0]['attackingpower']
+                    i.fas.fa-fist-raised
+                h3#DPower_air
+                  span.normal Defensive Power:
+                  span.power.bold
+                    span(blimp=airTroops[0]['defendingpower'] harpy= airTroops[1]['defendingpower'] angel= airTroops[2]['defendingpower'])= airTroops[0]['defendingpower']
+                    i.fas.fa-shield-alt
+                h3#cost_air
+                  span.normal Cost:
+                  .cost_block
+                    .cost_line
+                      span 130
+                      img(src="../media/gold.png")
+                    .cost_line
+                      span 30
+                      img(src="../media/lumber.png")
+                    .cost_line
+                      span 50
+                      img(src="../media/steel.png")
+            .troop_image
+              object#image_air(type="image/svg+xml" data="../media/blimp.svg")
+          #display_sea.troop_display
+            .troop_desc
+              h1#name_sea(galley=seaTroops[0]['name'] pirate=seaTroops[1]['name'] serpent=seaTroops[2]['name'])= seaTroops[0]['name']
+              p#description_sea(galley=seaTroops[0]['description'] pirate=seaTroops[1]['description'] serpent=seaTroops[1]['description'])= seaTroops[0]['description']
+              h4#current_sea
+                span.normal Current Enlistment:
+                span.bold(galley=seaTroops[0]['value'] pirate=seaTroops[1]['value'] serpent=seaTroops[2]['value'])= seaTroops[0]['value']
+              form#enlist_sea(action="/enlist")
+                input(type="number" min="0" name="galley")
+                button(type="submit") Enlist
+              form#discharge_sea(action="/discharge")
+                input(type="number" min="0" name="galley")
+                button(type="submit") Discharge
+            .troop_stats
+              .effective
+                h4
+                  span.normal Can Attack:
+                h2#attackable_sea(galley=seaTroops[0]['canattack'] pirate=seaTroops[1]['canattack'] serpent=seaTroops[2]['canattack'])= seaTroops[0]['canattack']
+              .troop_stats_off_def
+                h3#OPower_sea
+                  span.normal Offensive Power:
+                  span.power.bold
+                    span(galley=seaTroops[0]['attackingpower'] pirate=seaTroops[1]['attackingpower'] serpent=seaTroops[2]['attackingpower'])= seaTroops[0]['attackingpower']
+                    i.fas.fa-fist-raised
+                h3#DPower_sea
+                  span.normal Defensive Power:
+                  span.power.bold
+                    span(galley=seaTroops[0]['defendingpower'] pirate=seaTroops[1]['defendingpower'] serpent=seaTroops[2]['defendingpower'])= seaTroops[0]['defendingpower']
+                    i.fas.fa-shield-alt
+                h3#cost_sea
+                  span.normal Cost:
+                  .cost_block
+                    .cost_line
+                      span 50
+                      img(src="../media/gold.png")
+                    .cost_line
+                      span 40
+                      img(src="../media/lumber.png")
+                    .cost_line
+                      span 30
+                      img(src="../media/steel.png")
+            .troop_image
+              object#image_sea(type="image/svg+xml" data="../media/galley.svg")
+          #display_siege.troop_display
+            .troop_desc
+              h1#name_siege(catapult=siegeTroops[0]['name'] trebuchet=siegeTroops[1]['name'] cannon=siegeTroops[2]['name'])= siegeTroops[0]['name']
+              p#description_siege(catapult=siegeTroops[0]['description'] trebuchet=siegeTroops[1]['description'] cannon=siegeTroops[2]['description'])= siegeTroops[0]['description']
+              h4#current_siege
+                span.normal Current Enlistment:
+                span.bold(catapult=siegeTroops[0]['value'] trebuchet=siegeTroops[1]['value'] cannon=siegeTroops[2]['value'])= siegeTroops[0]['value']
+              form#enlist_siege(action="/enlist")
+                input(type="number" min="0" name="catapult")
+                button(type="submit") Enlist
+              form#discharge_siege(action="/discharge")
+                input(type="number" min="0" name="catapult")
+                button(type="submit") Discharge
+            .troop_stats
+              .effective
+                h4
+                  span.normal Can Siege:
+                h2#attackable_siege(catapult=siegeTroops[0]['canattack'] trebuchet=siegeTroops[1]['canattack'] cannon=siegeTroops[2]['canattack'])= siegeTroops[0]['canattack']
+              .troop_stats_off_def
+                h3#OPower_siege
+                  span.normal Impact:
+                  span.power.bold
+                    span(catapult=siegeTroops[0]['stabilitychange'] trebuchet=siegeTroops[1]['stabilitychange'] cannon=siegeTroops[2]['stabilitychange'])= siegeTroops[0]['stabilitychange']
+                    i.fas.fa-fist-raised
+                h3#DPower_siege
+                  span.normal Strength:
+                  span.power.bold
+                    span(catapult=siegeTroops[0]['strength'] trebuchet=siegeTroops[1]['strength'] cannon=siegeTroops[2]['strength'])= siegeTroops[0]['strength']
+                    i.fas.fa-shield-alt
+                h3#cost_siege
+                  span.normal Cost:
+                  .cost_block
+                    .cost_line
+                      span 250
+                      img(src="../media/gold.png")
+                    .cost_line
+                      span 310
+                      img(src="../media/lumber.png")
+            .troop_image
+              object#image_siege(type="image/svg+xml" data="../media/catapult.svg")
+        #ground.troop_selection.flex.opacity_full.top_zero
+          .select(name="warrior")
+            .circle.circle_selected
+            h4.bold Warrior
+          .select(name="archer")
+            .circle
+            h4 Archer
+          .select(name="cavalry")
+            .circle
+            h4 Cavalry
+        #air.troop_selection
+          .select(name="blimp")
+            .circle.circle_selected
+            h4.bold Blimp
+          .select(name="harpy")
+            .circle
+            h4 Harpy
+          .select(name="angel")
+            .circle
+            h4 Angel
+        #sea.troop_selection
+          .select(name="galley")
+            .circle.circle_selected
+            h4.bold Galley
+          .select(name="pirate")
+            .circle
+            h4 Pirate
+          .select(name="serpent")
+            .circle
+            h4 Serpent
+        #siege.troop_selection
+          .select(name="catapult")
+            .circle.circle_selected
+            h4.bold Catapult
+          .select(name="trebuchet")
+            .circle
+            h4 Trebuchet
+          .select(name="cannon")
+            .circle
+            h4 Cannon
+    script(src="../js/military.js")
 
-
-nav.flex
-  .nav_contents.flex
-    a(href='/home')
-      span HOME
-    a(href='/provinces')
-      span PROVINCES
-    a(href='/revenue')
-      span REVENUE
-    a(href='/research')
-      span RESEARCH
-    a(href='/military')
-      span MILITARY
-    a(href='/guild')
-      span GUILD
-
-    .sign.flex
-      a(href='/logout')
-        span LOGOUT
-
-.main.flex.col  
-
-
-
-    form.flex.col.register(action='/enlistground' method='POST' name='test')
-        h1 Enlist Ground
-        input(name='warriors' placeholder='0'  type="number" step="1")
-        input(name='archers' placeholder='0'  type="number" step="1")
-        input(name='cavalry' placeholder='0'  type="number" step="1")
-        input(name='blacksmiths' placeholder='0'  type="number" step="1")
-        input(name='priests' placeholder='0'  type="number" step="1")
-        input(name='mages' placeholder='0'  type="number" step="1")
-        button(type='submit') Submit
-
-    form.flex.col.register(action='/enlistair' method='POST' name='test')
-        h1 Enlist Air
-        input(name='blimps' placeholder='0'  type="number" step="1")
-        input(name='harpies' placeholder='0'  type="number" step="1")
-        input(name='angels' placeholder='0'  type="number" step="1")
-        input(name='dragons' placeholder='0'  type="number" step="1")
-        button(type='submit') Submit
-
-    form.flex.col.register(action='/enlistsea' method='POST' name='test')
-        h1 Enlist Sea
-        input(name='galleys' placeholder='0'  type="number" step="1")
-        input(name='pirates' placeholder='0'  type="number" step="1")
-        input(name='sea_serpents' placeholder='0'  type="number" step="1")
-        button(type='submit') Submit
-
-    form.flex.col.register(action='/enlistsiege' method='POST' name='test')
-        h1 Enlist Siege
-        input(name='catapults' placeholder='0'  type="number" step="1")
-        input(name='trebuchets' placeholder='0'  type="number" step="1")
-        input(name='cannons' placeholder='0'  type="number" step="1")
-        button(type='submit') Submit

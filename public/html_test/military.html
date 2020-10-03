@@ -44,60 +44,227 @@
                     <span>Sea</span>
                     <span>Siege</span>
                 </div>
-                <div class="troop_display">
-                    <div class="troop_desc">
-                        <h1 id='name' archer='Archer' warrior='Warrior' cavalry='Cavalry'>Warrior</h1>
-                        <p id='description' archer='Deploy archers to defeat your enemies from long ranges' warrior='Warriors excel in close range combat' cavalry='Employ your cavalry to sustain heavy hits from your opponent'>Warriors excel in close range combat</p>
-                        <h4 id='current' > <span class="normal">Current Enlistment:</span> <span warrior =200 archer=300 cavalry=400 class="bold">200</span></h4>
-                        <form id='enlist'action="/enlist">
-                            <input type="number" min=0 name='warrior'>
-                            <button type="submit">Enlist</button>
+                <div class="troop_display_container">
+                    <div id = 'display_ground' class="troop_display flex opacity_full top_zero">
+                        <div class="troop_desc">
+                            <h1 id='name_ground' archer='Archer' warrior='Warrior' cavalry='Cavalry'>Warrior</h1>
+                            <p id='description_ground' archer='Deploy archers to defeat your enemies from long ranges' warrior='Warriors excel in close range combat' cavalry='Employ your cavalry to sustain heavy hits from your opponent'>Warriors excel in close range combat</p>
+                            <h4 id='current_ground' > <span class="normal">Current Enlistment:</span> <span warrior =200 archer=300 cavalry=400 class="bold">200</span></h4>
+                            <form id='enlist_ground'action="/enlist">
+                                <input type="number" min=0 name='warrior'>
+                                <button type="submit">Enlist</button>
+                            
+                            </form>
+                            <form id='discharge_ground'action="/discharge">
+                                <input type="number" min=0 name='warrior'>
+                                <button type="submit">Discharge</button>
+                            
+                            </form>
+    
+                        </div>
                         
-                        </form>
-                        <form id='discharge'action="/discharge">
-                            <input type="number" min=0 name='warrior'>
-                            <button type="submit">Discharge</button>
-                        
-                        </form>
-
-                    </div>
+                        <div class="troop_stats">
+                            <div class="effective">
+                                <h4><span class="normal">Can Attack:</span></h4>
+                                <h2 id ='attackable_ground' archer='Ground & Air' warrior='Ground' cavalry='Ground & Air'>Ground</h2>
+    
+                            </div>
+                            <div class="troop_stats_off_def">
+                                <h3 id='OPower_ground'> <span class="normal">Offensive Power:</span>  <span  class=" power bold"> <span warrior =2 archer=4 cavalry=7>2</span> <i class="fas fa-fist-raised"></i></span></h3>
+                                <h3 id='DPower_ground'> <span class="normal">Defensive Power:</span>  <span class=" power bold"> <span warrior =5 archer=2 cavalry=8 >5</span> <i class="fas fa-shield-alt"></i></span></h3>
+                                <h3 id='cost_ground'><span class="normal">Cost:</span>  <div class="cost_block"> <div class="cost_line"><span>5</span><img src="../media/gold.png"></div></div></h3>
+                            </div>
                     
-                    <div class="troop_stats">
-                        <div class="effective">
-                            <h4><span class="normal">Can Attack:</span></h4>
-                            <h2 id ='attackable' archer='Ground & Air' warrior='Ground' cavalry='Ground & Air'>Ground</h2>
-
+    
                         </div>
-                        <div class="troop_stats_off_def">
-                            <h3 id='OPower'> <span class="normal">Offensive Power:</span>  <span  class="bold"> <span warrior =2 archer=4 cavalry=7>2</span> <i class="fas fa-fist-raised"></i></span></h3>
-                            <h3 id='DPower'> <span class="normal">Defensive Power:</span>  <span class="bold"> <span warrior =5 archer=2 cavalry=8 >5</span> <i class="fas fa-shield-alt"></i></span></h3>
-                            <h3 id='cost'><span class="normal">Cost:</span> <span class="bold"> <span warrior =7 archer=9 cavalry=13>7</span> <i class="fas fa-coins"></i></span></h3>
+                        <div class="troop_image">
+                            <object id = 'image_ground' class='' type="image/svg+xml" data="../media/warrior.svg"></object>
+                            
+                            
+    
                         </div>
-                
-
+    
                     </div>
-                    <div class="troop_image">
-                        <object id = 'image' class='' type="image/svg+xml" data="../media/warrior.svg"></object>
+                    <div id = 'display_air' class="troop_display">
+                        <div class="troop_desc">
+                            <h1 id='name_air' blimp='Blimp' harpy='Harpy' angel='Angel'>Blimp</h1>
+                            <p id='description_air' blimp='Blimp desc' harpy='Harpy desc' angel='Angel desc'>Blimp desc</p>
+                            <h4 id='current_air' > <span class="normal">Current Enlistment:</span> <span blimp= 100 harpy=234 angel=345 class="bold">100</span></h4>
+                            <form id='enlist_air'action="/enlist">
+                                <input type="number" min=0 name='blimp'>
+                                <button type="submit">Enlist</button>
+                            
+                            </form>
+                            <form id='discharge_air'action="/discharge">
+                                <input type="number" min=0 name='blimp'>
+                                <button type="submit">Discharge</button>
+                            
+                            </form>
+    
+                        </div>
                         
-                        
-
+                        <div class="troop_stats">
+                            <div class="effective">
+                                <h4><span class="normal">Can Attack:</span></h4>
+                                <h2 id ='attackable_air' blimp='Ground & Air' harpy='Ground' angel='Ground, Air, & Sea'>Ground</h2>
+    
+                            </div>
+                            <div class="troop_stats_off_def">
+                                <h3 id='OPower_air'> <span class="normal">Offensive Power:</span>  <span  class="power bold"> <span blimp= 1 harpy=2 angel=5>1</span> <i class="fas fa-fist-raised"></i></span></h3>
+                                <h3 id='DPower_air'> <span class="normal">Defensive Power:</span>  <span class="power bold"> <span blimp= 14 harpy=27 angel=51> 14</span> <i class="fas fa-shield-alt"></i></span></h3>
+                                <h3 id='cost_air'><span class="normal">Cost:</span> <div class="cost_block"> <div class="cost_line"><span>130</span><img src="../media/gold.png"></div><div class="cost_line"><span>30</span><img src="../media/lumber.png"></div><div class="cost_line"><span>50</span><img src="../media/steel.png"></div></div></h3>
+                            </div>
+                    
+    
+                        </div>
+                        <div class="troop_image">
+                            <object id = 'image_air' class='' type="image/svg+xml" data="../media/blimp.svg"></object>
+                            
+                            
+    
+                        </div>
+    
                     </div>
-
+                    <div id = 'display_sea' class="troop_display">
+                        <div class="troop_desc">
+                            <h1 id='name_sea' galley='Galley' pirate='Pirate' serpent='Serpent'>Galley</h1>
+                            <p id='description_sea' galley='Galley desc' pirate='Pirate desc' serpent='Serpent desc'>Galley desc</p>
+                            <h4 id='current_sea' > <span class="normal">Current Enlistment:</span> <span galley =400 pirate=730 serpent=340 class="bold">400</span></h4>
+                            <form id='enlist_sea'action="/enlist">
+                                <input type="number" min=0 name='galley'>
+                                <button type="submit">Enlist</button>
+                            
+                            </form>
+                            <form id='discharge_sea'action="/discharge">
+                                <input type="number" min=0 name='galley'>
+                                <button type="submit">Discharge</button>
+                            
+                            </form>
+    
+                        </div>
+                        
+                        <div class="troop_stats">
+                            <div class="effective">
+                                <h4><span class="normal">Can Attack:</span></h4>
+                                <h2 id ='attackable_sea' galley='Sea' pirate='Sea' serpent='Sea & Air'>Sea</h2>
+    
+                            </div>
+                            <div class="troop_stats_off_def">
+                                <h3 id='OPower_sea'> <span class="normal">Offensive Power:</span>  <span  class=" power bold"> <span galley =4 pirate=3 serpent=4>4</span> <i class="fas fa-fist-raised"></i></span></h3>
+                                <h3 id='DPower_sea'> <span class="normal">Defensive Power:</span>  <span class="power bold"> <span galley =6 pirate=6 serpent=8>6</span> <i class="fas fa-shield-alt"></i></span></h3>
+                                <h3 id='cost_sea'><span class="normal">Cost:</span> <div class="cost_block"> <div class="cost_line"><span>50</span><img src="../media/gold.png"></div><div class="cost_line"><span>40</span><img src="../media/lumber.png"></div><div class="cost_line"><span>30</span><img src="../media/steel.png"></div></div></h3>
+                            </div>
+                    
+    
+                        </div>
+                        <div class="troop_image">
+                            <object id = 'image_sea' class='' type="image/svg+xml" data="../media/galley.svg"></object>
+                            
+                            
+    
+                        </div>
+    
+                    </div>
+                    <div id = 'display_siege' class="troop_display">
+                        <div class="troop_desc">
+                            <h1 id='name_siege' catapult='Catapult' trebuchet='Trebuchet' cannon='Cannon'>Catapult</h1>
+                            <p id='description_siege' catapult='Catapult desc' trebuchet='Trebuchet desc' cannon='Cannon desc'>Warriors excel in close range combat</p>
+                            <h4 id='current_siege' > <span class="normal">Current Enlistment:</span> <span catapult=390 trebuchet=200 cannon=10 class="bold">390</span></h4>
+                            <form id='enlist_siege'action="/enlist">
+                                <input type="number" min=0 name='catapult'>
+                                <button type="submit">Enlist</button>
+                            
+                            </form>
+                            <form id='discharge_siege'action="/discharge">
+                                <input type="number" min=0 name='catapult'>
+                                <button type="submit">Discharge</button>
+                            
+                            </form>
+    
+                        </div>
+                        
+                        <div class="troop_stats">
+                            <div class="effective">
+                                <h4><span class="normal">Can Siege:</span></h4>
+                                <h2 id ='attackable_siege' catapult='Ground, Air, & Sea' trebuchet='Ground, Air, & Sea' cannon='Ground, Air, & Sea'>Ground</h2>
+    
+                            </div>
+                            <div class="troop_stats_off_def">
+                                <h3 id='OPower_siege'> <span class="normal">Offensive Power:</span>  <span  class="power bold"> <span catapult=3 trebuchet=9 cannon=1>3</span> <i class="fas fa-fist-raised"></i></span></h3>
+                                <h3 id='DPower_siege'> <span class="normal">Defensive Power:</span>  <span class="power bold"> <span catapult=6 trebuchet=7 cannon=2 >6</span> <i class="fas fa-shield-alt"></i></span></h3>
+                                <h3 id='cost_siege'><span class="normal">Cost:</span> <div class="cost_block"> <div class="cost_line"><span>250</span><img src="../media/gold.png"></div><div class="cost_line"><span>310</span><img src="../media/lumber.png"></div></div></h3>
+                            </div>
+                    
+    
+                        </div>
+                        <div class="troop_image">
+                            <object id = 'image_siege' class='' type="image/svg+xml" data="../media/catapult.svg"></object>
+                            
+                            
+    
+                        </div>
+    
+                    </div>
                 </div>
-                <div class="troop_selection">
-                    <div class="select" name = 'Warrior'>
+                
+                
+                <div id = 'ground' class="troop_selection flex opacity_full top_zero">
+                    <div class="select" name = 'warrior'>
                         <div class="circle circle_selected"></div>
                         <h4 class="bold">Warrior</h4>
                     </div>
-                    <div class="select" name = 'Archer'>
+                    <div class="select" name = 'archer'>
                         <div class="circle"></div>
                         <h4>Archer</h4>
                     </div>
-                    <div class="select" name = 'Cavalry'>
+                    <div class="select" name = 'cavalry'>
                         <div class="circle"></div>
                         <h4>Cavalry</h4>
                     </div>
                 </div>
+                <div id = 'air' class="troop_selection">
+                    <div class="select" name = 'blimp'>
+                        <div class="circle circle_selected"></div>
+                        <h4 class="bold">Blimp</h4>
+                    </div>
+                    <div class="select" name = 'harpy'>
+                        <div class="circle"></div>
+                        <h4>Harpy</h4>
+                    </div>
+                    <div class="select" name = 'angel'>
+                        <div class="circle"></div>
+                        <h4>Angel</h4>
+                    </div>
+                </div>
+                <div id = 'sea' class="troop_selection">
+                    <div class="select" name = 'galley'>
+                        <div class="circle circle_selected"></div>
+                        <h4 class="bold">Galley</h4>
+                    </div>
+                    <div class="select" name = 'pirate'>
+                        <div class="circle"></div>
+                        <h4>Pirate</h4>
+                    </div>
+                    <div class="select" name = 'serpent'>
+                        <div class="circle"></div>
+                        <h4>Serpent</h4>
+                    </div>
+                </div>
+                <div id = 'siege' class="troop_selection">
+                    <div class="select" name = 'catapult'>
+                        <div class="circle circle_selected"></div>
+                        <h4 class="bold">Catapult</h4>
+                    </div>
+                    <div class="select" name = 'trebuchet'>
+                        <div class="circle"></div>
+                        <h4>Trebuchet</h4>
+                    </div>
+                    <div class="select" name = 'cannon'>
+                        <div class="circle"></div>
+                        <h4>Cannon</h4>
+                    </div>
+                </div>
+
             </div>
         </div>
         <script src='../js/military.js'></script>
