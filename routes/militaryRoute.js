@@ -160,7 +160,7 @@ router.get('/military',urlencodedParser,function(req,res){
           'canattack' : 'Sea',
           //'icon': sea_serpent.png,
           'description': 'Most feared creature throughout the kingdoms. Rules the sea and the only rival to the mighty dragon.',
-          'cost': [{gold:25, lumber:70, steel:10}]
+          'cost': [{gold:60, mana:250, fauna:5}]
         }
         catapults = {
           'name': 'Catapult',
