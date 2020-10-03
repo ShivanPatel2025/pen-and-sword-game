@@ -60,11 +60,11 @@ html
               h4#current_ground
                 span.normal Current Enlistment:
                 span.bold(archer=groundTroops[1]['value'] warrior=groundTroops[0]['value'] cavalry=groundTroops[2]['value'])= groundTroops[0]['value']
-              form#enlist_ground(action="/enlist")
-                input(type="number" min="0" name="warrior")
+              form#enlist_ground(action="/enlist" method='POST')
+                input(type="number" min="0" name="warriors")
                 button(type="submit") Enlist
-              form#discharge_ground(action="/discharge")
-                input(type="number" min="0" name="warrior")
+              form#discharge_ground(action="/discharge" method='POST')
+                input(type="number" min="0" name="warriors")
                 button(type="submit") Discharge
             .troop_stats
               .effective
@@ -97,11 +97,11 @@ html
               h4#current_air
                 span.normal Current Enlistment:
                 span.bold(blimp=airTroops[0]['value'] harpy= airTroops[1]['value'] angel= airTroops[2]['value'])= airTroops[0]['value']
-              form#enlist_air(action="/enlist")
-                input(type="number" min="0" name="blimp")
+              form#enlist_air(action="/enlist" method='POST')
+                input(type="number" min="0" name="blimps")
                 button(type="submit") Enlist
-              form#discharge_air(action="/discharge")
-                input(type="number" min="0" name="blimp")
+              form#discharge_air(action="/discharge" method='POST')
+                input(type="number" min="0" name="blimps")
                 button(type="submit") Discharge
             .troop_stats
               .effective
@@ -140,11 +140,11 @@ html
               h4#current_sea
                 span.normal Current Enlistment:
                 span.bold(galley=seaTroops[0]['value'] pirate=seaTroops[1]['value'] serpent=seaTroops[2]['value'])= seaTroops[0]['value']
-              form#enlist_sea(action="/enlist")
-                input(type="number" min="0" name="galley")
+              form#enlist_sea(action="/enlist" method='POST')
+                input(type="number" min="0" name="galleys")
                 button(type="submit") Enlist
-              form#discharge_sea(action="/discharge")
-                input(type="number" min="0" name="galley")
+              form#discharge_sea(action="/discharge" method='POST')
+                input(type="number" min="0" name="galleys")
                 button(type="submit") Discharge
             .troop_stats
               .effective
@@ -183,11 +183,11 @@ html
               h4#current_siege
                 span.normal Current Enlistment:
                 span.bold(catapult=siegeTroops[0]['value'] trebuchet=siegeTroops[1]['value'] cannon=siegeTroops[2]['value'])= siegeTroops[0]['value']
-              form#enlist_siege(action="/enlist")
-                input(type="number" min="0" name="catapult")
+              form#enlist_siege(action="/enlist" method='POST')
+                input(type="number" min="0" name="catapults")
                 button(type="submit") Enlist
-              form#discharge_siege(action="/discharge")
-                input(type="number" min="0" name="catapult")
+              form#discharge_siege(action="/discharge" method='POST')
+                input(type="number" min="0" name="catapults")
                 button(type="submit") Discharge
             .troop_stats
               .effective

@@ -26,6 +26,7 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 router.get('/military',urlencodedParser,function(req,res){
     let warriors,archers,cavalry;
     let storedID;
+   
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
         res.redirect ('/')
@@ -187,15 +188,63 @@ router.get('/military',urlencodedParser,function(req,res){
           'description': 'Most advanced siege unit invented yet. Fires heated balls of metal at the enemy. Caps at 1 per province.',
           'cost': [{gold:1000,iron:75,steel:150}]
         }
-        let groundAttackingPower= warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20;
-        let groundDefendingPower= warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates*4;
-        let airAttackingPower= blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13;
-        let airDefendingPower= blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8;
-        let navalAttackingPower= galleys.value*8+pirates.value*15+sea_serpents.value*40;
-        let navalDefendingPower= galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8;
-        res.render('military', {groundAttackingPower,groundDefendingPower, airAttackingPower, airDefendingPower,navalAttackingPower, navalDefendingPower, groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siege: [catapults, trebuchets, cannons]});
+        db.get(`SELECT * FROM kingdoms WHERE id=?`, storedID, function(err,rows){
+          let leader=rows.ruler;
+          let groundAttackingPower= warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20;
+          let groundDefendingPower= warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates*4;
+          let airAttackingPower= blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13;
+          let airDefendingPower= blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8;
+          let navalAttackingPower= galleys.value*8+pirates.value*15+sea_serpents.value*40;
+          let navalDefendingPower= galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8;
+          res.render('military', {leader,groundAttackingPower,groundDefendingPower, airAttackingPower, airDefendingPower,navalAttackingPower, navalDefendingPower, groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siegeTroops: [catapults, trebuchets, cannons]});
+        })
       }) 
     }})   
+})
+
+router.post('/enlist', urlencodedParser, function(req,res) {
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
+      storedID=parseInt(rows.id, 10)
+      console.log(req.body);
+      for (i in req.body) {
+        let troop=i;
+        let enlistment=req.body.i;
+        let currentTroop;
+        db.get('SELECT ? FROM military WHERE id=?',[troop,storedID], function(err,rows){
+          currentTroop=rows[troop];
+          let newTroop=currentTroop+enlistment;
+          db.get('SELECT * FROM resources WHERE id=?', storedID, function(err,rows){
+            let currentGold=rows.gold;
+            let currentMana=rows.mana;
+            let currentFlora=rows.flora;
+            let currentFauna=rows.fauna;
+            let currentLumber=rows.lumber;
+            let currentFood=rows.food;
+            let currentSilver=rows.silver;
+            let currentIron=rows.iron;
+            let currentBronze=rows.bronze;
+            let currentSteel=rows.steel;
+            if (troop=='warrior') {
+              let newValues =[currentGold,currentMana, currentFlora, currentFauna, currentLumber, currentFood,currentSilver,currentIron,currentBronze,currentSteel];
+              newValues[0]=currentGold-enlistment*5;
+              checkEnlistmentCost(newValues).then(check => {        
+                if (check === true) {
+                  db.run('UPDATE military SET ? =? WHERE id=?',[troop,newTroop,storedID]);
+                  db.run('UPDATE resources SET (gold,mana,flora,fauna,lumber,food,silver,iron,bronze,steel',[newValues[0],newValues[1],newValues[2],newValues[3],newValues[4],newValues[5],newValues[6],newValues[7],newValues[8],newValues[9]])
+                }
+              }).catch(console.error);
+
+            }  
+          })
+        })
+      }
+    }
+  })
 })
 
 router.post('/enlistground', urlencodedParser, function(req,res){
