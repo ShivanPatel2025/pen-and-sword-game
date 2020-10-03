@@ -133,18 +133,22 @@ types.forEach((type)=>{
 
 
 const costs = {
-    'warrior':{'gold':5},
-    'archer':{'gold':7,'lumber':2},
+    'warriors':{'gold':5},
+    'archers':{'gold':7,'lumber':2},
     'cavalry': {'gold':20,'fauna':4, 'lumber':10},
-    'blimp':{'gold':130, 'lumber':30, 'steel':50},
-    'harpy':{'gold':60,'mana':5,'fauna':3},
-    'angel':{'gold':60,'mana':15,'silver':15},
-    'galley':{'gold':50, 'lumber':40, 'steel':30},
-    'pirate':{'gold':25, 'lumber':70, 'steel':10},
-    'serpent':{'gold':60, 'mana':250, 'fauna':5},
-    'catapult':{'gold':250,'lumber':310},
-    'trebuchet':{'gold':600,'lumber':400},
-    'cannon':{'gold':1000,'iron':75,'steel':150}
+    'blacksmiths':{'gold':30},
+    'priests':{'gold':70,'silver':5},
+    'mages':{'gold':100,'silver':12},
+    'blimps':{'gold':130, 'lumber':30, 'steel':50},
+    'harpies':{'gold':60,'mana':5,'fauna':3},
+    'angels':{'gold':60,'mana':15,'silver':15},
+    'dragons':{'gold':85,'fauna':7,'mana':20, 'bronze':20},
+    'galleys':{'gold':50, 'lumber':40, 'steel':30},
+    'pirates':{'gold':25, 'lumber':70, 'steel':10},
+    'sea_serpents':{'gold':60, 'mana':250, 'fauna':5},
+    'catapults':{'gold':250,'lumber':310},
+    'trebuchets':{'gold':600,'lumber':400},
+    'cannons':{'gold':1000,'iron':75,'steel':150}
 
 
 }
