@@ -8,6 +8,7 @@ const session = require('express-session');
 const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 const { callbackify } = require('util');
+const { RangeNotSatisfiable } = require('http-errors');
 const router = express.Router()
 var sqlite3 = require('sqlite3').verbose();
 
@@ -186,7 +187,13 @@ router.get('/military',urlencodedParser,function(req,res){
           'description': 'Most advanced siege unit invented yet. Fires heated balls of metal at the enemy. Caps at 1 per province.',
           'cost': [{gold:1000,iron:75,steel:150}]
         }
-        res.render('military', {groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siege: [catapults, trebuchets, cannons]});
+        let groundAttackingPower= warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20;
+        let groundDefendingPower= warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates*4;
+        let airAttackingPower= blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13;
+        let airDefendingPower= blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8;
+        let navalAttackingPower= galleys.value*8+pirates.value*15+sea_serpents.value*40;
+        let navalDefendingPower= galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8;
+        res.render('military', {groundAttackingPower,groundDefendingPower, airAttackingPower, airDefendingPower,navalAttackingPower, navalDefendingPower, groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siege: [catapults, trebuchets, cannons]});
       }) 
     }})   
 })
