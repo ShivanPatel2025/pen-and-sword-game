@@ -166,7 +166,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
     })
 
     //WONDERS
-    db.run(`INSERT INTO wonders (id, pyramids, eiffel_tower, stone_henge) VALUES (?, ?, ?, ?)`, [realid,"0",'0','0'], function (err) {
+    db.run(`INSERT INTO wonders (id) VALUES (?)`, [realid], function (err) {
       if (err) {
         return console.error(err.message);
       }

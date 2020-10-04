@@ -23,8 +23,41 @@ let db = new sqlite3.Database('./pns.db', (err) => {
 });
 
 router.get('/wonders', function(req,res) {
-    res.render('wonders')
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
+      storedID=parseInt(rows.id, 10)
+      db.get('SELECT * FROM wonders WHERE id =?', storedID, function(err,rows) {
+        pyramids = {
+          'name': 'Pyramids',
+          'description': 'Ancient masonry structures located in the deserts. Increase provincial happiness by 3.',
+          'purchased': rows.pyramids
+
+        }
+        colosseum = {
+          'name': 'Colosseum',
+          'description' : 'A limestone amphitheatre repurposed for gladiatorial contests. Unlocks the Arena and boost provincial happiness by 1.',
+          'purchased': rows.colosseum
+        }
+        fountain_of_youth = {
+          'name' : 'Fountain of Youth',
+          'description' : 'A hidden spring that brings life and youth to those around it. Increases provincial happiness by 5.',
+          'purchased': rows.fountain_of_youth_of_youth
+        }
+        el_dorado = {
+          'name' : 'El Dorado',
+          'description' : 'An ancient city of gold, El Dorado hold the secret to immeasureable wealth. Boosts gold output by 3%.',
+          'purchased': rows.el_dorado
+        }
+        res.render('wonders', {wonders:[pyramids,colosseum,fountain_of_youth,el_dorado]})
+      })
+    }
+  })
 })
+
 
 router.post('/purchasewonder',urlencodedParser, function(req,res) {
   let storedID;
