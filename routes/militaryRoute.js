@@ -223,6 +223,36 @@ router.get('/military',urlencodedParser,function(req,res){
     }})   
 })
 
+router.post('/discharge', urlencodedParser, function(req,res) {
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
+      storedID=parseInt(rows.id, 10)
+      for (i in req.body) {
+        let troop=i;
+        let enlistment=Number(req.body[`${i}`]);
+        let currentTroop=0;
+        db.get('SELECT * FROM military WHERE id=?',[storedID], function(err,rows){
+          currentTroop=rows[troop];
+          let newTroop=Number(currentTroop)-Number(enlistment);
+          if(newTroop<0) {
+            console.log('u cant have negative troops')
+            res.redirect('/military')
+          } else {
+            db.run(`UPDATE military SET ${troop} =? where id =?`, [newTroop,storedID]);
+            console.log('troops sold');
+            res.redirect('/military')
+          }
+        })
+      }
+
+    }
+  })
+})
+
 router.post('/enlist', urlencodedParser, function(req,res) {
   let storedID;
   db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
