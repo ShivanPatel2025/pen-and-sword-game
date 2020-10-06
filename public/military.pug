@@ -264,6 +264,11 @@ html
           .select(name="cannons")
             .circle
             h4 Cannon
+
+    .resource_bar
+      each item in kingdomStats
+          span= item.value
+              img(src = `./media/${item.name}.png`)
     script(src="./js/military.js")
     script(src="./js/navbar.js")
 
