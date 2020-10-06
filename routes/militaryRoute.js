@@ -209,15 +209,61 @@ router.get('/military',urlencodedParser,function(req,res){
           'description': 'Most advanced siege unit invented yet. Fires heated balls of metal at the enemy. Caps at 1 per province.',
           'cost': [{gold:1000,iron:75,steel:150}]
         }
-        db.get(`SELECT * FROM kingdoms WHERE id=?`, storedID, function(err,rows){
-          let leader=rows.ruler;
-          let groundAttackingPower= warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20;
-          let groundDefendingPower= warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4;
-          let airAttackingPower= blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13;
-          let airDefendingPower= blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8;
-          let navalAttackingPower= galleys.value*8+pirates.value*15+sea_serpents.value*40;
-          let navalDefendingPower= galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8;
-          res.render('military', {leader,groundAttackingPower,groundDefendingPower, airAttackingPower, airDefendingPower,navalAttackingPower, navalDefendingPower, groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siegeTroops: [catapults, trebuchets, cannons]});
+        db.get(`SELECT * from resources WHERE id = ?`, storedID, function(err,rows) {
+          gold= {
+            'name': 'gold',
+            'value': rows.gold
+          } 
+          mana= {
+            'name': 'mana',
+            'value': rows.mana
+          } 
+          flora= {
+            'name': 'flora',
+            'value': rows.flora
+          }  
+          fauna= {
+            'name': 'fauna',
+            'value': rows.fauna
+          }
+          lumber= {
+            'name': 'lumber',
+            'value': rows.lumber
+          } 
+          food= {
+            'name': 'food',
+            'value': rows.food
+          } 
+          ore= {
+            'name': 'ore',
+            'value': rows.ore
+          } 
+          silver= {
+            'name': 'silver',
+            'value': rows.silver
+          } 
+          iron= {
+            'name': 'iron',
+            'value': rows.iron
+          } 
+          bronze= {
+            'name': 'bronze',
+            'value': rows.bronze
+          } 
+          steel= {
+            'name': 'steel',
+            'value': rows.steel
+          }
+          db.get(`SELECT * FROM kingdoms WHERE id=?`, storedID, function(err,rows){
+            let leader=rows.ruler;
+            let groundAttackingPower= warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20;
+            let groundDefendingPower= warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4;
+            let airAttackingPower= blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13;
+            let airDefendingPower= blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8;
+            let navalAttackingPower= galleys.value*8+pirates.value*15+sea_serpents.value*40;
+            let navalDefendingPower= galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8;
+            res.render('military', {kingdomStats: [gold,mana,flora,fauna,lumber,food,ore,silver,iron,bronze,steel],leader,groundAttackingPower,groundDefendingPower, airAttackingPower, airDefendingPower,navalAttackingPower, navalDefendingPower, groundTroops:[warriors,archers,cavalry,blacksmiths,priests,mages], airTroops: [blimps,harpies,angels,dragons], seaTroops: [galleys,pirates,sea_serpents], siegeTroops: [catapults, trebuchets, cannons]});
+          })
         })
       }) 
     }})   
