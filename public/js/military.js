@@ -32,8 +32,12 @@ selections.forEach((selection)=>{
         display.classList.remove('top_zero');
         display.classList.remove('opacity_full');
         selections.forEach((s)=>{
-            s.children[0].classList.remove('circle_selected')
-            s.children[1].classList.remove('bold')
+            if(s.parentElement.getAttribute('id')===id){
+                console.log(s.parentElement.getAttribute('id'))
+                s.children[0].classList.remove('circle_selected')
+                s.children[1].classList.remove('bold')
+            }
+            
         })
         selection.children[0].classList.add('circle_selected')
         selection.children[1].classList.add('bold')
@@ -62,6 +66,7 @@ selections.forEach((selection)=>{
 
             }
             image.setAttribute('data',`../media/${troop_name}.svg`)
+            
             setTimeout(()=>{
                 display.classList.add('top_zero');
                 display.classList.add('opacity_full');
@@ -119,8 +124,8 @@ types.forEach((type)=>{
             selection.classList.add('top_zero')
         },600)
 
-        const first_selection  = document.querySelector(`div.troop_selection#${id}`).children[0].children[0];
-        first_selection.classList.add('circle_selected');
+        // const first_selection  = document.querySelector(`div.troop_selection#${id}`).children[0].children[0];
+        // first_selection.classList.add('circle_selected');
         
 
 
@@ -149,6 +154,15 @@ const costs = {
     'catapults':{'gold':250,'lumber':310},
     'trebuchets':{'gold':600,'lumber':400},
     'cannons':{'gold':1000,'iron':75,'steel':150}
-
-
 }
+
+
+
+const all_images = document.querySelectorAll('object');
+const height_base = Number(document.querySelector('div.troop_stats').clientHeight)*.7;
+            
+all_images.forEach((i)=>{
+    console.log(height_base)
+    i.style.height = `${height_base}px`;
+})
+
