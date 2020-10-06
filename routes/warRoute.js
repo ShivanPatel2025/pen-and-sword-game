@@ -989,5 +989,25 @@ router.post('/siegeprovince', urlencodedParser, function(req,res){
     })
 })
 
+setInterval(function() {
+    db.each('SELECT * FROM wars', function(err,rows) {
+        let id =rows.warid;
+        let aggroMaps=rows.aggressormaps;
+        let defendMaps=rows.defendermaps;
+        if (aggroMaps<36) {
+            aggroMaps+=1;
+        }
+        if (defendMaps<36) {
+            defendMaps+=1;
+        }
+        db.run('UPDATE wars SET aggressormaps=?, defendermaps=? WHERE warid=?',[aggroMaps, defendMaps, id], function(err) {
+            if (err) {
+                console.log('couldnt update military points')
+            }else {
+                console.log('updatres military points')
+            }
+        })
+    })
+  },1800000)
 
 module.exports = router; 
