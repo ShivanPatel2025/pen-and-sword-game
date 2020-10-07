@@ -56,6 +56,7 @@ const tradeRoute = require('./routes/tradeRoute.js')
 const wonderRoute = require('./routes/wonderRoute.js')
 const warRoute = require('./routes/warRoute.js')
 
+const arenaRoute = require('./routes/arenaRoute.js')
 
 
 app.use(kingdomRoute)
@@ -66,6 +67,7 @@ app.use(guildRoute)
 app.use(tradeRoute)
 app.use(wonderRoute)
 app.use(warRoute)
+app.use(arenaRoute)
 
 //RUNNING SERVER
 app.set('port', (process.env.PORT || 5000))

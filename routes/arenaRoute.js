@@ -1,0 +1,162 @@
+const express = require('express')
+const app = express()
+const path = require('path');
+const bodyParser = require('body-parser');
+const { url } = require('inspector');
+var urlencodedParser = bodyParser.urlencoded({ extended: true });
+const session = require('express-session');
+const { createDecipher } = require('crypto');
+const { urlencoded } = require('body-parser');
+const { callbackify } = require('util');
+const { Console } = require('console');
+const router = express.Router()
+var sqlite3 = require('sqlite3').verbose();
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "public"));
+
+let db = new sqlite3.Database('./pns.db', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the in-memory SQlite database.');
+});
+
+router.get('/arena',function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        db.get(`SELECT * FROM wonders WHERE id=?`,storedID,function(err,rows){
+            if (rows.colosseum=0) {
+                console.log('Construct the Colosseum to access the Arena. It can be found in the Wonders tab.')
+            }
+            else {
+                db.get('SELECT * FROM arena WHERE id=?',storedID,function(err,rows){
+                    if(rows==undefined) {
+                        console.log('You must hire a Gladiator');
+                        res.render('gladiator')
+                    } else{
+                        let gender = rows.gender;
+                        let strength=rows.strength;
+                        let defense=rows.strength;
+                        let agility=rows.agility;
+                        let intelligence=rows.intelligence;
+                        let upgradepoints=rows.upgradepoints;
+                        res.render('arena')
+                    }
+                })
+            }
+        })
+      }
+    }) 
+})
+
+router.post('/hostmatch',urlencodedParser, function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        db.get('SELECT * FROM matches WHERE host=?',storedID,function(err,rows){
+            if (rows==undefined) {
+                db.run('INSERT INTO matches host=?, strength=?, defense=?, agility=?, intelligence=?',[storedID, req.body.strength, req.body.defense, req.body.agility, req.body.intelligence]);
+                res.render('/arena')
+                console.log('Match posted')
+            } else {
+                res.render('/arena');
+                console.log('You are already hosting a match');
+            }
+        })
+      }
+    })
+})
+
+router.get('/matches',urlencodedParser,function(req,res) {
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        let arrayOfMatches=[];
+        db.each('SELECT * FROM matches',function(err,rows){
+            hostid=rows.host;
+            strength=rows.strength;
+            defense=rows.defense;
+            agility=rows.agility;
+            intelligence=rows.intelligence;
+            db.run('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
+                let host=rows.kingdom;
+                obj = {
+                    host: host,
+                    strength: strength,
+                    defense: defense,
+                    agility: agility,
+                    intelligence: intelligence
+                }
+                arrayOfMatches.push(obj)
+            })
+        })
+        res.render('matches', {arrayOfMatches})
+      }
+    })
+})
+
+router.post('/upgradestats',urlencodedParser, function(req,res) {
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        let stat=req.body.stat;
+        db.get('SELECT * FROM arena WHERE id =?',storedID,function(err,rows){
+            let numstat=rows[stat];
+            if(rows.upgradepoints>0){
+                numstat=numstat+Math.floor(Math.random()*(5-1)+1);
+                db.run(`UPDATE arena SET ${stat}=? WHERE id=?`,[numstat,storedID], function(err){
+                    if(err) {
+                        console.err(err.message)
+                    } else {
+                        console.log(stat+' has been upgraded')
+                    }
+                })
+            } else {
+                res.render('arena');
+                console.log('not sufficient upgrade points')
+            }
+        })
+      }
+    })
+})
+
+router.post('/startmatch',urlencodedParser, function(req,res){
+
+})
+
+setInterval(function() {
+    db.each('SELECT * FROM arena', function(err,rows) {
+        let id =rows.id;
+        let up=rows.upgradepoints;
+        if (up<15) {
+            up+=1;
+        }
+        db.run('UPDATE arena SET upgradepoints=? WHERE id=?',[up,id], function(err) {
+            if (err) {
+                console.log('couldnt update arena upgrade points')
+            }else {
+                console.log('updatres arena points')
+            }
+        })
+    })
+  },900000)
+
+module.exports = router;
