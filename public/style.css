@@ -22,6 +22,18 @@
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #0f0f0f; 
 }
+.col{
+    flex-direction: column;
+}
+.relative{
+    position: relative;
+}
+.absolute{
+    position: absolute;
+}
+.center{
+    margin: 0 auto;
+}
 nav{
     position: fixed;
     display: flex;
