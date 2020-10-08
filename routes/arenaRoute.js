@@ -68,6 +68,13 @@ router.post('/create-gladiator',urlencodedParser, function(req,res){
         let name=req.body.name;
         let gender=req.body.gender;
         let weapon=req.body.weapon;
+        db.run('INSERT INTO arena (id, name, gender, weapon, strength, defense, agaility, intelligence',[storedID,name,gender,weapon,req.body.strength, req.body,defense, req.body.agility,req.body.intelligence],function(err){
+          if(err){
+            console.err(err.message)
+          } else {
+            res.redirect('/arena')
+          }
+        })
       }
     })
 })
