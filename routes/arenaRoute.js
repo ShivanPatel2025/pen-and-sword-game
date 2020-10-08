@@ -40,7 +40,9 @@ router.get('/arena',function(req,res){
                         console.log('You must hire a Gladiator');
                         res.render('gladiator')
                     } else{
+                        let name = rows.name;
                         let gender = rows.gender;
+                        let weapon = rows.weapon;
                         let strength=rows.strength;
                         let defense=rows.strength;
                         let agility=rows.agility;
@@ -53,6 +55,21 @@ router.get('/arena',function(req,res){
         })
       }
     }) 
+})
+
+router.post('/create-gladiator',urlencodedParser, function(req,res){
+  let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        let name=req.body.name;
+        let gender=req.body.gender;
+        let weapon=req.body.weapon;
+      }
+    })
 })
 
 router.post('/hostmatch',urlencodedParser, function(req,res){
@@ -167,7 +184,7 @@ router.post('/startmatch',urlencodedParser, function(req,res){
               })
             })
           }
-          if (hostPower>actorPower){
+          if (hostPower>=actorPower){
             let prize=Math.floor(Math.random()*(actorPower-actorPower/2))
             db.get('SELECT * FROM resources WHERE id=?',host,function(err,rows){
               let newGold=rows.gold+prize;
