@@ -211,12 +211,12 @@ body
                 .war.top_zero.declare.flex.col.opacity_full(type='declare')
                     .war_players.flex
                         h1 Declare War
-                        form(action='/declarewar')
-                            .input
-                                label(for='whom')
-                                i.far.fa-2x.fa-caret-square-right
-                                input#whom(type='text' name='whom' required='')
-                            button.launch_attack(type='submit') Find Opponent
+                    form(action='/declarewar')
+                        .input
+                            label(for='whom')
+                            i.far.fa-2x.fa-caret-square-right
+                            input#whom(type='text' name='whom' required='')
+                        button.launch_attack(type='submit') Find Opponent
 
                 
                     
@@ -308,7 +308,7 @@ body
 
                 
                     
-                #war1.war.offense.col(type='defense')
+                #war1.war.defense.col(type='defense')
                     .war_players.flex
                         .attacker
                             each war,index in defensiveWars
@@ -399,10 +399,10 @@ body
                         div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
-                                h4.bold War #{index}
+                                h4.bold War #{index+1}
                             else
                                 .circle
-                                h4.bold War #{index}
+                                h4.bold War #{index+1}
 
                     
                 #defense.war_selection_circles
@@ -410,8 +410,8 @@ body
                         div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
-                                h4.bold War #{index}
+                                h4.bold War #{index+1}
                             else
                                 .circle
-                                h4.bold War #{index}
+                                h4.bold War #{index+1}
     script(src="./js/wars.js")
