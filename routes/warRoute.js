@@ -143,10 +143,27 @@ router.get('/war', function(req,res) {
                                 'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
                             } 
                             let domesticPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
-                            domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                            domesticAir = [blimps, harpies, angels, dragons];
-                            domesticSea = [galleys, pirates, sea_serpents];
-                            domesticSiege = [catapults, trebuchets, cannons];
+
+
+
+                            let domesticGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                            domesticGround= domesticGroundRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                            domesticAir= domesticAirRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                            domesticSea= domesticSeaRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticSiegeRaw = [catapults, trebuchets, cannons];
+                            domesticSiege= domesticSiegeRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+
+                            
                             console.log(domesticGround);
                             db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
                                 let foreignAir;
@@ -380,10 +397,23 @@ router.get('/war', function(req,res) {
                                 'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
                             }
                             let domesticPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
-                            domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
-                            domesticAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
-                            domesticSea = [galleys, pirates, sea_serpents,archers,angels];
-                            domesticSiege = [catapults, trebuchets, cannons];
+                            let domesticGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                            domesticGround= domesticGroundRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                            domesticAir= domesticAirRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                            domesticSea= domesticSeaRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+                            let domesticSiegeRaw = [catapults, trebuchets, cannons];
+                            domesticSiege= domesticSiegeRaw.filter(e=>{
+                                return e['value']!=0
+                            })
+
                             console.log(domesticGround);
                             db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
                                 let foreignAir;
@@ -467,10 +497,22 @@ router.get('/war', function(req,res) {
                                         'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
                                     } 
                                     let foreignPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
-                                    foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                                    foreignAir = [blimps, harpies, angels, dragons];
-                                    foreignSea = [galleys, pirates, sea_serpents];
-                                    foreignSiege = [catapults, trebuchets, cannons];
+                                    let foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                                    foreignGround= foreignGroundRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    let foreignAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                                    foreignAir= foreignAirRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    let foreignSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                                    foreignSea= foreignSeaRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    let foreignSiegeRaw = [catapults, trebuchets, cannons];
+                                    foreignSiege= foreignSiegeRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
                                     warObject= {
                                         warid: warid,
                                         aggressorid: aggressorid,
