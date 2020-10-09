@@ -30,9 +30,9 @@ router.get('/war', function(req,res) {
             console.log('this bih not signed in')
         } else {
             storedID=parseInt(rows.id, 10);
+            let offensiveWars =[];
+            let defensiveWars=[];
             db.serialize(()=>{
-                let offensiveWars =[];
-                let defensiveWars=[];
                 db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                     if (!rows) {
                     } else {
@@ -469,22 +469,20 @@ router.get('/war', function(req,res) {
                         })
                     }
                 })
-                db.get('SELECT * FROM kingdoms', function(err,rows){
-                    let numOf=0;
-                    let numDe=0;
-                    for (i=0; i <offensiveWars.length; i++){
-                        numOf+=1;
-                    }
-                    for (i=0; i <defensiveWars.length; i++){
-                        numDe+=1;
-                    }
-                    console.log( "offesnive war array " + offensiveWars)
-                    console.log( "defensive war array " + defensiveWars)
-                    console.log('num de ' + numDe)
-                    console.log('numof'+numOf)
-                    res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
-                })
             })
+            let numOf=0;
+            let numDe=0;
+            for (i=0; i <offensiveWars.length; i++){
+                numOf+=1;
+            }
+            for (i=0; i <defensiveWars.length; i++){
+                numDe+=1;
+            }
+            console.log( "offesnive war array " + offensiveWars)
+            console.log( "defensive war array " + defensiveWars)
+            console.log('num de ' + numDe)
+            console.log('numof'+numOf)
+            res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
         }
     })
 })
