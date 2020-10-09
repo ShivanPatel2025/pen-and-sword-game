@@ -8,9 +8,9 @@ body
         each war,index in loffensiveWars
 
             if index===0
-                #war#{index+1}.prepare_attack.offense.flex.col(type='offense')
+                div.prepare_attack.offense.col.flex(id = `war${index+1}` type='offense')
             else
-                #war#{index+1}.prepare_attack.offense.col(type='offense')    
+                div.prepare_attack.offense.col(id = `war${index+1}` type='offense')    
 
                 h1 Prepare Your Armies
                 .forces.flex
@@ -99,9 +99,9 @@ body
         each war,index in defensivewars
 
             if index===0
-                #war#{index+1}.prepare_attack.defense.flex.col(type='offense')
+                div.prepare_attack.offense.col.flex(id = `war${index+1}` type='defense')
             else
-                #war#{index+1}.prepare_attack.defense.col(type='offense')    
+                div.prepare_attack.offense.col(id = `war${index+1}` type='defense')  
 
                 h1 Prepare Your Armies
                 .forces.flex
@@ -225,11 +225,11 @@ body
                         .attacker
                             each war,index in loffensivewars
                                 if index === 0
-                                    h1#war#{index+1}.flex
+                                    h1.flex( id =`war${index+1}`)
                                         span.normal Aggressor - 
                                         span.bold= war.aggressorName
                                 else
-                                    h1#war#{index+1}
+                                    h1( id =`war${index+1}`)
                                         span.normal Aggressor - 
                                         span.bold= war.aggressorName
                             
@@ -237,11 +237,11 @@ body
                         .defender
                             each war,index in loffensivewars
                                 if index === 0
-                                    h1#war#{index+1}.flex
+                                    h1.flex( id =`war${index+1}`)
                                         span.normal Defender - 
                                         span.bold= war.defenderName
                                 else
-                                    h1#war#{index+1}
+                                    h1( id =`war${index+1}`)
                                         span.normal Defender - 
                                         span.bold= war.defenderName
                     .war_points.flex
@@ -249,12 +249,12 @@ body
                             each war,index in loffensivewars
 
                                 if index===0
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.aggressormaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.aggressormaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -265,12 +265,12 @@ body
                             each war,index in loffensivewars
                                 if index===0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.defendermaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else 
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.defendermaps
                                         object(type='image/svg+xml' data='./media/swords.svg') 
@@ -279,12 +279,12 @@ body
                             each war,index in loffensivewars
                                 if index === 0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else    
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -292,12 +292,12 @@ body
                             each war,index in loffensivewars
                                 if index === 0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.defenderstability  
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else    
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.defenderstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -313,11 +313,11 @@ body
                         .attacker
                             each war,index in defensivewars
                                 if index === 0
-                                    h1#war#{index+1}.flex
+                                    h1.flex( id =`war${index+1}`)
                                         span.normal Aggressor - 
                                         span.bold= war.aggressorName
                                 else
-                                    h1#war#{index+1}
+                                    h1( id =`war${index+1}`)
                                         span.normal Aggressor - 
                                         span.bold= war.aggressorName
                             
@@ -325,11 +325,11 @@ body
                         .defender
                             each war,index in defensivewars
                                 if index === 0
-                                    h1#war#{index+1}.flex
+                                    h1.flex( id =`war${index+1}`)
                                         span.normal Defender - 
                                         span.bold= war.defenderName
                                 else
-                                    h1#war#{index+1}
+                                    h1.flex( id =`war${index+1}`)
                                         span.normal Defender - 
                                         span.bold= war.defenderName
                     .war_points.flex
@@ -337,12 +337,12 @@ body
                             each war,index in defensivewars
 
                                 if index===0
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.aggressormaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else
-                                    h2#war#{index+1}
+                                    h2(id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.aggressormaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -353,12 +353,12 @@ body
                             each war,index in defensivewars
                                 if index===0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.defendermaps
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else 
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Points - 
                                         span.bold= war.defendermaps
                                         object(type='image/svg+xml' data='./media/swords.svg') 
@@ -367,12 +367,12 @@ body
                             each war,index in defensivewars
                                 if index === 0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else    
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -380,12 +380,12 @@ body
                             each war,index in defensivewars
                                 if index === 0
 
-                                    h2#war#{index+1}.flex
+                                    h2.flex( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.defenderstability  
                                         object(type='image/svg+xml' data='./media/swords.svg')
                                 else    
-                                    h2#war#{index+1}
+                                    h2( id =`war${index+1}`)
                                         span.normal Stability - 
                                         span.bold= war.defenderstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
@@ -396,7 +396,7 @@ body
             .war_selection_circles_container
                 #offense.war_selection_circles
                     each war, index in loffensivewars
-                        #war#{index}.select
+                        div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
                                 h4.bold War #{index}
@@ -407,7 +407,7 @@ body
                     
                 #defense.war_selection_circles
                    each war, index in defensivewars
-                        #war#{index}.select
+                        div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
                                 h4.bold War #{index}
