@@ -251,8 +251,8 @@ body
                     form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='warid' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
-                        input(type="hidden" name='domesticMaps' value=`${war.defendermaps}`)
-                        input(type="hidden" name='foreignStability' value=`${war.aggressorstability}`)
+                        input(type="hidden" name='domesticMaps' value= `${war.defendermaps}`)
+                        input(type="hidden" name='foreignStability' value= `${war.aggressorstability}`)
                         button.launch_attack(type='submit') Launch an Attack
 
                     .prepare_attack_selection.flex
