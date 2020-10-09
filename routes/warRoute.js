@@ -33,7 +33,7 @@ router.get('/war', function(req,res) {
             let offensiveWars =[];
             let defensiveWars=[];
             let aggroCounter=0;
-            db.run(`SELECT COUNT(*) AS count FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
+            db.get(`SELECT COUNT(*) AS count FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                 if (!rows) {
                 } else {
                     console.log(rows)
