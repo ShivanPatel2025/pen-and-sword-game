@@ -247,11 +247,10 @@ router.get('/war', function(req,res) {
                                             foreignPower: foreignPower,
                                             domesticPower: domesticPower
                                         }
-                                        console.log(warObject)
+                                        console.log("inside each loop")
                                         offensiveWars.push(warObject)
-                                        console.log(offensiveWars)
+                                        firstEach=true;
                                 })
-                                firstEach=true;
                         })
                     }
                 })
@@ -468,8 +467,8 @@ router.get('/war', function(req,res) {
                                             domesticPower: domesticPower
                                         }
                                         defensiveWars.push(warObject)
+                                        secondEach=true;
                                 })
-                                secondEach=true;
                         })
                     }
                 })
@@ -483,6 +482,7 @@ router.get('/war', function(req,res) {
                 for (i=0; i <defensiveWars.length; i++){
                     numDe+=1;
                 }
+                console.log('SHOUld happen last')
                 console.log( "offesnive war array " + offensiveWars)
                 console.log( "defensive war array " + defensiveWars)
                 console.log('num de ' + numDe)
