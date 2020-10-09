@@ -66,11 +66,11 @@ body
                     .defending_power
                        each power in war.domesticPower
                             if power['name']==='ground'
-                                h2##{power['name']}.val.flex  
+                                h2.val.flex(id=`${power['name']}`)  
                                     span.bold= power['value']
                                     i.fas.fa-1x.fa-fist-raised
                             else
-                                h2##{power['name']}.val  
+                                h2.val(id=`${power['name']}`  
                                     span.bold= power['value']
                                     i.fas.fa-1x.fa-fist-raised
                         
@@ -146,7 +146,7 @@ body
                     .attacking_power
                         each power in war.domesticPower
                             if power['name']==='ground'
-                                h2##{power['name']}.val.flex  
+                                h2.val.flex(id=`${power['name']}`)  
                                     span.bold= power['value']
                                     i.fas.fa-1x.fa-fist-raised
                             else
@@ -157,7 +157,7 @@ body
                     .defending_power
                        each power in war.domesticPower
                             if power['name']==='ground'
-                                h2##{power['name']}.val.flex  
+                                h2.val.flex(id=`${power['name']}`)  
                                     span.bold= power['value']
                                     i.fas.fa-1x.fa-fist-raised
                             else
@@ -414,4 +414,4 @@ body
                             else
                                 .circle
                                 h4.bold War #{index}
-    script(src='./js/wars.js')
+    script(src="./js/wars.js")
