@@ -51,7 +51,7 @@ router.get('/war', function(req,res) {
                         db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
                             defenderName=rows.kingdom;
                         })
-                        db.get('SELECT * military WHERE id=?',storedID,function(err,rows){
+                        db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
                             let domesticAir;
                             let domesticGround;
                             let domesticSea;
@@ -138,7 +138,7 @@ router.get('/war', function(req,res) {
                                 domesticSea = [galleys, pirates, sea_serpents];
                                 domesticSiege = [catapults, trebuchets, cannons];
                                 console.log(domesticGround);
-                                db.get('SELECT * military WHERE id=?',defenderid,function(err,rows){
+                                db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
                                     let foreignAir;
                                     let foreignGround;
                                     let foreignSea;
@@ -268,7 +268,7 @@ router.get('/war', function(req,res) {
                         db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
                             defenderName=rows.kingdom;
                         })
-                        db.get('SELECT * military WHERE id=?',storedID,function(err,rows){
+                        db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
                             let domesticAir;
                             let domesticGround;
                             let domesticSea;
@@ -355,7 +355,7 @@ router.get('/war', function(req,res) {
                                 domesticSea = [galleys, pirates, sea_serpents,archers,angels];
                                 domesticSiege = [catapults, trebuchets, cannons];
                                 console.log(domesticGround);
-                                db.get('SELECT * military WHERE id=?',defenderid,function(err,rows){
+                                db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
                                     let foreignAir;
                                     let foreignGround;
                                     let foreignSea;
