@@ -32,10 +32,11 @@ router.get('/war', function(req,res) {
             storedID=parseInt(rows.id, 10);
             let offensiveWars =[];
             let defensiveWars=[];
-            let aggroCounter;
+            let aggroCounter=0;
             db.run(`SELECT COUNT(*) AS count FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                 if (!rows) {
                 } else {
+                    console.log(rows)
                     aggroCounter=rows[0].count;
                 }
             })
