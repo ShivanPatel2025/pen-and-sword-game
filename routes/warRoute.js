@@ -235,15 +235,15 @@ router.get('/war', function(req,res) {
                                         'values': rows.cannons
                                     }
                                     let groundDefendingPower= {
-                                        'name' : 'Ground',
+                                        'name' : 'ground',
                                         'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
                                     }
                                     let airDefendingPower= {
-                                        'name': 'Air',
+                                        'name': 'air',
                                         'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
                                     }
                                     let navalDefendingPower= {
-                                        'name' : 'Naval',
+                                        'name' : 'sea',
                                         'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
                                     }
                                     let foreignPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
@@ -385,15 +385,15 @@ router.get('/war', function(req,res) {
                                 'values': rows.cannons
                             }
                             let groundDefendingPower= {
-                                'name' : 'Ground',
+                                'name' : 'ground',
                                 'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
                             }
                             let airDefendingPower= {
-                                'name': 'Air',
+                                'name': 'air',
                                 'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
                             }
                             let navalDefendingPower= {
-                                'name' : 'Naval',
+                                'name' : 'sea',
                                 'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
                             }
                             let domesticPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
