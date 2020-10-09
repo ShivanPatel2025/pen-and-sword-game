@@ -1013,14 +1013,17 @@ router.post('/air', urlencodedParser, function(req,res){
         let domesticSea=[];
         let domesticSiege=[];
         let domesticMaps=req.body.domesticMaps;
-        let domesticStability=req.body.domesticStability;
+        //let domesticStability=req.body.domesticStability;
         let foreignAir=[];
         let foreignGround=[];
         let foreignSea=[];
         let foreignSiege=[]; 
-        let foreignMaps=req.body.foreignMaps;
+        //let foreignMaps=req.body.foreignMaps;
         let foreignStability=req.body.foreignStability;
         let enemyID;
+        console.log(req.body)
+        console.log(domesticMaps)
+        console.log(foreignStability)
         if(domesticMaps>=9) {
             let newMaps=domesticMaps-9;
             db.serialize(()=>{
