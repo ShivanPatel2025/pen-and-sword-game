@@ -230,10 +230,24 @@ router.get('/war', function(req,res) {
                                         'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
                                     }
                                     let foreignPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
-                                    foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
-                                    foreignAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
-                                    foreignSea = [galleys, pirates, sea_serpents,archers,angels];
-                                    foreignSiege = [catapults, trebuchets, cannons];
+
+
+                                    foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                                    let foreignGround= foreignGroundRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    foreignAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                                    let foreignAir= foreignAirRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    foreignSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                                    let foreignSea= foreignSeaRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
+                                    foreignSiegeRaw = [catapults, trebuchets, cannons];
+                                    let foreignSiege= foreignSiegeRaw.filter(e=>{
+                                        return e['value']!=0
+                                    })
                                     warObject= {
                                         warid: warid,
                                         aggressorid: aggressorid,
