@@ -251,9 +251,9 @@ router.get('/war', function(req,res) {
                                         offensiveWars.push(warObject)
                                         console.log(offensiveWars)
                                 })
+                                firstEach=true;
                         })
                     }
-                    firstEach=true;
                 })
                 db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
                     if (!rows) {
@@ -469,9 +469,9 @@ router.get('/war', function(req,res) {
                                         }
                                         defensiveWars.push(warObject)
                                 })
+                                secondEach=true;
                         })
                     }
-                    secondEach=true;
                 })
             })
             if ((firstEach=true) && (secondEach=true)) {
