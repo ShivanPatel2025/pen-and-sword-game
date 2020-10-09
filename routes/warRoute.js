@@ -232,20 +232,20 @@ router.get('/war', function(req,res) {
                                     let foreignPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
 
 
-                                    foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
-                                    let foreignGround= foreignGroundRaw.filter(e=>{
+                                    let foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                                    foreignGround= foreignGroundRaw.filter(e=>{
                                         return e['value']!=0
                                     })
-                                    foreignAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
-                                    let foreignAir= foreignAirRaw.filter(e=>{
+                                    let foreignAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                                    foreignAir= foreignAirRaw.filter(e=>{
                                         return e['value']!=0
                                     })
-                                    foreignSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
-                                    let foreignSea= foreignSeaRaw.filter(e=>{
+                                    let foreignSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                                    foreignSea= foreignSeaRaw.filter(e=>{
                                         return e['value']!=0
                                     })
-                                    foreignSiegeRaw = [catapults, trebuchets, cannons];
-                                    let foreignSiege= foreignSiegeRaw.filter(e=>{
+                                    let foreignSiegeRaw = [catapults, trebuchets, cannons];
+                                    foreignSiege= foreignSiegeRaw.filter(e=>{
                                         return e['value']!=0
                                     })
                                     warObject= {
