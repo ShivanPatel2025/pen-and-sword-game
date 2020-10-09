@@ -807,7 +807,7 @@ router.post('/declarewar', urlencodedParser, function(req,res) {
 //     }}) 
 // })
 
-router.post('/groundbattle', urlencodedParser, function(req,res){
+router.post('/ground', urlencodedParser, function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -1000,7 +1000,7 @@ router.post('/groundbattle', urlencodedParser, function(req,res){
     })
 })
 
-router.post('/airfight', urlencodedParser, function(req,res){
+router.post('/air', urlencodedParser, function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -1192,7 +1192,7 @@ router.post('/airfight', urlencodedParser, function(req,res){
     })
 })
 
-router.post('/navalbattle', urlencodedParser, function(req,res){
+router.post('/sea', urlencodedParser, function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -1381,7 +1381,7 @@ router.post('/navalbattle', urlencodedParser, function(req,res){
     })
 })
 
-router.post('/siegeprovince', urlencodedParser, function(req,res){
+router.post('/siege', urlencodedParser, function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
