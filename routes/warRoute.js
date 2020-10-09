@@ -146,15 +146,15 @@ router.get('/war', function(req,res) {
 
 
 
-                            let domesticGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                            let domesticGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages];
                             domesticGround= domesticGroundRaw.filter(e=>{
                                 return e['value']!=0
                             })
-                            let domesticAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                            let domesticAirRaw = [blimps, harpies, angels, dragons];
                             domesticAir= domesticAirRaw.filter(e=>{
                                 return e['value']!=0
                             })
-                            let domesticSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                            let domesticSeaRaw = [galleys, pirates, sea_serpents];
                             domesticSea= domesticSeaRaw.filter(e=>{
                                 return e['value']!=0
                             })
@@ -497,15 +497,15 @@ router.get('/war', function(req,res) {
                                         'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
                                     } 
                                     let foreignPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
-                                    let foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                                    let foreignGroundRaw = [warriors, archers, cavalry,blacksmiths,priests,mages];
                                     foreignGround= foreignGroundRaw.filter(e=>{
                                         return e['value']!=0
                                     })
-                                    let foreignAirRaw = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                                    let foreignAirRaw = [blimps, harpies, angels, dragons];
                                     foreignAir= foreignAirRaw.filter(e=>{
                                         return e['value']!=0
                                     })
-                                    let foreignSeaRaw = [galleys, pirates, sea_serpents,archers,angels];
+                                    let foreignSeaRaw = [galleys, pirates, sea_serpents];
                                     foreignSea= foreignSeaRaw.filter(e=>{
                                         return e['value']!=0
                                     })
