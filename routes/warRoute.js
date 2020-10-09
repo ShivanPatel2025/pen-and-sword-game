@@ -1021,6 +1021,7 @@ router.post('/air', urlencodedParser, function(req,res){
         //let foreignMaps=req.body.foreignMaps;
         let foreignStability=req.body.foreignStability;
         let enemyID;
+        console.log(req.body)
         console.log(domesticMaps)
         console.log(foreignStability)
         if(domesticMaps>=9) {
