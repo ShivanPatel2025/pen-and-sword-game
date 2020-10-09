@@ -22,6 +22,15 @@ let db = new sqlite3.Database('./pns.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 
+function checkBalance(key) {
+    return new Promise((resolve, reject) => {
+        let storedID = key; 
+        resolve((newGold>=0) && (newMana>=0) && (newFlora>=0) && (newFauna>=0) && (newLumber>=0) && (newFood>=0) && (newOre>=0) && (newSilver>=0) && (newIron>=0) && (newBronze>=0) && (newSteel>=0))
+      
+    })
+}
+
+
 router.get('/war', function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
@@ -33,37 +42,341 @@ router.get('/war', function(req,res) {
             let offensiveWars =[];
             let defensiveWars=[];
             let aggroCounter=0;
-            db.get(`SELECT COUNT(*) AS count FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
+            db.serialize(()=>{
+            db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                 if (!rows) {
                 } else {
-                    console.log(rows)
-                    aggroCounter=rows.count;
-                    console.log(aggroCounter)
-                    let firstEachCount=1;
-                    db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
-                        if (!rows) {
-                        } else {
-                            let warid = rows.warid;
-                            let aggressorid= rows.aggressorid;
-                            let defenderid= rows.defenderid;
-                            let aggressorstability= rows.aggressorstability;
-                            let defenderstability= rows.defenderstability;
-                            let aggressormaps= rows.aggressormaps;
-                            let defendermaps= rows.defendermaps;
-                            let aggressorName;
-                            let defenderName;
-                            db.get('SELECT * FROM kingdoms WHERE id=?',aggressorid, function(err,rows){
-                                aggressorName=rows.kingdom;
+                    let warid = rows.warid;
+                    let aggressorid= rows.aggressorid;
+                    let defenderid= rows.defenderid;
+                    let aggressorstability= rows.aggressorstability;
+                    let defenderstability= rows.defenderstability;
+                    let aggressormaps= rows.aggressormaps;
+                    let defendermaps= rows.defendermaps;
+                    let aggressorName;
+                    let defenderName;
+                    db.get('SELECT * FROM kingdoms WHERE id=?',aggressorid, function(err,rows){
+                        aggressorName=rows.kingdom;
+                    })
+                    db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
+                        defenderName=rows.kingdom;
+                    })
+                    db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
+                        let domesticAir;
+                        let domesticGround;
+                        let domesticSea;
+                        let domesticSiege;
+                            warriors = {
+                            'name': 'Warriors',
+                            'value': rows.warriors
+                            } 
+                            archers = {
+                            'name': 'Archers',
+                            'value': rows.archers
+                            } 
+                            cavalry = {
+                            'name': 'Cavalry',
+                            'value': rows.cavalry
+                            } 
+                            blacksmiths = {
+                                'name':'Blacksmith',
+                                'value': rows.blacksmiths
+                            }
+                            priests = {
+                                'name': 'Priests',
+                                'value':rows.priests
+                            }
+                            mages = {
+                                'name': 'Mages',
+                                'value': rows.mages
+                            }
+                            blimps = {
+                                'name': 'Blimps',
+                                'value': rows.blimps
+                            }
+                            harpies = {
+                                'name': 'Harpies',
+                                'value': rows.harpies
+                            }
+                            angels = {
+                                'name': 'Angels',
+                                'value': rows.angels
+                            }
+                            dragons = {
+                                'name': 'Dragons',
+                                'value': rows.dragons
+                            }
+                            galleys = {
+                                'name': 'Galleys',
+                                'value': rows.galleys
+                            }
+                            pirates = {
+                                'name': 'Pirates',
+                                'value': rows.pirates
+                            }
+                            sea_serpents = {
+                                'name': 'Sea Serpents',
+                                'value': rows.sea_serpents
+                            }
+                            catapults = {
+                                'name': 'Catapults',
+                                'value': rows.catapults
+                            }
+                            trebuchets= {
+                                'name': 'Trebuchets',
+                                'value':rows.trebuchets
+                            }
+                            cannons={
+                                'name': 'Cannons',
+                                'values': rows.cannons
+                            }
+                            let groundAttackingPower= {
+                                'name' : 'ground',
+                                'value' : warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20
+                            } 
+                            let airAttackingPower= {
+                                'name' : 'air',
+                                'value' : blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13
+                            }
+                            let navalAttackingPower= {
+                                'name' : 'sea',
+                                'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
+                            } 
+                            let domesticPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
+                            domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                            domesticAir = [blimps, harpies, angels, dragons];
+                            domesticSea = [galleys, pirates, sea_serpents];
+                            domesticSiege = [catapults, trebuchets, cannons];
+                            console.log(domesticGround);
+                            db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
+                                let foreignAir;
+                                let foreignGround;
+                                let foreignSea;
+                                let foreignSiege;
+                                warriors = {
+                                    'name': 'Warriors',
+                                    'value': rows.warriors
+                                    } 
+                                    archers = {
+                                    'name': 'Archers',
+                                    'value': rows.archers
+                                    } 
+                                    cavalry = {
+                                    'name': 'Cavalry',
+                                    'value': rows.cavalry
+                                    } 
+                                    blacksmiths = {
+                                        'name':'Blacksmith',
+                                        'value': rows.blacksmiths
+                                    }
+                                    priests = {
+                                        'name': 'Priests',
+                                        'value':rows.priests
+                                    }
+                                    mages = {
+                                        'name': 'Mages',
+                                        'value': rows.mages
+                                    }
+                                    blimps = {
+                                        'name': 'Blimps',
+                                        'value': rows.blimps
+                                    }
+                                    harpies = {
+                                        'name': 'Harpies',
+                                        'value': rows.harpies
+                                    }
+                                    angels = {
+                                        'name': 'Angels',
+                                        'value': rows.angels
+                                    }
+                                    dragons = {
+                                        'name': 'Dragons',
+                                        'value': rows.dragons
+                                    }
+                                    galleys = {
+                                        'name': 'Galleys',
+                                        'value': rows.galleys
+                                    }
+                                    pirates = {
+                                        'name': 'Pirates',
+                                        'value': rows.pirates
+                                    }
+                                    sea_serpents = {
+                                        'name': 'Sea Serpents',
+                                        'value': rows.sea_serpents
+                                    }
+                                    catapults = {
+                                        'name': 'Catapults',
+                                        'value': rows.catapults
+                                    }
+                                    trebuchets= {
+                                        'name': 'Trebuchets',
+                                        'value':rows.trebuchets
+                                    }
+                                    cannons={
+                                        'name': 'Cannons',
+                                        'values': rows.cannons
+                                    }
+                                    let groundDefendingPower= {
+                                        'name' : 'Ground',
+                                        'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
+                                    }
+                                    let airDefendingPower= {
+                                        'name': 'Air',
+                                        'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
+                                    }
+                                    let navalDefendingPower= {
+                                        'name' : 'Naval',
+                                        'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
+                                    }
+                                    let foreignPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
+                                    foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                                    foreignAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                                    foreignSea = [galleys, pirates, sea_serpents,archers,angels];
+                                    foreignSiege = [catapults, trebuchets, cannons];
+                                    warObject= {
+                                        warid: warid,
+                                        aggressorid: aggressorid,
+                                        defenderid: defenderid,
+                                        aggressorName: aggressorName,
+                                        defenderName: defenderName,
+                                        aggressorstability: aggressorstability,
+                                        defenderstability: defenderstability,
+                                        aggressormaps: aggressormaps,
+                                        defendermaps: defendermaps,
+                                        domesticGround: domesticGround,
+                                        domesticAir: domesticAir,
+                                        domesticSea: domesticSea,
+                                        domesticSiege: domesticSiege,
+                                        foreignGround: foreignGround,
+                                        foreignAir: foreignAir,
+                                        foreignSea: foreignSea,
+                                        foreignSiege: foreignSiege,
+                                        foreignPower: foreignPower,
+                                        domesticPower: domesticPower
+                                    }
+                                    console.log("inside each loop")
+                                    
+                                    offensiveWars.push(warObject)
+                                    
                             })
-                            db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
-                                defenderName=rows.kingdom;
-                            })
-                            db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
-                                let domesticAir;
-                                let domesticGround;
-                                let domesticSea;
-                                let domesticSiege;
-                                    warriors = {
+                    })
+                }
+            })
+
+        
+
+            db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
+                if (!rows) {
+                } else {
+                    let warid = rows.warid;
+                    let aggressorid= rows.aggressorid;
+                    let defenderid= rows.defenderid;
+                    let aggressorstability= rows.aggressorstability;
+                    let defenderstability= rows.defenderstability;
+                    let aggressormaps= rows.aggressormaps;
+                    let defendermaps= rows.defendermaps;
+                    let aggressorName;
+                    let defenderName;
+                    db.get('SELECT * FROM kingdoms WHERE id=?',aggressorid, function(err,rows){
+                        aggressorName=rows.kingdom;
+                    })
+                    db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
+                        defenderName=rows.kingdom;
+                    })
+                    db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
+                        let domesticAir;
+                        let domesticGround;
+                        let domesticSea;
+                        let domesticSiege;
+                            warriors = {
+                            'name': 'Warriors',
+                            'value': rows.warriors
+                            } 
+                            archers = {
+                            'name': 'Archers',
+                            'value': rows.archers
+                            } 
+                            cavalry = {
+                            'name': 'Cavalry',
+                            'value': rows.cavalry
+                            } 
+                            blacksmiths = {
+                                'name':'Blacksmith',
+                                'value': rows.blacksmiths
+                            }
+                            priests = {
+                                'name': 'Priests',
+                                'value':rows.priests
+                            }
+                            mages = {
+                                'name': 'Mages',
+                                'value': rows.mages
+                            }
+                            blimps = {
+                                'name': 'Blimps',
+                                'value': rows.blimps
+                            }
+                            harpies = {
+                                'name': 'Harpies',
+                                'value': rows.harpies
+                            }
+                            angels = {
+                                'name': 'Angels',
+                                'value': rows.angels
+                            }
+                            dragons = {
+                                'name': 'Dragons',
+                                'value': rows.dragons
+                            }
+                            galleys = {
+                                'name': 'Galleys',
+                                'value': rows.galleys
+                            }
+                            pirates = {
+                                'name': 'Pirates',
+                                'value': rows.pirates
+                            }
+                            sea_serpents = {
+                                'name': 'Sea Serpents',
+                                'value': rows.sea_serpents
+                            }
+                            catapults = {
+                                'name': 'Catapults',
+                                'value': rows.catapults
+                            }
+                            trebuchets= {
+                                'name': 'Trebuchets',
+                                'value':rows.trebuchets
+                            }
+                            cannons={
+                                'name': 'Cannons',
+                                'values': rows.cannons
+                            }
+                            let groundDefendingPower= {
+                                'name' : 'Ground',
+                                'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
+                            }
+                            let airDefendingPower= {
+                                'name': 'Air',
+                                'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
+                            }
+                            let navalDefendingPower= {
+                                'name' : 'Naval',
+                                'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
+                            }
+                            let domesticPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
+                            domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
+                            domesticAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
+                            domesticSea = [galleys, pirates, sea_serpents,archers,angels];
+                            domesticSiege = [catapults, trebuchets, cannons];
+                            console.log(domesticGround);
+                            db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
+                                let foreignAir;
+                                let foreignGround;
+                                let foreignSea;
+                                let foreignSiege;
+                                warriors = {
                                     'name': 'Warriors',
                                     'value': rows.warriors
                                     } 
@@ -139,383 +452,50 @@ router.get('/war', function(req,res) {
                                         'name' : 'sea',
                                         'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
                                     } 
-                                    let domesticPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
-                                    domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                                    domesticAir = [blimps, harpies, angels, dragons];
-                                    domesticSea = [galleys, pirates, sea_serpents];
-                                    domesticSiege = [catapults, trebuchets, cannons];
-                                    console.log(domesticGround);
-                                    db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
-                                        let foreignAir;
-                                        let foreignGround;
-                                        let foreignSea;
-                                        let foreignSiege;
-                                        warriors = {
-                                            'name': 'Warriors',
-                                            'value': rows.warriors
-                                            } 
-                                            archers = {
-                                            'name': 'Archers',
-                                            'value': rows.archers
-                                            } 
-                                            cavalry = {
-                                            'name': 'Cavalry',
-                                            'value': rows.cavalry
-                                            } 
-                                            blacksmiths = {
-                                                'name':'Blacksmith',
-                                                'value': rows.blacksmiths
-                                            }
-                                            priests = {
-                                                'name': 'Priests',
-                                                'value':rows.priests
-                                            }
-                                            mages = {
-                                                'name': 'Mages',
-                                                'value': rows.mages
-                                            }
-                                            blimps = {
-                                                'name': 'Blimps',
-                                                'value': rows.blimps
-                                            }
-                                            harpies = {
-                                                'name': 'Harpies',
-                                                'value': rows.harpies
-                                            }
-                                            angels = {
-                                                'name': 'Angels',
-                                                'value': rows.angels
-                                            }
-                                            dragons = {
-                                                'name': 'Dragons',
-                                                'value': rows.dragons
-                                            }
-                                            galleys = {
-                                                'name': 'Galleys',
-                                                'value': rows.galleys
-                                            }
-                                            pirates = {
-                                                'name': 'Pirates',
-                                                'value': rows.pirates
-                                            }
-                                            sea_serpents = {
-                                                'name': 'Sea Serpents',
-                                                'value': rows.sea_serpents
-                                            }
-                                            catapults = {
-                                                'name': 'Catapults',
-                                                'value': rows.catapults
-                                            }
-                                            trebuchets= {
-                                                'name': 'Trebuchets',
-                                                'value':rows.trebuchets
-                                            }
-                                            cannons={
-                                                'name': 'Cannons',
-                                                'values': rows.cannons
-                                            }
-                                            let groundDefendingPower= {
-                                                'name' : 'Ground',
-                                                'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
-                                            }
-                                            let airDefendingPower= {
-                                                'name': 'Air',
-                                                'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
-                                            }
-                                            let navalDefendingPower= {
-                                                'name' : 'Naval',
-                                                'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
-                                            }
-                                            let foreignPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
-                                            foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
-                                            foreignAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
-                                            foreignSea = [galleys, pirates, sea_serpents,archers,angels];
-                                            foreignSiege = [catapults, trebuchets, cannons];
-                                            warObject= {
-                                                warid: warid,
-                                                aggressorid: aggressorid,
-                                                defenderid: defenderid,
-                                                aggressorName: aggressorName,
-                                                defenderName: defenderName,
-                                                aggressorstability: aggressorstability,
-                                                defenderstability: defenderstability,
-                                                aggressormaps: aggressormaps,
-                                                defendermaps: defendermaps,
-                                                domesticGround: domesticGround,
-                                                domesticAir: domesticAir,
-                                                domesticSea: domesticSea,
-                                                domesticSiege: domesticSiege,
-                                                foreignGround: foreignGround,
-                                                foreignAir: foreignAir,
-                                                foreignSea: foreignSea,
-                                                foreignSiege: foreignSiege,
-                                                foreignPower: foreignPower,
-                                                domesticPower: domesticPower
-                                            }
-                                            console.log("inside each loop")
-                                            
-                                            offensiveWars.push(warObject)
-
-                                            firstEachCount+=1;
-                                            if (firstEachCount===aggroCounter){
-                                                let defenseCounter=0;
-                                                db.get(`SELECT COUNT(*) AS count FROM wars WHERE defenderid=?`, storedID, function(err,rows) {
-                                                    if (!rows) {
-                                                    } else {
-                                                        console.log(rows)
-                                                        defenseCounter=rows.count;
-                                                        console.log(defenseCounter)
-                                                        let secondEachCount=1;
-                                                        db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
-                                                            if (!rows) {
-                                                            } else {
-                                                                let warid = rows.warid;
-                                                                let aggressorid= rows.aggressorid;
-                                                                let defenderid= rows.defenderid;
-                                                                let aggressorstability= rows.aggressorstability;
-                                                                let defenderstability= rows.defenderstability;
-                                                                let aggressormaps= rows.aggressormaps;
-                                                                let defendermaps= rows.defendermaps;
-                                                                let aggressorName;
-                                                                let defenderName;
-                                                                db.get('SELECT * FROM kingdoms WHERE id=?',aggressorid, function(err,rows){
-                                                                    aggressorName=rows.kingdom;
-                                                                })
-                                                                db.get('SELECT * FROM kingdoms WHERE id=?',defenderid, function(err,rows){
-                                                                    defenderName=rows.kingdom;
-                                                                })
-                                                                db.get('SELECT * FROM military WHERE id=?',storedID,function(err,rows){
-                                                                    let domesticAir;
-                                                                    let domesticGround;
-                                                                    let domesticSea;
-                                                                    let domesticSiege;
-                                                                        warriors = {
-                                                                        'name': 'Warriors',
-                                                                        'value': rows.warriors
-                                                                        } 
-                                                                        archers = {
-                                                                        'name': 'Archers',
-                                                                        'value': rows.archers
-                                                                        } 
-                                                                        cavalry = {
-                                                                        'name': 'Cavalry',
-                                                                        'value': rows.cavalry
-                                                                        } 
-                                                                        blacksmiths = {
-                                                                            'name':'Blacksmith',
-                                                                            'value': rows.blacksmiths
-                                                                        }
-                                                                        priests = {
-                                                                            'name': 'Priests',
-                                                                            'value':rows.priests
-                                                                        }
-                                                                        mages = {
-                                                                            'name': 'Mages',
-                                                                            'value': rows.mages
-                                                                        }
-                                                                        blimps = {
-                                                                            'name': 'Blimps',
-                                                                            'value': rows.blimps
-                                                                        }
-                                                                        harpies = {
-                                                                            'name': 'Harpies',
-                                                                            'value': rows.harpies
-                                                                        }
-                                                                        angels = {
-                                                                            'name': 'Angels',
-                                                                            'value': rows.angels
-                                                                        }
-                                                                        dragons = {
-                                                                            'name': 'Dragons',
-                                                                            'value': rows.dragons
-                                                                        }
-                                                                        galleys = {
-                                                                            'name': 'Galleys',
-                                                                            'value': rows.galleys
-                                                                        }
-                                                                        pirates = {
-                                                                            'name': 'Pirates',
-                                                                            'value': rows.pirates
-                                                                        }
-                                                                        sea_serpents = {
-                                                                            'name': 'Sea Serpents',
-                                                                            'value': rows.sea_serpents
-                                                                        }
-                                                                        catapults = {
-                                                                            'name': 'Catapults',
-                                                                            'value': rows.catapults
-                                                                        }
-                                                                        trebuchets= {
-                                                                            'name': 'Trebuchets',
-                                                                            'value':rows.trebuchets
-                                                                        }
-                                                                        cannons={
-                                                                            'name': 'Cannons',
-                                                                            'values': rows.cannons
-                                                                        }
-                                                                        let groundDefendingPower= {
-                                                                            'name' : 'Ground',
-                                                                            'value': warriors.value*1+archers.value*6+cavalry.value*5+blacksmiths.value*10+priests.value*15+mages.value*15+angels.value*8+dragons.value*18+pirates.value*4
-                                                                        }
-                                                                        let airDefendingPower= {
-                                                                            'name': 'Air',
-                                                                            'value':blimps.value*5+harpies.value*7+angels.value*8+dragons.value*18+archers.value*6+mages.value*15+galleys.value*8
-                                                                        }
-                                                                        let navalDefendingPower= {
-                                                                            'name' : 'Naval',
-                                                                            'value' : galleys.value*8+pirates.value*4+sea_serpents.value*40+archers.value*6+angels.value*8
-                                                                        }
-                                                                        let domesticPower=[groundDefendingPower,airDefendingPower,navalDefendingPower]
-                                                                        domesticGround = [warriors, archers, cavalry,blacksmiths,priests,mages,angels,dragons,pirates];
-                                                                        domesticAir = [blimps, harpies, angels, dragons,archers,mages,galleys];
-                                                                        domesticSea = [galleys, pirates, sea_serpents,archers,angels];
-                                                                        domesticSiege = [catapults, trebuchets, cannons];
-                                                                        console.log(domesticGround);
-                                                                        db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
-                                                                            let foreignAir;
-                                                                            let foreignGround;
-                                                                            let foreignSea;
-                                                                            let foreignSiege;
-                                                                            warriors = {
-                                                                                'name': 'Warriors',
-                                                                                'value': rows.warriors
-                                                                                } 
-                                                                                archers = {
-                                                                                'name': 'Archers',
-                                                                                'value': rows.archers
-                                                                                } 
-                                                                                cavalry = {
-                                                                                'name': 'Cavalry',
-                                                                                'value': rows.cavalry
-                                                                                } 
-                                                                                blacksmiths = {
-                                                                                    'name':'Blacksmith',
-                                                                                    'value': rows.blacksmiths
-                                                                                }
-                                                                                priests = {
-                                                                                    'name': 'Priests',
-                                                                                    'value':rows.priests
-                                                                                }
-                                                                                mages = {
-                                                                                    'name': 'Mages',
-                                                                                    'value': rows.mages
-                                                                                }
-                                                                                blimps = {
-                                                                                    'name': 'Blimps',
-                                                                                    'value': rows.blimps
-                                                                                }
-                                                                                harpies = {
-                                                                                    'name': 'Harpies',
-                                                                                    'value': rows.harpies
-                                                                                }
-                                                                                angels = {
-                                                                                    'name': 'Angels',
-                                                                                    'value': rows.angels
-                                                                                }
-                                                                                dragons = {
-                                                                                    'name': 'Dragons',
-                                                                                    'value': rows.dragons
-                                                                                }
-                                                                                galleys = {
-                                                                                    'name': 'Galleys',
-                                                                                    'value': rows.galleys
-                                                                                }
-                                                                                pirates = {
-                                                                                    'name': 'Pirates',
-                                                                                    'value': rows.pirates
-                                                                                }
-                                                                                sea_serpents = {
-                                                                                    'name': 'Sea Serpents',
-                                                                                    'value': rows.sea_serpents
-                                                                                }
-                                                                                catapults = {
-                                                                                    'name': 'Catapults',
-                                                                                    'value': rows.catapults
-                                                                                }
-                                                                                trebuchets= {
-                                                                                    'name': 'Trebuchets',
-                                                                                    'value':rows.trebuchets
-                                                                                }
-                                                                                cannons={
-                                                                                    'name': 'Cannons',
-                                                                                    'values': rows.cannons
-                                                                                }
-                                                                                let groundAttackingPower= {
-                                                                                    'name' : 'ground',
-                                                                                    'value' : warriors.value*4+archers.value*2+cavalry.value*12+blacksmiths.value*3+priests.value*18+mages.value*20
-                                                                                } 
-                                                                                let airAttackingPower= {
-                                                                                    'name' : 'air',
-                                                                                    'value' : blimps.value*14+harpies.value*10+angels.value*8+dragons.value*13
-                                                                                }
-                                                                                let navalAttackingPower= {
-                                                                                    'name' : 'sea',
-                                                                                    'value': galleys.value*8+pirates.value*15+sea_serpents.value*40
-                                                                                } 
-                                                                                let foreignPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
-                                                                                foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
-                                                                                foreignAir = [blimps, harpies, angels, dragons];
-                                                                                foreignSea = [galleys, pirates, sea_serpents];
-                                                                                foreignSiege = [catapults, trebuchets, cannons];
-                                                                                warObject= {
-                                                                                    warid: warid,
-                                                                                    aggressorid: aggressorid,
-                                                                                    defenderid: defenderid,
-                                                                                    aggressorstability: aggressorstability,
-                                                                                    defenderstability: defenderstability,
-                                                                                    aggressormaps: aggressormaps,
-                                                                                    defendermaps: defendermaps,
-                                                                                    aggressorName: aggressorName,
-                                                                                    defenderName: defenderName,
-                                                                                    domesticGround: domesticGround,
-                                                                                    domesticAir: domesticAir,
-                                                                                    domesticSea: domesticSea,
-                                                                                    domesticSiege: domesticSiege,
-                                                                                    foreignGround: foreignGround,
-                                                                                    foreignAir: foreignAir,
-                                                                                    foreignSea: foreignSea,
-                                                                                    foreignSiege: foreignSiege,
-                                                                                    foreignPower: foreignPower,
-                                                                                    domesticPower: domesticPower
-                                                                                }
-                                                                                defensiveWars.push(warObject)
-                                                                                secondEachCount++;
-                                                                                if (defenseCounter===secondEachCount) {
-                                                                                    let numOf=offensiveWars.length;
-                                                                                    let numDe=defensiveWars.length;
-                                                                                    
-                                                                                    console.log('SHOUld happen last')
-                                                                                    console.log( "offesnive war array " + offensiveWars)
-                                                                                    console.log( "defensive war array " + defensiveWars)
-                                                                                    console.log('num de ' + numDe)
-                                                                                    console.log('numof'+numOf)
-                                                                                    res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
-                                                                                            
-
-                                                                                }
-                                                                        })
-                                                                })
-                                                            }
-                                                        })
-                                                    }
-                                                })
-
-                                            }
-                                    })
+                                    let foreignPower=[groundAttackingPower,airAttackingPower,navalAttackingPower]
+                                    foreignGround = [warriors, archers, cavalry,blacksmiths,priests,mages];
+                                    foreignAir = [blimps, harpies, angels, dragons];
+                                    foreignSea = [galleys, pirates, sea_serpents];
+                                    foreignSiege = [catapults, trebuchets, cannons];
+                                    warObject= {
+                                        warid: warid,
+                                        aggressorid: aggressorid,
+                                        defenderid: defenderid,
+                                        aggressorstability: aggressorstability,
+                                        defenderstability: defenderstability,
+                                        aggressormaps: aggressormaps,
+                                        defendermaps: defendermaps,
+                                        aggressorName: aggressorName,
+                                        defenderName: defenderName,
+                                        domesticGround: domesticGround,
+                                        domesticAir: domesticAir,
+                                        domesticSea: domesticSea,
+                                        domesticSiege: domesticSiege,
+                                        foreignGround: foreignGround,
+                                        foreignAir: foreignAir,
+                                        foreignSea: foreignSea,
+                                        foreignSiege: foreignSiege,
+                                        foreignPower: foreignPower,
+                                        domesticPower: domesticPower
+                                    }
+                                    defensiveWars.push(warObject)
                             })
-                        }
                     })
                 }
             })
-
-
         
-
-
-
-        
-
+        db.get('SELECT * FROM kingdoms',function(err,rows){
+            let numOf=offensiveWars.length;
+            let numDe=defensiveWars.length;
             
+            console.log('SHOUld happen last')
+            console.log( "offesnive war array " + offensiveWars)
+            console.log( "defensive war array " + defensiveWars)
+            console.log('num de ' + numDe)
+            console.log('numof'+numOf)
+            res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
+        })
+        })
         }
 
 
