@@ -71,7 +71,7 @@ body
                                         h2.val(id=`${power['name']}`)  
                                             span.bold= power['value']
                                             i.fas.fa-1x.fa-fist-raised
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/prepare_attack')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
@@ -157,7 +157,7 @@ body
                                         span.bold= power['value']
                                         i.fas.fa-1x.fa-fist-raised
                         
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/prepare_attack')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
@@ -246,7 +246,7 @@ body
                                             span.bold= power['value']
                                             i.fas.fa-1x.fa-fist-raised
                             
-                    form(action='/ground')
+                    form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='warid' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
@@ -334,7 +334,7 @@ body
                                         span.bold= power['value']
                                         i.fas.fa-1x.fa-fist-raised
                             
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/prepare_attack')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
