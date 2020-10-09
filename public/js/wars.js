@@ -23,12 +23,12 @@ war_selection_circles.style.height = `${war_selection_circles.clientHeight}px`;
 const dummy_war = document.querySelector('div.war')
 
 
-const h = document.querySelectorAll('form')
+// const h = document.querySelectorAll('form')
 
-h.forEach(i=>{
-    let id = i.parentElement.getAttribute('id')
-    i.children[0].setAttribute('value',id);
-})
+// h.forEach(i=>{
+//     let id = i.parentElement.getAttribute('id')
+//     i.children[0].setAttribute('value',id);
+// })
 
 setTimeout(()=>{
     let control_panel_height = document.querySelectorAll('div.war')[0].clientHeight
@@ -86,7 +86,7 @@ prepare_attack_selections.forEach(selection=>{
     let id = selection.parentElement.getAttribute('id')
     let stance = selection.parentElement.getAttribute('type');
     const h2s = document.querySelectorAll(`div.prepare_attack.${stance}#${id} h2.val`)
-    const medium = document.querySelector(`div.prepare_attack.${stance}#${id} form input.medium`)
+    const form = document.querySelector(`div.prepare_attack.${stance}#${id} form`)
     
     console.log(h2s)
     for(let i=0;i<selection.childElementCount;i++){
@@ -104,7 +104,7 @@ prepare_attack_selections.forEach(selection=>{
 
 
             let name = selection.children[i].getAttribute('name')
-            medium.setAttribute('value',name)
+            form.setAttribute('action', `/${name}`)
         
             h2s.forEach(h2=>{
                 if(h2.getAttribute('id')!==name){
