@@ -71,6 +71,27 @@ body
                                         h2.val(id=`${power['name']}`)  
                                             span.bold= power['value']
                                             i.fas.fa-1x.fa-fist-raised
+                    form(action='/prepare_attack')
+                        input.war_num(type='hidden' name='war' value='')
+                        input.medium(type='hidden' name='medium' value='ground')
+                        button.launch_attack(type='submit') Launch an Attack
+
+                    .prepare_attack_selection.flex
+                        .select.flex.col(name='ground')
+                            .circle.circle_selected.large
+                            h4.bold Ground Assault
+                        .select.flex.col(name='air')
+                            .circle.large
+                            h4 Air Fight
+                        .select.flex.col(name='sea')
+                            .circle.large
+                            h4 Naval Battle
+                        .select.flex.col(name='siege')
+                            .circle.large
+                            h4 Siege
+                    .close
+                        i.absolute
+                        i.absolute
             else
                 div.prepare_attack.offense.col(id = `war${index+1}` type='offense')    
                     h1 Prepare Your Armies
@@ -166,25 +187,6 @@ body
                     .forces.flex
                         .attack_force.flex.col
                             h1 Attacking Forces
-                            each ground in war.domesticGround
-                                h2#ground.val.flex  
-                                    span.normal= ground['name']
-                                    span.bold= ground['value']
-                            each air in war.domesticAir
-                                h2#air.val  
-                                    span.normal= air['name']
-                                    span.bold= air['value']
-                            each sea in war.domesticSea
-                                h2#sea.val  
-                                    span.normal= sea['name']
-                                    span.bold= sea['value']
-                            each siege in war.domesticSiege
-                                h2#siege.val  
-                                    span.normal= siege['name']
-                                    span.bold= siege['value']
-                                
-                        .defend_force.flex.col
-                            h1 Defending Forces
                             each ground in war.foreignGround
                                 h2#ground.val.flex  
                                     span.normal= ground['name']
@@ -201,10 +203,29 @@ body
                                 h2#siege.val  
                                     span.normal= siege['name']
                                     span.bold= siege['value']
+                                
+                        .defend_force.flex.col
+                            h1 Defending Forces
+                            each ground in war.domesticGround
+                                h2#ground.val.flex  
+                                    span.normal= ground['name']
+                                    span.bold= ground['value']
+                            each air in war.domesticAir
+                                h2#air.val  
+                                    span.normal= air['name']
+                                    span.bold= air['value']
+                            each sea in war.domesticSea
+                                h2#sea.val  
+                                    span.normal= sea['name']
+                                    span.bold= sea['value']
+                            each siege in war.domesticSiege
+                                h2#siege.val  
+                                    span.normal= siege['name']
+                                    span.bold= siege['value']
                     h2 Overall Power
                     .powers.flex
                         .attacking_power
-                            each power in war.domesticPower
+                            each power in war.foreignPower
                                 if power['name']==='ground'
                                     h2.val.flex(id=`${power['name']}`)  
                                         span.bold= power['value']
@@ -215,15 +236,15 @@ body
                                         i.fas.fa-1x.fa-fist-raised
                             
                         .defending_power
-                        each power in war.domesticPower
-                                if power['name']==='ground'
-                                    h2.val.flex(id=`${power['name']}`)  
-                                        span.bold= power['value']
-                                        i.fas.fa-1x.fa-fist-raised
-                                else
-                                    h2.val(id=`${power['name']}`)  
-                                        span.bold= power['value']
-                                        i.fas.fa-1x.fa-fist-raised
+                            each power in war.domesticPower
+                                    if power['name']==='ground'
+                                        h2.val.flex(id=`${power['name']}`)  
+                                            span.bold= power['value']
+                                            i.fas.fa-1x.fa-fist-raised
+                                    else
+                                        h2.val(id=`${power['name']}`)  
+                                            span.bold= power['value']
+                                            i.fas.fa-1x.fa-fist-raised
                             
                     form(action='/prepare_attack')
                         input.war_num(type='hidden' name='war' value='')

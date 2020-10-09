@@ -1260,7 +1260,7 @@ img.war_image_banner{
 .attack_force,.defend_force{
     align-items: center;
 }
-.attack_force h2,.defend_force h2{
+.attack_force h2,.defend_force h2, .powers h2{
     width: 90%;
     display: none;
     justify-content: space-between;
