@@ -30,9 +30,9 @@ router.get('/war', function(req,res) {
             console.log('this bih not signed in')
         } else {
             storedID=parseInt(rows.id, 10);
-            let offensiveWars =[];
-            let defensiveWars=[];
             db.serialize(()=>{
+                let offensiveWars =[];
+                let defensiveWars=[];
                 db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                     if (!rows) {
                     } else {
