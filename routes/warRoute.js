@@ -484,17 +484,19 @@ router.get('/war', function(req,res) {
                 }
             })
         
-        db.get('SELECT * FROM kingdoms',function(err,rows){
-            let numOf=offensiveWars.length;
-            let numDe=defensiveWars.length;
-            
-            console.log('SHOUld happen last')
-            console.log( "offesnive war array " + offensiveWars)
-            console.log( "defensive war array " + defensiveWars)
-            console.log('num de ' + numDe)
-            console.log('numof'+numOf)
-            res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
-        })
+            setTimeout(function(){
+                db.get('SELECT * FROM kingdoms',function(err,rows){
+                let numOf=offensiveWars.length;
+                let numDe=defensiveWars.length;
+                
+                console.log('SHOUld happen last')
+                console.log( "offesnive war array " + offensiveWars)
+                console.log( "defensive war array " + defensiveWars)
+                console.log('num de ' + numDe)
+                console.log('numof'+numOf)
+                res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
+                })},1000
+            )
         })
         }
 
