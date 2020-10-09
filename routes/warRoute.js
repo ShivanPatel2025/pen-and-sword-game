@@ -32,6 +32,8 @@ router.get('/war', function(req,res) {
             storedID=parseInt(rows.id, 10);
             let offensiveWars =[];
             let defensiveWars=[];
+            let firstEach =false;
+            let secondEach=false;
             db.serialize(()=>{
                 db.each(`SELECT * FROM wars WHERE aggressorid=?`, storedID, function(err,rows) {
                     if (!rows) {
@@ -251,6 +253,7 @@ router.get('/war', function(req,res) {
                                 })
                         })
                     }
+                    firstEach=true;
                 })
                 db.each('SELECT * FROM wars WHERE defenderid=?',storedID, function(err,rows) {
                     if (!rows) {
@@ -468,21 +471,24 @@ router.get('/war', function(req,res) {
                                 })
                         })
                     }
+                    secondEach=true;
                 })
             })
-            let numOf=0;
-            let numDe=0;
-            for (i=0; i <offensiveWars.length; i++){
-                numOf+=1;
+            while ((firstEach=true) && (secondEach=true)) {
+                let numOf=0;
+                let numDe=0;
+                for (i=0; i <offensiveWars.length; i++){
+                    numOf+=1;
+                }
+                for (i=0; i <defensiveWars.length; i++){
+                    numDe+=1;
+                }
+                console.log( "offesnive war array " + offensiveWars)
+                console.log( "defensive war array " + defensiveWars)
+                console.log('num de ' + numDe)
+                console.log('numof'+numOf)
+                res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
             }
-            for (i=0; i <defensiveWars.length; i++){
-                numDe+=1;
-            }
-            console.log( "offesnive war array " + offensiveWars)
-            console.log( "defensive war array " + defensiveWars)
-            console.log('num de ' + numDe)
-            console.log('numof'+numOf)
-            res.render('war', {loffensiveWars: offensiveWars, defensiveWars:defensiveWars,numDe,numOf})
         }
     })
 })
