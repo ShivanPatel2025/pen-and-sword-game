@@ -71,7 +71,7 @@ body
                                         h2.val(id=`${power['name']}`)  
                                             span.bold= power['value']
                                             i.fas.fa-1x.fa-fist-raised
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
@@ -157,9 +157,11 @@ body
                                         span.bold= power['value']
                                         i.fas.fa-1x.fa-fist-raised
                         
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
+                        input(type="hidden" name='domesticMaps' value=`${war.aggressormaps}`)
+                        input(type="hidden" name='foreignStability' value=`${war.defenderstability}`)
                         button.launch_attack(type='submit') Launch an Attack
 
                     .prepare_attack_selection.flex
@@ -246,9 +248,11 @@ body
                                             span.bold= power['value']
                                             i.fas.fa-1x.fa-fist-raised
                             
-                    form(action='/ground')
+                    form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='warid' value= `${war.warid}`)
                         input.medium(type='hidden' name='medium' value='ground')
+                        input(type="hidden" name='domesticMaps' value=`${war.defendermaps}`)
+                        input(type="hidden" name='foreignStability' value=`${war.aggressorstability}`)
                         button.launch_attack(type='submit') Launch an Attack
 
                     .prepare_attack_selection.flex
@@ -334,8 +338,11 @@ body
                                         span.bold= power['value']
                                         i.fas.fa-1x.fa-fist-raised
                             
-                    form(action='/prepare_attack')
+                    form(method='POST' action='/ground')
                         input.war_num(type='hidden' name='war' value= `${war.warid}`)
+                        input(type="hidden" name='domesticMaps' value=`${war.defendermaps}`)
+                        input(type="hidden" name='foreignStability' value=`${war.aggressorstability}`)
+
                         input.medium(type='hidden' name='medium' value='ground')
                         button.launch_attack(type='submit') Launch an Attack
 
