@@ -37,7 +37,7 @@ router.get('/war', function(req,res) {
                 if (!rows) {
                 } else {
                     console.log(rows)
-                    aggroCounter=rows[0].count;
+                    aggroCounter=rows.count;
                 }
             })
             console.log(aggroCounter);
