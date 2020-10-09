@@ -245,6 +245,7 @@ router.get('/war', function(req,res) {
                                             foreignPower: foreignPower,
                                             domesticPower: domesticPower
                                         }
+                                        console.log(warObject)
                                         offensiveWars.push(warObject)
                                 })
                         })
