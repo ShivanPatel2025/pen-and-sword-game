@@ -40,7 +40,9 @@ router.get('/arena',function(req,res){
                         console.log('You must hire a Gladiator');
                         res.render('gladiator')
                     } else{
+                        let name = rows.name;
                         let gender = rows.gender;
+                        let weapon = rows.weapon;
                         let strength=rows.strength;
                         let defense=rows.strength;
                         let agility=rows.agility;
@@ -53,6 +55,28 @@ router.get('/arena',function(req,res){
         })
       }
     }) 
+})
+
+router.post('/create-gladiator',urlencodedParser, function(req,res){
+  let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+      if(rows==undefined) {
+        res.redirect ('/')
+        console.log('this bih not signed in')
+      } else{
+        storedID=parseInt(rows.id, 10);
+        let name=req.body.name;
+        let gender=req.body.gender;
+        let weapon=req.body.weapon;
+        db.run('INSERT INTO arena (id, name, gender, weapon, strength, defense, agaility, intelligence',[storedID,name,gender,weapon,req.body.strength, req.body,defense, req.body.agility,req.body.intelligence],function(err){
+          if(err){
+            console.err(err.message)
+          } else {
+            res.redirect('/arena')
+          }
+        })
+      }
+    })
 })
 
 router.post('/hostmatch',urlencodedParser, function(req,res){
@@ -139,7 +163,52 @@ router.post('/upgradestats',urlencodedParser, function(req,res) {
 })
 
 router.post('/startmatch',urlencodedParser, function(req,res){
-
+  let storedID;
+  db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+    if(rows==undefined) {
+      res.redirect ('/')
+      console.log('this bih not signed in')
+    } else{
+      storedID=parseInt(rows.id, 10);
+      db.get('SELECT * FROM arena WHERE id=?',storedID, function(err,rows){
+        let actorStats=[rows.strength,rows.defense,rows.agility,rows.intelligence];
+        let host=req.body.hostid;
+        db.get('SELECT * FROM arena WHERE id=?',host, function(err,rows){
+          let hostStats=[rows.strength,rows.defense,rows.agility,rows.intelligence];
+          let actorPower=actorStats[0]+(Math.random()*(20-10)+10)+actorStats[1]+(Math.random()*(20-10)+10)+actorStats[2]+(Math.random()*(20-1)+1)+actorStats[3]+(Math.random()*(100-1)+1)
+          let hostPower=hostStats[0]+(Math.random()*(20-10)+10)+hostStats[1]+(Math.random()*(20-10)+10)+hostStats[2]+(Math.random()*(20-1)+1)+hostStats[3]+(Math.random()*(100-1)+1)
+          if (actorPower>hostPower){
+            let prize=Math.floor(Math.random()*(hostPower-hostPower/2))
+            db.get('SELECT * FROM resources WHERE id=?',storedID,function(err,rows){
+              let newGold=rows.gold+prize;
+              db.run('UPDATE resources SET gold=? WHERE id=?',[newGold,storedID],function(err) {
+                if(err){
+                  console.error(err.message)
+                } else {
+                  console.log(storedID +" was victor and won "+prize)
+                  res.redirect('/arena')
+                }
+              })
+            })
+          }
+          if (hostPower>=actorPower){
+            let prize=Math.floor(Math.random()*(actorPower-actorPower/2))
+            db.get('SELECT * FROM resources WHERE id=?',host,function(err,rows){
+              let newGold=rows.gold+prize;
+              db.run('UPDATE resources SET gold=? WHERE id=?',[newGold,host],function(err) {
+                if(err){
+                  console.error(err.message)
+                } else {
+                  console.log(host +" was victor and won "+prize)
+                  res.redirect('/arena')
+                }
+              })
+            })
+          }
+        })
+      })
+    }
+  })
 })
 
 setInterval(function() {
