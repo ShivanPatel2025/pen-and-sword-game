@@ -99,9 +99,9 @@ body
         each war,index in defensiveWars
 
             if index===0
-                div.prepare_attack.offense.col.flex(id = `war${index+1}` type='defense')
+                div.prepare_attack.defense.col.flex(id = `war${index+1}` type='defense')
             else
-                div.prepare_attack.offense.col(id = `war${index+1}` type='defense')  
+                div.prepare_attack.defense.col(id = `war${index+1}` type='defense')  
 
                 h1 Prepare Your Armies
                 .forces.flex
@@ -211,7 +211,7 @@ body
                 .war.top_zero.declare.flex.col.opacity_full(type='declare')
                     .war_players.flex
                         h1 Declare War
-                    form(action='/declarewar')
+                    form(class='declarewar'  action='/declarewar')
                         .input
                             label(for='whom')
                             i.far.fa-2x.fa-caret-square-right

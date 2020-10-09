@@ -52,7 +52,15 @@ all_plan_offensives.forEach(plan=>{
         let stance = plan.parentElement.getAttribute('type'); 
         console.log(id)
         const prepare_attack_window = document.querySelector(`div.prepare_attack.${stance}#${id}`)
+        const prepare_attack_windows = document.querySelectorAll(`div.prepare_attack.${stance}`)
         if(prepare_attack_window){
+
+            prepare_attack_windows.forEach(p=>{
+                p.classList.remove('flex')
+                p.classList.remove('opacity_full')
+            })
+
+
             prepare_attack_overlay.classList.add('flex')
             prepare_attack_window.classList.add('flex')
 
