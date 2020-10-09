@@ -474,7 +474,7 @@ router.get('/war', function(req,res) {
                     secondEach=true;
                 })
             })
-            while ((firstEach=true) && (secondEach=true)) {
+            if ((firstEach=true) && (secondEach=true)) {
                 let numOf=0;
                 let numDe=0;
                 for (i=0; i <offensiveWars.length; i++){
