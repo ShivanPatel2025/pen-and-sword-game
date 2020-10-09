@@ -247,6 +247,7 @@ router.get('/war', function(req,res) {
                                         }
                                         console.log(warObject)
                                         offensiveWars.push(warObject)
+                                        console.log(offensiveWars)
                                 })
                         })
                     }
