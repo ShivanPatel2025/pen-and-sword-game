@@ -6,53 +6,235 @@
         <script src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous'></script>
     </head>
     <body>
+        <div class="prepare_attack_overlay">
+            <div type="offense" id ="war1"  class="prepare_attack offense flex col">
+                <h1>Prepare Your Armies</h1>
+                <div class="forces flex ">
+                    <div class="attack_force flex col">
+                        <h1>Attacking Forces</h1>
+                        <h2 class ="val flex" id="ground"><span class="normal">Warriors</span>3</h2>
+                        <h2 class ="val" id="sea"><span class="normal">Sea Serpent</span>3</h2>
+                        <h2 class ="val" id="air"><span class="normal">Blimp</span>3</h2>
+
+                    </div>
+                    <div class="defend_force flex col">
+                        <h1>Defending Forces</h1>
+                        <h2 class ="val flex"id="ground"><span class="normal">Warriors</span>3</h2>
+                        <h2 class ="val"id="sea"><span class="normal">Sea Serpent</span>3</h2>
+                        <h2 class ="val"id="air"><span class="normal">Blimp</span>3</h2>
+
+                    </div>
+                </div>
+                <h2>Overall Power</h2>
+                <div class="powers flex">
+                    
+                    <div class="attacking_power"><h2>4 <i class="fas fa-1x fa-fist-raised"></i></h2></div>
+                    <div class="defending_power"><h2>6 <i class="fas fa-1x fa-fist-raised"></i></h2></div>
+                </div>
+                <form action="/prepare_attack">
+                    <input class = 'war_num' type="hidden" name="war" value = ''>
+                    <input class = 'medium' type="hidden" name="medium" value = 'ground'>
+
+                   <button class ='launch_attack' type="submit">Launch an Attack</button>
+                </form>
+                
+
+                <div class="prepare_attack_selection flex ">
+                    <div class="select flex col" name="ground">
+                        <div class="circle circle_selected large"></div>
+                        <h4 class = 'bold'>Ground Assault</h4>
+
+                    </div>
+                    <div class="select flex col" name="air">
+                        <div class="circle large"></div>
+                        <h4>Air Fight</h4>
+
+                    </div>
+                    <div class="select flex col" name="sea">
+                        <div class="circle large"></div>
+                        <h4>Naval Battle</h4>
+
+                    </div>
+                    <div class="select flex col" name="siege">
+                        <div class="circle large"></div>
+                        <h4>Siege</h4>
+
+                    </div>
+
+                </div>
+                <div class="close">
+                    <i class="absolute"></i>
+                    <i class="absolute"></i>
+                </div>
+            </div>
+
+        </div>
         <div class="war_display">
 
             <div class="war_banner flex ">
+                <img class ="war_image_banner"src="https://cdn.discordapp.com/attachments/724842104811159593/724848478253219920/Vincent_Adriaenssen_-_Cavalry_battle_scene.png" alt="">
 
                 <div class="war_message">
                     <h1>War</h1>
-                    <p>Take your troops into battle. Conquer your opponents!</p>
+                    <p>Take your troops into battle and onquer your opponents!</p>
                 </div>
                 <div class="war_current flex col">
-                    <h2>Current Offensive</h2>
-                    <h2>Current Defensive</h2>
+                    <h2> <span class="normal">Current Offensive Wars: </span>  9 </h2>
+                    <h2><span class="normal">Current Defensive Wars: </span>  9</h2>
                 </div>
     
             </div>
             <div class="war_selection">
                 <div class="war_buttons flex ">
 
-                    <h3>Offensive</h3>
-                    <h3>Defensive</h3>
+                    <span id="offense">Offensive</span>
+                    <span class="highlight" id="declare">Declare War</span>
+                    <span id="defense">Defensive</span>
 
                 </div>
+                
                 <div class="war_control_panel relative">
+                    <div type="declare" class="war top_zero declare  flex col opacity_full">
 
-
-                    <div class="war flex col absolute">
                         <div class="war_players flex">
+                            
+                                <h1>Declare War!</h1>
+
+                           
 
                             
+                        </div>
+                        <form class ='declarewar' action="/declarewar">
 
+                            <div class="input">
+                                <label for="whom"><i class="far fa-2x fa-caret-square-right"></i></label>
+                                <input type="text" name = 'whom' id ='whom' required>
+                            </div>
+                           
+      
+                            <button type="submit" class="launch_attack">Find Opponent</button>
+                        
+                        </form>
+                    </div>
+
+                    <div type="offense" id ='war1' class="war  offense  col ">
+
+                        <div class="war_players flex">
+                            <div class="attacker">
+                                <h1><span  class="normal">Aggressor - </span><span war1='Tiger' war2='Sharpie' war3 = 'Kitten' class="bold">Tiger</span></h1>
+
+                            </div>
+
+                            <div class="defender">
+                                <h1><span class="normal">Defender - </span><span war1='Shivoo' war2='Weja' war3 = 'Woonak' class="bold">Shivoo</span></h1>
+
+                            </div>
                         </div>
                         <div class="war_points flex">
+                            <div class="attacker_points">
+                                <h2><span class="normal">Points - </span> <span war1= 1 war2=3 war3 = 2 class="bold">1</span> <object  type="image/svg+xml" data="../media/swords.svg"></object></h2>
+
+                            </div>
+                            <div class="defender_points">
+                                <h2><span class="normal">Points - </span> <span  war1= 1 war2=3 war3 = 2 class="bold">1</span> <object  type="image/svg+xml" data="../media/swords.svg"></object></h2>
+                                
+                            </div>
 
                         </div>
                         <div class="war_stability flex">
+                            <div class="attacker_stability">
+                                <h2><span class="normal">Stability - </span><span  war1= 1 war2=3 war3 = 2 class="bold">1</span><object  type="image/svg+xml" data="../media/shield.svg"></object></h2>
+
+                            </div>
+                            <div class="defender_stability">
+                                <h2><span class="normal">Stability - </span><span  war1= 1 war2=3 war3 = 2 class="bold">1</span><object  type="image/svg+xml" data="../media/shield.svg"></object></h2>
+                                
+                            </div>
 
                         </div>
-                        <h2>Plan an Offensive!</h2>
+                        <h2 class = "plan_offensive">Plan an Offensive!</h2>
+                    </div>
+                    <div type="defense" id ='war1' class="war  defense  col ">
+
+                        <div class="war_players flex">
+                            <div class="attacker">
+                                <h1><span  class="normal">Aggressor - </span><span war1='Tiger' war2='Sharpie' war3 = 'Kitten' war4='Witten' class="bold">Tiger</span></h1>
+
+                            </div>
+
+                            <div class="defender">
+                                <h1><span class="normal">Defender - </span><span war1='Shivoo' war2='Weja' war3 = 'Woonak'  war4='Koipoke' class="bold">Shivoo</span></h1>
+
+                            </div>
+                        </div>
+                        <div class="war_points flex">
+                            <div class="attacker_points">
+                                <h2><span class="normal">Points - </span> <span war1= 1 war2=3 war3 = 2  war4=4 class="bold">1</span> <object  type="image/svg+xml" data="../media/swords.svg"></object></h2>
+
+                            </div>
+                            <div class="defender_points">
+                                <h2><span class="normal">Points - </span> <span  war1= 1 war2=3 war3 = 2 war4=4 class="bold">1</span> <object  type="image/svg+xml" data="../media/swords.svg"></object></h2>
+                                
+                            </div>
+
+                        </div>
+                        <div class="war_stability flex">
+                            <div class="attacker_stability">
+                                <h2><span class="normal">Stability - </span><span  war1= 1 war2=3 war3 = 2 war4=4 class="bold">1</span><object  type="image/svg+xml" data="../media/shield.svg"></object></h2>
+
+                            </div>
+                            <div class="defender_stability">
+                                <h2><span class="normal">Stability - </span><span  war1= 1 war2=3 war3 = 2 war4=4 class="bold">1</span><object  type="image/svg+xml" data="../media/shield.svg"></object></h2>
+                                
+                            </div>
+
+                        </div>
+                        <h2 class = "plan_offensive">Plan an Offensive!</h2>
                     </div>
                     
-                    
+                </div>
+                <div class="war_selection_circles_container">
+                    <div id="offense" class="war_selection_circles ">
+                        <div class="select" id = 'war1'>
+                            <div class="circle circle_selected"></div>
+                            <h4 class="bold">War One</h4>
+                        </div>
+                        <div class="select" id = 'war2'>
+                            <div class="circle"></div>
+                            <h4>War Two</h4>
+                        </div>
+                        <div class="select" id = 'war3'>
+                            <div class="circle"></div>
+                            <h4>War Three</h4>
+                        </div>
+                    </div>
+                    <div id="defense" class="war_selection_circles">
+                        <div class="select" id = 'war1'>
+                            <div class="circle circle_selected"></div>
+                            <h4 class="bold">War One</h4>
+                        </div>
+                        <div class="select" id = 'war2'>
+                            <div class="circle"></div>
+                            <h4>War Two</h4>
+                        </div>
+                        <div class="select" id = 'war3'>
+                            <div class="circle"></div>
+                            <h4>War Three</h4>
+                        </div>
+                        <div class="select" id = 'war4'>
+                            <div class="circle"></div>
+                            <h4>War Four</h4>
+                        </div>
+                    </div>
 
                 </div>
+
+                
+                
+                
             </div>
-
-
-
         </div>
         
+        <script src="../js/wars.js"></script>
     </body>
 </html>

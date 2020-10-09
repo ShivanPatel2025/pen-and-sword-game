@@ -77,16 +77,19 @@ nav img{
 }
 .nav_overlay{
     display: flex;
-    position: absolute;
+    position: fixed;
     left: 0;
     height: 100vh;
     width: 100vw;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0,.6);
+    background-color: rgba(0, 0, 0,.99);
     top:-100vh;
     opacity: 0;
     transition: all 1s;
+}
+.stop_scroll{
+    overflow: hidden;
 }
 .show_nav{
     top: 0 !important;
@@ -916,6 +919,7 @@ img.military_image_banner{
 }
 span.highlight{
     background-color: #0f0f0f;
+    font-weight: bold;
     
     border-radius: 10px;
 }
@@ -1079,13 +1083,13 @@ span.highlight{
 }
 
 .flex{
-    display: flex;
+    display: flex !important;
 }
 .opacity_full{
-    opacity: 1;
+    opacity: 1 !important;
 }
 .top_zero{
-    top: 0;
+    top: 0 !important;
 }
 .cost_line{
     display: flex;
@@ -1107,4 +1111,244 @@ span.highlight{
 }
 
 
+/* WAR */
 
+.war_banner{
+    
+    
+    color: whitesmoke;
+    align-items: center;
+
+    height: 29em;
+    width: 75%;
+    margin: 0 auto;
+    justify-content: space-around;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 18px 5px rgba(0, 0, 0, 0.3);
+
+}
+
+img.war_image_banner{
+    position: absolute;
+    opacity: .5;
+    z-index: -1;
+    top: -4em;
+    width: 100%;
+    
+}
+.war_message h1{
+    font-size: 70px;
+    
+}
+.war_message p{
+    font-size: 20px;
+    
+}
+
+.war_current h2{
+    font-size: 30px;
+    
+}
+.war_buttons{
+    width: 40%;
+    margin: 1em auto;
+    justify-content: space-around;
+    border-bottom: #EDC580 solid 3px;
+    padding: 2em;
+}
+.war_buttons span{
+    color: whitesmoke;
+    padding: .25em 1em;
+    font-size: 25px;
+    cursor: pointer;
+}
+.war{
+    color: whitesmoke;
+    background-color: #0f0f0f;
+    width: 60%;
+    margin: 0 auto;
+    
+    border-radius: 10px;
+    align-items:center;
+    box-shadow: 0 4px 20px -1px #0000004d;
+    opacity: 0;
+    display: none;
+    
+    transition: all .5s;
+    position: absolute;
+    top: 2em;
+
+}
+.war_control_panel{
+    margin-bottom: 2em;
+    position: relative;
+    top: 2em;
+    display: flex;
+    justify-content: center;
+}
+
+.war_players{
+    justify-content: space-around;
+    border-bottom: #EDC580 solid 4px;
+    border-radius: 10px;
+    width: 100%;
+    color: #EDC580;
+}
+.war_points, .war_stability{
+    justify-content: space-around;
+    width: 100%;
+}
+
+
+.war object{
+    width: 1em;
+    height: 1em;
+    margin-left: .25em;
+}
+.war h2{
+    display: flex;
+    align-items: center;
+}
+.war_selection_circles{
+    display: none;
+    top: 2em;
+    width: 80%;
+    justify-content: space-around;
+    top: 2em;
+    margin-top: 3em;
+    position: absolute;
+    opacity: 0;
+    transition: all .25s;
+    margin: 0 auto;
+    
+    
+}
+.prepare_attack_overlay{
+    position: fixed;
+    background-color:rgba(0, 0, 0,.7);
+    height: 100vh;
+    width: 100%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity .25s;
+}
+.prepare_attack{
+    width: 75%;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    align-items: center;
+    color: whitesmoke;
+
+    background-color: #0f0f0f;
+    box-shadow: 0 4px 20px -1px #0000004d;
+    
+}
+.forces{
+    width: 80%;
+    justify-content: space-around;
+}
+.attack_force,.defend_force{
+    align-items: center;
+}
+.attack_force h2,.defend_force h2{
+    width: 90%;
+    display: none;
+    justify-content: space-between;
+    margin: .25em 0;
+}
+.powers{
+    width: 80%;
+    justify-content: space-around;
+}
+.powers h2{
+    font-size: 60px;
+    margin: 0;
+
+}
+button.launch_attack{
+    margin-bottom: 2em;
+    padding: .75em 2em;
+    border-radius: 40px;
+    color: #EDC580;
+    background-color: #0000004d;
+    box-shadow: 0 4px 11px -2px rgba(0, 0, 0, 0.3);
+
+}
+h2.plan_offensive{
+    padding: .5em 2em;
+    border: #EDC580 solid 5px;
+    border-radius: 40px;
+    width: 25%;
+    margin: 0 auto;
+    box-shadow: 0 0px 15px 3px rgba(0, 0, 0, 0.3);
+    color: #EDC580;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+    justify-content: center;
+}
+.row{
+    flex-direction: row !important;
+}
+.attack_selection{
+    align-items: center;
+}
+
+.large{
+    height: 20px;
+    width: 20px;
+}
+.prepare_attack_selection{
+    width: 80%;
+    justify-content: space-around;
+    margin-bottom: 1em;
+}
+.close{
+    position: absolute;
+    right: 4em;
+    top: 2em;
+    cursor: pointer;
+}
+.close i{
+    background-color: #EDC580;
+    height: 5px;
+    width: 50px;
+    transition: all .25s;
+}
+.close i:first-of-type {
+
+    transform: rotate(45deg);
+}
+.close i:last-of-type {
+
+    transform: rotate(-45deg);
+}
+.war h2 span.normal{
+    margin-right: .25em;
+}
+
+.close:hover i{
+    background-color: wheat;
+}
+
+.war_selection_circles_container{
+    position: relative;
+    top: 1em;
+    display: flex;
+    justify-content: center;
+
+}
+form.declarewar{
+    margin-top: 4em;
+}

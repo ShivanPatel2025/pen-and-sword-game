@@ -77,6 +77,7 @@ menu_container.addEventListener('click',()=>{
                 setTimeout(()=>{
                     link.classList.toggle('one_nav_animation')
                     link.classList.toggle('two_nav_animation')
+                    body.classList.add('stop_scroll')
                     count++
                     if(count===10){
                         showing=false
@@ -86,6 +87,7 @@ menu_container.addEventListener('click',()=>{
         }else{
             link_list.forEach(link=>{
                 link.classList.remove('one_nav_animation')
+                body.classList.remove('stop_scroll')
                 setTimeout(()=>{
                     link.classList.remove('two_nav_animation')
                     showing=false

@@ -1,24 +1,417 @@
-a(href='/declarewar')
-      span DECLARE WAR AYYLAH
+doctype html
+head
+  link(rel='stylesheet' href='./style.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+body
+    .prepare_attack_overlay
+        each war,index in loffensiveWars
 
-h2 Aggresive Wars
-each warObject in loffensiveWars
-    h2 Aggressor
-        span YOU
-            span Defender
-                span=warObject.defenderid
-        form(action='/attack' method='POST' name='test')
-            input(name='warid' type = 'hidden' value=warObject.warid)
-            button(type='submit') Prepare Attack
+            if index===0
+                #war#{index+1}.prepare_attack.offense.flex.col(type='offense')
+            else
+                #war#{index+1}.prepare_attack.offense.col(type='offense')    
+
+                h1 Prepare Your Armies
+                .forces.flex
+                    .attack_force.flex.col
+                        h1 Attacking Forces
+                        each ground in war.domesticGround
+                            h2#ground.val.flex  
+                                span.normal= ground['name']
+                                span.bold= ground['value']
+                        each air in war.domesticAir
+                            h2#air.val  
+                                span.normal= air['name']
+                                span.bold= air['value']
+                        each sea in war.domesticSea
+                            h2#sea.val  
+                                span.normal= sea['name']
+                                span.bold= sea['value']
+                        each siege in war.domesticSiege
+                            h2#siege.val  
+                                span.normal= siege['name']
+                                span.bold= siege['value']
+                            
+                    .defend_force.flex.col
+                        each ground in war.foreignGround
+                            h2#ground.val.flex  
+                                span.normal= ground['name']
+                                span.bold= ground['value']
+                        each air in war.foreignAir
+                            h2#air.val  
+                                span.normal= air['name']
+                                span.bold= air['value']
+                        each sea in war.foreignSea
+                            h2#sea.val  
+                                span.normal= sea['name']
+                                span.bold= sea['value']
+                        each siege in war.foreignSiege
+                            h2#siege.val  
+                                span.normal= siege['name']
+                                span.bold= siege['value']
+                h2 Overall Power
+                .powers.flex
+                    .attacking_power
+                        each power in war.domesticPower
+                            if power['name']==='ground'
+                                h2##{power['name']}.val.flex  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                            else
+                                h2##{power['name']}.val  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                        
+                    .defending_power
+                       each power in war.domesticPower
+                            if power['name']==='ground'
+                                h2##{power['name']}.val.flex  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                            else
+                                h2##{power['name']}.val  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                        
+                form(action='/prepare_attack')
+                    input.war_num(type='hidden' name='war' value='')
+                    input.medium(type='hidden' name='medium' value='ground')
+                    button.launch_attack(type='submit') Launch an Attack
+
+                .prepare_attack_selection.flex
+                    .select.flex.col(name='ground')
+                        .circle.circle_selected.large
+                        h4.bold Ground Assault
+                    .select.flex.col(name='air')
+                        .circle.large
+                        h4 Air Fight
+                    .select.flex.col(name='sea')
+                        .circle.large
+                        h4 Naval Battle
+                    .select.flex.col(name='siege')
+                        .circle.large
+                        h4 Siege
+                .close
+                    i.absolute
+                    i.absolute
+
+        each war,index in defensivewars
+
+            if index===0
+                #war#{index+1}.prepare_attack.defense.flex.col(type='offense')
+            else
+                #war#{index+1}.prepare_attack.defense.col(type='offense')    
+
+                h1 Prepare Your Armies
+                .forces.flex
+                    .attack_force.flex.col
+                        h1 Attacking Forces
+                        each ground in war.domesticGround
+                            h2#ground.val.flex  
+                                span.normal= ground['name']
+                                span.bold= ground['value']
+                        each air in war.domesticAir
+                            h2#air.val  
+                                span.normal= air['name']
+                                span.bold= air['value']
+                        each sea in war.domesticSea
+                            h2#sea.val  
+                                span.normal= sea['name']
+                                span.bold= sea['value']
+                        each siege in war.domesticSiege
+                            h2#siege.val  
+                                span.normal= siege['name']
+                                span.bold= siege['value']
+                            
+                    .defend_force.flex.col
+                        each ground in war.foreignGround
+                            h2#ground.val.flex  
+                                span.normal= ground['name']
+                                span.bold= ground['value']
+                        each air in war.foreignAir
+                            h2#air.val  
+                                span.normal= air['name']
+                                span.bold= air['value']
+                        each sea in war.foreignSea
+                            h2#sea.val  
+                                span.normal= sea['name']
+                                span.bold= sea['value']
+                        each siege in war.foreignSiege
+                            h2#siege.val  
+                                span.normal= siege['name']
+                                span.bold= siege['value']
+                h2 Overall Power
+                .powers.flex
+                    .attacking_power
+                        each power in war.domesticPower
+                            if power['name']==='ground'
+                                h2##{power['name']}.val.flex  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                            else
+                                h2##{power['name']}.val  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                        
+                    .defending_power
+                       each power in war.domesticPower
+                            if power['name']==='ground'
+                                h2##{power['name']}.val.flex  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                            else
+                                h2##{power['name']}.val  
+                                    span.bold= power['value']
+                                    i.fas.fa-1x.fa-fist-raised
+                        
+                form(action='/prepare_attack')
+                    input.war_num(type='hidden' name='war' value='')
+                    input.medium(type='hidden' name='medium' value='ground')
+                    button.launch_attack(type='submit') Launch an Attack
+
+                .prepare_attack_selection.flex
+                    .select.flex.col(name='ground')
+                        .circle.circle_selected.large
+                        h4.bold Ground Assault
+                    .select.flex.col(name='air')
+                        .circle.large
+                        h4 Air Fight
+                    .select.flex.col(name='sea')
+                        .circle.large
+                        h4 Naval Battle
+                    .select.flex.col(name='siege')
+                        .circle.large
+                        h4 Siege
+                .close
+                    i.absolute
+                    i.absolute
+
+        
+    .war_display
+        .war_banner.flex
+            img.war_image_banner(src='https://cdn.discordapp.com/attachments/724842104811159593/724848478253219920/Vincent_Adriaenssen_-_Cavalry_battle_scene.png' alt='')
+            .war_message
+                h1 War
+                p Take your troops into battle and onquer your opponents!
+            .war_current.flex.col
+                h2
+                    span.normal Current Offensive Wars:
+                    span.bold= numOf
+        
+                h2
+                    span.normal Current Defensive Wars:
+                    span.bold= numDe
+        .war_selection
+            .war_buttons.flex
+                span#offense Offensive
+                span#declare.highlight Declare War
+                span#defense Defensive
+            .war_control_panel.relative
+                .war.top_zero.declare.flex.col.opacity_full(type='declare')
+                    .war_players.flex
+                        h1 Declare War!
+                        form(action='/declarewar')
+                            .input
+                                label(for='whom')
+                                i.far.fa-2x.fa-caret-square-right
+                                input#whom(type='text' name='whom' required='')
+                            button.launch_attack(type='submit') Find Opponent
+
+                
+                    
+                #war1.war.offense.col(type='offense')
+                    .war_players.flex
+                        .attacker
+                            each war,index in loffensivewars
+                                if index === 0
+                                    h1#war#{index+1}.flex
+                                        span.normal Aggressor - 
+                                        span.bold= war.aggressorName
+                                else
+                                    h1#war#{index+1}
+                                        span.normal Aggressor - 
+                                        span.bold= war.aggressorName
+                            
+
+                        .defender
+                            each war,index in loffensivewars
+                                if index === 0
+                                    h1#war#{index+1}.flex
+                                        span.normal Defender - 
+                                        span.bold= war.defenderName
+                                else
+                                    h1#war#{index+1}
+                                        span.normal Defender - 
+                                        span.bold= war.defenderName
+                    .war_points.flex
+                        .attacker_points
+                            each war,index in loffensivewars
+
+                                if index===0
+                                    h2#war#{index+1}.flex
+                                        span.normal Points - 
+                                        span.bold= war.aggressormaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else
+                                    h2#war#{index+1}
+                                        span.normal Points - 
+                                        span.bold= war.aggressormaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+
+                                    
+
+                        .defender_points
+                            each war,index in loffensivewars
+                                if index===0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Points - 
+                                        span.bold= war.defendermaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else 
+                                    h2#war#{index+1}
+                                        span.normal Points - 
+                                        span.bold= war.defendermaps
+                                        object(type='image/svg+xml' data='./media/swords.svg') 
+                    .war_stability.flex
+                        .attacker_stability
+                            each war,index in loffensivewars
+                                if index === 0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Stability - 
+                                        span.bold= war.aggressorstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else    
+                                    h2#war#{index+1}
+                                        span.normal Stability - 
+                                        span.bold= war.aggressorstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                        .defender_stability
+                            each war,index in loffensivewars
+                                if index === 0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Stability - 
+                                        span.bold= war.defenderstability  
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else    
+                                    h2#war#{index+1}
+                                        span.normal Stability - 
+                                        span.bold= war.defenderstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                    h2.plan_offensive Counter Attack!
+                    
+                        
+                         
+
+                
+                    
+                #war1.war.offense.col(type='defense')
+                    .war_players.flex
+                        .attacker
+                            each war,index in defensivewars
+                                if index === 0
+                                    h1#war#{index+1}.flex
+                                        span.normal Aggressor - 
+                                        span.bold= war.aggressorName
+                                else
+                                    h1#war#{index+1}
+                                        span.normal Aggressor - 
+                                        span.bold= war.aggressorName
+                            
+
+                        .defender
+                            each war,index in defensivewars
+                                if index === 0
+                                    h1#war#{index+1}.flex
+                                        span.normal Defender - 
+                                        span.bold= war.defenderName
+                                else
+                                    h1#war#{index+1}
+                                        span.normal Defender - 
+                                        span.bold= war.defenderName
+                    .war_points.flex
+                        .attacker_points
+                            each war,index in defensivewars
+
+                                if index===0
+                                    h2#war#{index+1}.flex
+                                        span.normal Points - 
+                                        span.bold= war.aggressormaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else
+                                    h2#war#{index+1}
+                                        span.normal Points - 
+                                        span.bold= war.aggressormaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+
+                                    
+
+                        .defender_points
+                            each war,index in defensivewars
+                                if index===0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Points - 
+                                        span.bold= war.defendermaps
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else 
+                                    h2#war#{index+1}
+                                        span.normal Points - 
+                                        span.bold= war.defendermaps
+                                        object(type='image/svg+xml' data='./media/swords.svg') 
+                    .war_stability.flex
+                        .attacker_stability
+                            each war,index in defensivewars
+                                if index === 0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Stability - 
+                                        span.bold= war.aggressorstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else    
+                                    h2#war#{index+1}
+                                        span.normal Stability - 
+                                        span.bold= war.aggressorstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                        .defender_stability
+                            each war,index in defensivewars
+                                if index === 0
+
+                                    h2#war#{index+1}.flex
+                                        span.normal Stability - 
+                                        span.bold= war.defenderstability  
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                                else    
+                                    h2#war#{index+1}
+                                        span.normal Stability - 
+                                        span.bold= war.defenderstability 
+                                        object(type='image/svg+xml' data='./media/swords.svg')
+                    h2.plan_offensive Counter Attack!
 
 
-h2 Defensive Wars
-each warObject in defensiveWars
-    h2 Aggressor
-        span=warObject.aggresorid
-            span Defender
-                span YOU
-        form(action='/attack' method='POST' name='test')
-            input(name='warid' type = 'hidden' value=warObject.warid)
-            button(type='submit') Prepare Attack
 
+            .war_selection_circles_container
+                #offense.war_selection_circles
+                    each war, index in loffensivewars
+                        #war#{index}.select
+                            if index===0
+                                .circle.circle_selected
+                                h4.bold War #{index}
+                            else
+                                .circle
+                                h4.bold War #{index}
+
+                    
+                #defense.war_selection_circles
+                   each war, index in defensivewars
+                        #war#{index}.select
+                            if index===0
+                                .circle.circle_selected
+                                h4.bold War #{index}
+                            else
+                                .circle
+                                h4.bold War #{index}
+    script(src='./js/wars.js')
