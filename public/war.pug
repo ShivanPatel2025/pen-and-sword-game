@@ -96,7 +96,7 @@ body
                     i.absolute
                     i.absolute
 
-        each war,index in defensivewars
+        each war,index in defensiveWars
 
             if index===0
                 div.prepare_attack.offense.col.flex(id = `war${index+1}` type='defense')
@@ -223,7 +223,7 @@ body
                 #war1.war.offense.col(type='offense')
                     .war_players.flex
                         .attacker
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
                                 if index === 0
                                     h1.flex( id =`war${index+1}`)
                                         span.normal Aggressor - 
@@ -235,7 +235,7 @@ body
                             
 
                         .defender
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
                                 if index === 0
                                     h1.flex( id =`war${index+1}`)
                                         span.normal Defender - 
@@ -246,7 +246,7 @@ body
                                         span.bold= war.defenderName
                     .war_points.flex
                         .attacker_points
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
 
                                 if index===0
                                     h2.flex( id =`war${index+1}`)
@@ -262,7 +262,7 @@ body
                                     
 
                         .defender_points
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
                                 if index===0
 
                                     h2.flex( id =`war${index+1}`)
@@ -276,7 +276,7 @@ body
                                         object(type='image/svg+xml' data='./media/swords.svg') 
                     .war_stability.flex
                         .attacker_stability
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
                                 if index === 0
 
                                     h2.flex( id =`war${index+1}`)
@@ -289,7 +289,7 @@ body
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
                         .defender_stability
-                            each war,index in loffensivewars
+                            each war,index in loffensiveWars
                                 if index === 0
 
                                     h2.flex( id =`war${index+1}`)
@@ -311,7 +311,7 @@ body
                 #war1.war.offense.col(type='defense')
                     .war_players.flex
                         .attacker
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
                                 if index === 0
                                     h1.flex( id =`war${index+1}`)
                                         span.normal Aggressor - 
@@ -323,7 +323,7 @@ body
                             
 
                         .defender
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
                                 if index === 0
                                     h1.flex( id =`war${index+1}`)
                                         span.normal Defender - 
@@ -334,7 +334,7 @@ body
                                         span.bold= war.defenderName
                     .war_points.flex
                         .attacker_points
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
 
                                 if index===0
                                     h2.flex( id =`war${index+1}`)
@@ -350,7 +350,7 @@ body
                                     
 
                         .defender_points
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
                                 if index===0
 
                                     h2.flex( id =`war${index+1}`)
@@ -364,7 +364,7 @@ body
                                         object(type='image/svg+xml' data='./media/swords.svg') 
                     .war_stability.flex
                         .attacker_stability
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
                                 if index === 0
 
                                     h2.flex( id =`war${index+1}`)
@@ -377,7 +377,7 @@ body
                                         span.bold= war.aggressorstability 
                                         object(type='image/svg+xml' data='./media/swords.svg')
                         .defender_stability
-                            each war,index in defensivewars
+                            each war,index in defensiveWars
                                 if index === 0
 
                                     h2.flex( id =`war${index+1}`)
@@ -395,7 +395,7 @@ body
 
             .war_selection_circles_container
                 #offense.war_selection_circles
-                    each war, index in loffensivewars
+                    each war, index in loffensiveWars
                         div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
@@ -406,7 +406,7 @@ body
 
                     
                 #defense.war_selection_circles
-                   each war, index in defensivewars
+                   each war, index in defensiveWars
                         div.select(id=`war${index}`)
                             if index===0
                                 .circle.circle_selected
