@@ -38,7 +38,7 @@ router.get('/arena',function(req,res){
                 db.get('SELECT * FROM arena WHERE id=?',storedID,function(err,rows){
                     if(rows==undefined) {
                         console.log('You must hire a Gladiator');
-                        res.render('gladiator')
+                        res.render('arena_selection')
                     } else{
                         let name = rows.name;
                         let gender = rows.gender;
