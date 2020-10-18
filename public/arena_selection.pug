@@ -1,0 +1,115 @@
+doctype html
+head
+  link(rel='stylesheet' href='../style.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+.arena_selection_display
+  .arena_selection_main.col.flex
+    .arena_selection_message.col.flex
+      .flex.title
+        h1 Recruit Your Gladiator
+        img(src='../media/swords.svg' alt='')
+      p
+        | Your gladiator will travel through kingdoms, battling others in hand to hand combat
+    form.arena_selection_stats.flex(action='/arena_selection' method='POST')
+      .col.flex.name_gender
+        h2 Name
+        .input
+          label(for='name')
+            i.fas.fa-2x.fa-signature
+          input#name(type='text' name='name' required='')
+        h2 Gender
+        .arena_selection_gender.flex
+          .gender.flex.col
+            img(src='../media/male-symbol.svg' alt='')
+            input#male(type='radio' name='gender' value='male')
+            label(for='male') Male
+          .gender.flex.col
+            img(src='../media/female-sign.svg' alt='')
+            input#female(type='radio' name='gender' value='female')
+            label(for='female') Female
+          .gender.flex.col
+            img(src='../media/gender.svg' alt='')
+            input#non(type='radio' name='gender' value='non')
+            label(for='non') Non Binary
+      .arena_selection_weapon_container.flex.col
+        h2 Weapon
+        .arena_selection_weapon.flex
+          .weapon.flex.col
+            img(src='../media/bow.svg' alt='')
+            h2 Bow
+            h3
+              span.normal Strength
+              span.bold.weapon_stat
+                | 10 
+                img(src='../media/strength.svg' alt='')
+            h3
+              span.normal Defense
+              span.bold.weapon_stat
+                | 5 
+                img(src='../media/shield.svg' alt='')
+            h3
+              span.normal Agility
+              span.bold.weapon_stat
+                | 30 
+                img(src='../media/agility.svg' alt='')
+            h3
+              span.normal Intelligence
+              span.bold.weapon_stat
+                | 20 
+                img(src='../media/intelligence.svg' alt='')
+            input#bow(type='radio' name='weapon' value='bow')
+            label(for='bow') Bow
+          .weapon.flex.col
+            img(src='../media/mace.svg' alt='')
+            h2 Mace
+            h3
+              span.normal Strength
+              span.bold.weapon_stat
+                | 30 
+                img(src='../media/strength.svg' alt='')
+            h3
+              span.normal Defense
+              span.bold.weapon_stat
+                | 10 
+                img(src='../media/shield.svg' alt='')
+            h3
+              span.normal Agility
+              span.bold.weapon_stat
+                | 15 
+                img(src='../media/agility.svg' alt='')
+            h3
+              span.normal Intelligence
+              span.bold.weapon_stat
+                | 10 
+                img(src='../media/intelligence.svg' alt='')
+            input#mace(type='radio' name='weapon' value='mace')
+            label(for='mace') Mace
+          .weapon.flex.col
+            img(src='../media/sword.svg' alt='')
+            h2 Base Stats
+            h3
+              span.normal Strength
+              span.bold.weapon_stat
+                | 15 
+                img(src='../media/strength.svg' alt='')
+            h3
+              span.normal Defense
+              span.bold.weapon_stat
+                | 20 
+                img(src='../media/shield.svg' alt='')
+            h3
+              span.normal Agility
+              span.bold.weapon_stat
+                | 20 
+                img(src='../media/agility.svg' alt='')
+            h3
+              span.normal Intelligence
+              span.bold.weapon_stat
+                | 10 
+                img(src='../media/intelligence.svg' alt='')
+            input#sword(type='radio' name='weapon' value='sword')
+            label(for='sword') Sword
+      button.arena_selection_submit(type='submit') Submit
+
+script(src="./js/navbar.js")

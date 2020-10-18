@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css" type="TEXT/CSS">
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet'>
+        <script src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous'></script>
+
+    </head>
+    <body>
+        <div class="arena_selection_display">
+
+            
+            <div class="arena_selection_main  col flex">
+                <div class="arena_selection_message col flex ">
+                    <div class="flex title">
+                        <h1>Recruit Your Gladiator</h1>
+                        <img src="../media/swords.svg" alt="">
+
+                    </div>
+                    
+                    <p>Your gladiator will travel through kingdoms, battling others in hand to hand combat</p>
+    
+                </div>
+                <form class="arena_selection_stats flex" action='/arena_selection' method ='POST'>
+                    
+
+                    <div class="col flex name_gender">
+                        <h2>Name</h2>
+                        <div class="input">
+                            <label for="name"> 
+                                <i class="fas fa-2x fa-signature"></i>
+                            </label>
+                            <input type="text" id="name"  type='text' name='name' required=''>
+                        </div>
+                        <h2>Gender</h2>
+                        <div class="arena_selection_gender flex">
+                            <div class="gender flex col">
+                                <img src="../media/male-symbol.svg" alt="">
+                                <input type="radio" name= "gender" value= "male" id= "male">
+                                <label for="male">Male</label>
+
+                            </div>
+                            <div class="gender flex col">
+                                <img src="../media/female-sign.svg" alt="">
+                                <input type="radio" name= "gender" value= "female" id= "female">
+                                <label for="female">Female</label>
+
+                            </div>
+                            <div class="gender flex col">
+                                <img src="../media/gender.svg" alt="">
+                                <input type="radio" name= "gender" value= "non" id= "non">
+                                <label for="non">Non Binary</label>
+
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    
+                    <div class="arena_selection_weapon_container flex col">
+                        <h2>Weapon</h2>
+                        <div class="arena_selection_weapon flex">
+                        
+                            <div class="weapon  flex col">
+                                <img src="../media/bow.svg" alt="">
+                                <h2>Bow</h2>
+                                <h3><span class="normal">Strength</span> <span class="bold weapon_stat">10 <img src="../media/strength.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Defense</span> <span class="bold weapon_stat">30 <img src="../media/shield.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Agility</span> <span class="bold weapon_stat">30 <img src="../media/agility.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Intelligence</span> <span class="bold weapon_stat">20 <img src="../media/intelligence.svg" alt=""></span> </h3>
+                                <input type="radio" name= "weapon" value= "bow" id= "bow">
+                                <label for="bow">Bow</label>
+                            </div>
+                            <div class="weapon flex col">
+                                <img src="../media/mace.svg" alt="">
+                                <h2>Mace</h2>
+                                <h3><span class="normal">Strength</span> <span class="bold weapon_stat">10 <img src="../media/strength.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Defense</span> <span class="bold weapon_stat">30 <img src="../media/shield.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Agility</span> <span class="bold weapon_stat">30 <img src="../media/agility.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Intelligence</span> <span class="bold weapon_stat">20 <img src="../media/intelligence.svg" alt=""></span> </h3>
+                                <input type="radio" name= "weapon" value= "mace" id= "mace">
+                                <label for="mace">Mace</label>
+                            </div>
+                            <div class="weapon flex col">
+                                <img src="../media/sword.svg" alt="">
+                                <h2>Base Stats</h2>
+                                <h3><span class="normal">Strength</span> <span class="bold weapon_stat">10 <img src="../media/strength.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Defense</span> <span class="bold weapon_stat">30 <img src="../media/shield.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Agility</span> <span class="bold weapon_stat">30 <img src="../media/agility.svg" alt=""></span> </h3>
+                                <h3><span class="normal">Intelligence</span> <span class="bold weapon_stat">20 <img src="../media/intelligence.svg" alt=""></span> </h3>
+                                <input type="radio" name= "weapon" value= "sword" id= "sword">
+                                <label for="sword">Sword</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button class="arena_selection_submit"type='submit'>Submit</button>
+                   
+                    
+    
+                </form>
+                
+
+            </div>
+            
+
+        </div>
+
+        
+        
+    </body>
+</html>

@@ -964,7 +964,7 @@ router.post('/ground', urlencodedParser, function(req,res){
                             let CRAM = 1-Math.floor(Math.random()*(20-10)+10)/100
                             let CRAR = 1-Math.floor(Math.random()*(13-10)+10)/100
                             let CRDM = 1-Math.floor(Math.random()*(5-1)+1)/100
-                            let CRDR = 1-Math.floor(Math.random()*(3-1)+1)/100
+                            let CRDR = 1-Math.floor(Math.random()*(3-1)+1)/100 
                             let CRDO = 1-Math.floor(Math.random()*(3-1)+1)/100
                             let newDomesticGround=[Math.floor(domesticGround[0]*CRAM), Math.floor(domesticGround[1]*CRAR), Math.floor(domesticGround[2]*CRAM), Math.floor(domesticGround[3]*CRAR), Math.floor(domesticGround[4]*CRAM), Math.floor(domesticGround[5]*CRAR)]
                             let newForeignGround=[Math.floor(foreignGround[0]*CRDM), Math.floor(foreignGround[1]*CRDR), Math.floor(foreignGround[2]*CRDM), Math.floor(foreignGround[3]*CRDR), Math.floor(foreignGround[4]*CRDM), Math.floor(foreignGround[5]*CRDR), Math.floor(foreignGround[6]*CRDO), Math.floor(foreignGround[7]*CRDO), Math.floor(foreignGround[8]*CRDO)]
@@ -1013,17 +1013,14 @@ router.post('/air', urlencodedParser, function(req,res){
         let domesticSea=[];
         let domesticSiege=[];
         let domesticMaps=req.body.domesticMaps;
-        //let domesticStability=req.body.domesticStability;
+        let domesticStability=req.body.domesticStability;
         let foreignAir=[];
         let foreignGround=[];
         let foreignSea=[];
         let foreignSiege=[]; 
-        //let foreignMaps=req.body.foreignMaps;
+        let foreignMaps=req.body.foreignMaps;
         let foreignStability=req.body.foreignStability;
         let enemyID;
-        console.log(req.body)
-        console.log(domesticMaps)
-        console.log(foreignStability)
         if(domesticMaps>=9) {
             let newMaps=domesticMaps-9;
             db.serialize(()=>{

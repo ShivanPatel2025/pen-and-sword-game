@@ -1352,3 +1352,171 @@ h2.plan_offensive{
 form.declarewar{
     margin-top: 4em;
 }
+
+
+/* ARENA SELECTION */
+.arena_selection_display{
+    color: whitesmoke;
+    position: relative;
+    top: 5em;
+}
+
+.arena_selection_gender{
+    justify-content: space-around;
+    width: 90%;
+}
+.arena_selection_gender .gender img{
+    width: 60%;
+}
+
+.arena_selection_gender .gender{
+    align-items: center;
+    width: 30%;
+    box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.3);
+    background-color: #0f0f0f;
+    padding: 1em .25em;
+   
+    border-radius: 10px;
+}
+.arena_selection_weapon{
+    justify-content: space-around;
+    width: 100%;
+}
+.arena_selection_weapon .weapon img{
+    width: 30%;
+}
+
+
+.weapon{
+    align-items: center;
+    width: 25%;
+    box-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.3);
+    background-color: #0f0f0f;
+    padding: 1.5em 1.5em 1em 1em ;
+    border-radius: 10px;
+}
+
+.arena_selection_weapon .weapon h2{
+    margin: 1.5em auto;
+}
+.arena_selection_weapon .weapon h3 img{
+    width: 50%;
+    margin-left: .25em;
+}
+.arena_selection_weapon .weapon h3 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: .5em;
+}
+.arena_selection_weapon .weapon h3 span{
+    width: fit-content;
+}
+.weapon_stat{
+    display: flex;
+    align-items: center;
+    width: 20% !important;
+}
+.arena_selection_display h1{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.arena_selection_message p{
+    text-align: center;
+}
+.arena_selection_message img{
+    width: 20%;
+}
+
+.arena_selection_message{
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+.arena_selection_stats{
+    align-items: flex-start;
+    width: 80%;
+    margin-top: 5em;
+    flex-direction: row;
+    margin-bottom: 2em;
+    flex-wrap: wrap;
+}
+.arena_selection_main{
+    align-items: center;
+ }
+ .arena_selection_message .title{
+     align-items: center;
+
+ }
+ .arena_selection_message .title h1{
+    font-size: 60px;
+    color: #EDC580;
+
+}
+.name_gender{
+    width: 50%;
+    align-items: center;
+}
+.arena_selection_weapon_container{
+    align-items: center;
+    width: 50%;
+}
+.gender,.weapon{
+    cursor: pointer;
+}
+
+
+.weapon input[type="radio"] , .arena_selection_gender input[type="radio"]{
+    display:none;
+}
+.weapon label, .arena_selection_gender label{
+    position: relative;
+    color: #EDC580;
+    font-size: 20px;
+    padding: .3em;
+    border: #EDC580 2px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: all .5s;
+   
+}
+.weapon label::before, .arena_selection_gender label::before{
+    content: "";
+    
+    height: 30px;
+    width: 30px;
+    border: 2px #EDC580 solid;
+    border-radius: 50%;
+    margin: 0 .25em;
+    transition: all .5s;
+
+
+}
+.weapon input[type="radio"]:checked + label, .arena_selection_gender input[type="radio"]:checked + label{
+    background-color: #EDC580;
+    color: #0f0f0f;
+    font-weight: bold;
+}
+
+.weapon input[type="radio"]:checked + label::before, .arena_selection_gender input[type="radio"]:checked + label::before{
+    height: 16px;
+    width: 16px;
+    border: 10px #0f0f0f solid;
+}
+
+
+.arena_selection_gender label{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 1em;
+   
+}
+.arena_selection_submit{
+    margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
