@@ -31,7 +31,7 @@ router.get('/arena',function(req,res){
       } else{
         storedID=parseInt(rows.id, 10);
         db.get(`SELECT * FROM wonders WHERE id=?`,storedID,function(err,rows){
-            if (rows.colosseum=0) {
+            if (rows.colosseum==0) {
                 console.log('Construct the Colosseum to access the Arena. It can be found in the Wonders tab.')
             }
             else {
@@ -44,7 +44,7 @@ router.get('/arena',function(req,res){
                         let gender = rows.gender;
                         let weapon = rows.weapon;
                         let strength=rows.strength;
-                        let defense=rows.strength;
+                        let defense=rows.defense;
                         let agility=rows.agility;
                         let intelligence=rows.intelligence;
                         let upgradepoints=rows.upgradepoints;
@@ -57,7 +57,7 @@ router.get('/arena',function(req,res){
     }) 
 })
 
-router.post('/create-gladiator',urlencodedParser, function(req,res){
+router.post('/arena_selection',urlencodedParser, function(req,res){
   let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -68,9 +68,27 @@ router.post('/create-gladiator',urlencodedParser, function(req,res){
         let name=req.body.name;
         let gender=req.body.gender;
         let weapon=req.body.weapon;
-        db.run('INSERT INTO arena (id, name, gender, weapon, strength, defense, agaility, intelligence',[storedID,name,gender,weapon,req.body.strength, req.body,defense, req.body.agility,req.body.intelligence],function(err){
+        let strength,defense,agility,intelligence;
+        if (weapon=='bow') {
+          strength=10;
+          defense=5;
+          agility=30;
+          intelligence=20;
+        } else if (weapon=='mace') {
+          strength=30;
+          defense=10;
+          agility=15;
+          intelligence=10;
+        } else if (weapon=='sword') {
+          strength=15;
+          defense=20;
+          agility=20;
+          intelligence=10;
+      }
+      console.log(storedID,name,gender,weapon,strength, defense, agility, intelligence)
+        db.run('INSERT INTO arena (id, name, gender, weapon, strength, defense, agility, intelligence) VALUES (?,?,?,?,?,?,?,?)',[storedID,name,gender,weapon,strength, defense, agility, intelligence],function(err){
           if(err){
-            console.err(err.message)
+            console.error(err.message)
           } else {
             res.redirect('/arena')
           }
