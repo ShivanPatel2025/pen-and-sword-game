@@ -1580,6 +1580,7 @@ h3.arena_stat{
 }
 .arena_icons .arena_icon{
     align-items: center;
+    width: 40%;
 }
 .arena_icons .arena_icon h4{
     margin: .25 0 .5em 0;
