@@ -48,7 +48,30 @@ router.get('/arena',function(req,res){
                         let agility=rows.agility;
                         let intelligence=rows.intelligence;
                         let upgradepoints=rows.upgradepoints;
-                        res.render('arena')
+                        db.get('SELECT * FROM kingdoms where id =?',storedID, function(err,rows){
+                          let leader=rows.ruler;
+                          let arrayOfMatches=[];
+                          db.each('SELECT * FROM matches',function(err,rows){
+                            hostid=rows.host;
+                            strength=rows.strength;
+                            defense=rows.defense;
+                            agility=rows.agility;
+                            intelligence=rows.intelligence;
+                            db.run('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
+                                let host=rows.kingdom;
+                                obj = {
+                                    host: host,
+                                    strength: strength,
+                                    defense: defense,
+                                    agility: agility,
+                                    intelligence: intelligence
+                                }
+                                arrayOfMatches.push(obj)
+                            })
+                        })
+                        res.render('arena', {leader, name, gender, weapon, strength, defense, agility, intelligence, upgradepoints,matches})
+                        console.log(matches);
+                        })
                     }
                 })
             }
