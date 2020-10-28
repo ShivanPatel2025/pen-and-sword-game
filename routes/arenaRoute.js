@@ -31,7 +31,7 @@ router.get('/arena',function(req,res){
       } else{
         storedID=parseInt(rows.id, 10);
         db.get(`SELECT * FROM wonders WHERE id=?`,storedID,function(err,rows){
-            if (rows.colosseum==0) {
+            if (rows.colosseum=0) {
                 console.log('Construct the Colosseum to access the Arena. It can be found in the Wonders tab.')
             }
             else {
@@ -51,26 +51,8 @@ router.get('/arena',function(req,res){
                         db.get('SELECT * FROM kingdoms where id =?',storedID, function(err,rows){
                           let leader=rows.ruler;
                           let arrayOfMatches=[];
-                          db.each('SELECT * FROM matches',function(err,rows){
-                            hostid=rows.host;
-                            strength=rows.strength;
-                            defense=rows.defense;
-                            agility=rows.agility;
-                            intelligence=rows.intelligence;
-                            db.run('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
-                                let host=rows.kingdom;
-                                obj = {
-                                    host: host,
-                                    strength: strength,
-                                    defense: defense,
-                                    agility: agility,
-                                    intelligence: intelligence
-                                }
-                                arrayOfMatches.push(obj)
-                            })
-                        })
-                        res.render('arena', {leader, name, gender, weapon, strength, defense, agility, intelligence, upgradepoints,matches})
-                        console.log(matches);
+                        res.render('arena', {leader, name, gender, weapon, strength, defense, agility, intelligence, upgradepoints})
+                        console.log(arrayOfMatches);
                         })
                     }
                 })
@@ -92,17 +74,17 @@ router.post('/arena_selection',urlencodedParser, function(req,res){
         let gender=req.body.gender;
         let weapon=req.body.weapon;
         let strength,defense,agility,intelligence;
-        if (weapon=='bow') {
+        if (weapon=='Bow') {
           strength=10;
           defense=5;
           agility=30;
           intelligence=20;
-        } else if (weapon=='mace') {
+        } else if (weapon=='Mace') {
           strength=30;
           defense=10;
           agility=15;
           intelligence=10;
-        } else if (weapon=='sword') {
+        } else if (weapon=='Sword') {
           strength=15;
           defense=20;
           agility=20;
@@ -120,7 +102,7 @@ router.post('/arena_selection',urlencodedParser, function(req,res){
     })
 })
 
-router.post('/hostmatch',urlencodedParser, function(req,res){
+router.post('/host_match',urlencodedParser, function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -161,6 +143,7 @@ router.get('/matches',urlencodedParser,function(req,res) {
                 let host=rows.kingdom;
                 obj = {
                     host: host,
+                    hostid: hostid,
                     strength: strength,
                     defense: defense,
                     agility: agility,
