@@ -71,29 +71,29 @@ head
         h2 Host a Match
       a.arena_host(href='./find_match')
         h2 Find a Match
-  .arena_match_window.flex.col
-    each m in arrayOfMatches
+  //- .arena_match_window.flex.col
+  //-   each m in arrayOfMatches
         
-        .arena_match.flex
-            .arena_opponent.flex.col
-                h3 Hosting Kingdom
-                h2= match.host
-            .arena_opponent_stats.flex
-                .arena_opponent_stat.flex.col
-                    h3 Strength
-                    h3= match.strength
-                        img(src='./media/strength.svg' alt='')
-                .arena_opponent_stat.flex.col
-                    h3 Defense
-                    h3= match.defense
-                        img(src='./media/shield.svg' alt='')
-                .arena_opponent_stat.flex.col
-                    h3 Agility
-                    h3= match.agility
-                        img(src='./media/agility.svg' alt='')
-                .arena_opponent_stat.flex.col
-                    h3 Intelligence
-                    h3= match.intelligence
-                        img(src='./media/intelligence.svg' alt='')
-            form.arena_start_match(method='POST' action='start_match')
-                button(type='submit') Start Match
+  //-       .arena_match.flex
+  //-           .arena_opponent.flex.col
+  //-               h3 Hosting Kingdom
+  //-               h2= match.host
+  //-           .arena_opponent_stats.flex
+  //-               .arena_opponent_stat.flex.col
+  //-                   h3 Strength
+  //-                   h3= match.strength
+  //-                       img(src='./media/strength.svg' alt='')
+  //-               .arena_opponent_stat.flex.col
+  //-                   h3 Defense
+  //-                   h3= match.defense
+  //-                       img(src='./media/shield.svg' alt='')
+  //-               .arena_opponent_stat.flex.col
+  //-                   h3 Agility
+  //-                   h3= match.agility
+  //-                       img(src='./media/agility.svg' alt='')
+  //-               .arena_opponent_stat.flex.col
+  //-                   h3 Intelligence
+  //-                   h3= match.intelligence
+  //-                       img(src='./media/intelligence.svg' alt='')
+  //-           form.arena_start_match(method='POST' action='start_match')
+  //-               button(type='submit') Start Match

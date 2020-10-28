@@ -415,7 +415,7 @@ router.get('/war', function(req,res) {
                             })
 
                             console.log(domesticGround);
-                            db.get('SELECT * FROM military WHERE id=?',defenderid,function(err,rows){
+                            db.get('SELECT * FROM military WHERE id=?',aggressorid,function(err,rows){
                                 let foreignAir;
                                 let foreignGround;
                                 let foreignSea;
