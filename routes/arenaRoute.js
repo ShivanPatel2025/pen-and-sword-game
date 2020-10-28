@@ -267,6 +267,6 @@ setInterval(function() {
             }
         })
     })
-  },900000)
+  },120000)
 
 module.exports = router;
