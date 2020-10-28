@@ -11,8 +11,126 @@
     <body>
         <div class="arena_display">
             <div class="arena_banner">
-                <img src="" alt="">
+                <img class="arena_image_banner" src="https://cdn.discordapp.com/attachments/724842104811159593/724843696083959908/Hans_Bol_-_Village_Feast_28Annual_Fair29_-_WGA02368.png" alt="">
+                <div class="arena_gladiator_info flex col">
+                    <h1>Arena <span class="normal">of Shivoo</span></h1>
+                    <h2>Gladiator: <span class="normal">Tiger</span></h2>
+                    <div class="arena_icons flex">
+                        <div class="arena_icon flex col">
+                            <img src="../media/gender.svg" alt="">
+                            <h4>Non Binary</h4>
+
+                        </div>
+                        <div class="arena_icon flex col">
+                            <img src="../media/sword.svg" alt="">
+                            <h4>Sword</h4>
+
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                <div class="arena_levels flex col">
+                    <h2>Gladiator Stats:</h2>
+                    <div class="arena_stat_container flex">
+                        <h3 class='normal'>Strength</h3>
+                        <h3 class = 'flex arena_stat'><span class="bold">9</span><img src="../media/strength.svg" alt=""></h3>
+                    </div>
+                    <div class="arena_stat_container flex">
+                        <h3 class='normal'>Defense</h3>
+                        <h3 class = 'flex arena_stat' ><span class="bold">9</span><img src="../media/shield.svg" alt=""></h3>
+                    </div>
+                    <div class="arena_stat_container flex">
+                        <h3 class='normal'>Agility</h3>
+                        <h3 class = 'flex arena_stat'><span class="bold">9</span><img src="../media/agility.svg" alt=""></h3>
+                    </div>
+                    <div class="arena_stat_container flex">
+                        <h3 class='normal'>Intelligence</h3>
+                        <h3 class = 'flex arena_stat'><span class="bold">9</span><img src="../media/intelligence.svg" alt=""></h3>
+                    </div>
+                </div>
+
+
+                
+                
             </div>
+            <!-- <div class="arena_window_selection flex">
+                <h3>Gladiator</h3>
+                <h3>Current Matches</h3>
+            </div> -->
+            <div class="arena_gladiator_window flex">
+                <div class="flex col arena_upgrade">
+                    <h2>Upgrade</h2>
+                    <h3>4<span class="normal">points remaining</span></h3>
+                    <div class="arena_upgrade_container flex">
+                        <div class="arena_upgrade_selection flex col">
+                            <img src="../media/strength.svg" alt="">
+                            <h3>Strength</h3>
+                        </div>
+                        <div class="arena_upgrade_selection flex col">
+                            <img src="../media/shield.svg" alt="">
+                            <h3>Defense</h3>
+                        </div>
+                        <div class="arena_upgrade_selection flex col">
+                            <img src="../media/agility.svg" alt="">
+                            <h3>Agility</h3>
+                        </div>
+                        <div class="arena_upgrade_selection flex col">
+                            <img src="../media/intelligence.svg" alt="">
+                            <h3>Intelligence</h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flex col arena_new_match">
+                    <h2>New Match</h2>
+                    <a href = './host_match'class="arena_host">
+                        <h2>Host a Match</h2>
+                        
+                    </a>
+                    <a href = './find_match'class="arena_host">
+                        <h2>Find a Match</h2>
+                        
+                    </a>
+                </div>
+
+            </div>
+            <div class="arena_match_window flex col">
+                <div class="arena_match flex">
+                    <div class="arena_opponent flex col">
+                        <h3>Hosting Kingdom</h3>
+                        <h2>Kitten Land</h2>
+
+                    </div>
+                    <div class="arena_opponent_stats flex">
+                        <div class="arena_opponent_stat flex col">
+                            <h3>Strength</h3>
+                            <h3>30<img src="../media/strength.svg" alt=""></h3>
+                        </div>
+                        <div class="arena_opponent_stat flex col">
+                            <h3>Defense</h3>
+                            <h3>30<img src="../media/shield.svg" alt=""></h3>
+                        </div>
+                        <div class="arena_opponent_stat flex col">
+                            <h3>Agility</h3>
+                            <h3>30<img src="../media/agility.svg" alt=""></h3>
+                        </div>
+                        <div class="arena_opponent_stat flex col">
+                            <h3>Intelligence</h3>
+                            <h3>30<img src="../media/intelligence.svg" alt=""></h3>
+                        </div>
+                       
+
+                    </div>
+                    <form method="POST" action='start_match'class="arena_start_match">
+                        <button type="submit">Start Match</button>
+                    </form>
+
+                </div>
+
+            </div>
+
+
         </div>
         
     </body>
