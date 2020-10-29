@@ -17,7 +17,7 @@
                     <h2>Gladiator: <span class="normal">Tiger</span></h2>
                     <div class="arena_icons flex">
                         <div class="arena_icon flex col">
-                            <img src="../media/gender.svg" alt="">
+                            <img src="../media/non-binary.svg" alt="">
                             <h4>Non Binary</h4>
 
                         </div>
@@ -63,35 +63,57 @@
                     <h2>Upgrade</h2>
                     <h3>4<span class="normal">points remaining</span></h3>
                     <div class="arena_upgrade_container flex">
-                        <div class="arena_upgrade_selection flex col">
-                            <img src="../media/strength.svg" alt="">
-                            <h3>Strength</h3>
-                        </div>
-                        <div class="arena_upgrade_selection flex col">
-                            <img src="../media/shield.svg" alt="">
-                            <h3>Defense</h3>
-                        </div>
-                        <div class="arena_upgrade_selection flex col">
-                            <img src="../media/agility.svg" alt="">
-                            <h3>Agility</h3>
-                        </div>
-                        <div class="arena_upgrade_selection flex col">
-                            <img src="../media/intelligence.svg" alt="">
-                            <h3>Intelligence</h3>
-                        </div>
+                        <form action="/upgrade_points" method='POST'>
+                            <button class="arena_upgrade_selection flex col">
+                                <img src="../media/strength.svg" alt="">
+                                <h3>Strength</h3>
+                            </button>
+                        </form>
+                        <form action="/upgrade_points" method='POST'>
+                            <button class="arena_upgrade_selection flex col">
+                                <img src="../media/shield.svg" alt="">
+                                <h3>Defense</h3>
+                            </button>
+                        </form>
+                        <form action="/upgrade_points" method='POST'>
+                            <button class="arena_upgrade_selection flex col">
+                                <img src="../media/agility.svg" alt="">
+                                <h3>Agility</h3>
+                            </button>
+                        </form><form action="/upgrade_points" method='POST'>
+                            <button class="arena_upgrade_selection flex col">
+                                <img src="../media/intelligence.svg" alt="">
+                                <h3>Intelligence</h3>
+                            </button>
+                        </form>
+                        
+                      
+                        
                     </div>
 
                 </div>
                 <div class="flex col arena_new_match">
                     <h2>New Match</h2>
-                    <a href = './host_match'class="arena_host">
-                        <h2>Host a Match</h2>
+
+                    <div class="match_options flex col">
+                        <form method="post" action="/host_match">
+                            <button class="arena_host">
+                                <h2>Host a Match</h2>
+                                
+                            </button>
                         
-                    </a>
-                    <a href = './find_match'class="arena_host">
-                        <h2>Find a Match</h2>
+                        </form>
+                        <form action="/find_match" method="post">
+                            <button class="arena_host">
+                                <h2>Find a Match</h2>
+                                
+                            </button>
+                        </form>
                         
-                    </a>
+                        
+
+                    </div>
+                    
                 </div>
 
             </div>

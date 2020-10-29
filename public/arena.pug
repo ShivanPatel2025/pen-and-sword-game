@@ -53,24 +53,41 @@ head
       h3= upgradepoints
         span.normal points remaining
       .arena_upgrade_container.flex
-        .arena_upgrade_selection.flex.col
-          img(src='./media/strength.svg' alt='')
-          h3 Strength
-        .arena_upgrade_selection.flex.col
-          img(src='./media/shield.svg' alt='')
-          h3 Defense
-        .arena_upgrade_selection.flex.col
-          img(src='./media/agility.svg' alt='')
-          h3 Agility
-        .arena_upgrade_selection.flex.col
-          img(src='./media/intelligence.svg' alt='')
-          h3 Intelligence
+
+        form(action="/upgradepoints" method="POST")
+          button.arena_upgrade_selection.flex.col
+            img(src='./media/strength.svg' alt='')
+            h3 Strength
+
+        form(action="/upgradepoints" method="POST")
+          button.arena_upgrade_selection.flex.col
+            img(src='./media/agility.svg' alt='')
+            h3 Agility
+
+        form(action="/upgradepoints" method="POST")
+          button.arena_upgrade_selection.flex.col
+            img(src='./media/intelligence.svg' alt='')
+            h3 Intelligence
+
+          
+        
     .flex.col.arena_new_match
       h2 New Match
-      a.arena_host(href='./host_match')
-        h2 Host a Match
-      a.arena_host(href='./find_match')
-        h2 Find a Match
+
+
+
+      .match_options.flex.col
+        form(method="POST" action="/host_match")
+          input(type='hidden' name='strength' value= strength)
+          input(type='hidden' name='defense' value= defense)
+          input(type='hidden' name='agility' value= agility)
+          input(type='hidden' name='intelligence' value= intelligence)
+          button  
+            h2 Host a Match
+        form(method="POST" action="/host_match")
+          button  
+            h2 Find a Match
+      
   //- .arena_match_window.flex.col
   //-   each m in arrayOfMatches
         
