@@ -54,17 +54,24 @@ head
         span.normal points remaining
       .arena_upgrade_container.flex
 
-        form(action="/upgradepoints" method="POST")
+        form(action="/upgradestats" method="POST")
           button.arena_upgrade_selection.flex.col
             img(src='./media/strength.svg' alt='')
             h3 Strength
+        
+        form(action="/upgradestats" method="POST")
+          button.arena_upgrade_selection.flex.col
+            img(src='./media/shield.svg' alt='')
+            h3 Defense
 
-        form(action="/upgradepoints" method="POST")
+        form(action="/upgradestats" method="POST")
           button.arena_upgrade_selection.flex.col
             img(src='./media/agility.svg' alt='')
             h3 Agility
 
-        form(action="/upgradepoints" method="POST")
+        
+
+        form(action="/upgradestats" method="POST")
           button.arena_upgrade_selection.flex.col
             img(src='./media/intelligence.svg' alt='')
             h3 Intelligence
@@ -84,7 +91,7 @@ head
           input(type='hidden' name='intelligence' value= intelligence)
           button  
             h2 Host a Match
-        form(method="GET" action="/host_match")
+        form(method="GET" action="/find_match")
           button  
             h2 Find a Match
       
