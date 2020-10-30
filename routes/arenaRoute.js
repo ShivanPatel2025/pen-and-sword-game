@@ -110,17 +110,24 @@ router.post('/host_match',urlencodedParser, function(req,res){
         console.log('this bih not signed in')
       } else{
         storedID=parseInt(rows.id, 10);
-        db.get('SELECT * FROM matches WHERE host=?',storedID,function(err,rows){
-            if (rows==undefined) {
-              console.log(req.body.strength, req.body.defense, req.body.agility, req.body.intelligence)
-                db.run('INSERT INTO matches (host, strength, defense, agility, intelligence) VALUES (?,?,?,?,?)',[storedID, req.body.strength, req.body.defense, req.body.agility, req.body.intelligence]);
-                res.redirect('/arena')
-                console.log('Match posted')
-            } else {
-              res.redirect('/arena');
-                console.log('You are already hosting a match');
-            }
+        db.serialize(()=>{
+          let name;
+          db.get('SELECT * FROM kingdoms WHERE id=?',storedID,function(err,row){
+            name=row.ruler;
+            db.get('SELECT * FROM matches WHERE host=?',storedID,function(err,rows){
+              if (rows==undefined) {
+                console.log(req.body.strength, req.body.defense, req.body.agility, req.body.intelligence)
+                  db.run('INSERT INTO matches (host, strength, defense, agility, intelligence, name) VALUES (?,?,?,?,?,?)',[storedID, req.body.strength, req.body.defense, req.body.agility, req.body.intelligence, name]);
+                  res.redirect('/arena')
+                  console.log('Match posted')
+              } else {
+                res.redirect('/arena');
+                  console.log('You are already hosting a match');
+              }
+          })
+          })
         })
+
       }
     })
 })
@@ -141,22 +148,16 @@ router.get('/find_match',urlencodedParser,function(req,res) {
             agility=rows.agility;
             intelligence=rows.intelligence;
             console.log(strength,defense,agility,intelligence)
-            db.get('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
-              if(err){
-                console.log(err.message)
-              }
-                let host=row.kingdom;
-                obj = {
-                    host: row.kingdom,
-                    hostid: hostid,
-                    strength: strength,
-                    defense: defense,
-                    agility: agility,
-                    intelligence: intelligence
-                }
-                arrayOfMatches.push(obj)
-                console.log(arrayOfMatches)
-            })
+            obj = {
+              host: rows.name,
+              hostid: hostid,
+              strength: strength,
+              defense: defense,
+              agility: agility,
+              intelligence: intelligence
+          }
+          arrayOfMatches.push(obj)
+          console.log(arrayOfMatches)
         })
         setTimeout(function(){
           res.render('arena_find', {arrayOfMatches})
