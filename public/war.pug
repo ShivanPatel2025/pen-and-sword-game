@@ -389,11 +389,12 @@ body
                 .war.top_zero.declare.flex.col.opacity_full(type='declare')
                     .war_players.flex
                         h1 Declare War
-                    form(class='declarewar'  action='/declarewar')
+                    form(class='declarewar'  action='/declarewar' method='POST')
                         .input
                             label(for='whom')
                             i.far.fa-2x.fa-caret-square-right
                             input#whom(type='text' name='whom' required='')
+                            
                         button.launch_attack(type='submit') Find Opponent
 
                 
