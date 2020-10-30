@@ -61,13 +61,13 @@ head
             h3 Strength
         
         form(action="/upgradestats" method="POST")
-          input(type="hidden", name="stat" value="strength")
+          input(type="hidden", name="stat" value="defense")
           button.arena_upgrade_selection.flex.col
             img(src='./media/shield.svg' alt='')
             h3 Defense
 
         form(action="/upgradestats" method="POST")
-          input(type="hidden", name="stat" value="strength")
+          input(type="hidden", name="stat" value="agility")
           button.arena_upgrade_selection.flex.col
             img(src='./media/agility.svg' alt='')
             h3 Agility
@@ -75,7 +75,7 @@ head
         
 
         form(action="/upgradestats" method="POST")
-          input(type="hidden", name="stat" value="strength")
+          input(type="hidden", name="stat" value="intelligence")
           button.arena_upgrade_selection.flex.col
             img(src='./media/intelligence.svg' alt='')
             h3 Intelligence

@@ -9,28 +9,28 @@ head
     a(href='/arena') Back to Arena Page
   .arena_match_window.flex.col
 
-    each match in arrayOfMatches
+    each match, index in arrayOfMatches
 
         .arena_match.flex
             .arena_opponent.flex.col
                 h3 Hosting Kingdom
-                h2= host
+                h2= match.host
             .arena_opponent_stats.flex
                 .arena_opponent_stat.flex.col
                     h3 Strength
-                    h3= strength
+                    h3= match.strength
                         img(src='../media/strength.svg' alt='')
                 .arena_opponent_stat.flex.col
                     h3 Defense
-                    h3= defense
+                    h3= match.defense
                         img(src='../media/shield.svg' alt='')
                 .arena_opponent_stat.flex.col
                     h3 Agility
-                    h3= agility 
+                    h3= match.agility 
                         img(src='../media/agility.svg' alt='')
                 .arena_opponent_stat.flex.col
                     h3 Intelligence
-                    h3= intelligence
+                    h3= match.intelligence
                         img(src='../media/intelligence.svg' alt='')
             form.arena_start_match(method='POST' action='/startmatch')
                 input(type="hidden", name="hostid" value= hostid)
