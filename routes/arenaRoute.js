@@ -112,11 +112,11 @@ router.post('/host_match',urlencodedParser, function(req,res){
         storedID=parseInt(rows.id, 10);
         db.get('SELECT * FROM matches WHERE host=?',storedID,function(err,rows){
             if (rows==undefined) {
-                db.run('INSERT INTO matches host=?, strength=?, defense=?, agility=?, intelligence=?',[storedID, req.body.strength, req.body.defense, req.body.agility, req.body.intelligence]);
-                res.render('/arena')
+                db.run('INSERT INTO matches (host, strength, defense, agility, intelligence) VALUES (?,?,?,?,?)',[storedID, req.body.strength, req.body.defense, req.body.agility, req.body.intelligence]);
+                res.redirect('/arena')
                 console.log('Match posted')
             } else {
-                res.render('/arena');
+              res.redirect('/arena');
                 console.log('You are already hosting a match');
             }
         })
@@ -124,7 +124,7 @@ router.post('/host_match',urlencodedParser, function(req,res){
     })
 })
 
-router.get('/matches',urlencodedParser,function(req,res) {
+router.get('/find_match',urlencodedParser,function(req,res) {
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
       if(rows==undefined) {
@@ -139,8 +139,11 @@ router.get('/matches',urlencodedParser,function(req,res) {
             defense=rows.defense;
             agility=rows.agility;
             intelligence=rows.intelligence;
-            db.run('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
-                let host=rows.kingdom;
+            db.get('SELECT * FROM kingdoms WHERE id=?',hostid, function(err,row){
+              if(err){
+                console.log(err.message)
+              }
+                let host=row.kingdom;
                 obj = {
                     host: host,
                     hostid: hostid,
@@ -150,9 +153,14 @@ router.get('/matches',urlencodedParser,function(req,res) {
                     intelligence: intelligence
                 }
                 arrayOfMatches.push(obj)
+                console.log(arrayOfMatches)
             })
         })
-        res.render('matches', {arrayOfMatches})
+        setTimeout(function(){
+          res.render('arena_find', {arrayOfMatches})
+        }),1000
+    
+        
       }
     })
 })
@@ -170,15 +178,18 @@ router.post('/upgradestats',urlencodedParser, function(req,res) {
             let numstat=rows[stat];
             if(rows.upgradepoints>0){
                 numstat=numstat+Math.floor(Math.random()*(5-1)+1);
+                console.log(stat);
+                console.log(numstat)
                 db.run(`UPDATE arena SET ${stat}=? WHERE id=?`,[numstat,storedID], function(err){
                     if(err) {
-                        console.err(err.message)
+                        console.error(err.message)
                     } else {
                         console.log(stat+' has been upgraded')
+                        res.redirect('/arena');
                     }
                 })
             } else {
-                res.render('arena');
+                res.redirect('/arena');
                 console.log('not sufficient upgrade points')
             }
         })
