@@ -1616,7 +1616,7 @@ h3.arena_stat{
     padding: 1em 0;
     margin-bottom: 2em;
 }
-.arena_match:before{
+.arena_match::before{
     content: '1';
     position: relative;
     display: flex;

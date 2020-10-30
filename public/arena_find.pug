@@ -11,7 +11,7 @@ head
 
     each match, index in arrayOfMatches
 
-        .arena_match.flex
+        .arena_match.flex(id= index)
             .arena_opponent.flex.col
                 h3 Hosting Kingdom
                 h2= match.host
@@ -35,3 +35,4 @@ head
             form.arena_start_match(method='POST' action='/startmatch')
                 input(type="hidden", name="hostid" value= hostid)
                 button(type='submit') Start Match
+script(src="./js/arena_find.js")
