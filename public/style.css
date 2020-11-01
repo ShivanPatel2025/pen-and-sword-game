@@ -1144,7 +1144,6 @@ span.highlight{
     align-items: center;
     justify-content: space-around;
     transition: all .5s;
-    widt
    
 }
 .weapon label::before, .declare_war_selection label::before{
