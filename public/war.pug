@@ -394,6 +394,16 @@ body
                             label(for='whom')
                             i.far.fa-2x.fa-caret-square-right
                             input#whom(type='text' name='whom' required='')
+                        .declare_war_selection.flex
+                            .gender.flex.col
+                                img(src='../media/male.svg' alt='')
+                                input#male(type='radio' name='type' value='damage')
+                                label(for='male') Damage
+                            .gender.flex.col
+                                img(src='../media/male.svg' alt='')
+                                input#male(type='radio' name='type' value='loot')
+                                label(for='male') Loot
+                        
                             
                         button.launch_attack(type='submit') Find Opponent
 

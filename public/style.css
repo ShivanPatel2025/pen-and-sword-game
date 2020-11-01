@@ -1112,6 +1112,72 @@ span.highlight{
 
 
 /* WAR */
+.declare_war_selection{
+    justify-content: space-around;
+    width: 90%;
+}
+.declare_war_selection .gender img{
+    width: 60%;
+}
+
+.declare_war_selection .gender{
+    align-items: center;
+    width: 50%;
+    background-color: #0f0f0f;
+    padding: 1em .25em;
+   
+    border-radius: 10px;
+}
+
+.weapon input[type="radio"] , .declare_war_selection input[type="radio"]{
+    display:none;
+}
+.weapon label, .declare_war_selection label{
+    position: relative;
+    color: #EDC580;
+    font-size: 20px;
+    padding: .3em;
+    border: #EDC580 2px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    transition: all .5s;
+    widt
+   
+}
+.weapon label::before, .declare_war_selection label::before{
+    content: "";
+    
+    height: 30px;
+    width: 30px;
+    border: 2px #EDC580 solid;
+    border-radius: 50%;
+    margin: 0 .25em;
+    transition: all .5s;
+
+
+}
+.weapon input[type="radio"]:checked + label, .declare_war_selection input[type="radio"]:checked + label{
+    background-color: #EDC580;
+    color: #0f0f0f;
+    font-weight: bold;
+}
+
+.weapon input[type="radio"]:checked + label::before, .declare_war_selection input[type="radio"]:checked + label::before{
+    height: 16px;
+    width: 16px;
+    border: 10px #0f0f0f solid;
+}
+
+
+.declare_war_selection label{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 1em;
+   
+}
 
 .war_banner{
     
