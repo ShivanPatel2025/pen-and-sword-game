@@ -491,7 +491,7 @@ body
                                             object(type='image/svg+xml' data='./media/swords.svg')
                         h2.plan_offensive Attack
                     else
-                        h1.default_message No one attack. Go to the "Declare War" window to declare one now!
+                        h1.default_message No one to attack. Go to the "Declare War" window to declare one now!
                     
                         
                          
@@ -499,7 +499,7 @@ body
                 
                     
                 #war1.war.defense.col(type='defense')
-                    if numDe >= 0
+                    if numDe > 0
                         .war_players.flex
                             .attacker
                                 each war,index in defensiveWars
@@ -608,3 +608,4 @@ body
                                 .circle
                                 h4.bold War #{index+1}
     script(src="./js/wars.js"  defer='')
+    script(src="./js/navbar.js"  defer='')
