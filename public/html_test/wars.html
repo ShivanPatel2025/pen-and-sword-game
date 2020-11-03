@@ -107,9 +107,20 @@
                         <form class ='declarewar' action="/declarewar">
 
                             <div class="input">
+
                                 <label for="whom"><i class="far fa-2x fa-caret-square-right"></i></label>
                                 <input type="text" name = 'whom' id ='whom' required>
                             </div>
+                            <div class="war_type flex ">
+                                
+                                <input type="radio" name="type" id="pillage" value = 'pillage' required=''>
+                                <label for="pillage">Pillage</label>
+                                
+                                <input type="radio" name="type" id="destroy" value ='destroy' required=''>
+                                <label for="destroy">Destroy</label>
+
+                            </div>
+                            
                            
       
                             <button type="submit" class="launch_attack">Find Opponent</button>
@@ -119,7 +130,10 @@
 
                     <div type="offense" id ='war1' class="war  offense  col ">
 
-                        <div class="war_players flex">
+
+                        <h1 class="default_message">No one to defend against. Your people are safe!</h1>
+
+                        <!-- <div class="war_players flex">
                             <div class="attacker">
                                 <h1><span  class="normal">Aggressor - </span><span war1='Tiger' war2='Sharpie' war3 = 'Kitten' class="bold">Tiger</span></h1>
 
@@ -152,7 +166,7 @@
                             </div>
 
                         </div>
-                        <h2 class = "plan_offensive">Plan an Offensive!</h2>
+                        <h2 class = "plan_offensive">Plan an Offensive!</h2> -->
                     </div>
                     <div type="defense" id ='war1' class="war  defense  col ">
 

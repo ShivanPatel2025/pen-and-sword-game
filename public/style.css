@@ -1112,41 +1112,38 @@ span.highlight{
 
 
 /* WAR */
-.declare_war_selection{
+.war_type{
     justify-content: space-around;
     width: 90%;
 }
-.declare_war_selection .gender img{
-    width: 60%;
-}
 
-.declare_war_selection .gender{
-    align-items: center;
-    width: 50%;
-    background-color: #0f0f0f;
-    padding: 1em .25em;
-   
-    border-radius: 10px;
-}
 
-.weapon input[type="radio"] , .declare_war_selection input[type="radio"]{
+
+
+ .war_type input[type="radio"]{
     display:none;
 }
-.weapon label, .declare_war_selection label{
+ .war_type label{
     position: relative;
     color: #EDC580;
-    font-size: 20px;
+    
     padding: .3em;
     border: #EDC580 2px solid;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    transition: all .5s;
+    transition: all .3s;
+    box-shadow: 0 4px 11px -2px rgba(0, 0, 0, 0.3);
+    font-size: 25px;
+    text-align: center;
+    margin-top: 1em;
+   
+
    
 }
-.weapon label::before, .declare_war_selection label::before{
+ .war_type label::before{
     content: "";
     
     height: 30px;
@@ -1158,25 +1155,20 @@ span.highlight{
 
 
 }
-.weapon input[type="radio"]:checked + label, .declare_war_selection input[type="radio"]:checked + label{
+ .war_type input[type="radio"]:checked + label{
     background-color: #EDC580;
     color: #0f0f0f;
     font-weight: bold;
 }
 
-.weapon input[type="radio"]:checked + label::before, .declare_war_selection input[type="radio"]:checked + label::before{
+ .war_type input[type="radio"]:checked + label::before{
     height: 16px;
     width: 16px;
     border: 10px #0f0f0f solid;
 }
 
 
-.declare_war_selection label{
-    font-size: 18px;
-    text-align: center;
-    margin-top: 1em;
-   
-}
+
 
 .war_banner{
     
@@ -1290,6 +1282,11 @@ img.war_image_banner{
     
     
 }
+
+.offense h1.default_message, .defense h1.default_message{
+    margin: 3em .5em;
+
+}
 .prepare_attack_overlay{
     position: fixed;
     background-color:rgba(0, 0, 0,.7);
@@ -1342,6 +1339,7 @@ img.war_image_banner{
 }
 button.launch_attack{
     margin-bottom: 2em;
+    margin-top: 2em;
     padding: .75em 2em;
     border-radius: 40px;
     color: #EDC580;
