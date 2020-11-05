@@ -40,7 +40,8 @@ router.get('/trade', function(req,res) {
                   resource: rows.resource,
                   amount: rows.amount,
                   ppu: rows.price,
-                 region: rows.region
+                  date: rows.date,
+                      time: rows.time
               }
               console.log(trade);
               arrayOfObjectTrades.push(trade);
@@ -49,6 +50,65 @@ router.get('/trade', function(req,res) {
               console.log(arrayOfObjectTrades);
               res.render('trade', {arrayOfObjectTrades}) 
           })
+      })
+    }})
+})
+
+router.post('/filter_trades',urlencodedParser, function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
+      storedID=parseInt(rows.id, 10);
+      let arrayOfObjectTrades =[]; 
+      db.serialize(()=>{
+          let resource = req.body.resource;
+          let type=req.body.type;
+          let order = req.body.order; 
+          let direction = req.body.direction;//should be 'ASC or DSC'
+          let scope = 'global'
+          if (order=='quantity'){
+            db.each(`SELECT * FROM trades ORDER BY amount ${direction} WHERE scope=? AND type=? AND resource=?`,[scope,type,resource], function(err,rows) {
+                let trade = {
+                    id: rows.tradeid,
+                    owner: rows.ownerid,
+                    type: rows.type,
+                    resource: rows.resource,
+                    amount: rows.amount,
+                    ppu: rows.price,
+                    date: rows.date,
+                      time: rows.time
+                }
+                console.log(trade);
+                arrayOfObjectTrades.push(trade);
+            })
+            db.get('SELECT * FROM kingdoms WHERE id=?', storedID, function(err,rows) {
+                console.log(arrayOfObjectTrades);
+                res.render('trade', {arrayOfObjectTrades}) 
+            })
+          }
+          if (order=='price'){
+            db.each(`SELECT * FROM trades ORDER BY ppu ${direction} WHERE scope=? AND type=? AND resource=?`,[scope,type,resource], function(err,rows) {
+                let trade = {
+                    id: rows.tradeid,
+                    owner: rows.ownerid,
+                    type: rows.type,
+                    resource: rows.resource,
+                    amount: rows.amount,
+                    ppu: rows.price,
+                    date: rows.date,
+                      time: rows.time
+                }
+                console.log(trade);
+                arrayOfObjectTrades.push(trade);
+            })
+            db.get('SELECT * FROM kingdoms WHERE id=?', storedID, function(err,rows) {
+                console.log(arrayOfObjectTrades);
+                res.render('trade', {arrayOfObjectTrades}) 
+            })
+          }
       })
     }})
 })
@@ -80,7 +140,8 @@ router.get('/mytrades', function(req,res) {
                       resource: rows.resource,
                       amount: rows.amount,
                       ppu: rows.price,
-                     region: rows.region
+                      date: rows.date,
+                      time: rows.time
                   }
                   console.log(trade);
                   arrayOfObjectTrades.push(trade);
@@ -206,12 +267,19 @@ router.post('/createtrade', urlencodedParser, function(req,res) {
             console.log('this bih not signed in')
           } else{
       storedID=parseInt(rows.id, 10);
-      db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region, scope, recepient) VALUES (?,?,?,?,?,?,?,?)', [storedID, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region, req.body.scope, req.body.recepient], function(err) {
-        if(err) {
-            console.error(err.message);
-        }
-        })
-    res.redirect('/trade');
+      let date = Date();
+      let splited = date.split(" "); 
+      let postdate = `${splited[1]}/${splited[2]}/${splited[3]}`;
+      let posttime= `${date.getHours()}:${date.getMinutes()}`
+      db.get('SELECT * FROM kingdoms WHERE id=?',storedID, function(err,rows){
+          let owner=rows.kingdom;
+          db.run('INSERT INTO trades(ownerid, type, resource, amount, price, region, scope, recepient, date,time) VALUES (?,?,?,?,?,?,?,?,?)', [owner, req.body.type, req.body.resource, req.body.amount, req.body.ppu, req.body.region, req.body.scope, req.body.recepient,postdate,posttime], function(err) {
+            if(err) {
+                console.error(err.message);
+            }
+            res.redirect('/trade');
+            })
+      })
     }}) 
 })
 

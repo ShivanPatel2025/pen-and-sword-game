@@ -78,7 +78,8 @@ app.listen(app.get('port'), function() {
 
 //SENDING LOGIN PAGE
 app.get('/', (req, res) => {
-  res.render("keys");
+  res.redirect('/home')
+  //res.render("keys");
 
 })
 //SENDING LOGIN PAGE
