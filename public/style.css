@@ -548,10 +548,7 @@ form.create_kingdom_form{
 }
 
 /* kingdom page */
-.kingdom_display{
-    position: relative;
-    top: 5em;
-}
+
 .kingdom_banner{
     display: flex;
     flex-direction: column;
@@ -1827,4 +1824,8 @@ form.arena_start_match {
     color: #EDC580;
     font-size: 30px;
     margin: 0;
+}
+.arena_display, .war_display, .trades_display_main, .kingdom_display{
+    position: relative;
+    top: 8em;
 }

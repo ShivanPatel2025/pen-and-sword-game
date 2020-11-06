@@ -1,5 +1,7 @@
 .trades_display_main{
     color: whitesmoke;
+    position: relative;
+    top: 5em;
 
 }
 .trade_item{
@@ -36,7 +38,7 @@ img.trade_image_banner{
 .trades_stats h3{
     display: flex;
     justify-content: space-between;
-    width: 90%;
+    width: 110%;
 
 }
 .trade_current{
@@ -281,3 +283,6 @@ div.trades_current_container, div.trades_incoming_container, div.global_trades, 
     
 }
 
+.trade_current h1{
+    text-align: center;
+}
