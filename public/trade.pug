@@ -1,17 +1,162 @@
-each trade in arrayOfObjectTrades
-    h2 Owner
-        span=trade.owner
-            span Type
-                span=trade.type
-                    span Resource
-                        span=trade.resource
-                            span Amount
-                                span=trade.amount
-                                    span PPU
-                                        span=trade.ppu
-                                            span Region
-                                                span=trade.region
-    form(action='/accepttrade' method='POST' name='test')
-        input(name='tradeid' type = 'hidden' value= trade.id)
-        button(type='submit') Accept Trade
-
+doctype html
+head
+  link(rel='stylesheet' href='../style.css' type='TEXT/CSS')
+  link(rel='stylesheet' href='../style_trade.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+.trades_display_main
+  .trades_banner.flex
+    .trades_desc.flex.col
+      h1 Trades
+      p Descriptionoindfs  ids ij ijfdi j ifji jfi dsji fjisd 
+    .trades_stats_container.flex.col
+      h2 Net Trade Flows
+      .trades_stats.flex.col
+        .trade_item.flex
+          h4 5
+          img(src='../media/fauna.png' alt='')
+        .trade_item.flex
+          h4 5
+          img(src='../media/fauna.png' alt='')
+        .trade_item.flex
+          h4 5
+          img(src='../media/fauna.png' alt='')
+  .trades_selector.flex
+    h2#my.highlight My Trades
+    h2#incoming Incoming Trades
+    h2#create Create Trades
+    h2#global Global Trades
+  .trades_display.flex.col
+    #my.disp.trades_current_container.flex.col.opacity_full.top_zero
+        each trade in arrayOfObjectTrades_my 
+            .trade_current.flex
+                .trade_partner.flex.col
+                    h3 Trading on
+                    h2 Global Market
+                .trade_importing_container.flex.col
+                    h3 Importing:
+                    .trade_importing
+                        .trade_item.flex
+                            if type=='buy'
+                                h4= trade.amount
+                                img(src=`../media/${trade.resource}.png` alt='')
+                            else    
+                                h4= trade.ppu*trade.amount
+                                img(src=`../media/gold.png` alt='')
+                .trade_exporting_container.flex.col
+                    h3 Exporting:
+                    .trade_exporting
+                        .trade_item.flex
+                            if type=='buy'
+                                h4= trade.ppu*trade.amount
+                                img(src=`../media/gold.png` alt='')
+                            else    
+                                h4= trade.amount
+                                img(src=`../media/${trade.resource}.png` alt='')
+    #incoming.disp.trades_incoming_container.flex.col
+        each trade in arrayOfObjectTrades_personal
+            .trade_current.flex
+                .trade_partner.flex.col
+                    h3 Coming from:
+                    h2= trade.owner
+                .trade_importing_container.flex.col
+                    h3 Requesting:
+                    .trade_importing
+                        .trade_item.flex
+                            if type=='buy'
+                                h4= trade.amount
+                                img(src=`../media/${trade.resource}.png` alt='')
+                            else    
+                                h4= trade.ppu*trade.amount
+                                img(src=`../media/gold.png` alt='')
+                .trade_exporting_container.flex.col
+                    h3 Offering:
+                    .trade_exporting
+                        .trade_item.flex
+                            if type=='buy'
+                                h4= trade.ppu*trade.amount
+                                img(src=`../media/gold.png` alt='')
+                            else    
+                                h4= trade.amount
+                                img(src=`../media/${trade.resource}.png` alt='')
+                .trade_confirm_container.flex.col
+                    form(action='')
+                        button(type='submit') Confirm
+    #global.disp.col.global_trades
+      form.filter_find_trades.col.flex(action='/filter_trades' method='POST')
+        .flex.form_input
+          label(for='type') Search for traders 
+          select#type(name='type')
+            option(value='buy') buying
+            option(value='sell') selling
+          select#resource(name='resource')
+            option.option_resource(value='fauna') fauna
+            option.option_resource(value='flora') flora
+          br
+          label(for='order_by') Order by 
+          select#order_by(name='order_by')
+            option(value='quantity') resource quantity
+            option(value='cost') price per unit
+          label(for='gradient') in 
+          select#gradient(name='gradient')
+            option(value='inc') increasing
+            option(value='dec') decreasing
+          h3 order
+        button(type='submit') Submit
+      .trades_find
+        table
+          thead
+            tr
+              th Date Offered
+              th Kingdom
+              th Offering
+              th Price per unit
+              th Select Quantity
+          tbody
+            each trade in arrayOfObjectTrades_global
+                tr
+                    td
+                        span.normal= trade.date 
+                            br= trade.time
+                        
+                    td= trade.owner
+                    td
+                        .trade_item.flex
+                            h4= trade.amount
+                            img(src=`../media/${trade.resource}.png` alt='')
+                    td
+                        .trade_item.flex
+                        h4= trade.ppu
+                        img(src='../media/gold.png' alt='')
+                    td.select
+                        form(action='/accepttrade' method='POST')
+                            input(type="hidden", name="tradeid" value=trade.id)
+                            input(type='number' step='1' required='' name='quantity' id='')
+                            button(type='submit') Initiate!
+           
+    #create.disp.trade_create
+      form.filter_find_trades.col(action='/createtrade' method='POST')
+            .toggle_trade_type.flex
+                h3#personal.bold Personal Trade
+                .toggle_area.flex
+                    .toggler
+                h3#global Global Trade
+            .flex.form_input
+                label(for='type') I want to 
+                select#type(name='type')
+                    option(value='buy') buy
+                    option(value='sell') sell
+                input(type='number' name='amount' id='')
+                select#resource(name='resource')
+                    option.option_resource(value='fauna') fauna
+                    option.option_resource(value='flora') flora
+                label(for='ppu') at
+                input#ppu(type='number' name='ppu')
+                h3 gold per unit.
+                input#hidden(type='hidden' value='personal') 
+            .trader.opacity_full.flex
+                label(for='recepient') Trade with: 
+                input#recepient(type='text' name='recepient')
+                button(type='submit') Submit
+script(src='../js/navbar.js')
+script(src='../js/trades.js')
