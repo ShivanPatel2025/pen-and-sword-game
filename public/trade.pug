@@ -9,7 +9,7 @@ head
     img.trade_image_banner(src='https://cdn.discordapp.com/attachments/724842104811159593/724842464317407254/ban-rak-thai-chinese-home-in-tea-field-mae-hong-son-thailand-1588403058gS3.png' alt='')
     .trades_desc.flex.col
       h1 Trades
-      p Bag ova biches 
+      p [placeholder] 
     .trades_stats_container.flex.col
       h2 Net Trade Flows
       .trades_stats.flex.col
@@ -47,8 +47,11 @@ head
                             span.normal= trade.date 
                             span.normal= trade.time 
                               
-                          
-                      td= trade.type
+
+                      if trade.type=='sell'    
+                        td Sell
+                      else
+                        td Buy
                       td
                           .trade_item.flex
                             if type=='buy'
@@ -110,9 +113,14 @@ head
         .flex.form_input
           label(for='type') Search for traders 
           select#type(name='type')
+            if settings[1] == 'sell'
+              option(default='') selling
+            else
+              option(default='') buying
             option(value='sell') selling
             option(value='buy') buying
           select#resource(name='resource')
+            option(default='')= settings[0]
             option.option_resource(value='fauna') fauna
             option.option_resource(value='flora') flora
             option.option_resource(value='mana') mana
@@ -126,10 +134,20 @@ head
           br
           label(for='order_by') Order by 
           select#order_by(name='order')
+            if settings[2]=='quantity'
+              option(default='') resource quantity
+            else 
+              option(default='') price per unit
+            
             option(value='quantity') resource quantity
             option(value='price') price per unit
           label(for='gradient') in 
           select#gradient(name='direction')
+            if settings[3] ='ASC'
+              option(default='') increasing
+            else
+              option(default='') decreasing
+            
             option(value='ASC') increasing
             option(value='DESC') decreasing
           h3 order

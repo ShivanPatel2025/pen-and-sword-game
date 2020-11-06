@@ -60,6 +60,7 @@ img.trade_image_banner{
     padding: .5em 1em;
     border-radius: 20px;
     transition: all .4s;
+    text-align: center;
 }
 
 
