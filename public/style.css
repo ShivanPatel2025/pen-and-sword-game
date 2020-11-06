@@ -23,7 +23,7 @@
 	background: #0f0f0f; 
 }
 .col{
-    flex-direction: column;
+    flex-direction: column !important;
 }
 .relative{
     position: relative;
@@ -87,6 +87,9 @@ nav img{
     top:-100vh;
     opacity: 0;
     transition: all 1s;
+}
+.row{
+    flex-direction: row !important;
 }
 .stop_scroll{
     overflow: hidden;
@@ -917,7 +920,7 @@ img.military_image_banner{
     border-bottom: #EDC580 solid 3px;
     padding: 2em;
 }
-span.highlight{
+.highlight{
     background-color: #0f0f0f;
     font-weight: bold;
     

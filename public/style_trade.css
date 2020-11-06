@@ -28,7 +28,7 @@
     padding: 1em 2em;
     background-color: #0f0f0f;
     border-radius: 10px;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 50%;
     margin: 0 auto;
 
@@ -38,11 +38,32 @@
     justify-content: space-around;
     width: 60%;
 }
+.trades_selector h2{
+    cursor: pointer;
+    padding: .5em 1em;
+    border-radius: 20px;
+    transition: all .4s;
+}
+
+
+.trade_partner{
+    margin-left: 1em;
+
+}
+.trade_exporting_container{
+    margin-right: 1em;
+}
 .trades_find table{
     border-radius: 20px;
     overflow: hidden;
     margin: 2em auto;
     border-collapse: collapse;
+    max-width: 80%;
+    
+
+}
+.trades_find table thead{
+    border-radius: 20px;
 
 }
 .trades_find table tr th{ 
@@ -62,5 +83,182 @@
 }
 tr:nth-child(even){
     background-color: #303030;
+}
+tr:last-of-type{
+    border-bottom: #0f0f0f 6px solid;
+}
+td.select{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    
+}
+td.select form{
+    
+    /* opacity:0; */
+    width: 70%;
+    flex-direction: row;
+    margin: 1rem 0;
+
+}
+td.select form input{
+    width: 50%;
+    border-radius: 40px;
+    padding: 0 .5em;
+
+}
+td.select form button{
+    margin: 0;
+    background-color: transparent;
+    background-image: linear-gradient(wheat,wheat);
+    background-size: 0% 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transition: all .25s;
+    border-radius: 30px;
+    box-shadow: none;
+    font-size: 25px;
+    padding: .25em 1em;
+    
+
+}
+td.select form button:hover{
+    background-size: 100% 100%;
+    color: #0f0f0f;
+
+}
+
+
+td.select h3:hover{
+    background-size: 100% 100%;
+    color: #0f0f0f;
+   
+}
+
+form.filter_find_trades{
+    width: fit-content;
+    flex-direction: row;
+    margin: 0 auto;
+    margin-top: 1em;
+}
+form.filter_find_trades label, form.filter_find_trades h3{
+    font-weight: 500;
+    font-size: 25px;
+}
+form.filter_find_trades select{
+    margin: 0 .5rem;
+    font-weight: 600;
+    font-size: 25px;
+    font-family: 'Poppins';
+    background-color: #0f0f0f;
+    color: #EDC580;
+    border-radius: 30px;
+    padding: .3rem 1rem;
+    line-height: 2;
+}
+ form.filter_find_trades div.form_input{
+    align-items: center;
+}
+
+
+.trade_create form input{
+    max-width: 5em;
+    border-radius: 30px;
+    background-color: #0f0f0f;
+    color: #EDC580;
+    padding: 0 .5em;
+    margin: 0 .5rem;
+    font-weight: 500;
+}
+form.filter_find_trades button{
+    
+    border-radius: 30px;
+    background-color: #0f0f0f;
+    color: #EDC580;
+    font-weight: 700;
+    font-size: 30px;
+    padding: .25em 3em;
+    margin-top: 1em; 
+    transition: all .25s;
+}
+div.toggle_trade_type{
+    align-items: center;
+}
+div.toggle_trade_type h3{
+    font-weight: 400;
+    transition: all .25s;
+    cursor: pointer;
+}
+div.toggle_trade_type div.toggle_area{
+    width: 8em;
+    height: 2.5em;
+    background-color: #303030;
+    margin: 0 1em;
+    border-radius: 20px;
+    align-items: center;
+    position: relative;
+    
+}
+
+div.toggle_trade_type div.toggle_area div.toggler{
+    height: 2em;
+    width: 2em;
+    box-shadow:  0 4px 20px -1px rgba(0, 0, 0, 0.3);
+    background-color: #EDC580;
+    border-radius: 50%;
+    margin: 0 .25em;
+    position: absolute;
+    left:0em;
+    transition: all .5s;
+
+}
+.toggle_on_trade {
+    left:5.5em !important;
+}
+
+.trade_confirm_container{
+    justify-content: center;
+}
+
+.trade_confirm_container form button{
+    background-image: linear-gradient(wheat,wheat);
+    background-size: 0% 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    transition: all .25s;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 22px;
+    box-shadow: none;
+    padding: .25em 2em;
+    margin-top :0;
+
+}
+
+.trade_confirm_container form button:hover{
+    background-size: 100% 100%;
+    color: #0f0f0f;
+}
+.trader{
+    opacity: 0;
+    transition: all .25s;
+
+}
+.submit_move_up{
+    margin-top: -1em !important;
+}
+
+.trades_display{
+    height: 40em;
+    position: relative;
+}
+div.trades_current_container, div.trades_incoming_container, div.global_trades, div.trade_create{
+    opacity: 0;
+    top: 2em;
+    transition: all .3s;
+    position: relative;
+    display: none;
+    
 }
 
