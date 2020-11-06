@@ -97,7 +97,7 @@ td.select{
 td.select form{
     
     /* opacity:0; */
-    width: 70%;
+    width: 90%;
     flex-direction: row;
     margin: 1rem 0;
 
@@ -119,7 +119,7 @@ td.select form button{
     border-radius: 30px;
     box-shadow: none;
     font-size: 25px;
-    padding: .25em 1em;
+    padding: 0 .5em;
     
 
 }

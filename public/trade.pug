@@ -12,22 +12,20 @@ head
     .trades_stats_container.flex.col
       h2 Net Trade Flows
       .trades_stats.flex.col
-        .trade_item.flex
-          h4 5
-          img(src='../media/fauna.png' alt='')
-        .trade_item.flex
-          h4 5
-          img(src='../media/fauna.png' alt='')
-        .trade_item.flex
-          h4 5
-          img(src='../media/fauna.png' alt='')
+        h3= 'Global Trades  '+ totalGlobalTrades
+        h3= 'Posted Trades  '+ totalPostedTrades
+        h3= 'Pending Trades  '+ totalIncomingTrades
+      
+        
+        
   .trades_selector.flex
-    h2#my.highlight My Trades
-    h2#incoming Incoming Trades
+    h2#global.highlight Global Trades
+    h2#my My Trades
+    h2#incoming Pending Trades
     h2#create Create Trades
-    h2#global Global Trades
+    
   .trades_display.flex.col
-    #my.disp.trades_current_container.flex.col.opacity_full.top_zero
+    #my.disp.trades_current_container.col
         .trades_find
           table
             thead
@@ -70,36 +68,40 @@ head
                                 h4= trade.ppu*trade.amount
                                 img(src=`../media/gold.png` alt='')
                       
-    #incoming.disp.trades_incoming_container.flex.col
-        each trade in arrayOfObjectTrades_personal
-            .trade_current.flex
-                .trade_partner.flex.col
-                    h3 Coming from:
-                    h2= trade.owner
-                .trade_importing_container.flex.col
-                    h3 Requesting:
-                    .trade_importing
-                        .trade_item.flex
-                            if type=='buy'
-                                h4= trade.amount
-                                img(src=`../media/${trade.resource}.png` alt='')
-                            else    
-                                h4= trade.ppu*trade.amount
-                                img(src=`../media/gold.png` alt='')
-                .trade_exporting_container.flex.col
-                    h3 Offering:
-                    .trade_exporting
-                        .trade_item.flex
-                            if type=='buy'
-                                h4= trade.ppu*trade.amount
-                                img(src=`../media/gold.png` alt='')
-                            else    
-                                h4= trade.amount
-                                img(src=`../media/${trade.resource}.png` alt='')
-                .trade_confirm_container.flex.col
-                    form(action='')
-                        button(type='submit') Confirm
-    #global.disp.col.global_trades
+    #incoming.disp.trades_incoming_container.col
+        if totalIncomingTrades>0
+          each trade in arrayOfObjectTrades_personal
+              .trade_current.flex
+                  .trade_partner.flex.col
+                      h3 Coming from:
+                      h2= trade.owner
+                  .trade_importing_container.flex.col
+                      h3 Requesting:
+                      .trade_importing
+                          .trade_item.flex
+                              if type=='buy'
+                                  h4= trade.amount
+                                  img(src=`../media/${trade.resource}.png` alt='')
+                              else    
+                                  h4= trade.ppu*trade.amount
+                                  img(src=`../media/gold.png` alt='')
+                  .trade_exporting_container.flex.col
+                      h3 Offering:
+                      .trade_exporting
+                          .trade_item.flex
+                              if type=='buy'
+                                  h4= trade.ppu*trade.amount
+                                  img(src=`../media/gold.png` alt='')
+                              else    
+                                  h4= trade.amount
+                                  img(src=`../media/${trade.resource}.png` alt='')
+                  .trade_confirm_container.flex.col
+                      form(action='')
+                          button(type='submit') Confirm
+        else  
+          .trade_current  
+            h1 You have no pending trades. Come back later!
+    #global.disp.col.global_trades.flex.opacity_full.top_zero
       form.filter_find_trades.col.flex(action='/filter_trades' method='POST')
         .flex.form_input
           label(for='type') Search for traders 
