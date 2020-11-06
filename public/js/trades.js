@@ -18,7 +18,7 @@ const resourceOptions = document.querySelectorAll('div.global_trades select#reso
 resourceOptions.forEach(r=>{
     let real = r.getAttribute('real')
     let inner = r.innerHTML;
-    if(real!==inner){
+    if(real==inner){
         r.style.display='none'
     }
 })
