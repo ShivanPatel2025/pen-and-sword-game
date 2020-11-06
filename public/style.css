@@ -617,6 +617,9 @@ img.kingdom_image_banner{
     
 }
 
+.card_content{
+    margin-right: .5em;
+}
 .overflow_scroll{
     overflow-y: scroll;
 }
