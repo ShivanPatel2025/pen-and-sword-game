@@ -7,6 +7,7 @@ const global_toggle = document.querySelector('h3#global')
 const toggler = document.querySelector('div.toggler')
 
 const trader = document.querySelector('div.trader')
+const hidden = document.querySelector('input#hidden')
 const submit_btn = document.querySelector('div#create form button')
 
 
@@ -20,6 +21,7 @@ personal_toggle.addEventListener('click',()=>{
         personal_toggle.classList.add('bold')
         trader.classList.add('opacity_full')
         submit_btn.classList.remove('submit_move_up')
+        hidden.setAttribute('value', 'personal')
         
 
         
@@ -35,6 +37,7 @@ global_toggle.addEventListener('click',()=>{
         global_toggle.classList.add('bold')
         trader.classList.remove('opacity_full')
         submit_btn.classList.add('submit_move_up')
+        hidden.setAttribute('value', 'global')
 
     }
 })

@@ -87,20 +87,20 @@ head
         .flex.form_input
           label(for='type') Search for traders 
           select#type(name='type')
-            option(value='buy') buying
             option(value='sell') selling
+            option(value='buy') buying
           select#resource(name='resource')
             option.option_resource(value='fauna') fauna
             option.option_resource(value='flora') flora
           br
           label(for='order_by') Order by 
-          select#order_by(name='order_by')
+          select#order_by(name='order')
             option(value='quantity') resource quantity
-            option(value='cost') price per unit
+            option(value='price') price per unit
           label(for='gradient') in 
-          select#gradient(name='gradient')
-            option(value='inc') increasing
-            option(value='dec') decreasing
+          select#gradient(name='direction')
+            option(value='ASC') increasing
+            option(value='DSC') decreasing
           h3 order
         button(type='submit') Submit
       .trades_find
@@ -144,18 +144,19 @@ head
                     .toggler
                 h3#global Global Trade
             .flex.form_input
-                label(for='type') I want to 
+                label(for='type') Post a 
                 select#type(name='type')
                     option(value='buy') buy
                     option(value='sell') sell
-                input(type='number' name='amount' id='')
+                label(for='resource') offer of
+                input(type='number' name='amount' id='' placeholder='amount')
                 select#resource(name='resource')
                     option.option_resource(value='fauna') fauna
                     option.option_resource(value='flora') flora
                 label(for='ppu') at
-                input#ppu(type='number' name='ppu')
+                input#ppu(type='number' name='ppu' placeholder='price per unit')
                 h3 gold per unit.
-                input#hidden(type='hidden' value='personal') 
+                input#hidden(type='hidden' name='scope' value='global') 
             .trader.opacity_full.flex
                 label(for='recepient') Trade with: 
                 input#recepient(type='text' name='recepient')
