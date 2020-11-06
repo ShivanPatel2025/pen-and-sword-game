@@ -116,8 +116,10 @@ head
             each trade in arrayOfObjectTrades_global
                 tr
                     td
-                        span.normal= trade.date 
-                            br= trade.time
+                        .flex.col
+                          span.normal= trade.date 
+                          span.normal= trade.time 
+                            
                         
                     td= trade.owner
                     td
@@ -126,8 +128,8 @@ head
                             img(src=`../media/${trade.resource}.png` alt='')
                     td
                         .trade_item.flex
-                        h4= trade.ppu
-                        img(src='../media/gold.png' alt='')
+                            h4= trade.ppu
+                            img(src='../media/gold.png' alt='')
                     td.select
                         form(action='/accepttrade' method='POST')
                             input(type="hidden", name="tradeid" value=trade.id)
@@ -157,6 +159,6 @@ head
             .trader.opacity_full.flex
                 label(for='recepient') Trade with: 
                 input#recepient(type='text' name='recepient')
-                button(type='submit') Submit
+            button(type='submit') Submit
 script(src='../js/navbar.js')
 script(src='../js/trades.js')
