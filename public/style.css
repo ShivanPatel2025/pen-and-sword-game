@@ -1827,5 +1827,5 @@ form.arena_start_match {
 }
 .arena_display, .war_display, .trades_display_main, .kingdom_display{
     position: relative;
-    top: 8em;
+    top: 5em;
 }
