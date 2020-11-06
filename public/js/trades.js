@@ -11,6 +11,18 @@ const hidden = document.querySelector('input#hidden')
 const submit_btn = document.querySelector('div#create form button')
 
 
+const resourceOptions = document.querySelectorAll('div.global_trades select#resource option');
+
+
+
+resourceOptions.forEach(r=>{
+    let real = r.getAttribute('real')
+    let inner = r.innerHTML;
+    if(real!==inner){
+        r.style.display='none'
+    }
+})
+
 personal_toggle.addEventListener('click',()=>{
     let c = toggler.getAttribute('class')
     

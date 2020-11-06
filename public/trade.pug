@@ -114,42 +114,43 @@ head
           label(for='type') Search for traders 
           select#type(name='type')
             if settings[1] == 'sell'
-              option(default='') selling
+              option(value=settings[1]) selling
+              option(value='buy') buying
             else
-              option(default='') buying
-            option(value='sell') selling
-            option(value='buy') buying
+              option(default=settings[1]) buying
+              option(value='sell') selling
+            
           select#resource(name='resource')
-            option(default='')= settings[0]
-            option.option_resource(value='fauna') fauna
-            option.option_resource(value='flora') flora
-            option.option_resource(value='mana') mana
-            option.option_resource(value='lumber') lumber
-            option.option_resource(value='food') food
-            option.option_resource(value='ore') ore
-            option.option_resource(value='silver') silver
-            option.option_resource(value='iron') iron
-            option.option_resource(value='bronze') bronze
-            option.option_resource(value='steel') steel
+            option(value=settings[0])= settings[0]
+            option.option_resource(real=settings[0] value='fauna') fauna
+            option.option_resource(real=settings[0] value='flora') flora
+            option.option_resource(real=settings[0] value='mana') mana
+            option.option_resource(real=settings[0] value='lumber') lumber
+            option.option_resource(real=settings[0] value='food') food
+            option.option_resource(real=settings[0] value='ore') ore
+            option.option_resource(real=settings[0] value='silver') silver
+            option.option_resource(real=settings[0] value='iron') iron
+            option.option_resource(real=settings[0] value='bronze') bronze
+            option.option_resource(real=settings[0] value='steel') steel
           br
           label(for='order_by') Order by 
           select#order_by(name='order')
             if settings[2]=='quantity'
-              option(default='') resource quantity
+              option(value='quantity') resource quantity
+              option(value='price') price per unit
             else 
-              option(default='') price per unit
+              option(value='price') price per unit
+              option(value='quantity') resource quantity
             
-            option(value='quantity') resource quantity
-            option(value='price') price per unit
           label(for='gradient') in 
           select#gradient(name='direction')
             if settings[3] ='ASC'
-              option(default='') increasing
+              option(value='ASC') increasing
+              option(value='DESC') decreasing
             else
               option(default='') decreasing
+              option(value='ASC') increasing
             
-            option(value='ASC') increasing
-            option(value='DESC') decreasing
           h3 order
         button(type='submit') Submit
       .trades_find
