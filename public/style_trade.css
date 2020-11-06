@@ -32,6 +32,13 @@ img.trade_image_banner{
     top: -4em;
     width: 100%;
 }
+
+.trades_stats h3{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+
+}
 .trade_current{
     padding: 1em 2em;
     background-color: #0f0f0f;
@@ -86,9 +93,13 @@ img.trade_image_banner{
     color: whitesmoke;
     font-weight: bold;
     padding: 0 2em;
-    
     font-size: 20px;
+    text-align: center;
 }
+.trades_find table tr td div{
+    justify-content: center;
+}
+
 tr:nth-child(even){
     background-color: #303030;
 }

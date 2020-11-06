@@ -9,13 +9,16 @@ head
     img.trade_image_banner(src='https://cdn.discordapp.com/attachments/724842104811159593/724842464317407254/ban-rak-thai-chinese-home-in-tea-field-mae-hong-son-thailand-1588403058gS3.png' alt='')
     .trades_desc.flex.col
       h1 Trades
-      p Descriptionoindfs  ids ij ijfdi j ifji jfi dsji fjisd 
+      p Bag ova biches 
     .trades_stats_container.flex.col
       h2 Net Trade Flows
       .trades_stats.flex.col
-        h3= 'Global Trades  '+ totalGlobalTrades
-        h3= 'Posted Trades  '+ totalPostedTrades
-        h3= 'Pending Trades  '+ totalIncomingTrades
+        h3 Global Trades:
+          span=  totalGlobalTrades
+        h3 Posted Trades: 
+         span= totalPostedTrades
+        h3 Pending Trades: 
+          span= totalIncomingTrades
       
         
         
@@ -112,6 +115,14 @@ head
           select#resource(name='resource')
             option.option_resource(value='fauna') fauna
             option.option_resource(value='flora') flora
+            option.option_resource(value='mana') mana
+            option.option_resource(value='lumber') lumber
+            option.option_resource(value='food') food
+            option.option_resource(value='ore') ore
+            option.option_resource(value='silver') silver
+            option.option_resource(value='iron') iron
+            option.option_resource(value='bronze') bronze
+            option.option_resource(value='steel') steel
           br
           label(for='order_by') Order by 
           select#order_by(name='order')
@@ -180,6 +191,16 @@ head
                 select#resource(name='resource')
                     option.option_resource(value='fauna') fauna
                     option.option_resource(value='flora') flora
+                    option.option_resource(value='mana') mana
+                    option.option_resource(value='lumber') lumber
+                    option.option_resource(value='food') food
+                    option.option_resource(value='ore') ore
+                    option.option_resource(value='silver') silver
+                    option.option_resource(value='iron') iron
+                    option.option_resource(value='bronze') bronze
+                    option.option_resource(value='steel') steel
+                    
+
                 label(for='ppu') at
                 input#ppu(type='number' name='ppu' placeholder='price per unit')
                 h3 gold per unit.
