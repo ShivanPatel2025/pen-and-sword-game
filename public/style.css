@@ -1832,3 +1832,11 @@ form.arena_start_match {
     position: relative;
     top: 5em;
 }
+
+.construction {
+    background: url(https://cdn.discordapp.com/attachments/516021816846712835/774736959612387328/unknown.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
