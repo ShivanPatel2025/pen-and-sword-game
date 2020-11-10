@@ -160,12 +160,18 @@ div.research_desc .desc{
     
 }
 div.research_desc img{
-    margin: 0 .5rem;
+    margin: 0 .25rem;
     display: inline;
     width: 1.5rem;
     height: 1.5rem;
     
 }
-div.research_desc .desc span span{
-    margin-left: .5rem;
+div.research_desc p{
+    font-size: 18px;
+}
+div.research_desc p span {
+    
+    align-items: center;
+    margin-left: .25rem;
+    width: fit-content;
 }
