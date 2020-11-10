@@ -130,6 +130,7 @@ tr{
     display: flex;
     justify-content: space-between;
     margin: .5em 0;
+    align-items: center;
 }
 div.research_container div#economy,div.research_container div#entertainment,div.research_container div#science,div.research_container div#military{
     display: none;
