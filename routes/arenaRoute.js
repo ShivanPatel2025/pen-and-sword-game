@@ -179,6 +179,7 @@ router.post('/upgradestats',urlencodedParser, function(req,res) {
         let stat=req.body.stat;
         db.get('SELECT * FROM arena WHERE id =?',storedID,function(err,rows){
             let numstat=rows[stat];
+            let cup=rows.upgradepoints-1
             if(rows.upgradepoints>0){
                 numstat=numstat+Math.floor(Math.random()*(5-1)+1);
                 console.log(stat);
@@ -187,8 +188,15 @@ router.post('/upgradestats',urlencodedParser, function(req,res) {
                     if(err) {
                         console.error(err.message)
                     } else {
-                        console.log(stat+' has been upgraded')
-                        res.redirect('/arena');
+                      db.run(`UPDATE arena SET upgradepoints=? WHERE id=?`,[cup,storedID],function(err){
+                        if(err){
+                          console.log('h')
+                        } else{
+                          console.log(stat+' has been upgraded')
+                          res.redirect('/arena');
+                        }
+                      })
+
                     }
                 })
             } else {

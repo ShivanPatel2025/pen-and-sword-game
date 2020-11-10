@@ -14,83 +14,82 @@ html
     //-       i
     //- .info
     .kingdom_display
-    .kingdom_banner
-        img.kingdom_image_banner(src='https://cdn.discordapp.com/attachments/578016552071462912/723679861692039238/town.png' alt='')
-        h2 Kingdom of
-        h1= kingdom
-        h3= "Ruled by: " 
-            span.player_info= ruler
-        h3= "Circa: "
-        span.player_info= founded
-        p
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur, est maximus fermentum scelerisque, enim sem viverra ante, id interdum quam diam vel quam. Curabitur mauris metus, porttitor in dignissim sed, sollicitudin sit amet ipsum. Sed a ex nec libero aliquet tempus. Fusce sagittis elementum erat quis condimentum. Aenean iaculis dignissim pellentesque. Ut suscipit mattis rhoncus.
-    .kingdom_information
-        each title in arrayOfTitles
-            .information_card
-                h2= title
-                .overflow_scroll
-                    .card_content
-                        if title == "Policies"
-                            each policy in policyStats
-                                h3= policy.title
-                                    span.card_info 
-                                        span.policy= policy.name
+        .kingdom_banner
+            img.kingdom_image_banner(src='https://cdn.discordapp.com/attachments/578016552071462912/723679861692039238/town.png' alt='')
+            h2 Kingdom of
+            h1= kingdom
+            h3= "Ruled by: " 
+                span.player_info= ruler
+            h3= "Circa: "
+                span.player_info= founded
+            p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur, est maximus fermentum scelerisque, enim sem viverra ante, id interdum quam diam vel quam. Curabitur mauris metus, porttitor in dignissim sed, sollicitudin sit amet ipsum. Sed a ex nec libero aliquet tempus. Fusce sagittis elementum erat quis condimentum. Aenean iaculis dignissim pellentesque. Ut suscipit mattis rhoncus.
+        .kingdom_information
+            each title in arrayOfTitles
+                .information_card
+                    h2= title
+                    .overflow_scroll
+                        .card_content
+                            if title == "Policies"
+                                each policy in policyStats
+                                    h3= policy.title
+                                        span.card_info 
+                                            span.policy= policy.name
+                                            i.far.fa-question-circle
+                                    each value,key in policy.values
+                                        h4= key 
+                                            span.player_info= value
+                            else if title == "Military"
+                                h3 Ground
+                                    i.far.fa-question-circle
+                                each troop in ground
+                                    h4= troop.name
+                                        span.player_info= troop.value
+                                h3 Air
+                                    i.far.fa-question-circle
+                                each troop in air
+                                    h4= troop.name
+                                        span.player_info= troop.value
+                                h3 Sea
+                                    i.far.fa-question-circle
+                                each troop in sea
+                                    h4= troop.name
+                                        span.player_info= troop.value
+                                h3 Siege
+                                    i.far.fa-question-circle
+                                each troop in siege
+                                    h4= troop.name
+                                        span.player_info= troop.value
+                            else if title == "Provinces"
+                                each province in provinceStats 
+                                    h3= province.name
                                         i.far.fa-question-circle
-                                each value,key in policy.values
-                                    h4= key 
-                                        span.player_info= value
-                        else if title == "Military"
-                            h3 Ground
-                                i.far.fa-question-circle
-                            each troop in ground
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Air
-                                i.far.fa-question-circle
-                            each troop in air
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Sea
-                                i.far.fa-question-circle
-                            each troop in sea
-                                h4= troop.name
-                                    span.player_info= troop.value
-                            h3 Siege
-                                i.far.fa-question-circle
-                            each troop in siege
-                                h4= troop.name
-                                    span.player_info= troop.value
-                        else if title == "Provinces"
-                            each province in provinceStats 
-                                h3= province.name
-                                    i.far.fa-question-circle
-                                each value,key in province.values  
-                                    h4= key 
-                                        span.player_info= value
+                                    each value,key in province.values  
+                                        h4= key 
+                                            span.player_info= value
 
-                        else if title == "Wonders"
-                            each wonder in wonderStats
-                                h3= wonder.name 
-                                    i.far.fa-question-circle
-                                each value,key in wonder.values
-                                    h4= key 
-                                        span.player_info= value
-                        else if title == "Conflicts"
-                            each conflict in conflictStats  
-                                h3= conflict.name   
-                                    i.far.fa-question-circle
-                        else if title == "Internal Activity"
-                            each activity in internalActivityStats  
-                                h3= activity.name
-                                    i.far.fa-question-circle
+                            else if title == "Wonders"
+                                each wonder in wonderStats
+                                    h3= wonder.name 
+                                        i.far.fa-question-circle
+                                    each value,key in wonder.values
+                                        h4= key 
+                                            span.player_info= value
+                            else if title == "Conflicts"
+                                each conflict in conflictStats  
+                                    h3= conflict.name   
+                                        i.far.fa-question-circle
+                            else if title == "Internal Activity"
+                                each activity in internalActivityStats  
+                                    h3= activity.name
+                                        i.far.fa-question-circle
 
 
-                
-    
-    
+                    
+        
+        
 
-    .resource_bar
-        each item in kingdomStats
-            span= item.value
-                img(src = `./media/${item.name}.png`)
-    script(src="./js/navbar.js")
+        .resource_bar
+            each item in kingdomStats
+                span= item.value
+                    img(src = `./media/${item.name}.png`)
+        script(src="./js/navbar.js")

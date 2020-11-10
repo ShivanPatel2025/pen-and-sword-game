@@ -548,10 +548,7 @@ form.create_kingdom_form{
 }
 
 /* kingdom page */
-.kingdom_display{
-    position: relative;
-    top: 5em;
-}
+
 .kingdom_banner{
     display: flex;
     flex-direction: column;
@@ -620,6 +617,9 @@ img.kingdom_image_banner{
     
 }
 
+.card_content{
+    margin-right: .5em;
+}
 .overflow_scroll{
     overflow-y: scroll;
 }
@@ -1827,4 +1827,16 @@ form.arena_start_match {
     color: #EDC580;
     font-size: 30px;
     margin: 0;
+}
+.arena_display, .war_display, .trades_display_main, .kingdom_display{
+    position: relative;
+    top: 5em;
+}
+
+.construction {
+    background: url(https://cdn.discordapp.com/attachments/516021816846712835/774736959612387328/unknown.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

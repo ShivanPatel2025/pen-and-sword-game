@@ -81,42 +81,43 @@
 
                 </div>
                 <div id= 'incoming' class=" disp trades_incoming_container flex col">
-                    <div class="trade_current flex">
-                        <div class="trade_partner flex col">
-                            <h3>Coming from:</h3>
-                            <h2>Shivoo</h2>
-                        </div>
-                        <div class="trade_importing_container flex col">
-                            <h3>Requesting:</h3>
-                            <div class="trade_importing">
-                                <div class="trade_item flex">
-                                    <h4>5</h4>
-                                    <img src="../media/fauna.png" alt="">
-                                </div>
+                    
+                        <div class="trade_current flex">
+                            <div class="trade_partner flex col">
+                                <h3>Coming from:</h3>
+                                <h2>Shivoo</h2>
                             </div>
-
-
-                        </div>
-                        <div class="trade_exporting_container flex col">
-                            <h3>Selling:</h3>
-                            <div class="trade_exporting">
-                                <div class="trade_item flex">
-                                    <h4>5</h4>
-                                    <img src="../media/fauna.png" alt="">
+                            <div class="trade_importing_container flex col">
+                                <h3>Requesting:</h3>
+                                <div class="trade_importing">
+                                    <div class="trade_item flex">
+                                        <h4>5</h4>
+                                        <img src="../media/fauna.png" alt="">
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
-                        <div class="trade_confirm_container flex col">
-                            
-                            <form action="">
-                                <button type="submit">Confirm</button>
+
+                            </div>
+                            <div class="trade_exporting_container flex col">
+                                <h3>Selling:</h3>
+                                <div class="trade_exporting">
+                                    <div class="trade_item flex">
+                                        <h4>5</h4>
+                                        <img src="../media/fauna.png" alt="">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="trade_confirm_container flex col">
                                 
-                            </form>
+                                <form action="">
+                                    <button type="submit">Confirm</button>
+                                    
+                                </form>
+
+                            </div>
 
                         </div>
-
-                    </div>
 
 
                 </div>
@@ -130,8 +131,10 @@
                                 <option value="sell">selling</option>
                             </select>
                             <select name="resource" id="resource">
+                                
                                 <option class ='option_resource'value="fauna">fauna</option>
                                 <option class ='option_resource' value="flora">flora</option>
+                                <option default>Select Your Beverage</option>
                             </select>
                             <br>
                             <label for="order_by">Order by </label>

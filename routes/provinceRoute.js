@@ -69,6 +69,8 @@ router.get('/provinces',urlencodedParser,function(req,res){
     }})
 })
 
+router.get('/province', function(req,res){res.render('province')}) 
+
 
 router.post('/new-province', urlencodedParser, function(req,res) {
     let storedID;

@@ -1,5 +1,7 @@
 .trades_display_main{
     color: whitesmoke;
+    position: relative;
+    top: 5em;
 
 }
 .trade_item{
@@ -24,6 +26,21 @@
     border-radius: 20px;
     box-shadow: inset 0 4px 18px 5px rgba(0, 0, 0, 0.3);
 }
+
+img.trade_image_banner{
+    position: absolute;
+    opacity: .5;
+    z-index: -1;
+    top: -4em;
+    width: 100%;
+}
+
+.trades_stats h3{
+    display: flex;
+    justify-content: space-between;
+    width: 110%;
+
+}
 .trade_current{
     padding: 1em 2em;
     background-color: #0f0f0f;
@@ -43,6 +60,7 @@
     padding: .5em 1em;
     border-radius: 20px;
     transition: all .4s;
+    text-align: center;
 }
 
 
@@ -78,9 +96,13 @@
     color: whitesmoke;
     font-weight: bold;
     padding: 0 2em;
-    
     font-size: 20px;
+    text-align: center;
 }
+.trades_find table tr td div{
+    justify-content: center;
+}
+
 tr:nth-child(even){
     background-color: #303030;
 }
@@ -97,7 +119,7 @@ td.select{
 td.select form{
     
     /* opacity:0; */
-    width: 70%;
+    width: 90%;
     flex-direction: row;
     margin: 1rem 0;
 
@@ -119,7 +141,7 @@ td.select form button{
     border-radius: 30px;
     box-shadow: none;
     font-size: 25px;
-    padding: .25em 1em;
+    padding: 0 .5em;
     
 
 }
@@ -262,3 +284,6 @@ div.trades_current_container, div.trades_incoming_container, div.global_trades, 
     
 }
 
+.trade_current h1{
+    text-align: center;
+}
