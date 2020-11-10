@@ -54,6 +54,7 @@ head
                                     i.fas.fa-lock-open
                             else    
                                 form(action='')
+                                    input(type="hidden", name="dbName" value=arr.dbName)
                                     button.discover.unlock.flex
                                         h3 Unlock
                                         i.fas.fa-lock       
@@ -75,7 +76,7 @@ head
               th Description
               th Unlock
           tbody
-            each arr in econArray
+            each arr in entArray
                 if arr.status=='unlocked' || arr.status=='ready'
                     tr
                         td
@@ -89,6 +90,7 @@ head
                                     i.fas.fa-lock-open
                             else    
                                 form(action='')
+                                    input(type="hidden", name="dbName" value=arr.dbName)
                                     button.discover.unlock.flex
                                         h3 Unlock
                                         i.fas.fa-lock       
@@ -109,7 +111,7 @@ head
               th Description
               th Unlock
           tbody
-            each arr in econArray
+            each arr in sciArray
                 if arr.status=='unlocked' || arr.status=='ready'
                     tr
                         td
@@ -123,6 +125,7 @@ head
                                     i.fas.fa-lock-open
                             else    
                                 form(action='')
+                                    input(type="hidden", name="dbName" value=arr.dbName)
                                     button.discover.unlock.flex
                                         h3 Unlock
                                         i.fas.fa-lock       
@@ -143,7 +146,7 @@ head
               th Description
               th Unlock
           tbody
-            each arr in econArray
+            each arr in milArray
                 if arr.status=='unlocked' || arr.status=='ready'
                     tr
                         td
@@ -157,6 +160,7 @@ head
                                     i.fas.fa-lock-open
                             else    
                                 form(action='')
+                                    input(type="hidden", name="dbName" value=arr.dbName)
                                     button.discover.unlock.flex
                                         h3 Unlock
                                         i.fas.fa-lock       
