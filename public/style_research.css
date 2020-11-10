@@ -151,3 +151,7 @@ div.research_container{
 .trade_item img{
     margin-left: .5rem;
 }
+.research_desc p .trade_item{
+    margin: 0 .5rem;
+    display: inline-block;
+}
