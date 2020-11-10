@@ -151,7 +151,13 @@ div.research_container{
 .trade_item img{
     margin-left: .5rem;
 }
-div.research_desc  div.trade_item{
+div.research_desc .desc{
+    align-items: center;
+}
+div.research_desc img{
     margin: 0 .5rem;
-    width: fit-content;
+    display: inline;
+    width: 1.5rem;
+    height: 1.5rem;
+    
 }
