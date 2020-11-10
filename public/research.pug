@@ -38,6 +38,7 @@ head
               th Time Unlocked
               th Research
               th Description
+              th Cost
               th Unlock
           tbody
             each arr in econArray
@@ -47,6 +48,10 @@ head
                             span.normal= arr.date 
                         td=arr.name
                         td=arr.description
+                        td
+                            .trade_item.flex    
+                                h4= arr.cost
+                                img(src="./media/science_img", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -74,6 +79,7 @@ head
               th Time Unlocked
               th Research
               th Description
+              th Cost
               th Unlock
           tbody
             each arr in entArray
@@ -83,6 +89,10 @@ head
                             span.normal= arr.date 
                         td=arr.name
                         td=arr.description
+                        td
+                            .trade_item.flex    
+                                h4= arr.cost
+                                img(src="./media/science_img", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -109,6 +119,7 @@ head
               th Time Unlocked
               th Research
               th Description
+              th Cost
               th Unlock
           tbody
             each arr in sciArray
@@ -118,6 +129,10 @@ head
                             span.normal= arr.date 
                         td=arr.name
                         td=arr.description
+                        td
+                            .trade_item.flex    
+                                h4= arr.cost
+                                img(src="./media/science_img", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -144,6 +159,7 @@ head
               th Time Unlocked
               th Research
               th Description
+              th Cost
               th Unlock
           tbody
             each arr in milArray
@@ -153,6 +169,10 @@ head
                             span.normal= arr.date 
                         td=arr.name
                         td=arr.description
+                        td
+                            .trade_item.flex    
+                                h4= arr.cost
+                                img(src="./media/science_img", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex

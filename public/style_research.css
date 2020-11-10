@@ -145,3 +145,6 @@ div.research_container{
 .block{
     display: block !important;
 }
+.trade_item img{
+    margin-left: .5rem;
+}
