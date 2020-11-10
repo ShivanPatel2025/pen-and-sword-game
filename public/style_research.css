@@ -151,8 +151,13 @@ div.research_container{
 .trade_item img{
     margin-left: .5rem;
 }
+div.research_desc{
+    width: 40%;
+}
 div.research_desc .desc{
     align-items: center;
+    flex-wrap: wrap;
+    
 }
 div.research_desc img{
     margin: 0 .5rem;
@@ -160,4 +165,7 @@ div.research_desc img{
     width: 1.5rem;
     height: 1.5rem;
     
+}
+div.research_desc .desc span span{
+    margin-left: .5rem;
 }
