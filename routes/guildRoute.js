@@ -44,7 +44,8 @@ router.get('/guild', function(req,res) {
              let membercount=rows.membercount;
              let region = rows.region;
              let type= rows.type;
-             res.render('guild', {playerGuild, membercount, region, type,position})
+             //res.render('guild', {playerGuild, membercount, region, type,position})
+             res.render('guild')
           }
         })
       }

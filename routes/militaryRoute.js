@@ -40,8 +40,6 @@ const cost = {
   'catapults':{'gold':250,'lumber':310},
   'trebuchets':{'gold':600,'lumber':400},
   'cannons':{'gold':1000,'iron':75,'steel':150}
-
-
 }
 
 router.get('/military',urlencodedParser,function(req,res){

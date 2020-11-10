@@ -1476,7 +1476,7 @@ router.post('/siege', urlencodedParser, function(req,res){
 
 setInterval(function() {
     db.each('SELECT * FROM wars', function(err,rows) {
-        let id =rows.warid;
+        let id = rows.warid;
         let aggroMaps=rows.aggressormaps;
         let defendMaps=rows.defendermaps;
         if (aggroMaps<36) {
