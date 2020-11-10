@@ -13,6 +13,11 @@ head
     .research_progress.flex.col
       h2 Research Progress
       h3
+        span.normal Total Science:
+        .trade_item.flex    
+            h3= science
+            img(src="../media/science_img.png", alt="")
+      h3
         span.normal Economy:
         span.bold= numEcon
       h3
@@ -51,7 +56,7 @@ head
                         td
                             .trade_item.flex    
                                 h4= arr.cost
-                                img(src="./media/science_img", alt="")
+                                img(src="../media/science_img.png", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -65,7 +70,7 @@ head
                                         i.fas.fa-lock       
                 else
                     tr.locked
-                        td(colspan='4')
+                        td(colspan='5')
                             .flex
                                 h2= `${arr.name}: LOCKED`
                                 i.fas.fa-lock
@@ -92,7 +97,7 @@ head
                         td
                             .trade_item.flex    
                                 h4= arr.cost
-                                img(src="./media/science_img", alt="")
+                                img(src="../media/science_img.png", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -106,7 +111,7 @@ head
                                         i.fas.fa-lock       
                 else
                     tr.locked
-                        td(colspan='4')
+                        td(colspan='5')
                             .flex
                                 h2= `${arr.name}: LOCKED`
                                 i.fas.fa-lock
@@ -132,7 +137,7 @@ head
                         td
                             .trade_item.flex    
                                 h4= arr.cost
-                                img(src="./media/science_img", alt="")
+                                img(src="../media/science_img.png", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -146,7 +151,7 @@ head
                                         i.fas.fa-lock       
                 else
                     tr.locked
-                        td(colspan='4')
+                        td(colspan='5')
                             .flex
                                 h2= `${arr.name}: LOCKED`
                                 i.fas.fa-lock
@@ -172,7 +177,7 @@ head
                         td
                             .trade_item.flex    
                                 h4= arr.cost
-                                img(src="./media/science_img", alt="")
+                                img(src="../media/science_img.png", alt="")
                         td
                             if arr.status=='unlocked'    
                                 button.discover.unlocked.flex
@@ -186,7 +191,7 @@ head
                                         i.fas.fa-lock       
                 else
                     tr.locked
-                        td(colspan='4')
+                        td(colspan='5')
                             .flex
                                 h2= `${arr.name}: LOCKED`
                                 i.fas.fa-lock
