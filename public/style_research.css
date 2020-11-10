@@ -20,6 +20,8 @@ img.research_image_banner{
     z-index: -1;
     top: -4em;
     width: 100%;
+    background-color: #0f0f0f;
+    opacity: .5;
 }
 button.discover{
     margin: 0;
