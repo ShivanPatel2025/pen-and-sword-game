@@ -1,3 +1,26 @@
+.research_banner{
+    display: flex;
+    
+    color: whitesmoke;
+    align-items: center;
+
+    height: 29em;
+    width: 75%;
+    margin: 0 auto;
+    justify-content: space-around;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 18px 5px rgba(0, 0, 0, 0.3);
+}
+
+img.research_image_banner{
+    position: absolute;
+    opacity: .5;
+    z-index: -1;
+    top: -4em;
+    width: 100%;
+}
 button.discover{
     margin: 0;
     background-color: transparent;
@@ -11,7 +34,7 @@ button.discover{
     font-size: 20px;
     padding: .5em 1em;
     align-items: center;
-    margin: 1em 0;
+    margin: 1em auto;
 }
 button.discover h3{
     margin: 0;
@@ -23,7 +46,9 @@ button.discover i{
     transition: .25s all;
     color: #EDC580;
 }
-
+button.discover.unlocked{
+    cursor: auto;
+}
 button.discover.unlock:hover, button.discover.unlocked{
     background-size: 100% 100%;
 
@@ -51,8 +76,22 @@ button.discover.locked i{
     margin: 0 auto;
     
 }
+tr.locked{
+    background-color: #0f0f0f;
+    border-radius: 20px;
+    box-shadow:  0 4px 20px -1px rgba(0, 0, 0, 0.3);
+    margin: 0 3em;
 
-td.cover{
+}
+tr.locked td div{
+    align-items: center;
+}
+tr.locked td div i{
+    margin-left: .5rem;
+    color: #EDC580;
+}
+
+/* td.cover{
     position: absolute;
     background-color: #0f0f0f;
     left: 10.5%;
@@ -66,4 +105,43 @@ td.cover{
 }
 tr{
     position: relative !important; 
+} */
+.research_selector{
+    width: 50%;
+    margin: 0 auto;
+    justify-content: space-around;
+    color: whitesmoke;
+}
+.research_selector h3{
+    color: whitesmoke;
+    padding: .25em 1em;
+    font-size: 25px;
+    cursor: pointer;
+}
+.research_desc h1{
+    font-size: 60px;
+}
+.research_progress h2{
+    width: 100%;
+    font-size: 30px;
+}
+.research_progress h3{
+    width: 110%;
+    display: flex;
+    justify-content: space-between;
+    margin: .5em 0;
+}
+div.research_container div#economy,div.research_container div#entertainment,div.research_container div#science,div.research_container div#military{
+    display: none;
+    position: relative;
+    opacity: 0;
+    top: 2em;
+    transition: .3s all;
+
+}
+div.research_container{
+    height: 50em;
+}
+.block{
+    display: block !important;
 }

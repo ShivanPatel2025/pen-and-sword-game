@@ -1,0 +1,171 @@
+doctype html
+head
+  link(rel='stylesheet' href='../style.css' type='TEXT/CSS')
+  link(rel='stylesheet' href='../style_trade.css' type='TEXT/CSS')
+  link(rel='stylesheet' href='../style_research.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+.research_display
+  .research_banner.flex
+    .research_desc.flex.col
+      h1 Research
+      p [Placeholder olala]
+    .research_progress.flex.col
+      h2 Research Progress
+      h3
+        span.normal Economy:
+        span.bold= numEcon
+      h3
+        span.normal Entertainment:
+        span.bold= numEnt
+      h3
+        span.normal Science:
+        span.bold= numSci
+      h3
+        span.normal Military:
+        span.bold= numMil
+  .research_selector.flex
+    h3#economy.highlight Economy
+    h3#entertainment Entertainment
+    h3#science Science
+    h3#military Military
+  .research_container
+    #economy.opacity_full.block.top_zero
+      .trades_find.research_table
+        table
+          thead
+            tr
+              th Time Unlocked
+              th Research
+              th Description
+              th Unlock
+          tbody
+            each arr in econArray
+                if arr.status=='unlocked' || arr.status=='ready'
+                    tr
+                        td
+                            span.normal= arr.date 
+                        td=arr.name
+                        td=arr.description
+                        td
+                            if arr.status=='unlocked'    
+                                button.discover.unlocked.flex
+                                h3 Unlocked
+                                i.fas.fa-lock-open
+                            else    
+                                form(action='')
+                                    button.discover.unlock.flex
+                                        h3 Unlock
+                                        i.fas.fa-lock       
+                else
+                    tr.locked
+                        td(colspan='4')
+                            .flex
+                                h2= `${arr.name}: LOCKED`
+                                i.fas.fa-lock
+
+                
+    #entertainment
+      .trades_find.research_table
+        table
+          thead
+            tr
+              th Time Unlocked
+              th Research
+              th Description
+              th Unlock
+          tbody
+            each arr in econArray
+                if arr.status=='unlocked' || arr.status=='ready'
+                    tr
+                        td
+                            span.normal= arr.date 
+                        td=arr.name
+                        td=arr.description
+                        td
+                            if arr.status=='unlocked'    
+                                button.discover.unlocked.flex
+                                h3 Unlocked
+                                i.fas.fa-lock-open
+                            else    
+                                form(action='')
+                                    button.discover.unlock.flex
+                                        h3 Unlock
+                                        i.fas.fa-lock       
+                else
+                    tr.locked
+                        td(colspan='4')
+                            .flex
+                                h2= `${arr.name}: LOCKED`
+                                i.fas.fa-lock
+
+    #science
+      .trades_find.research_table
+        table
+          thead
+            tr
+              th Time Unlocked
+              th Research
+              th Description
+              th Unlock
+          tbody
+            each arr in econArray
+                if arr.status=='unlocked' || arr.status=='ready'
+                    tr
+                        td
+                            span.normal= arr.date 
+                        td=arr.name
+                        td=arr.description
+                        td
+                            if arr.status=='unlocked'    
+                                button.discover.unlocked.flex
+                                h3 Unlocked
+                                i.fas.fa-lock-open
+                            else    
+                                form(action='')
+                                    button.discover.unlock.flex
+                                        h3 Unlock
+                                        i.fas.fa-lock       
+                else
+                    tr.locked
+                        td(colspan='4')
+                            .flex
+                                h2= `${arr.name}: LOCKED`
+                                i.fas.fa-lock
+
+    #military
+      .trades_find.research_table
+        table
+          thead
+            tr
+              th Time Unlocked
+              th Research
+              th Description
+              th Unlock
+          tbody
+            each arr in econArray
+                if arr.status=='unlocked' || arr.status=='ready'
+                    tr
+                        td
+                            span.normal= arr.date 
+                        td=arr.name
+                        td=arr.description
+                        td
+                            if arr.status=='unlocked'    
+                                button.discover.unlocked.flex
+                                h3 Unlocked
+                                i.fas.fa-lock-open
+                            else    
+                                form(action='')
+                                    button.discover.unlock.flex
+                                        h3 Unlock
+                                        i.fas.fa-lock       
+                else
+                    tr.locked
+                        td(colspan='4')
+                            .flex
+                                h2= `${arr.name}: LOCKED`
+                                i.fas.fa-lock
+
+script(src='../js/research.js')
+script(src='../js/navbar.js')

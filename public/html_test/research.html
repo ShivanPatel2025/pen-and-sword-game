@@ -13,7 +13,18 @@
     </head>
     <body>
         <div class="research_display">
-            <div class="research_banner">
+            <div class="research_banner flex">
+                <div class="research_desc flex col">
+                    <h1>Research</h1>
+                    <p>[Placeholder olala]</p>
+                </div>
+                <div class="research_progress flex col">
+                    <h2>Research Progress</h2>
+                    <h3><span class="normal">Economy:</span><span class="bold">3</span></h3>
+                    <h3><span class="normal">Entertainment:</span><span class="bold">3</span></h3>
+                    <h3><span class="normal">Science:</span><span class="bold">3</span></h3>
+                    <h3><span class="normal">Military:</span><span class="bold">3</span></h3>
+                </div>
 
             </div>
             <div class="research_selector flex">
@@ -24,7 +35,7 @@
 
             </div>
             <div class="research_container">
-                <div class="econ_display">
+                <div id ='economy' class = 'opacity_full block top_zero'>
                     <div class="trades_find research_table">
                         <table>
                             <thead>
@@ -38,29 +49,27 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td> <span class="normal"> 11/4/2020 <br> 11:14 AM</span> </td>
+                                    <td> <span class="normal"> 11/4/2020 </span> </td>
                                     <td>Colliseum</td>
                                     <td>
                                         Earn 50% more gold for victories in the arena
                                     </td>
                                     <td>
-                                        <form action="">
+                                        
                                             <button class="discover unlocked flex">
                                                 <h3>Unlocked</h3>
                                                 <i class="fas fa-lock-open"></i>
     
                                             </button>
                                         
-                                        </form>
+                                        
                                     </td>
-                                    <td  class="cover">
-                                        oo
-                                    </td>
+                                    
                                     
                                     
                                 </tr>
                                 <tr>
-                                    <td> <span class="normal"> 11/4/2020 <br> 11:14 AM</span> </td>
+                                    <td> <span class="normal"> 11/4/2020</span> </td>
                                     <td>Colliseum</td>
                                     <td>
                                         Earn 50% more gold for victories in the arena
@@ -76,33 +85,50 @@
                                         </form>
                                         
                                     </td>
-                                    <td  class="cover">
-                                        oo
-                                    </td>
+                                    
                                     
                                     
                                 </tr>
-                                <tr class = 'locked'>
-                                    <td> <span class="normal"> 11/4/2020 <br> 11:14 AM</span> </td>
-                                    <td>Bazaar</td>
-                                    <td>
-                                        Earn 50% more gold for victories in the arena
-                                    </td>
-                                    <td>
-                                        <form action="">
-                                            <button class="discover locked flex">
-                                                <h3>Locked</h3>
-                                                <i class="fas fa-lock"></i>
-    
-                                            </button>
+                                
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
                                         
-                                        </form>
                                     </td>
-                                    <td  class="cover">
-                                        oo
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
                                     </td>
-                                    
-                                    
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
                                 </tr>
                                 
                                
@@ -112,13 +138,313 @@
                     </div>
 
                 </div>
-                <div class="enter_display">
+                <div id='entertainment'>
+                    <div class="trades_find research_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time Unlocked</th>
+                                    <th>Research</th>
+                                    <th>Description</th>
+                                    <th>Unlock</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020 </span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlocked flex">
+                                                <h3>Unlocked</h3>
+                                                <i class="fas fa-lock-open"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020</span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlock flex">
+                                                <h3>Unlock</h3>
+                                                <i class="fas fa-lock"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                        
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                
+                               
+                            </tbody>
+                        </table>
+    
+                    </div>
 
                 </div>
-                <div class="science_display">
+                <div id= 'science'>
+                    <div class="trades_find research_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time Unlocked</th>
+                                    <th>Research</th>
+                                    <th>Description</th>
+                                    <th>Unlock</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020 </span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlocked flex">
+                                                <h3>Unlocked</h3>
+                                                <i class="fas fa-lock-open"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020</span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlock flex">
+                                                <h3>Unlock</h3>
+                                                <i class="fas fa-lock"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                        
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                
+                               
+                            </tbody>
+                        </table>
+    
+                    </div>
 
                 </div>
-                <div class="military_research_display">
+                <div id = 'military'>
+                    <div class="trades_find research_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time Unlocked</th>
+                                    <th>Research</th>
+                                    <th>Description</th>
+                                    <th>Unlock</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020 </span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlocked flex">
+                                                <h3>Unlocked</h3>
+                                                <i class="fas fa-lock-open"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                <tr>
+                                    <td> <span class="normal"> 11/4/2020</span> </td>
+                                    <td>Colliseum</td>
+                                    <td>
+                                        Earn 50% more gold for victories in the arena
+                                    </td>
+                                    <td>
+                                        <form action="">
+                                            <button class="discover unlock flex">
+                                                <h3>Unlock</h3>
+                                                <i class="fas fa-lock"></i>
+    
+                                            </button>
+                                        
+                                        </form>
+                                        
+                                    </td>
+                                    
+                                    
+                                    
+                                </tr>
+                                
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr class ='locked'>
+                                    <td colspan='4'>
+                                        <div class="flex">
+                                            <h2>Colliseum: LOCKED</h2> 
+                                            <i class="fas fa-lock "></i>
+
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                
+                               
+                            </tbody>
+                        </table>
+    
+                    </div>
 
                 </div>
 

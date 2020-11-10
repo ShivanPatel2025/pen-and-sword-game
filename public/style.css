@@ -1288,6 +1288,7 @@ img.war_image_banner{
 
 .offense h1.default_message, .defense h1.default_message{
     margin: 3em .5em;
+    text-align: center;
 
 }
 .prepare_attack_overlay{
@@ -1828,7 +1829,7 @@ form.arena_start_match {
     font-size: 30px;
     margin: 0;
 }
-.arena_display, .war_display, .trades_display_main, .kingdom_display{
+.arena_display, .war_display, .trades_display_main, .kingdom_display, .research_display{
     position: relative;
     top: 5em;
 }
