@@ -55,8 +55,8 @@ const guildRoute = require('./routes/guildRoute.js')
 const tradeRoute = require('./routes/tradeRoute.js')
 const wonderRoute = require('./routes/wonderRoute.js')
 const warRoute = require('./routes/warRoute.js')
-
 const arenaRoute = require('./routes/arenaRoute.js')
+const researchRoute = require('./routes/researchRoute.js')
 
 
 app.use(kingdomRoute)
@@ -68,6 +68,7 @@ app.use(tradeRoute)
 app.use(wonderRoute)
 app.use(warRoute)
 app.use(arenaRoute)
+app.use(researchRoute)
 
 //RUNNING SERVER
 app.set('port', (process.env.PORT || 5000))
@@ -80,11 +81,8 @@ app.listen(app.get('port'), function() {
 app.get('/', (req, res) => {
   res.redirect('/home')
   //res.render("keys");
-
 })
 //SENDING LOGIN PAGE
-
-//parse date
 
 
 app.post('/home', urlencodedParser, function (req, res){
@@ -174,6 +172,14 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
       }
       console.log('wonders table created successfully!')
+    })
+
+    //RESEARCh
+    db.run(`INSERT INTO research (id) VALUES (?)`, [realid], function (err) {
+      if (err) {
+        return console.error(err.message);
+      }
+      console.log('resaerch table created successfully!')
     })
       
   })
