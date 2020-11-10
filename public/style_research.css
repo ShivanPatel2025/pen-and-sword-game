@@ -153,5 +153,5 @@ div.research_container{
 }
 div.research_desc  div.trade_item{
     margin: 0 .5rem;
-    display: inline-block;
+    width: fit-content;
 }
