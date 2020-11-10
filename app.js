@@ -143,7 +143,7 @@ app.post('/create-a-nation', urlencodedParser, function (req, res){
         return console.error(err.message);
     }
       console.log('Military values of 0 inputted!')})
-    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?)`, [realid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999], function (err) {
+    db.run(`INSERT INTO resources (id, gold, mana, flora, fauna, lumber, food, ore, silver, iron, bronze, steel,science) VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?)`, [realid,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999,9999999, 9999999, 9999999,999999], function (err) {
       if (err) {
         return console.error(err.message);
       }
