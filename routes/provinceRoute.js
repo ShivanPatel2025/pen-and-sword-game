@@ -22,6 +22,15 @@ let db = new sqlite3.Database('./pns.db', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 
+const generation = {
+    'market' : 5,
+    'bazar' : 40,
+    'emporium' : 320,
+    'plaza' : 3,
+    'theatre' : 5,
+    'coliseum' : 12
+  }
+
 router.get('/provinces',urlencodedParser,function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
@@ -69,7 +78,35 @@ router.get('/provinces',urlencodedParser,function(req,res){
     }})
 })
 
-router.get('/province', function(req,res){res.render('province')}) 
+router.get('/province', function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+          } else{
+              storedID=parseInt(rows.id, 10);
+              let provinceArray=[];
+              db.each('SELECT * FROM provinces WHERE userid=?',storedID,function(err,rows){
+                  let name=rows.name;
+                  let land=rows.land;
+                  let gold = rows.market*generation.market+rows.bazar*generation.bazar+rows.emporium*generation.emporium;
+                  let happiness = rows.plaza*generation.plaza+rows.theatre*generation.theatre+rows.coliseum*generation.coliseum;
+                  obj = {
+                      name : name,
+                      land : land,
+                      gold : gold,
+                      happiness : happiness
+                  }
+                  provinceArray.push(obj)
+              })
+              setTimeout(function(){
+                res.render('province', {provinceArray})
+                console.log(provinceArray)
+              },1000)
+          }
+        })
+}) 
 
 
 router.post('/new-province', urlencodedParser, function(req,res) {
@@ -129,7 +166,6 @@ router.post('/new-province', urlencodedParser, function(req,res) {
 function checkBalance(incost,keys) {
     return new Promise((resolve, reject) => {
         let storedID=keys;
-            storedID=parseInt(rows.id, 10);
             let cost=incost;
             db.get("SELECT * FROM resources WHERE id = ?", storedID, function(err, rows) {     
                 resolve(rows.gold >= cost)
