@@ -6,7 +6,7 @@ head
 .prov_list_display
   h1 Your Provinces
   .prov_list_container.flex
-        each prov,index in arrayOfProvinces
+        each prov,index in provinceArray
             form(method='POST' action='/view-province').prov_preview.flex.col
 
                 input(type="hidden", name="happiness" value=prov.happiness)

@@ -66,8 +66,8 @@ router.get('/research',function(req,res){
                 //ECON 1
                 if (rows.econ1=='0'){
                     objEcon1 = {
-                        'name' : 'Economy Research #1',
-                        'description' : 'Description for Economy Research #1',
+                        'name' : 'Metallurgy',
+                        'description' : 'Unlocks the silver, iron, and bronze refineries.',
                         'date' : 'N/A',
                         'status' : 'ready',
                         'dbName' : 'econ1',
@@ -76,8 +76,8 @@ router.get('/research',function(req,res){
                     econArray.push(objEcon1)
                 } else {
                     objEcon1 = {
-                        'name' : 'Economy Research #1',
-                        'description' : 'Description for Economy Research #1',
+                        'name' : 'Metallurgy',
+                        'description' : 'Unlocks the construction of silver, iron, and bronze refineries.',
                         'date' : rows.econ1,
                         'status' : 'unlocked',
                         'dbName' : 'econ1',
@@ -95,8 +95,8 @@ router.get('/research',function(req,res){
                         status='locked';
                     }
                     objEcon2 = {
-                        'name' : 'Economy Research #2',
-                        'description' : 'Description for Economy Research #2',
+                        'name' : 'Advanced Markets',
+                        'description' : 'Unlocks the construction of Bazars.',
                         'date' : 'N/A',
                         'status' : status,
                         'dbName' : 'econ2',
@@ -105,8 +105,8 @@ router.get('/research',function(req,res){
                     econArray.push(objEcon2)
                 } else {
                     objEcon2 = {
-                        'name' : 'Economy Research #2',
-                        'description' : 'Description for Economy Research #2',
+                        'name' : 'Advanced Markets',
+                        'description' : 'Unlocks the construction of Bazars.',
                         'date' : rows.econ2,
                         'status' : 'unlocked',
                         'dbName' : 'econ2',
@@ -124,8 +124,8 @@ router.get('/research',function(req,res){
                         status='locked';
                     }
                     objEcon3 = {
-                        'name' : 'Economy Research #3',
-                        'description' : 'Description for Economy Research #3',
+                        'name' : 'Forging',
+                        'description' : 'Unlocks the construction of Steel Refineries.',
                         'date' : 'N/A',
                         'status' : status,
                         'dbName' : 'econ3',
@@ -134,8 +134,8 @@ router.get('/research',function(req,res){
                     econArray.push(objEcon3)
                 } else {
                     objEcon3 = {
-                        'name' : 'Economy Research #3',
-                        'description' : 'Description for Economy Research #3',
+                        'name' : 'Forging',
+                        'description' : 'Unlocks the construction of Steel Refineries.',
                         'date' : rows.econ3,
                         'status' : 'unlocked',
                         'dbName' : 'econ3',
@@ -153,8 +153,8 @@ router.get('/research',function(req,res){
                         status='locked';
                     }
                     objEcon4 = {
-                        'name' : 'Economy Research #4',
-                        'description' : 'Description for Economy Research #4',
+                        'name' : 'Commerce',
+                        'description' : 'Unlocks the constructions of Emporiums.',
                         'date' : 'N/A',
                         'status' : status,
                         'dbName' : 'econ4',
@@ -163,8 +163,8 @@ router.get('/research',function(req,res){
                     econArray.push(objEcon4)
                 } else {
                     objEcon4 = {
-                        'name' : 'Economy Research #4',
-                        'description' : 'Description for Economy Research #4',
+                        'name' : 'Commerce',
+                        'description' : 'Unlocks the constructions of Emporiums.',
                         'date' : rows.econ4,
                         'status' : 'unlocked',
                         'dbName' : 'econ4',
