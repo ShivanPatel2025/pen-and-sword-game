@@ -32,6 +32,10 @@ nav.flex
         input(name='provinceName' placeholder='province name' type='text')
         button(type='submit') Submit
 
+    form.flex.col.register(action='/view-province' method='POST' name='test')
+        h1 View Province
+        input(name='id' placeholder='province id' type='text')
+        button(type='submit') Submit
 
 
 .main.flex.col
