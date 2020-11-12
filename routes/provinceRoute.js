@@ -45,9 +45,9 @@ const descriptions = {
     'market' : '',
     'bazar' : '',
     'emporium' : '',
-    'plaza' : '',
-    'theatre' : '',
-    'coliseum' : '',
+    'plaza' : 'Insane description',
+    'theatre' : 'Insane description',
+    'coliseum' : 'Insane description',
     'school' : '',
     'library' : '',
     'laboratory' : '',
@@ -101,7 +101,7 @@ const costs = {
     'lumber_mill' : {
         gold: 30
     },
-    'slaughter_house' : {
+    'slaughterhouse' : {
         gold: 30
     },
     'silver_refinery' : {
@@ -445,10 +445,10 @@ router.post('/view-province',urlencodedParser,function(req,res){
                 db.get('SELECT * FROM research WHERE id=?',storedID,function(err,rows){
                     let statusE='locked';
                     let statusB='locked';
-                    if (econ2!=0){
+                    if (rows.econ2!=0){
                         statusB='unlocked'
                     }
-                    if(econ4!=0) {
+                    if(rows.econ4!=0) {
                         statusE='unlocked'
                     }
                     db.get('SELECT * FROM provinces WHERE provinceid=?',provinceid, function(err,rows){
@@ -505,10 +505,10 @@ router.post('/view-province',urlencodedParser,function(req,res){
                db.get('SELECT * FROM research WHERE id=?',storedID,function(err,rows){
                 let statusLI='locked';
                 let statusLA='locked';
-                if (sci1!=0){
+                if (rows.sci1!=0){
                     statusLI='unlocked'
                 }
-                if(sci2!=0) {
+                if(rows.sci2!=0) {
                     statusLA='unlocked'
                 }
                 db.get('SELECT * FROM provinces WHERE provinceid=?',provinceid, function(err,rows){
@@ -565,10 +565,10 @@ router.post('/view-province',urlencodedParser,function(req,res){
             db.get('SELECT * FROM research WHERE id=?',storedID,function(err,rows){
                 let statusT='locked';
                 let statusC='locked';
-                if (ent1!=0){
+                if (rows.ent1!=0){
                     statusT='unlocked'
                 }
-                if(ent2!=0) {
+                if(rows.ent2!=0) {
                     statusC='unlocked'
                 }
                 db.get('SELECT * FROM provinces WHERE provinceid=?',provinceid, function(err,rows){
@@ -592,7 +592,7 @@ router.post('/view-province',urlencodedParser,function(req,res){
                     current=rows.coliseum;
                     max = maximums.coliseum;
                     cost = costs.coliseum;
-                    status = statusLA;
+                    status = statusC;
                     obj = {
                         name : name,
                         description : description,
@@ -626,16 +626,16 @@ router.post('/view-province',urlencodedParser,function(req,res){
                 let statusHa='locked';
                 let statusHar='locked';
                 let statusW='locked';
-                if (mil1!=0){
+                if (rows.mil1!=0){
                     statusA='unlocked'
                 }
-                if(mil2!=0) {
+                if(rows.mil2!=0) {
                     statusHa='unlocked'
                 }
-                if (mil3!=0){
+                if (rows.mil3!=0){
                     statusHar='unlocked'
                 }
-                if(mil4!=0) {
+                if(rows.mil4!=0) {
                     statusW='unlocked'
                 }
                 db.get('SELECT * FROM provinces WHERE provinceid=?',provinceid, function(err,rows){
