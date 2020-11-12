@@ -6,16 +6,16 @@ head
 .prov_list_display
   h1 Your Provinces
   .prov_list_container.flex
-        each prov in provinceArray
-            form.prov_preview.flex.col
+        each prov,index in provinceArray
+            form(method='POST' action='/view-province').prov_preview.flex.col
 
                 input(type="hidden", name="happiness" value=prov.happiness)
                 input(type="hidden", name="land" value=prov.land)
                 input(type="hidden", name="gold" value=prov.gold)
                 input(type="hidden", name="name" value=prov.name)
                 h2.title= prov.name
-                    
-                    i.fas.fa-crown
+                    if index == 0 
+                        i.fas.fa-crown
                 h3
                     span.normal Happiness
                     span.bold= prov.happiness

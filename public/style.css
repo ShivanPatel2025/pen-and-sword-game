@@ -1867,6 +1867,9 @@ form.arena_start_match {
     color: #edc580;
     margin-bottom: 1em;
 }
+.prov_preview h2.title i{
+    margin-left: .5rem;
+}
 .prov_preview h3{
     display: flex;
     width: 80%;

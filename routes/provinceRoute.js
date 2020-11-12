@@ -208,8 +208,8 @@ router.get('/province', function(req,res){
                   let name=rows.name;
                   let land=rows.land;
                   let id=rows.provinceid;
-                  let gold = rows.market*generation.market+rows.bazar*generation.bazar+rows.emporium*generation.emporium;
-                  let happiness = rows.plaza*generation.plaza+rows.theatre*generation.theatre+rows.coliseum*generation.coliseum;
+                  let gold = 12+rows.market*generation.market+rows.bazar*generation.bazar+rows.emporium*generation.emporium;
+                  let happiness = 1+rows.plaza*generation.plaza+rows.theatre*generation.theatre+rows.coliseum*generation.coliseum;
                   obj = {
                       name : name,
                       land : land,
