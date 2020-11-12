@@ -6,8 +6,8 @@ head
 .province_display
   .province_banner.flex
     .province_desc.flex.col
-      h1 Capital
-      h3= "Province of "+ name
+      h1= name
+      h3= "Province of "+ leader
     .province_stats.flex.col
       h2 Province Stats
       h3
@@ -238,4 +238,3 @@ head
                 | Demolish 
                 i.fas.fa-bomb
 script(src='../js/province.js')
-
