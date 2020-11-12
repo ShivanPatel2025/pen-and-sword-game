@@ -2012,6 +2012,12 @@ div.province_card div.cost_amount h4{
 div.province_card div.cost_amount h4 span.bold{
     font-size: 25px;
 }
+div.province_card div.cost_amount h4 span.cost_list{
+    font-size: 25px;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+}
 div.province_card div.cost_amount h4 img{
     width: 1.5em;
     height: 1.5em;
