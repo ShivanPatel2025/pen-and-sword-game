@@ -1,3 +1,35 @@
+doctype html
 head
   link(rel='stylesheet' href='../style.css' type='TEXT/CSS')
-body.construction
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+.prov_list_display
+  h1 Your Provinces
+  .prov_list_container.flex
+        each prov in arrayOfProvinces
+            form.prov_preview.flex.col
+
+                input(type="hidden", name="happiness" value=prov.happiness)
+                input(type="hidden", name="land" value=prov.land)
+                input(type="hidden", name="gold" value=prov.gold)
+                h2.title= prov.name
+                    
+                    i.fas.fa-crown
+                h3
+                    span.normal Happiness
+                    span.bold= prov.happiness
+                     
+                        i.far.fa-smile
+                h3
+                    span.normal Land
+                    span.bold= prov.land
+                    
+                        i.fas.fa-mountain
+                h3
+                    span.normal Gold
+                    span.bold= prov.gold
+                    
+                        i.fas.fa-coins
+                button(type='submit')
+                    | Visit Province
+        

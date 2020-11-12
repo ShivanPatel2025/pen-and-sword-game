@@ -1,0 +1,241 @@
+doctype html
+head
+  link(rel='stylesheet' href='../style.css' type='TEXT/CSS')
+  link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap' ,='' rel='stylesheet')
+  script(src='https://kit.fontawesome.com/a08ba1039b.js' ,='' crossorigin='anonymous')
+.province_display
+  .province_banner.flex
+    .province_desc.flex.col
+      h1 Capital
+      h3= "Province of "+ name
+    .province_stats.flex.col
+      h2 Province Stats
+      h3
+        span.normal Happiness
+        span.bold= happiness
+      
+          i.far.fa-smile
+      h3
+        span.normal= land
+        span.bold
+         
+          i.fas.fa-mountain
+      h3
+        span.normal= gold
+        span.bold
+          i.fas.fa-coins
+  .province_selection.flex
+    h3#raw.highlight Raw Materials
+    h3#ref Refineries
+    h3#econ Economy
+    h3#ent Entertainment
+    h3#res Research
+    h3#mil Military
+  .province_info_container
+    #raw.province_buildings.flex.top_zero.opacity_full
+      each building in rawArray
+        .province_card.flex.col
+          h2= building.name
+              
+            i.fas.fa-leaf
+          p= building.description
+          .cost_amount.col.flex
+            h4
+              span.normal Amt. Owned
+              span.bold= building.current
+            h4
+              span.normal Max Amt.
+              span.bold= building.max
+            h4
+              span.normal Cost
+              span.bold.cost_list
+                each val,key in building.cost
+                  span.flex= val
+                    img(src=`../media/${key}.png` alt='')
+                
+          .transaction.flex
+            form(action='/build')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Build 
+                i.fas.fa-hammer
+            form(action='/demolish')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Demolish 
+                i.fas.fa-bomb
+    #ref.province_buildings
+      each building in manuArray
+        .province_card.flex.col
+          h2= building.name
+              
+            i.fas.fa-leaf
+          p= building.description
+          .cost_amount.col.flex
+            h4
+              span.normal Amt. Owned
+              span.bold= building.current
+            h4
+              span.normal Max Amt.
+              span.bold= building.max
+            h4
+              span.normal Cost
+              span.bold.cost_list
+                each val,key in building.cost
+                  span.flex= val
+                    img(src=`../media/${key}.png` alt='')
+                
+          .transaction.flex
+            form(action='/build')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Build 
+                i.fas.fa-hammer
+            form(action='/demolish')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Demolish 
+                i.fas.fa-bomb
+    #econ.province_buildings
+        each building in econArray
+          .province_card.flex.col
+            h2= building.name
+               
+              i.fas.fa-leaf
+            p= building.description
+            .cost_amount.col.flex
+              h4
+                span.normal Amt. Owned
+                span.bold= building.current
+              h4
+                span.normal Max Amt.
+                span.bold= building.max
+              h4
+                span.normal Cost
+                span.bold.cost_list
+                  each val,key in building.cost
+                    span.flex= val
+                      img(src=`../media/${key}.png` alt='')
+                  
+            .transaction.flex
+              form(action='/build')
+                input(type="hidden", name="provinceid", value= provinceid)
+                input(type="hidden", name="name", value= building.name)
+                button(type='submit')
+                  | Build 
+                  i.fas.fa-hammer
+              form(action='/demolish')
+                input(type="hidden", name="provinceid", value= provinceid)
+                input(type="hidden", name="name", value= building.name)
+                button(type='submit')
+                  | Demolish 
+                  i.fas.fa-bomb
+          
+    #ent.province_buildings
+      each building in entArray
+          .province_card.flex.col
+            h2= building.name
+               
+              i.fas.fa-leaf
+            p= building.description
+            .cost_amount.col.flex
+              h4
+                span.normal Amt. Owned
+                span.bold= building.current
+              h4
+                span.normal Max Amt.
+                span.bold= building.max
+              h4
+                span.normal Cost
+                span.bold.cost_list
+                  each val,key in building.cost
+                    span.flex= val
+                      img(src=`../media/${key}.png` alt='')
+                  
+            .transaction.flex
+              form(action='/build')
+                input(type="hidden", name="provinceid", value= provinceid)
+                input(type="hidden", name="name", value= building.name)
+                button(type='submit')
+                  | Build 
+                  i.fas.fa-hammer
+              form(action='/demolish')
+                input(type="hidden", name="provinceid", value= provinceid)
+                input(type="hidden", name="name", value= building.name)
+                button(type='submit')
+                  | Demolish 
+                  i.fas.fa-bomb
+    #res.province_buildings
+      each building in researchArray
+        .province_card.flex.col
+          h2= building.name
+              
+            i.fas.fa-leaf
+          p= building.description
+          .cost_amount.col.flex
+            h4
+              span.normal Amt. Owned
+              span.bold= building.current
+            h4
+              span.normal Max Amt.
+              span.bold= building.max
+            h4
+              span.normal Cost
+              span.bold.cost_list
+                each val,key in building.cost
+                  span.flex= val
+                    img(src=`../media/${key}.png` alt='')
+                
+          .transaction.flex
+            form(action='/build')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Build 
+                i.fas.fa-hammer
+            form(action='/demolish')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Demolish 
+                i.fas.fa-bomb
+    #mil.province_buildings
+      each building in milArray
+        .province_card.flex.col
+          h2= building.name
+              
+            i.fas.fa-leaf
+          p= building.description
+          .cost_amount.col.flex
+            h4
+              span.normal Amt. Owned
+              span.bold= building.current
+            h4
+              span.normal Max Amt.
+              span.bold= building.max
+            h4
+              span.normal Cost
+              span.bold.cost_list
+                each val,key in building.cost
+                  span.flex= val
+                    img(src=`../media/${key}.png` alt='')
+                
+          .transaction.flex
+            form(action='/build')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Build 
+                i.fas.fa-hammer
+            form(action='/demolish')
+              input(type="hidden", name="provinceid", value= provinceid)
+              input(type="hidden", name="name", value= building.name)
+              button(type='submit')
+                | Demolish 
+                i.fas.fa-bomb
+script(src='../js/province.js')
+

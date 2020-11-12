@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css" type="TEXT/CSS">
+        <link href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet'>
+        <script src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous'></script>
+    </head>
+    <body>
+        <div class="province_display">
+            <div class="province_banner flex">
+                <div class="province_desc flex col">
+                    <h1>Capital</h1>
+                    <h3>Province of Shivoo</h3>
+
+                </div>
+                <div class="province_stats flex col">
+                    <h2>Province Stats</h2>
+                    <h3><span class="normal">Happiness</span><span class="bold">3 <i class="far fa-smile"></i></span></h3>
+                    <h3><span class="normal">Land</span><span class="bold">3 <i class="fas fa-mountain"></i></span></h3>
+                    <h3><span class="normal">Gold</span><span class="bold">3 <i class="fas fa-coins"></i></span></h3>
+                </div>
+            </div>
+            <div class="province_selection flex">
+                <h3 class ='highlight' id="raw">Raw Materials</h3>
+                <h3 id="ref">Refineries</h3>
+                <h3 id="econ">Economy</h3>
+                <h3 id="ent">Entertainment</h3>
+                <h3 id="res">Research</h3>
+                <h3 id="hou">Housing</h3>
+            </div>
+            <div class="province_info_container ">
+                <div id="raw" class="province_buildings flex top_zero opacity_full">
+
+                    <div class="province_card flex col">
+                        <h2>Plantation <i class="fas fa-leaf"></i></h2>
+                        <p>desc</p>
+                        <div class="cost_amount col flex">
+                            <h4><span class="normal">Amt. Owned</span><span class="bold">1</span></h4>
+                            <h4><span class="normal">Max Amt.</span><span class="bold">5</span></h4>
+                            
+                                <h4><span class="normal">Cost</span><span class="bold cost_list">
+                                <span class="flex">1 <img src="../media/gold.png" alt=""></span>
+                                <span class="flex">1 <img src="../media/gold.png" alt=""></span>
+                                <span class="flex">1 <img src="../media/gold.png" alt=""></span>
+                                 
+                            </span></h4>
+
+                        </div>
+                        
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Pasture <i class="fas fa-hat-cowboy-side"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Mine <i class="far fa-gem"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Mana Rift <i class="fas fa-wine-bottle"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="ref" class="province_buildings">
+                    <div class="province_card flex col">
+                        <h2>Lumber Mill <i class="fas fa-tree"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Factory Farm <i class="fas fa-tractor"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Silver Refinery</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Steel Refinery</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Iron Refinery</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Bronze Refinery</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+    
+    
+                </div>
+    
+                <div id="econ" class="province_buildings">
+                    <div class="province_card flex col">
+                        <h2>Market <i class="fas fa-shopping-cart"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Bazaar <i class="fas fa-store"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Emporium <i class="fas fa-money-bill-wave-alt"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+    
+    
+                </div>
+    
+                <div id="ent" class="province_buildings">
+                    <div class="province_card flex col">
+                        <h2>Plaza</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Theatre <i class="fas fa-theater-masks"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Coliseum</h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+    
+    
+                </div>
+    
+                <div id="res" class="province_buildings">
+                    <div class="province_card flex col">
+                        <h2>School <i class="fas fa-school"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Library <i class="fas fa-book"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Laboratory <i class="fas fa-flask"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+    
+    
+                </div>
+                <div id="hou" class="province_buildings">
+                    <div class="province_card flex col">
+                        <h2>Barracks <i class="fas fa-hand-rock"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Workshop <i class="fas fa-tools"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Academy <i class="fas fa-graduation-cap"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Temple <i class="fas fa-church"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Hatchery <i class="fas fa-egg"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="province_card flex col">
+                        <h2>Harbor <i class="fas fa-ship"></i></h2>
+                        <p>desc</p>
+                        <h4>Amt. Owned</h4>
+                        <h3>1</h3>
+                        <div class="transaction  flex">
+                            <form action="">
+                                <button type="submit">Build <i class="fas fa-hammer"></i></button>
+                            </form>
+                            <form action="">
+                                <button type="submit">Demolish <i class="fas fa-bomb"></i></button>
+                            </form>
+                        </div>
+                    </div>
+    
+    
+                </div>
+
+            </div>
+            
+
+
+                
+
+
+        </div>
+
+        <script src = '../js/province.js'></script>
+    </body>
+</html>
