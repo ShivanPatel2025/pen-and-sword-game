@@ -36,21 +36,21 @@ const descriptions = {
     'pasture' : 'Pastures are large fields that enable livestock to flourish. They are used to generate Fauna for your kingdom. One pasture generates 2 fauna each turn.',
     'mine' : 'Mines are excavations where ore can be found. One mine can generate 12 ore each turn. This ore can be turned into silver, iron, or bronze through refineries.',
     'mana_rift' : 'Mana Rifts harness a mysterious energy source found in this realm. One mana rift generates 16 mana each turn that can power varius other buildings.',
-    'lumber_mill' : 'Lumbermills allow your citizens to convert Flora into Lumber. One lumbermill turns 3 flora into 9 lumber each turn. Lumber is required for most constructions.',
+    'lumber_mill' : 'Lumbermills allow your citizens to convert Flora into Lumber. One lumbermill turns 3 flora into 9 lumber each turn. Lumber is required to construct most buildings and structures.',
     'slaughterhouse' : 'Slaughterhouses allow your citizens to convert Fauna into Food. One slaughterhouse turns 2 fauna into 15 food. Without adequate food, your provincial happiness will decrease.',
     'silver_refinery' : 'Silver Refineries allow your citizens to identify silver ore. One Silver Refinery turns 6 ore into 1 Silver each turn. Silver and Iron are used in late game units and buildings.',
     'iron_refinery' : 'Iron Refineries allow your citizens to identify iron ore. One Iron Refinery turns 6 ore into 1 Iron each turn. Silver and Iron are used in late game units and buildings.',
-    'bronze_refinery' : 'Bronze Refineries allow your citizens to create bronze from ore. One Bronze Refinery turns 8 ore into 1 Bronze each turn.',
+    'bronze_refinery' : 'Bronze Refineries allow your citizens to create bronze from ore. One Bronze Refinery turns 8 ore into 1 Bronze each turn. Bronze is most commonly used to make dragon-armour.',
     'steel_refinery' : 'Steel Refineries allow your citizens to create steel from silver and iron. One Steel Refinery turns 4 iron and 1 silver into 1 steel each turn.',
     'market' : 'Markets are the simplest economic establishment in the game. Each market generates 5 gold for your kingdom each turn.',
     'bazar' : 'Bazars are a collection of small shops that function as a marketplace. Each bazar generates 40 gold for your kingdom each turn.',
-    'emporium' : 'Emporiums are centers of exchange and commerce for your province. Each emporium generates 320 gold for your kingdom each turn.',
+    'emporium' : 'Emporiums are centers of commerce for your province. Each emporium generates 320 gold for your kingdom each turn.',
     'plaza' : 'Plazas are public squares with open space where your citizens can gather and socialize. Each Plaza generates 3 happiness among your citizens.',
     'theatre' : 'Theatres are outdoor area where plays and other dramatic performances are performed. Each theatre generates 5 happiness among your citizens.',
     'coliseum' : 'Coliseums are large stadiums where public events are held. Only one can be constructed per province and generates 12 happiness among your citizens.',
     'school' : 'Schools are the foundational unit of all education within a province. Each school generates 1 science each turn for your kingdom.',
     'library' : 'Libaries collect books, periodicals, and dramas for the masses to view. Each library generates 3 science each turn for your kingdom.',
-    'laboratory' : 'Laboratories enable your citizens to engage in the higher sciences. Each laboratory generates 8 science each turn for your kingdom.',
+    'laboratory' : 'Laboratories open the higher sciences to engagement. Each laboratory generates 8 science each turn for your kingdom.',
     'barracks' : 'Barracks enable you to enlist warriors, archers, and cavalry. Each barracks can hold 3000 warriors (100 a turn), 3000 archers (100 a turn) and 750 cavalry (15 a turn).',
     'academy' : 'Academies enable you to enlist blacksmiths, priests, mages, and angels. Each Academy can hold 250 blacksmiths (5 a turn), 1500 priests (50 a turn), 1250 mages (50 a turn), and 300 angels (15 a turn).',
     'hatchery' : 'Hatcheries enable you to enlist dragons, harpies, and serpents. Each Hatchery can hold 40 dragons (1 a turn), 90 harpies (3 a turn), and 25 serpents (1 a turn).',
@@ -195,7 +195,7 @@ const costs = {
     },
 }
 
-router.post('/construct',urlencodedParser,function(req,res){
+router.post('/build',urlencodedParser,function(req,res){
     let storedID;
     db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
         if(rows==undefined) {
@@ -218,21 +218,21 @@ router.post('/construct',urlencodedParser,function(req,res){
                 let currentBronze=rows.bronze;
                 let currentSteel=rows.steel;
                 let newValues =[currentGold,currentMana, currentFlora, currentFauna, currentLumber, currentFood,currentSilver,currentIron,currentBronze,currentSteel];
-                newValues[0] = cost[dbname]['gold'] ?  currentGold - cost[dbname]['gold']  : currentGold;
-                newValues[1]= cost[dbname]['mana'] ?  currentMana - cost[dbname]['mana']  : currentMana;
-                newValues[2]= cost[dbname]['flora'] ?  currentFlora - cost[dbname]['flora']  : currentFlora;
-                newValues[3]= cost[dbname]['fauna'] ?  currentFauna - cost[dbname]['fauna']  : currentFauna;
-                newValues[4]= cost[dbname]['lumber'] ?  currentLumber - cost[dbname]['lumber']  : currentLumber;
-                newValues[5]= cost[dbname]['food'] ?  currentFood - cost[dbname]['food']  : currentFood;
-                newValues[6]= cost[dbname]['silver'] ?  currentSilver - cost[dbname]['silver']  : currentSilver;
-                newValues[7]= cost[dbname]['iron'] ?  currentIron - cost[dbname]['iron']  : currentIron;
-                newValues[8]= cost[dbname]['bronze'] ?  currentBronze - cost[dbname]['bronze']  : currentBronze;
-                newValues[9]= cost[dbname]['steel'] ?  currentSteel - cost[dbname]['steel']  : currentSteel;
+                newValues[0] = costs[dbname]['gold'] ?  currentGold - costs[dbname]['gold']  : currentGold;
+                newValues[1]= costs[dbname]['mana'] ?  currentMana - costs[dbname]['mana']  : currentMana;
+                newValues[2]= costs[dbname]['flora'] ?  currentFlora - costs[dbname]['flora']  : currentFlora;
+                newValues[3]= costs[dbname]['fauna'] ?  currentFauna - costs[dbname]['fauna']  : currentFauna;
+                newValues[4]= costs[dbname]['lumber'] ?  currentLumber - costs[dbname]['lumber']  : currentLumber;
+                newValues[5]= costs[dbname]['food'] ?  currentFood - costs[dbname]['food']  : currentFood;
+                newValues[6]= costs[dbname]['silver'] ?  currentSilver - costs[dbname]['silver']  : currentSilver;
+                newValues[7]= costs[dbname]['iron'] ?  currentIron - costs[dbname]['iron']  : currentIron;
+                newValues[8]= costs[dbname]['bronze'] ?  currentBronze - costs[dbname]['bronze']  : currentBronze;
+                newValues[9]= costs[dbname]['steel'] ?  currentSteel - costs[dbname]['steel']  : currentSteel;
                 if (current<maximums[dbname]){
                     let newAmount=current++;
                     checkBuildingCost(newValues).then(check => {        
                         if (check === true) {
-                          db.run(`UPDATE provinces SET ${dbname} = ? WHERE provinceid=?`,[newAmount,storedID], function(err) {
+                          db.run(`UPDATE provinces SET ${dbname} = ? WHERE provinceid=?`,[newAmount,provinceid], function(err) {
                              if (err) {
                               console.err(err.message)
                             }else {
@@ -243,22 +243,20 @@ router.post('/construct',urlencodedParser,function(req,res){
                             if (err) {
                               console.err(err.message)
                             }else {
-                              res.redirect('/province-view');
+                              res.redirect('/province');
                               console.log(dbname+" has been bought.");
                             }
                           })
                         }
                         if (check===false) {
-                          res.redirect('/province-view');
+                          res.redirect('/province');
                           console.log('not sufficient funds');
                         }
                       }).catch(console.error); 
                 } else {
                     console.log('you have the maximum amount of this structure')
-                }
-                
-            })
-            
+                }  
+            }) 
         }
     })
 })
@@ -326,7 +324,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'plantation'
                   }
                   rawArray.push(obj);
                   
@@ -343,7 +342,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'pasture'
                   }
                   rawArray.push(obj);
                   
@@ -360,7 +360,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'mine'
                   }
                   rawArray.push(obj);
                   
@@ -377,7 +378,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'mana_rift'
                   }
                   rawArray.push(obj);
                   
@@ -394,7 +396,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'lumber_mill'
                   }
                   manuArray.push(obj);
                     //SLAUGHTERHOSUE
@@ -410,7 +413,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname='slaughterhouse'
                   }
                   manuArray.push(obj);
                 })
@@ -433,7 +437,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'silver_refinery'
                   }
                   manuArray.push(obj)
                     //IRONREFINERY
@@ -449,7 +454,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'iron_refinery'
                   }
                   manuArray.push(obj)
                     //BRONZEREFINERY
@@ -465,7 +471,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       current : current,
                       max : max,
                       cost : cost,
-                      status : status
+                      status : status,
+                      dbname: 'bronze_refinery'
                   }
                   manuArray.push(obj)
                   })
@@ -489,7 +496,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                     current : current,
                     max : max,
                     cost : cost,
-                    status : status
+                    status : status,
+                    dbname : 'steel_refinery'
                 }
                 manuArray.push(obj)
             db.get('SELECT * FROM provinces WHERE provinceid=?',provinceid,function(err,rows){
@@ -506,7 +514,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                     current : current,
                     max : max,
                     cost : cost,
-                    status : status
+                    status : status,
+                    dbname : 'market'
                 }
                 econArray.push(obj);
                 //BAZAR & EMPORIUM CHECKING
@@ -532,7 +541,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                             current : current,
                             max : max,
                             cost : cost,
-                            status : status
+                            status : status,
+                            dbname: 'bazar'
                         }
                         econArray.push(obj);
                         name = 'Emporium';
@@ -547,7 +557,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                             current : current,
                             max : max,
                             cost : cost,
-                            status : status
+                            status : status,
+                            dbname : 'emporium'
                         }
                         econArray.push(obj);
                     })
@@ -566,7 +577,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                    current : current,
                    max : max,
                    cost : cost,
-                   status : status
+                   status : status,
+                   dbname : 'school'
                }
                researchArray.push(obj);
                //LIBRARY AND LABORATORY
@@ -592,7 +604,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'library'
                     }
                     researchArray.push(obj);
                     name = 'Laboratory';
@@ -607,7 +620,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'laboratory'
                     }
                     researchArray.push(obj);
                 })
@@ -625,7 +639,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                    current : current,
                    max : max,
                    cost : cost,
-                   status : status
+                   status : status,
+                   dbname : 'plaza'
                }
                entArray.push(obj);
             })
@@ -652,7 +667,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'theatre'
                     }
                     entArray.push(obj);
                     name = 'Coliseum';
@@ -667,7 +683,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'coliseum'
                     }
                     entArray.push(obj);
                 })
@@ -685,7 +702,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                    current : current,
                    max : max,
                    cost : cost,
-                   status : status
+                   status : status,
+                   dbname : 'barracks'
                }
                milArray.push(obj);
                            //UNLOCKS MILITAR
@@ -719,7 +737,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'academy'
                     }
                     milArray.push(obj);
                     //Hatchery
@@ -735,7 +754,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname : 'hatchery'
                     }
                     milArray.push(obj);
                     //Harbor
@@ -751,7 +771,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname: 'harbor'
                     }
                     milArray.push(obj);
                     //Workshop
@@ -767,7 +788,8 @@ router.post('/view-province',urlencodedParser,function(req,res){
                         current : current,
                         max : max,
                         cost : cost,
-                        status : status
+                        status : status,
+                        dbname: 'workshop'
                     }
                     milArray.push(obj);
                 })
