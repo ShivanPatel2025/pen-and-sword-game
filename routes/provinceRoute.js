@@ -54,7 +54,7 @@ const descriptions = {
     'barracks' : 'Barracks enable you to enlist warriors, archers, and cavalry. Each barracks can hold 3000 warriors (100 a turn), 3000 archers (100 a turn) and 750 cavalry (15 a turn).',
     'academy' : 'Academies enable you to enlist blacksmiths, priests, mages, and angels. Each Academy can hold 250 blacksmiths (5 a turn), 1500 priests (50 a turn), 1250 mages (50 a turn), and 300 angels (15 a turn).',
     'hatchery' : 'Hatcheries enable you to enlist dragons, harpies, and serpents. Each Hatchery can hold 40 dragons (1 a turn), 90 harpies (3 a turn), and 25 serpents (1 a turn).',
-    'harbor' : 'Harboers enable you to enlist galleys and pirates. Each Harbor can hold 75 galleys (15 a turn) and 50 pirates (10 a turn).',
+    'harbor' : 'Harbors enable you to enlist galleys and pirates. Each Harbor can hold 75 galleys (15 a turn) and 50 pirates (10 a turn).',
     'workshop' : 'Workshops enable you to construct Catapults, Trebuchets, and Cannons. Each workshop increases capacity by one.',
 }
 
@@ -194,6 +194,74 @@ const costs = {
         steel: 400,
     },
 }
+
+router.post('/construct',urlencodedParser,function(req,res){
+    let storedID;
+    db.get(`SELECT * FROM sessions WHERE cookie=?`, req.session.id, function(err,rows) {
+        if(rows==undefined) {
+            res.redirect ('/')
+            console.log('this bih not signed in')
+        } else{
+            storedID=parseInt(rows.id, 10);
+            let dbname = req.body.dbname;
+            let current = req.body.current;
+            let provinceid=req.body.provinceid;
+            db.get('SELECT * FROM resources WHERE id=?', storedID, function(err,rows){
+                let currentGold=rows.gold;
+                let currentMana=rows.mana;
+                let currentFlora=rows.flora;
+                let currentFauna=rows.fauna;
+                let currentLumber=rows.lumber;
+                let currentFood=rows.food;
+                let currentSilver=rows.silver;
+                let currentIron=rows.iron;
+                let currentBronze=rows.bronze;
+                let currentSteel=rows.steel;
+                let newValues =[currentGold,currentMana, currentFlora, currentFauna, currentLumber, currentFood,currentSilver,currentIron,currentBronze,currentSteel];
+                newValues[0] = cost[dbname]['gold'] ?  currentGold - cost[dbname]['gold']  : currentGold;
+                newValues[1]= cost[dbname]['mana'] ?  currentMana - cost[dbname]['mana']  : currentMana;
+                newValues[2]= cost[dbname]['flora'] ?  currentFlora - cost[dbname]['flora']  : currentFlora;
+                newValues[3]= cost[dbname]['fauna'] ?  currentFauna - cost[dbname]['fauna']  : currentFauna;
+                newValues[4]= cost[dbname]['lumber'] ?  currentLumber - cost[dbname]['lumber']  : currentLumber;
+                newValues[5]= cost[dbname]['food'] ?  currentFood - cost[dbname]['food']  : currentFood;
+                newValues[6]= cost[dbname]['silver'] ?  currentSilver - cost[dbname]['silver']  : currentSilver;
+                newValues[7]= cost[dbname]['iron'] ?  currentIron - cost[dbname]['iron']  : currentIron;
+                newValues[8]= cost[dbname]['bronze'] ?  currentBronze - cost[dbname]['bronze']  : currentBronze;
+                newValues[9]= cost[dbname]['steel'] ?  currentSteel - cost[dbname]['steel']  : currentSteel;
+                if (current<maximums[dbname]){
+                    let newAmount=current++;
+                    checkBuildingCost(newValues).then(check => {        
+                        if (check === true) {
+                          db.run(`UPDATE provinces SET ${dbname} = ? WHERE provinceid=?`,[newAmount,storedID], function(err) {
+                             if (err) {
+                              console.err(err.message)
+                            }else {
+                              console.log(dbname+" has been bought.");
+                            }
+                          });
+                          db.run('UPDATE resources SET gold=?,mana=?,flora=?,fauna=?,lumber=?,food=?,silver=?,iron=?,bronze=?,steel=? WHERE id=?',[newValues[0],newValues[1],newValues[2],newValues[3],newValues[4],newValues[5],newValues[6],newValues[7],newValues[8],newValues[9],storedID], function(err){
+                            if (err) {
+                              console.err(err.message)
+                            }else {
+                              res.redirect('/province-view');
+                              console.log(dbname+" has been bought.");
+                            }
+                          })
+                        }
+                        if (check===false) {
+                          res.redirect('/province-view');
+                          console.log('not sufficient funds');
+                        }
+                      }).catch(console.error); 
+                } else {
+                    console.log('you have the maximum amount of this structure')
+                }
+                
+            })
+            
+        }
+    })
+})
 
 router.get('/province', function(req,res){
     let storedID;
