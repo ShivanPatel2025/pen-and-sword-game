@@ -414,7 +414,7 @@ router.post('/view-province',urlencodedParser,function(req,res){
                       max : max,
                       cost : cost,
                       status : status,
-                      dbname='slaughterhouse'
+                      dbname : 'slaughterhouse'
                   }
                   manuArray.push(obj);
                 })
@@ -804,7 +804,7 @@ router.post('/view-province',urlencodedParser,function(req,res){
             let gold= req.body.gold;
             let land = req.body.land;
             let name = req.body.name
-            res.render('view-province', {rawArray,manuArray,researchArray,milArray,entArray,econArray,provinceid,leader,happiness,gold,land,name})
+            res.render('view-province', {rawArray,manuArray,researchArray,milArray,entArray,econArray,provinceid,leader,happiness,gold,land,name,provinceid})
 
         })
      console.log(rawArray,manuArray,researchArray,milArray,entArray,econArray)},1000)
