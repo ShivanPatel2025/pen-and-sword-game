@@ -3,6 +3,17 @@ head
   script(src='https://kit.fontawesome.com/a08ba1039b.js', crossorigin='anonymous')
   link(rel='stylesheet', href='style.css', text='TEXT/CSS')
   link(href='https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap', rel='stylesheet')
+.greeting_shade.opacity_full
+.greeting.flex.col
+  .close
+    i
+    i
+  h1 Hello Players!
+  h3 Welcome to Pen &amp; Sword Game
+  p
+    | This is a web-based nation simulator game in which you can forge your own empire to dominate the world. We are currently in the beta testing page, so we apologize for any bugs. If you find any, we would greatly appreciate if you reported them to our discord channel linked below. With that, 
+    span.bold let&apos;s play!
+
 .main_display
   object.wave(type='image/svg+xml', data='media/wave-2.svg')
   .main_message
@@ -47,3 +58,4 @@ head
       h3
         | Go Back
 script(src='./js/register_sign.js')
+script(src='./js/home_screen.js')
