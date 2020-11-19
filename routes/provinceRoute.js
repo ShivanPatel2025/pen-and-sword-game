@@ -243,13 +243,13 @@ router.post('/build',urlencodedParser,function(req,res){
                             if (err) {
                               console.err(err.message)
                             }else {
-                              res.redirect('/province');
+                              res.redirect('/view-province');
                               console.log(dbname+" has been bought.");
                             }
                           })
                         }
                         if (check===false) {
-                          res.redirect('/province');
+                          res.redirect('/view-province');
                           console.log('not sufficient funds');
                         }
                       }).catch(console.error); 
@@ -800,11 +800,15 @@ router.post('/view-province',urlencodedParser,function(req,res){
     setTimeout(function(){
         db.get('SELECT * FROM kingdoms WHERE id=?',storedID,function(err,rows){
             let leader=rows.ruler
-            let happiness =req.body.happiness;
-            let gold= req.body.gold;
-            let land = req.body.land;
-            let name = req.body.name
-            res.render('view-province', {rawArray,manuArray,researchArray,milArray,entArray,econArray,provinceid,leader,happiness,gold,land,name,provinceid})
+            db.get(`SELECT * FROM provinces WHERE id = ?`, provinceid, function(err,rows) {
+                //console.log(rows)
+                let name = rows.name;
+                let land =rows.land;
+                let gold = 12+rows.market*generation.market+rows.bazar*generation.bazar+rows.emporium*generation.emporium;
+                let happiness = 1+rows.plaza*generation.plaza+rows.theatre*generation.theatre+rows.coliseum*generation.coliseum;
+                res.render('view-province', {rawArray,manuArray,researchArray,milArray,entArray,econArray,provinceid,leader,happiness,gold,land,name,provinceid})
+                //console.log(provinceNames);
+              })
 
         })
      console.log(rawArray,manuArray,researchArray,milArray,entArray,econArray)},1000)
