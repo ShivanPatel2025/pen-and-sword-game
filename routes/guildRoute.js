@@ -54,7 +54,11 @@ router.get('/guild', function(req,res) {
   }})
 })
 router.get('/leaderboard_table', urlencodedParser, function(req,res){
-  db.all(`SELECT * FROM guild ORDER BY power`, function(err,rows){
+  let min = req.body.min;
+  let max = req.body.max;
+  let dif = max-min;
+  let i = 1;
+  db.all(`SELECT * FROM guilds ORDER BY power LIMIT ${min}, ${dif}`, function(err,rows){
     const data ={
       headers:['Guild Leaderboards','Your Guild','Create a Guild'],
       rows: new Array(10).fill(undefined).mao(() => {
@@ -63,7 +67,6 @@ router.get('/leaderboard_table', urlencodedParser, function(req,res){
           rows.name(),
           rows.membership(),
           rows.power(),
-          
         ]
 
       })
