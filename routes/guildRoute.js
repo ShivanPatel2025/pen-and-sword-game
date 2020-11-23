@@ -9,6 +9,7 @@ const { createDecipher } = require('crypto');
 const { urlencoded } = require('body-parser');
 const { callbackify } = require('util');
 const { Console } = require('console');
+const { UnsupportedMediaType } = require('http-errors');
 const router = express.Router()
 var sqlite3 = require('sqlite3').verbose();
 
@@ -51,6 +52,28 @@ router.get('/guild', function(req,res) {
       }
     })
   }})
+})
+router.get('/leaderboard_table', urlencodedParser, function(req,res){
+  db.all(`SELECT * FROM guild ORDER BY power`, function(err,rows){
+    const data ={
+      headers:['Guild Leaderboards','Your Guild','Create a Guild'],
+      rows: new Array(10).fill(undefined).mao(() => {
+
+        return [
+          rows.name(),
+          rows.membership(),
+          rows.power(),
+          
+        ]
+
+      })
+    }
+    
+    
+    
+  })
+
+  
 })
 
 router.get('/create-guild', urlencodedParser, function(req,res) {

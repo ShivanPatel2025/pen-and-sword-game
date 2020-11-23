@@ -54,16 +54,15 @@ head
                     img(src=`../media/${key}.png` alt='')
                 
           .transaction.flex
-            form(action='/build' method='POST')
+            form(action='/build')
+              input
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
-              input(type='hidden' name ='current' value=building.current)
-              input(type='hidden' name ='dbname' value=building.dbname)
 
               button(type='submit')
                 | Build 
                 i.fas.fa-hammer
-            form(action='/demolish' method='POST')
+            form(action='/demolish')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
               button(type='submit')
@@ -91,15 +90,13 @@ head
                     img(src=`../media/${key}.png` alt='')
                 
           .transaction.flex
-            form(action='/build' method='POST')
+            form(action='/build')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
-              input(type='hidden' name ='current' value=building.current)
-              input(type='hidden' name ='dbname' value=building.dbname)
               button(type='submit')
                 | Build 
                 i.fas.fa-hammer
-            form(action='/demolish' method='POST')
+            form(action='/demolish')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
               button(type='submit')
@@ -127,15 +124,13 @@ head
                       img(src=`../media/${key}.png` alt='')
                   
             .transaction.flex
-              form(action='/build' method='POST')
+              form(action='/build')
                 input(type="hidden", name="provinceid", value= provinceid)
-              input(type="hidden", name="name", value= building.name)
-              input(type='hidden' name ='current' value=building.current)
-              input(type='hidden' name ='dbname' value=building.dbname)
+                input(type="hidden", name="name", value= building.name)
                 button(type='submit')
                   | Build 
                   i.fas.fa-hammer
-              form(action='/demolish' method='POST')
+              form(action='/demolish')
                 input(type="hidden", name="provinceid", value= provinceid)
                 input(type="hidden", name="name", value= building.name)
                 button(type='submit')
@@ -164,11 +159,9 @@ head
                       img(src=`../media/${key}.png` alt='')
                   
             .transaction.flex
-              form(action='/build' method='POST')
+              form(action='/build')
                 input(type="hidden", name="provinceid", value= provinceid)
                 input(type="hidden", name="name", value= building.name)
-                input(type='hidden' name ='current' value=building.current)
-                input(type='hidden' name ='dbname' value=building.dbname)
                 button(type='submit')
                   | Build 
                   i.fas.fa-hammer
@@ -200,15 +193,13 @@ head
                     img(src=`../media/${key}.png` alt='')
                 
           .transaction.flex
-            form(action='/build' method='POST')
+            form(action='/build')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
-              input(type='hidden' name ='current' value=building.current)
-              input(type='hidden' name ='dbname' value=building.dbname)
               button(type='submit')
                 | Build 
                 i.fas.fa-hammer
-            form(action='/demolish' method='POST')
+            form(action='/demolish')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
               button(type='submit')
@@ -236,15 +227,13 @@ head
                     img(src=`../media/${key}.png` alt='')
                 
           .transaction.flex
-            form(action='/build' method='POST')
+            form(action='/build')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
-              input(type='hidden' name ='current' value=building.current)
-              input(type='hidden' name ='dbname' value=building.dbname)
               button(type='submit')
                 | Build 
                 i.fas.fa-hammer
-            form(action='/demolish' method='POST')
+            form(action='/demolish')
               input(type="hidden", name="provinceid", value= provinceid)
               input(type="hidden", name="name", value= building.name)
               button(type='submit')
