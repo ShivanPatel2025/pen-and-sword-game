@@ -54,8 +54,10 @@ router.get('/guild', function(req,res) {
   }})
 })
 router.get('/leaderboard_table', urlencodedParser, function(req,res){
-  let min = req.body.min;
-  let max = req.body.max;
+
+  //GET /leaderboard_table?max=10&min=1
+  let min = req.query.min;
+  let max = req.query.max;
   let dif = max-min;
   let i = 1;
   db.all(`SELECT * FROM guilds ORDER BY power LIMIT ${min}, ${dif}`, function(err,rows){
@@ -71,6 +73,8 @@ router.get('/leaderboard_table', urlencodedParser, function(req,res){
 
       })
     }
+    res.json(data)
+
     
     
     
